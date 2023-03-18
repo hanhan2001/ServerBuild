@@ -1,0 +1,33 @@
+#固定点登录
+
+#开关
+Enable: false
+
+#固定点登录
+Location:
+  #位置
+  World: world
+  X: 0.0
+  Y: 0.0
+  Z: 0.0
+  Yaw: 0.0
+  Pitch: 0.0
+
+#词条
+Message:
+  #前缀
+  Prefix: "&a[&bLoginTP&a]&e>> "
+  #重载
+  Reload: "&a已重载！"
+  #无权限提示
+  NoPermission: "&c你无法这样做！"
+  #玩家身份
+  UsePlayer: "&c只能在游戏内使用"
+
+#指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+Use-Help:
+  - ""
+  - "&a<-=-=-=-=-=-=-=-=-=-= &e&lLoginTP &a=-=-=-=-=-=-=-=-=-=->"
+  - "&b/lt reload &7重载 自动重生"
+  - "&b/lt set &7设置固定登录点"
+  - ""

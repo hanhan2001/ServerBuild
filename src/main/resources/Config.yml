@@ -1,0 +1,28 @@
+#插件基本设置，及全局配置文件(只作用于本插件)
+
+#设置
+Set:
+  #是否上传使用插件数据(只用于统计)
+  Bstats: false
+
+#全局配置
+#总开关，以下功能单独拥有一个小开关
+Enable: false
+
+#变量
+Variable:
+  #开关
+  Enable: false
+  #日期格式(变量名: %date%)
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
+
+#词条
+Message:
+  #开关
+  Enable: false
+  #前缀
+  Prefix: "&a[&bServerBuild&a]&e>> "
+  #重载
+  Reload: "&c重载完成"
+  #无权限操作
+  NoPermission: "&c你没有权限这么做！"

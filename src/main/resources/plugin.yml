@@ -1,0 +1,12 @@
+name: ServerBuild
+version: 0.0.2
+main: me.xiaoying.sb.ServerBuild
+author: 筱樱
+commands:
+  lt:
+    description: (LoginTP) 管理员指令
+    permission: sb.lt.admin
+permissions:
+  se.lt.admin:
+    description: (LoginTP) 管理员权限
+    default: op
