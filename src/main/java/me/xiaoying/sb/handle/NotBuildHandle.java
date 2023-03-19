@@ -26,6 +26,10 @@ public class NotBuildHandle implements Handle {
     @Override
     public void reload() {
         FileNotBuild.fileNotBuild();
+
+        if (!this.enable())
+            return;
+
         ServerUtil.registerEvent(new NotBuildListener());
         ServerUtil.registerCommand("nb", new NotBuildCommand());
     }

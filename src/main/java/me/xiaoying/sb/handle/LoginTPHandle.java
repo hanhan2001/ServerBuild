@@ -29,6 +29,10 @@ public class LoginTPHandle implements Handle {
     @Override
     public void reload() {
         FileLoginTp.fileConfig();
+
+        if (this.enable())
+            return;
+
         ServerUtil.registerEvent(new LoginTPListener());
         ServerUtil.registerCommand("lt", new LoginTPCommand());
     }
