@@ -1,0 +1,155 @@
+#自定义 进入/退出服务器 消息
+
+#开关
+Enable: false
+
+#设置(如若无法更改请查看是否在 Config.yml 文件中启用了全局配置)
+Set:
+  #日期格式，作用于变量 %date%
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
+
+#默认
+#第一组设置
+#可自行添加，只需要照着 default 的模板复制一个就可(不可以漏掉任何配置节点)
+#当优先级相同，优先执行处于文本下方的组
+default:
+  #优先级
+  Priority: 0
+  #所需权限
+  Permission: "sb.wm.use"
+  #进入服务器
+  Join:
+    #聊天框
+    Chat:
+      #开关
+      Enable: true
+      #内容
+      Message:
+        - ""
+        - "&7[&a+&7]&b%player% - &7[%date%]"
+        - ""
+    #公告
+    Title:
+      #开关
+      Enable: false
+      #是否发送给所有玩家
+      AllPlayer: false
+      #主标题
+      Title: "&a欢迎加入服务器"
+      #副标题
+      SubTitle: "%b%player%"
+    #动作消息
+    ActionBar:
+      #开关
+      Enable: false
+      #是否发送给所有玩家
+      AllPlayer: false
+      #内容
+      Message: "&6欢迎！！o((>ω< ))o"
+  #退出服务器消息
+  #退出消息没有单独控制是否发送给所有玩家，将会直接发送给所有在线玩家
+  Quit:
+    #聊天框
+    Chat:
+      #开关
+      Enable: true
+      #内容
+      Message:
+        - ""
+        - "&7[&c-&7]&b%player% - &7[%date%]"
+        - ""
+    #公告
+    Title:
+      #开关
+      Enable: false
+      #主标题
+      Title: "&a等待您下一次光临(ノへ￣、)"
+      #副标题
+      SubTitle: "%b%player%"
+    #动作消息
+    ActionBar:
+      #开关
+      Enable: false
+      #内容(此处只可一行)
+      Message: "&c再见~~இ௰இ"
+#第二组设置
+admin:
+  #优先级
+  Priority: 0
+  #所需权限
+  Permission: "sb.wm.admin"
+  #进入服务器
+  Join:
+    #聊天框
+    Chat:
+      #开关
+      Enable: true
+      #是否发送给所有玩家
+      AllPlayer: true
+      #内容
+      Message:
+        - ""
+        - "&b[%date%] &6大佬进入服务器啦！ヾ(•ω•`)o"
+        - "   &e欢迎: &b%player%"
+        - ""
+    #公告
+    Title:
+      #开关
+      Enable: false
+      #是否发送给所有玩家
+      AllPlayer: false
+      #主标题
+      Title: "&a大佬来啦！"
+      #副标题
+      SubTitle: "%b%player%"
+    #动作消息
+    ActionBar:
+      #开关
+      Enable: false
+      #是否发送给所有玩家
+      AllPlayer: false
+      #内容
+      Message: "&6欢迎！！o((>ω< ))o"
+  #退出服务器消息
+  #退出消息直接发送给所有在线玩家
+  Quit:
+    #聊天框
+    Chat:
+      #开关
+      Enable: true
+      #内容
+      Message:
+        - ""
+        - "&b[%date%] &6大佬走了~~(;´༎ຶД༎ຶ`)"
+        - "   &c拜拜: &b%player%"
+        - ""
+    #公告
+    Title:
+      #开关
+      Enable: false
+      #主标题
+      Title: "&a常来看看(ノへ￣、)"
+      #副标题
+      SubTitle: "%b%player%"
+    #动作消息
+    ActionBar:
+      #开关
+      Enable: false
+      #内容(此处只可一行)
+      Message: "&c再见~~இ௰இ"
+
+#词条
+Message:
+  #前缀
+  Prefix: "&a[&bWelcomeMessage&a]&e>> "
+  #重载
+  Reload: "&a已重载！"
+  #无权限提示
+  NoPermission: "&c你无法这样做！"
+
+#指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+Use-Help:
+  - ""
+  - "&a<-=-=-=-=-=-=-=-=-=-= &e&lWelcomeMessage &a=-=-=-=-=-=-=-=-=-=->"
+  - "&b/wm reload &7重载 进入/退出服务器消息"
+  - ""

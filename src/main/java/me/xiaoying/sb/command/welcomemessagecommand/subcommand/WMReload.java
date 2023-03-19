@@ -1,0 +1,22 @@
+package me.xiaoying.sb.command.welcomemessagecommand.subcommand;
+
+import me.xiaoying.sb.command.Command;
+import me.xiaoying.sb.command.SubCommand;
+import me.xiaoying.sb.files.config.FileWelcomeMessage;
+import me.xiaoying.sb.handle.Handler;
+import me.xiaoying.sb.utils.ColorUtil;
+import org.bukkit.command.CommandSender;
+
+@Command(values = "reload", length = 1)
+public class WMReload extends SubCommand {
+    @Override
+    public boolean performCommand(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("sb.wm.admin") || !sender.isOp()) {
+            sender.sendMessage(ColorUtil.translate(FileWelcomeMessage.MESSAGE_PREFIX + FileWelcomeMessage.MESSAGE_NOPERMISSION));
+            return false;
+        }
+
+        Handler.reloadHandle("WelcomeMessage");
+        return false;
+    }
+}

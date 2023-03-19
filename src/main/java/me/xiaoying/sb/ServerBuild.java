@@ -5,6 +5,7 @@ import me.xiaoying.sb.files.config.FileConfig;
 import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.handle.LoginTPHandle;
 import me.xiaoying.sb.handle.NotBuildHandle;
+import me.xiaoying.sb.handle.WelcomeMessageHandle;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -61,8 +62,9 @@ public class ServerBuild extends JavaPlugin {
     }
 
     private void loadHandle() {
-        Handler.registerHandle("NotBuild", new NotBuildHandle());
         Handler.registerHandle("LoginTP", new LoginTPHandle());
+        Handler.registerHandle("NotBuild", new NotBuildHandle());
+        Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
     }
 
     // 初始化
