@@ -1,6 +1,9 @@
 package me.xiaoying.sb.utils;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.sb.ServerBuild;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
@@ -8,6 +11,8 @@ import org.bukkit.event.Listener;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 工具类 服务器
@@ -91,5 +96,39 @@ public class ServerUtil {
      */
     public static World getWorld(String world) {
         return Bukkit.getServer().getWorld(world);
+    }
+
+    /**
+     * 在线玩家发送消息
+     *
+     * @param message 消息
+     */
+    public static void onlinePlayersSendMessage(String message) {
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+            PlayerUtil.sendMessage(player, message);
+        });
+    }
+
+    /**
+     * 在线玩家发送Title
+     *
+     * @param title 主标题
+     * @param subtitle 副标题
+     */
+    public static void onlinePlayersSendTitle(String title, String subtitle) {
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+            PlayerUtil.sendTitle(player, title, subtitle);
+        });
+    }
+
+    /**
+     * 在线玩家发送ActionBar
+     *
+     * @param message 内容
+     */
+    public static void onlinePlayersSendActionbar(String message) {
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+            PlayerUtil.sendActionbar(player, message);
+        });
     }
 }
