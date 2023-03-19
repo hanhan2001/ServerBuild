@@ -3,7 +3,7 @@
 #开关
 Enable: false
 
-#设置
+#设置(如若无法更改请查看是否在 Config.yml 文件中启用了全局配置)
 Set:
   #日期格式，作用于变量 %date%
   DateFormat: "yyyy/MM/dd-HH:mm:ss"
