@@ -13,13 +13,29 @@
 - [x] LoginTP
 - [x] WelcomeMessage
 - [ ] ChatFormat
+- [ ] ClearEntity
+- [ ] BookContent
+- [ ] AutoReSpawn
+- [ ] Home
+- [ ] Teleport
+- [ ] MessageAnnouncer
+- [ ] PlayerShout
+- [ ] Scoreboard
 
-| 英文名         | 中文名         | 描述                                |
-| -------------- | -------------- | ----------------------------------- |
-| NotBuild       | 禁止建筑       | 禁止建筑                            |
-| LoginTP        | 固定登录点     | 固定玩家每次上线位置                |
-| WelcomeMessage | 服务器欢迎消息 | 更改原版玩家进入/退出服务器消息格式 |
-| ChatFormat     | 聊天格式       | 更改游戏原版聊天格式                |
+| 英文名           | 中文名         | 描述                                       |
+| ---------------- | -------------- | ------------------------------------------ |
+| NotBuild         | 禁止建筑       | 禁止建筑                                   |
+| LoginTP          | 固定登录点     | 固定玩家每次上线位置                       |
+| WelcomeMessage   | 服务器欢迎消息 | 更改原版玩家进入/退出服务器消息格式        |
+| ChatFormat       | 聊天格式       | 更改游戏原版聊天格式                       |
+| ClearEntity      | 清理实体       | 清理服务器内实体                           |
+| BookContent      | 书本文章       | 生成一个带文章的书本，文章在服务器后台配置 |
+| AutoReSpawn      | 自动重生       | 帮玩家自动重生                             |
+| Home             | 家             | 家                                         |
+| Teleport         | 传输           | 传输                                       |
+| MessageAnnouncer | 公告           | 定时公告                                   |
+| PlayerShout      | 喊话           | 玩家喊话                                   |
+| Scoreboard       | 计分板         | 玩家计分板                                 |
 
 # 功能配置文件
 
