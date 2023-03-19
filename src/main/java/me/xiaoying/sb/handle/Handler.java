@@ -14,6 +14,10 @@ public class Handler {
         handles.put(name, handle);
     }
 
+    public static Handle getHandle(String name) {
+        return handles.get(name);
+    }
+
     public static void unregisterHandle(String name) {
         handles.get(name).onDisable();
         handles.remove(name);
