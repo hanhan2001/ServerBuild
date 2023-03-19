@@ -56,9 +56,9 @@ public class ServerBuild extends JavaPlugin {
     public void onDisable() {
         clear();
 
-        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=->", true);
+        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
         ServerUtil.sendMessage("&b|&c插件已卸载，感谢您的使用(乌拉！", true);
-        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=->", true);
+        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
     }
 
     private void loadHandle() {
