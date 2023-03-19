@@ -62,8 +62,8 @@ public class ServerBuild extends JavaPlugin {
     }
 
     private void loadHandle() {
-        Handler.registerHandle("LoginTP", new LoginTPHandle());
         Handler.registerHandle("NotBuild", new NotBuildHandle());
+        Handler.registerHandle("LoginTP", new LoginTPHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
     }
 
