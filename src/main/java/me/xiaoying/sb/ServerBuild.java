@@ -2,10 +2,7 @@ package me.xiaoying.sb;
 
 import me.xiaoying.sb.files.FileManager;
 import me.xiaoying.sb.files.config.FileConfig;
-import me.xiaoying.sb.handle.Handler;
-import me.xiaoying.sb.handle.LoginTPHandle;
-import me.xiaoying.sb.handle.NotBuildHandle;
-import me.xiaoying.sb.handle.WelcomeMessageHandle;
+import me.xiaoying.sb.handle.*;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -37,6 +34,7 @@ public class ServerBuild extends JavaPlugin {
         ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
         ServerUtil.sendMessage("&b|&6功能状态:", true);
         loadHandle();
+        Handler.loadHandles();
         ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
         ServerUtil.sendMessage("&b|&6全局配置状态:", true);
         if (FileConfig.OVERALL_ENABLE_MESSAGE)
@@ -54,15 +52,14 @@ public class ServerBuild extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        clear();
-
-        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=->", true);
+        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
         ServerUtil.sendMessage("&b|&c插件已卸载，感谢您的使用(乌拉！", true);
-        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=->", true);
+        ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
     }
 
     private void loadHandle() {
         Handler.registerHandle("NotBuild", new NotBuildHandle());
+        Handler.registerHandle("Teleport", new TeleportHandle());
         Handler.registerHandle("LoginTP", new LoginTPHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
     }
