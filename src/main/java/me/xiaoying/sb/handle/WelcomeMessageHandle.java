@@ -35,11 +35,12 @@ public class WelcomeMessageHandle implements Handle {
         Caches.welcomeMessageEntities.clear();
         if (!this.enable())
             return;
-
+        System.out.println(YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/WelcomeMessage.yml"));
         YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/WelcomeMessage.yml").forEach(string -> {
             if (string.equalsIgnoreCase("set") || string.equalsIgnoreCase("Enable") || string.equalsIgnoreCase("Message") || string.equalsIgnoreCase("Use-Help"))
                 return;
 
+            System.out.println(string);
             WelcomeMessageEntity welcomeMessageEntity = new WelcomeMessageEntity(string);
             Caches.welcomeMessageEntities.add(welcomeMessageEntity);
         });

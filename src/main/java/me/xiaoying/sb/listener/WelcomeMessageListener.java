@@ -28,31 +28,26 @@ public class WelcomeMessageListener implements Listener {
         if (!handle.enable())
             return;
 
-        List<WelcomeMessageEntity> list = new ArrayList<>();
-
         Player player = event.getPlayer();
-        Caches.welcomeMessageEntities.forEach(entity -> {
-            if (!player.hasPermission(entity.getPermission()))
-                return;
-            list.add(entity);
-        });
+        WelcomeMessageEntity welcomeMessageEntity = null;
+        for (WelcomeMessageEntity messageEntity : Caches.welcomeMessageEntities) {
+            if (!player.hasPermission(messageEntity.getPermission()))
+                continue;
 
-        if (list.size() == 0)
+            if (welcomeMessageEntity == null) {
+                welcomeMessageEntity = messageEntity;
+                continue;
+            }
+            if (welcomeMessageEntity.getPriority() > messageEntity.getPriority())
+                welcomeMessageEntity = messageEntity;
+        }
+
+        if (welcomeMessageEntity == null)
             return;
 
         event.setJoinMessage(null);
 
-        WelcomeMessageEntity welcomeMessageEntity = null;
-        for (WelcomeMessageEntity messageEntity : list) {
-            if (welcomeMessageEntity == null)
-                welcomeMessageEntity = messageEntity;
-
-            if (welcomeMessageEntity.getPriority() < messageEntity.getPriority())
-                welcomeMessageEntity = messageEntity;
-        }
-
         // Chat
-        assert welcomeMessageEntity != null;
         if (welcomeMessageEntity.enableJoinChat())
             welcomeMessageEntity.getJoinChatMessage().forEach(s -> {
                 s = s.replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));

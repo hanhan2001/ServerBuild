@@ -36,7 +36,7 @@ public class WelcomeMessageEntity {
 
     public WelcomeMessageEntity(String key) {
         priority = FileWelcomeMessage.welcomeMessage.getInt(key + ".Priority");
-        permission = FileWelcomeMessage.welcomeMessage.getString(key + ".Premission");
+        permission = FileWelcomeMessage.welcomeMessage.getString(key + ".Permission");
 
         JOIN_ENABLE_CHAT = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Join.Chat.Enable");
         JOIN_ENABLE_TITLE = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Join.Title.Enable");
@@ -47,7 +47,7 @@ public class WelcomeMessageEntity {
         JOIN_CHAT_MESSAGE = getStringList(key + ".Join.Chat.Message");
         JOIN_TITLE_TITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.Title.Title");
         JOIN_TITLE_SUBTITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.Title.SubTitle");
-        JOIN_ACTIONBAR_MESSAGE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.Actionbar.Message");
+        JOIN_ACTIONBAR_MESSAGE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.ActionBar.Message");
 
         QUIT_ENABLE_CHAT = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Quit.Chat.Enable");
         QUIT_ENABLE_TITLE = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Quit.Title.Enable");
