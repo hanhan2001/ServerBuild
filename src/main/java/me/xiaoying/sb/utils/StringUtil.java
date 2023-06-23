@@ -15,7 +15,7 @@ public class StringUtil {
      * @return 逻辑值
      */
     public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
+        return  str == null || str.length() == 0;
     }
 
     /**
@@ -29,6 +29,46 @@ public class StringUtil {
             original = original.substring(1);
         }
         return original;
+    }
+
+    /**
+     * 将数组转为字符串
+     *
+     * @param args 数组
+     * @param interval 间隔符号
+     * @return 字符串
+     */
+    public static String listToString(String[] args, String interval) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < args.length; i++) {
+            if (i == args.length - 1) {
+                stringBuilder.append(args[i]);
+                break;
+            }
+            stringBuilder.append(args[i]).append(interval);
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * 将数组转为字符串
+     *
+     * @param args 数组
+     * @param interval 间隔符号
+     * @param prefix 前缀
+     * @param suffix 后缀
+     * @return 字符串
+     */
+    public static String listToString(String[] args, String interval, String prefix, String suffix) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < args.length; i++) {
+            if (i == args.length - 1) {
+                stringBuilder.append(prefix).append(args[i]).append(suffix);
+                break;
+            }
+            stringBuilder.append(prefix).append(args[i]).append(suffix).append(interval);
+        }
+        return stringBuilder.toString();
     }
 
     /**
