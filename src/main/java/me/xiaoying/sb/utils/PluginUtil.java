@@ -1,13 +1,10 @@
 package me.xiaoying.sb.utils;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.command.*;
 import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
@@ -43,6 +40,12 @@ public class PluginUtil {
         }
     }
 
+    /**
+     * 注册插件指令
+     *
+     * @param command 命令
+     * @param plugin 插件
+     */
     public static void registerCommand(String command, Plugin plugin) {
         try {
             Field commandMapField = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
@@ -59,12 +62,13 @@ public class PluginUtil {
                 if (cmd.getPlugin() == plugin && cmd.getName().equalsIgnoreCase(command))
                     return;
             }
-            commandMap.register(plugin.getName(), command, new Command(command) {
-                @Override
-                public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
-                    return false;
-                }
-            });
+
+            Class<PluginCommand> clazz = PluginCommand.class;
+            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, Plugin.class);
+            constructor.setAccessible(true);
+            PluginCommand pluginCommand = (PluginCommand) constructor.newInstance(command, plugin);
+            pluginCommand.register(commandMap);
+            ((Map<String, Command>) knownCommandsField.get(commandMap)).put(command, pluginCommand);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
