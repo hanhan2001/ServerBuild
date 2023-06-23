@@ -1,5 +1,6 @@
 package me.xiaoying.sb.command.notbuildcommand;
 
+import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.notbuildcommand.subcommand.NBReload;
 import me.xiaoying.sb.files.config.FileNotBuild;
@@ -69,23 +70,5 @@ public class NotBuildCommand implements TabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         return new ArrayList<>(registeredCommands.keySet());
-    }
-}
-
-class RegisteredCommand {
-    int length;
-    SubCommand subCommand;
-
-    public RegisteredCommand(int length, SubCommand subCommand) {
-        this.length = length;
-        this.subCommand = subCommand;
-    }
-
-    public int getLength() {
-        return this.length;
-    }
-
-    public SubCommand getSubCommand() {
-        return this.subCommand;
     }
 }

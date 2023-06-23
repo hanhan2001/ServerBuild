@@ -1,5 +1,6 @@
 package me.xiaoying.sb.command.welcomemessagecommand;
 
+import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.welcomemessagecommand.subcommand.WMReload;
 import me.xiaoying.sb.files.config.FileWelcomeMessage;
@@ -69,23 +70,5 @@ public class WelcomeMessageCommand implements TabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         return new ArrayList<>(registeredCommands.keySet());
-    }
-}
-
-class RegisteredCommand {
-    int length;
-    SubCommand subCommand;
-
-    public RegisteredCommand(int length, SubCommand subCommand) {
-        this.length = length;
-        this.subCommand = subCommand;
-    }
-
-    public int getLength() {
-        return this.length;
-    }
-
-    public SubCommand getSubCommand() {
-        return this.subCommand;
     }
 }
