@@ -43,11 +43,12 @@ public class FileConfig {
     private static void readConfig() {
         SET_BSTATS = config.getBoolean("Set.Bstats");
         OVERALL_ENABLE = config.getBoolean("Enable");
-        OVERALL_ENABLE_VARIABLE = config.getBoolean("Variable.Enable");
         OVERALL_ENABLE_MESSAGE = config.getBoolean("Message.Enable");
+        OVERALL_ENABLE_VARIABLE = config.getBoolean("Variable.Enable");
 
         OVERALL_VARIABLE_DATAFORMAT = config.getString("Variable.DateFormat");
 
+        OVERALL_MESSAGE_RELOAD = config.getString("Message.Reload");
         OVERALL_MESSAGE_PREFIX = config.getString("Message.Prefix");
         OVERALL_MESSAGE_NOPERMISSION = config.getString("Message.NoPermission");
     }
