@@ -4,6 +4,7 @@ import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * 配置文件 Config.yml
@@ -32,6 +33,8 @@ public class FileConfig {
             OVERALL_MESSAGE_RELOAD,
             OVERALL_MESSAGE_NOPERMISSION;
 
+    public static List<String> MESSAGE_HELP;
+
     public static void fileConfig() {
         File configFile = new File(ServerUtil.getDataFolder(), "Config.yml");
         if (!configFile.exists()) ServerUtil.saveResources("Config.yml");
@@ -51,5 +54,7 @@ public class FileConfig {
         OVERALL_MESSAGE_RELOAD = config.getString("Message.Reload");
         OVERALL_MESSAGE_PREFIX = config.getString("Message.Prefix");
         OVERALL_MESSAGE_NOPERMISSION = config.getString("Message.NoPermission");
+
+        MESSAGE_HELP = config.getStringList("Use-Help");
     }
 }
