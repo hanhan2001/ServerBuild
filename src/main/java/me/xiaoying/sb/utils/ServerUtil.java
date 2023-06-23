@@ -1,18 +1,15 @@
 package me.xiaoying.sb.utils;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.sb.ServerBuild;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 工具类 服务器
@@ -130,5 +127,14 @@ public class ServerUtil {
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
             PlayerUtil.sendActionbar(player, message);
         });
+    }
+
+    /**
+     * 获取服务器所有在线玩家
+     *
+     * @return 玩家列表
+     */
+    public static Collection<? extends Player> getOnlinePlayers() {
+        return Bukkit.getServer().getOnlinePlayers();
     }
 }
