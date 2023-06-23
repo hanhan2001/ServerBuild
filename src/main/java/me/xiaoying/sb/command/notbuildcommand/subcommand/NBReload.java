@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 public class NBReload extends SubCommand {
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("sb.nb.admin") && !sender.isOp()) {
+        if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.nb.admin") && !sender.isOp()) {
             sender.sendMessage(ColorUtil.translate(FileNotBuild.MESSAGE_PREFIX + FileNotBuild.MESSAGE_NOPERMISSION));
             return false;
         }

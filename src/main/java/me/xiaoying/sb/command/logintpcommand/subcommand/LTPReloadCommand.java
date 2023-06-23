@@ -14,7 +14,7 @@ import org.bukkit.command.CommandSender;
 public class LTPReloadCommand extends SubCommand {
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("sb.lt.admin") && !sender.isOp()) {
+        if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.lt.admin") && !sender.isOp()) {
             sender.sendMessage(ColorUtil.translate(FileLoginTp.MESSAGE_PREFIX + FileLoginTp.MESSAGE_NOPERMISSION));
             return false;
         }

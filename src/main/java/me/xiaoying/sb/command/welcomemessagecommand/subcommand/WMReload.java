@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 public class WMReload extends SubCommand {
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("sb.wm.admin") || !sender.isOp()) {
+        if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.wm.admin") && !sender.isOp()) {
             sender.sendMessage(ColorUtil.translate(FileWelcomeMessage.MESSAGE_PREFIX + FileWelcomeMessage.MESSAGE_NOPERMISSION));
             return false;
         }
