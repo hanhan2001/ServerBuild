@@ -1,5 +1,6 @@
 package me.xiaoying.sb;
 
+import me.xiaoying.sb.command.admincommand.AdminCommand;
 import me.xiaoying.sb.files.FileManager;
 import me.xiaoying.sb.files.config.FileConfig;
 import me.xiaoying.sb.handle.Handler;
@@ -48,8 +49,6 @@ public class ServerBuild extends JavaPlugin {
         else
             ServerUtil.sendMessage("&b|    &a全局变量(Variable): &c未开启", true);
         ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
-
-//        ServerUtil.sendMessage("&b|    &a聊天格式(ChatFormat)： &e已开启", true);
     }
 
     @Override
@@ -65,6 +64,8 @@ public class ServerBuild extends JavaPlugin {
         Handler.registerHandle("NotBuild", new NotBuildHandle());
         Handler.registerHandle("LoginTP", new LoginTPHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
+
+        Handler.loadHandles();
     }
 
     // 初始化
@@ -75,7 +76,7 @@ public class ServerBuild extends JavaPlugin {
         // 初始化配置文件
         FileManager.fileManager();
 
-
+        ServerUtil.registerCommand("sb", new AdminCommand());
     }
 
     // 格式化
