@@ -1,8 +1,10 @@
 package me.xiaoying.sb.handle;
 
+import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.command.logintpcommand.LoginTPCommand;
 import me.xiaoying.sb.files.config.FileLoginTp;
 import me.xiaoying.sb.listener.LoginTPListener;
+import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 
 /**
@@ -16,13 +18,13 @@ public class LoginTPHandle implements Handle {
 
     @Override
     public void onEnable() {
-        ServerUtil.registerEvent(new LoginTPListener());
-        ServerUtil.registerCommand("lt", new LoginTPCommand());
+        reload();
         ServerUtil.sendMessage("&b|    &a固定上线点(LoginTP): &e已开启", true);
     }
 
     @Override
     public void onDisable() {
+        PluginUtil.unregisterCommand("ltp", ServerBuild.getInstance());
         ServerUtil.sendMessage("&b|    &a固定上线点(LoginTP): &c未开启", true);
     }
 
@@ -30,10 +32,12 @@ public class LoginTPHandle implements Handle {
     public void reload() {
         FileLoginTp.fileConfig();
 
-        if (this.enable())
+        if (!this.enable()) {
+            PluginUtil.unregisterCommand("ltp", ServerBuild.getInstance());
             return;
+        }
 
         ServerUtil.registerEvent(new LoginTPListener());
-        ServerUtil.registerCommand("lt", new LoginTPCommand());
+        ServerUtil.registerCommand("ltp", new LoginTPCommand());
     }
 }
