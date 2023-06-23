@@ -36,6 +36,7 @@ public class ServerUtil {
      * @param commandExecutor 指令对象
      */
     public static void registerCommand(String command, CommandExecutor commandExecutor) {
+        PluginUtil.registerCommand(command, ServerBuild.getInstance());
         Objects.requireNonNull(ServerBuild.getInstance().getCommand(command)).setExecutor(commandExecutor);
     }
 
