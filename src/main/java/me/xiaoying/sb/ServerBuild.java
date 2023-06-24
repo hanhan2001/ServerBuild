@@ -3,13 +3,15 @@ package me.xiaoying.sb;
 import me.xiaoying.sb.command.admincommand.AdminCommand;
 import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.file.FileService;
+import me.xiaoying.sb.file.files.FileAutoReSpawn;
 import me.xiaoying.sb.file.files.FileConfig;
 import me.xiaoying.sb.file.files.FileLoginTp;
 import me.xiaoying.sb.files.FileManager;
-import me.xiaoying.sb.handle.Handler;
-import me.xiaoying.sb.handle.LoginTPHandle;
-import me.xiaoying.sb.handle.NotBuildHandle;
-import me.xiaoying.sb.handle.WelcomeMessageHandle;
+import me.xiaoying.sb.handle.*;
+import me.xiaoying.sb.handle.handls.AutoReSpawnHandle;
+import me.xiaoying.sb.handle.handls.LoginTPHandle;
+import me.xiaoying.sb.handle.handls.NotBuildHandle;
+import me.xiaoying.sb.handle.handls.WelcomeMessageHandle;
 import me.xiaoying.sb.task.TaskService;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
@@ -69,6 +71,7 @@ public class ServerBuild extends JavaPlugin {
     private void loadHandle() {
         Handler.registerHandle("NotBuild", new NotBuildHandle());
         Handler.registerHandle("LoginTP", new LoginTPHandle());
+        Handler.registerHandle("AutoReSpawn", new AutoReSpawnHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
 
         Handler.loadHandles();
@@ -80,10 +83,12 @@ public class ServerBuild extends JavaPlugin {
         new Metrics(ServerBuild.getInstance(), 16512);
 
         // 初始化配置文件
-        FileManager.fileManager();
         fileService.register("Config", new FileConfig());
         fileService.register("LoginTp", new FileLoginTp());
+        fileService.register("AutoReSpawn", new FileAutoReSpawn());
+        fileService.fileAll();
         fileService.initAll();
+        FileManager.fileManager();
 
         ServerUtil.registerCommand("sb", new AdminCommand());
     }
