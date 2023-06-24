@@ -1,5 +1,6 @@
 package me.xiaoying.sb.files.config;
 
+import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -38,12 +39,12 @@ public class FileNotBuild {
         SET_ENABLE = notBuild.getBoolean("Enable");
         SET_BUILD_ENABLE = notBuild.getBoolean("Build.Enable");
         SET_DESTRUCTION_ENABLE = notBuild.getBoolean("Destruction.Enable");
-        SET_DATEFORMAT = FileConfig.OVERALL_ENABLE && FileConfig.OVERALL_ENABLE_VARIABLE ? FileConfig.OVERALL_VARIABLE_DATAFORMAT : notBuild.getString("Set.DateFormat");
+        SET_DATEFORMAT = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_VARIABLE ? ConfigConstant.OVERALL_VARIABLE_DATAFORMAT : notBuild.getString("Set.DateFormat");
 
         MESSAGE_HELP = notBuild.getStringList("Use-Help");
-        MESSAGE_PREFIX = FileConfig.OVERALL_ENABLE && FileConfig.OVERALL_ENABLE_MESSAGE ? FileConfig.OVERALL_MESSAGE_PREFIX : notBuild.getString("Message.Prefix");
-        MESSAGE_RELOAD = FileConfig.OVERALL_ENABLE && FileConfig.OVERALL_ENABLE_MESSAGE ? FileConfig.OVERALL_MESSAGE_RELOAD : notBuild.getString("Message.Reload");
-        MESSAGE_NOPERMISSION = FileConfig.OVERALL_ENABLE && FileConfig.OVERALL_ENABLE_MESSAGE ? FileConfig.OVERALL_MESSAGE_NOPERMISSION : notBuild.getString("Message.NoPermission");
+        MESSAGE_PREFIX = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_PREFIX : notBuild.getString("Message.Prefix");
+        MESSAGE_RELOAD = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_RELOAD : notBuild.getString("Message.Reload");
+        MESSAGE_NOPERMISSION = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_NOPERMISSION : notBuild.getString("Message.NoPermission");
 
         MESSAGE_BUILD = getStringList("Destruction.Message");
         MESSAGE_DESTRUCTION = getStringList("Build.Message");
