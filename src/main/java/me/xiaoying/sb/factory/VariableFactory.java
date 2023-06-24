@@ -41,6 +41,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory chatmessgae(String message) {
+        this.string = string.replace("%message%", message);
+        return this;
+    }
+
     public String getString() {
         return this.string;
     }
