@@ -1,8 +1,9 @@
-package me.xiaoying.sb.handle;
+package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.command.logintpcommand.LoginTPCommand;
 import me.xiaoying.sb.constant.LoginTpConstant;
+import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.LoginTPListener;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;

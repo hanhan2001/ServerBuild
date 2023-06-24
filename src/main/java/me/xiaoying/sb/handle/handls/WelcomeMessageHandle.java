@@ -1,10 +1,11 @@
-package me.xiaoying.sb.handle;
+package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.cache.Caches;
 import me.xiaoying.sb.command.welcomemessagecommand.WelcomeMessageCommand;
 import me.xiaoying.sb.entity.WelcomeMessageEntity;
 import me.xiaoying.sb.files.config.FileWelcomeMessage;
+import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.WelcomeMessageListener;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
