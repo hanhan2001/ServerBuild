@@ -7,6 +7,7 @@ import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.handle.LoginTPHandle;
 import me.xiaoying.sb.handle.NotBuildHandle;
 import me.xiaoying.sb.handle.WelcomeMessageHandle;
+import me.xiaoying.sb.task.TaskService;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -17,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class ServerBuild extends JavaPlugin {
     private static ServerBuild instance;
+    private static final TaskService taskService = new TaskService();
 
     @Override
     public void onEnable() {
@@ -82,6 +84,10 @@ public class ServerBuild extends JavaPlugin {
     // 格式化
     public static void clear() {
 
+    }
+
+    public static TaskService getTaskServer() {
+        return taskService;
     }
 
     public static ServerBuild getInstance() {
