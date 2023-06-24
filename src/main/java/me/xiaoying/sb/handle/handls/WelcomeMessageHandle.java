@@ -37,6 +37,7 @@ public class WelcomeMessageHandle implements Handle {
     public void reload() {
         ServerBuild.getFileService().file("WelcomeMessage");
         ServerBuild.getFileService().init("WelcomeMessage");
+        WelcomeMessageService.unregisterWelcomeMessages();
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("wm", ServerBuild.getInstance());
