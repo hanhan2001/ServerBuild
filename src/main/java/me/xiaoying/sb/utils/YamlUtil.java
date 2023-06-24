@@ -113,7 +113,7 @@ public class YamlUtil {
     public static List<String> getChildrenNode(String path, String key) {
         List<String> allNodes;
         try {
-            FileInputStream fileInputStream = new FileInputStream("C:/Users/Administrator/Desktop/test.yml");
+            FileInputStream fileInputStream = new FileInputStream(path);
             HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);
             Map<String, Object> map1 = new HashMap<>();
             String[] strings = key.split("\\.");
