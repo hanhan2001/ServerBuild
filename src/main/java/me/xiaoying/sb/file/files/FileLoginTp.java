@@ -10,11 +10,11 @@ import java.io.File;
 
 public class FileLoginTp extends SubFile {
     public static YamlConfiguration loginTp;
-    File file = new File(ServerUtil.getDataFolder(), "LoginTp.yml");
+    File file = new File(ServerUtil.getDataFolder(), "LoginTP.yml");
 
     @Override
     public void newFile() {
-        if (!this.file.exists()) ServerUtil.saveResources("LoginTp.yml");
+        if (!this.file.exists()) ServerUtil.saveResources("LoginTP.yml");
         loginTp = YamlConfiguration.loadConfiguration(this.file);
     }
 
