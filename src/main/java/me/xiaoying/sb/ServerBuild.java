@@ -6,6 +6,7 @@ import me.xiaoying.sb.file.FileService;
 import me.xiaoying.sb.file.files.FileAutoReSpawn;
 import me.xiaoying.sb.file.files.FileConfig;
 import me.xiaoying.sb.file.files.FileLoginTp;
+import me.xiaoying.sb.file.files.FileWelcomeMessage;
 import me.xiaoying.sb.files.FileManager;
 import me.xiaoying.sb.handle.*;
 import me.xiaoying.sb.handle.handls.AutoReSpawnHandle;
@@ -86,6 +87,7 @@ public class ServerBuild extends JavaPlugin {
         fileService.register("Config", new FileConfig());
         fileService.register("LoginTP", new FileLoginTp());
         fileService.register("AutoReSpawn", new FileAutoReSpawn());
+        fileService.register("WelcomeMessage", new FileWelcomeMessage());
         fileService.fileAll();
         fileService.initAll();
         FileManager.fileManager();

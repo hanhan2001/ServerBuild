@@ -1,11 +1,11 @@
 package me.xiaoying.sb.listener;
 
-import me.xiaoying.sb.cache.Caches;
+import me.xiaoying.sb.constant.WelcomeMessageConstant;
 import me.xiaoying.sb.entity.WelcomeMessageEntity;
-import me.xiaoying.sb.files.config.FileWelcomeMessage;
+import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.handle.Handler;
-import me.xiaoying.sb.utils.DateUtil;
+import me.xiaoying.sb.service.WelcomeMessageService;
 import me.xiaoying.sb.utils.PlayerUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ public class WelcomeMessageListener implements Listener {
 
         Player player = event.getPlayer();
         WelcomeMessageEntity welcomeMessageEntity = null;
-        for (WelcomeMessageEntity messageEntity : Caches.welcomeMessageEntities) {
+        for (WelcomeMessageEntity messageEntity : WelcomeMessageService.getWelcomeMessageEntities()) {
             if (!player.hasPermission(messageEntity.getPermission()))
                 continue;
 
@@ -49,17 +49,18 @@ public class WelcomeMessageListener implements Listener {
 
         // Chat
         if (welcomeMessageEntity.enableJoinChat())
-            welcomeMessageEntity.getJoinChatMessage().forEach(s -> {
-                s = s.replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));
-                ServerUtil.onlinePlayersSendMessage(s);
-            });
+            welcomeMessageEntity.getJoinChatMessage().forEach(s -> ServerUtil.onlinePlayersSendMessage(new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString()));
 
         //  Title
         if (welcomeMessageEntity.enableJoinTitle()) {
             String title = welcomeMessageEntity.getJoinTitleTitle();
-            title = title.replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));
+            if (title != null)
+                title = new VariableFactory(title).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+
+
             String subtitle = welcomeMessageEntity.getJoinTitleSubtitle();
-            subtitle = subtitle.replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));
+            if (subtitle != null)
+                subtitle = new VariableFactory(subtitle).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
 
             if (welcomeMessageEntity.enableJoinTitleAllPlayer())
                 ServerUtil.onlinePlayersSendTitle(title, subtitle);
@@ -70,9 +71,9 @@ public class WelcomeMessageListener implements Listener {
         // Actionbar
         if (welcomeMessageEntity.enableJoinActionBar()) {
             if (welcomeMessageEntity.enableJoinActionbarAllPlayer())
-                ServerUtil.onlinePlayersSendActionbar(welcomeMessageEntity.getJoinActionbarMessage().replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT)));
+                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
             else
-                PlayerUtil.sendActionbar(player, welcomeMessageEntity.getJoinActionbarMessage().replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT)));
+                PlayerUtil.sendActionbar(player, new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
         }
     }
 
@@ -85,7 +86,7 @@ public class WelcomeMessageListener implements Listener {
         List<WelcomeMessageEntity> list = new ArrayList<>();
 
         Player player = event.getPlayer();
-        Caches.welcomeMessageEntities.forEach(entity -> {
+        WelcomeMessageService.getWelcomeMessageEntities().forEach(entity -> {
             if (!player.hasPermission(entity.getPermission()))
                 return;
             list.add(entity);
@@ -108,23 +109,23 @@ public class WelcomeMessageListener implements Listener {
         // Chat
         assert welcomeMessageEntity != null;
         if (welcomeMessageEntity.enableQuitChat())
-            welcomeMessageEntity.getQuitChatMessage().forEach(s -> {
-                s = s.replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));
-                ServerUtil.onlinePlayersSendMessage(s);
-            });
+            welcomeMessageEntity.getQuitChatMessage().forEach(s -> ServerUtil.onlinePlayersSendMessage(new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).toString()));
 
         //  Title
         if (welcomeMessageEntity.enableQuitTitle()) {
             String title = welcomeMessageEntity.getQuitTitleTitle();
-            title = title.replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));
+            if (title != null)
+                title = new VariableFactory(title).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+
             String subtitle = welcomeMessageEntity.getQuitTitleSubtitle();
-            subtitle = subtitle.replace("%date", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT));
+            if (subtitle != null)
+                subtitle = new VariableFactory(subtitle).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
 
             ServerUtil.onlinePlayersSendTitle(title, subtitle);
         }
 
         // Actionbar
         if (welcomeMessageEntity.enableQuitActionBar())
-                ServerUtil.onlinePlayersSendActionbar(welcomeMessageEntity.getQuitActionbarMessage().replace("%date%", DateUtil.getDate(FileWelcomeMessage.SET_VARIABLE_DATEFORMAT)));
+                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getQuitActionbarMessage()).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).toString());
     }
 }

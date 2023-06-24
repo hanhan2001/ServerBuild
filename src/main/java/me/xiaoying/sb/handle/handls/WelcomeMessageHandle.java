@@ -1,12 +1,12 @@
 package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
-import me.xiaoying.sb.cache.Caches;
 import me.xiaoying.sb.command.welcomemessagecommand.WelcomeMessageCommand;
+import me.xiaoying.sb.constant.WelcomeMessageConstant;
 import me.xiaoying.sb.entity.WelcomeMessageEntity;
-import me.xiaoying.sb.files.config.FileWelcomeMessage;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.WelcomeMessageListener;
+import me.xiaoying.sb.service.WelcomeMessageService;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import me.xiaoying.sb.utils.YamlUtil;
@@ -17,7 +17,7 @@ import me.xiaoying.sb.utils.YamlUtil;
 public class WelcomeMessageHandle implements Handle {
     @Override
     public boolean enable() {
-        return FileWelcomeMessage.SET_ENABLE;
+        return WelcomeMessageConstant.SET_ENABLE;
     }
 
     @Override
@@ -35,9 +35,8 @@ public class WelcomeMessageHandle implements Handle {
 
     @Override
     public void reload() {
-        FileWelcomeMessage.fileWelcomeMessage();
-
-        Caches.welcomeMessageEntities.clear();
+        ServerBuild.getFileService().file("WelcomeMessage");
+        ServerBuild.getFileService().init("WelcomeMessage");
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("wm", ServerBuild.getInstance());
@@ -48,8 +47,7 @@ public class WelcomeMessageHandle implements Handle {
             if (string.equalsIgnoreCase("set") || string.equalsIgnoreCase("Enable") || string.equalsIgnoreCase("Message") || string.equalsIgnoreCase("Use-Help"))
                 return;
 
-            WelcomeMessageEntity welcomeMessageEntity = new WelcomeMessageEntity(string);
-            Caches.welcomeMessageEntities.add(welcomeMessageEntity);
+            WelcomeMessageService.registerWelcomeMessage(new WelcomeMessageEntity(string));
         });
         ServerUtil.registerCommand("wm", new WelcomeMessageCommand());
         ServerUtil.registerEvent(new WelcomeMessageListener());

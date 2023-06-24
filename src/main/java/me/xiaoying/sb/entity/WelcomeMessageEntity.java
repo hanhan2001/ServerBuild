@@ -1,6 +1,6 @@
 package me.xiaoying.sb.entity;
 
-import me.xiaoying.sb.files.config.FileWelcomeMessage;
+import me.xiaoying.sb.file.files.FileWelcomeMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import java.util.List;
  * 实体 WelcomeMessage
  */
 public class WelcomeMessageEntity {
+    String key;
+    
     String permission;
     int priority;
 
@@ -35,6 +37,8 @@ public class WelcomeMessageEntity {
     String QUIT_ACTIONBAR_MESSAGE;
 
     public WelcomeMessageEntity(String key) {
+        this.key = key;
+        
         priority = FileWelcomeMessage.welcomeMessage.getInt(key + ".Priority");
         permission = FileWelcomeMessage.welcomeMessage.getString(key + ".Permission");
 
@@ -57,6 +61,10 @@ public class WelcomeMessageEntity {
         QUIT_TITLE_TITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Quit.Title.Title");
         QUIT_TITLE_SUBTITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Quit.Title.SubTitle");
         QUIT_ACTIONBAR_MESSAGE = FileWelcomeMessage.welcomeMessage.getString(key + ".Quit.Actionbar.Message");
+    }
+    
+    public String getKey() {
+        return this.key;
     }
 
     public String getPermission() {

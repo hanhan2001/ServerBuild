@@ -3,7 +3,7 @@ package me.xiaoying.sb.command.welcomemessagecommand;
 import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.welcomemessagecommand.subcommand.WMReload;
-import me.xiaoying.sb.files.config.FileWelcomeMessage;
+import me.xiaoying.sb.constant.WelcomeMessageConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -37,13 +37,13 @@ public class WelcomeMessageCommand implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
         if (args == null || args.length == 0) {
-            FileWelcomeMessage.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            WelcomeMessageConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
         String cmd = args[0];
         if (!registeredCommands.containsKey(cmd)) {
-            FileWelcomeMessage.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            WelcomeMessageConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
@@ -60,7 +60,7 @@ public class WelcomeMessageCommand implements TabExecutor {
         }
 
         if (!isDo) {
-            FileWelcomeMessage.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            WelcomeMessageConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
         return false;
