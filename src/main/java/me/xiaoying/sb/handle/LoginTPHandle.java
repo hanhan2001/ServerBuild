@@ -2,7 +2,7 @@ package me.xiaoying.sb.handle;
 
 import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.command.logintpcommand.LoginTPCommand;
-import me.xiaoying.sb.files.config.FileLoginTp;
+import me.xiaoying.sb.constant.LoginTpConstant;
 import me.xiaoying.sb.listener.LoginTPListener;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
@@ -13,7 +13,7 @@ import me.xiaoying.sb.utils.ServerUtil;
 public class LoginTPHandle implements Handle {
     @Override
     public boolean enable() {
-        return FileLoginTp.SET_ENABLE;
+        return LoginTpConstant.SET_ENABLE;
     }
 
     @Override
@@ -30,7 +30,8 @@ public class LoginTPHandle implements Handle {
 
     @Override
     public void reload() {
-        FileLoginTp.fileConfig();
+//        FileLoginTp.fileConfig();
+        ServerBuild.getFileService().init("LoginTp");
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("ltp", ServerBuild.getInstance());

@@ -3,7 +3,7 @@ package me.xiaoying.sb.command.admincommand;
 import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.admincommand.subcommand.AdminReloadCommand;
-import me.xiaoying.sb.files.config.FileConfig;
+import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -34,13 +34,13 @@ public class AdminCommand implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
         if (args == null || args.length == 0) {
-            FileConfig.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
         String cmd = args[0];
         if (!registeredCommands.containsKey(cmd)) {
-            FileConfig.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
@@ -57,7 +57,7 @@ public class AdminCommand implements TabExecutor {
         }
 
         if (!isDo) {
-            FileConfig.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
         return false;

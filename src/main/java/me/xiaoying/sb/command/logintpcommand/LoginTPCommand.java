@@ -4,7 +4,7 @@ import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.logintpcommand.subcommand.LTPReloadCommand;
 import me.xiaoying.sb.command.logintpcommand.subcommand.LTPSetLocationCommand;
-import me.xiaoying.sb.files.config.FileLoginTp;
+import me.xiaoying.sb.constant.LoginTpConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -39,13 +39,13 @@ public class LoginTPCommand implements TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
         if (args == null || args.length == 0) {
-            FileLoginTp.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            LoginTpConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
         String cmd = args[0];
         if (!registeredCommands.containsKey(cmd)) {
-            FileLoginTp.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            LoginTpConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
@@ -62,7 +62,7 @@ public class LoginTPCommand implements TabExecutor {
         }
 
         if (!isDo) {
-            FileLoginTp.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            LoginTpConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
         return false;

@@ -1,8 +1,11 @@
 package me.xiaoying.sb;
 
 import me.xiaoying.sb.command.admincommand.AdminCommand;
+import me.xiaoying.sb.constant.ConfigConstant;
+import me.xiaoying.sb.file.FileService;
+import me.xiaoying.sb.file.files.FileConfig;
+import me.xiaoying.sb.file.files.FileLoginTp;
 import me.xiaoying.sb.files.FileManager;
-import me.xiaoying.sb.files.config.FileConfig;
 import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.handle.LoginTPHandle;
 import me.xiaoying.sb.handle.NotBuildHandle;
@@ -19,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ServerBuild extends JavaPlugin {
     private static ServerBuild instance;
     private static final TaskService taskService = new TaskService();
+    private static final FileService fileService = new FileService();
 
     @Override
     public void onEnable() {
@@ -42,11 +46,11 @@ public class ServerBuild extends JavaPlugin {
         loadHandle();
         ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
         ServerUtil.sendMessage("&b|&6全局配置状态:", true);
-        if (FileConfig.OVERALL_ENABLE_MESSAGE)
+        if (ConfigConstant.OVERALL_ENABLE_MESSAGE)
             ServerUtil.sendMessage("&b|    &a全局词条(Message): &e已开启", true);
         else
             ServerUtil.sendMessage("&b|    &a全局词条(Message): &c未开启", true);
-        if (FileConfig.OVERALL_ENABLE_VARIABLE)
+        if (ConfigConstant.OVERALL_ENABLE_VARIABLE)
             ServerUtil.sendMessage("&b|    &a全局变量(Variable): &e已开启", true);
         else
             ServerUtil.sendMessage("&b|    &a全局变量(Variable): &c未开启", true);
@@ -77,6 +81,9 @@ public class ServerBuild extends JavaPlugin {
 
         // 初始化配置文件
         FileManager.fileManager();
+        fileService.register("Config", new FileConfig());
+        fileService.register("LoginTp", new FileLoginTp());
+        fileService.initAll();
 
         ServerUtil.registerCommand("sb", new AdminCommand());
     }
@@ -88,6 +95,10 @@ public class ServerBuild extends JavaPlugin {
 
     public static TaskService getTaskServer() {
         return taskService;
+    }
+
+    public static FileService getFileService() {
+        return fileService;
     }
 
     public static ServerBuild getInstance() {
