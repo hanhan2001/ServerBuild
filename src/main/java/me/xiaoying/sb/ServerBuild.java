@@ -84,7 +84,7 @@ public class ServerBuild extends JavaPlugin {
 
         // 初始化配置文件
         fileService.register("Config", new FileConfig());
-        fileService.register("LoginTp", new FileLoginTp());
+        fileService.register("LoginTP", new FileLoginTp());
         fileService.register("AutoReSpawn", new FileAutoReSpawn());
         fileService.fileAll();
         fileService.initAll();
