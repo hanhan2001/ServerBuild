@@ -49,14 +49,17 @@ public class TaskService {
             list = new ArrayList<>();
 
         list.add(task);
+        this.tasks.put(handle, list);
     }
 
     /**
-     * 取消注册处理的所有处理
+     * 取消注册处理的所有线程处理
      *
      * @param handle 处理
      */
     public void unregisterTasks(Handle handle) {
+        for (TaskHandle task : this.tasks.get(handle))
+            task.stop();
         this.tasks.remove(handle);
     }
 
@@ -98,7 +101,6 @@ public class TaskService {
 
         if ((list = this.tasks.get(handle)) == null)
             return;
-
         for (TaskHandle taskHandle : list)
             taskHandle.run();
     }
