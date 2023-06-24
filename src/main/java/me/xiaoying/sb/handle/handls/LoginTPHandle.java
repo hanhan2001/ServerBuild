@@ -31,7 +31,7 @@ public class LoginTPHandle implements Handle {
 
     @Override
     public void reload() {
-//        FileLoginTp.fileConfig();
+        ServerBuild.getFileService().file("LoginTp");
         ServerBuild.getFileService().init("LoginTp");
 
         if (!this.enable()) {
