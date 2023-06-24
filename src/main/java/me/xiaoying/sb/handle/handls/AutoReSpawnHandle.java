@@ -1,7 +1,13 @@
 package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
+import me.xiaoying.sb.command.autorespawncommand.AutoReSpawnCommand;
+import me.xiaoying.sb.command.logintpcommand.LoginTPCommand;
+import me.xiaoying.sb.constant.AutoReSpawnConstant;
 import me.xiaoying.sb.handle.Handle;
+import me.xiaoying.sb.listener.AutoReSpawnListener;
+import me.xiaoying.sb.listener.LoginTPListener;
+import me.xiaoying.sb.task.tasks.AutoReSpawnTask;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 
@@ -11,7 +17,7 @@ import me.xiaoying.sb.utils.ServerUtil;
 public class AutoReSpawnHandle implements Handle {
     @Override
     public boolean enable() {
-        return false;
+        return AutoReSpawnConstant.SET_ENABLE;
     }
 
     @Override
@@ -28,6 +34,20 @@ public class AutoReSpawnHandle implements Handle {
 
     @Override
     public void reload() {
+        ServerBuild.getFileService().file("AutoReSpawn");
+        ServerBuild.getFileService().init("AutoReSpawn");
+        if (ServerBuild.getTaskServer().getTasks(this) != null)
+            ServerBuild.getTaskServer().unregisterTasks(this);
 
+        if (!this.enable()) {
+            PluginUtil.unregisterCommand("ars", ServerBuild.getInstance());
+            return;
+        }
+
+        ServerBuild.getTaskServer().registerTask(this, new AutoReSpawnTask());
+        ServerBuild.getTaskServer().runTasks(this);
+
+        ServerUtil.registerEvent(new AutoReSpawnListener());
+        ServerUtil.registerCommand("ars", new AutoReSpawnCommand());
     }
 }

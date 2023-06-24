@@ -1,6 +1,8 @@
 name: ServerBuild
 version: 0.0.2
 main: me.xiaoying.sb.ServerBuild
+softdepend:
+  - PlaceholderAPI
 author: 筱樱
 commands:
   sb:
@@ -16,13 +18,17 @@ commands:
     permission: sb.lt.admin
     aliases: [logintp]
   tpa:
-    description: (Teleport) 使用权限-传送
+    description: (Teleport) 管理员指令
     permission: se.tp.tpa
     aliases: [teleport]
   wm:
-    description: (WelcomeMessage) 使用权限-传送
+    description: (WelcomeMessage) 管理员指令
     permission: se.wm.admin
     aliases: [welcomemessage]
+  ars:
+    description: (AutoReSpawn) 管理员指令
+    permission: se.wm.admin
+    aliases: [autorespawn]
 permissions:
   sb.admin:
     description: 全局管理权限
@@ -31,7 +37,10 @@ permissions:
     description: (LoginTP) 管理员权限
     default: op
   sb.tp.tpa:
-    description: (Teleport) 使用权限-传送
+    description: (Teleport) 管理员权限
+    default: op
+  sb.ars.admin:
+    description: (AutoReSpawn) 管理员权限
     default: op
   sb.wm.admin:
     description: (WelcomeMessage) 管理员权限
