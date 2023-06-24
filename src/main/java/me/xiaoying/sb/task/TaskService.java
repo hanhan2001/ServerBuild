@@ -15,10 +15,6 @@ import java.util.Map;
 public class TaskService {
     Map<Handle, List<TaskHandle>> tasks = new HashMap<>();
 
-    public TaskService() {
-
-    }
-
     /**
      * 获取所有线程处理
      *
