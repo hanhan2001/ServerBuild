@@ -1,0 +1,53 @@
+package me.xiaoying.sb.handle.handls;
+
+import me.xiaoying.sb.ServerBuild;
+import me.xiaoying.sb.command.notbuildcommand.NotBuildCommand;
+import me.xiaoying.sb.constant.ChatFormatConstant;
+import me.xiaoying.sb.entity.ChatFormatEntity;
+import me.xiaoying.sb.files.config.FileNotBuild;
+import me.xiaoying.sb.handle.Handle;
+import me.xiaoying.sb.listener.ChatFormatListener;
+import me.xiaoying.sb.listener.NotBuildListener;
+import me.xiaoying.sb.service.ChatFormatService;
+import me.xiaoying.sb.utils.PluginUtil;
+import me.xiaoying.sb.utils.ServerUtil;
+import me.xiaoying.sb.utils.YamlUtil;
+
+public class ChatFormatHandle implements Handle {
+    @Override
+    public boolean enable() {
+        return ChatFormatConstant.SET_ENABLE;
+    }
+
+    @Override
+    public void onEnable() {
+        reload();
+
+        ServerUtil.sendMessage("&b|    &a聊天格式(ChatFormat): &e已开启", true);
+    }
+
+    @Override
+    public void onDisable() {
+        PluginUtil.unregisterCommand("cf", ServerBuild.getInstance());
+        ServerUtil.sendMessage("&b|    &a聊天格式(ChatFormat): &c未开启", true);
+    }
+
+    @Override
+    public void reload() {
+        ServerBuild.getFileService().file("ChatFormat");
+        ServerBuild.getFileService().init("ChatFormat");
+        ChatFormatService.unregisterChatFormats();
+
+        if (!this.enable()) {
+            PluginUtil.unregisterCommand("cf", ServerBuild.getInstance());
+            return;
+        }
+
+        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> {
+            ChatFormatService.registerChatFormat(new ChatFormatEntity(string));
+        });
+
+        ServerUtil.registerEvent(new ChatFormatListener());
+//        ServerUtil.registerCommand("nb", new NotBuildCommand());
+    }
+}
