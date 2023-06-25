@@ -47,8 +47,6 @@ public class FileChatFormat extends SubFile {
         ChatFormatConstant.BLACK_TERMS_MESSAGE = getStringList("BlackTerms.Message");
         ChatFormatConstant.BLACK_TERMS_TERMS = chatFormat.getStringList("BlackTerms.Terms");
 
-        ChatFormatConstant.MESSAGE_PREFIX = chatFormat.getString("Message.Prefix");
-        ChatFormatConstant.MESSAGE_RELOAD = chatFormat.getString("Message.Reload");
         ChatFormatConstant.MESSAGE_NOPERMISSION = chatFormat.getString("Message.NoPermission");
 
         ConfigConstant.MESSAGE_HELP = chatFormat.getStringList("Use-Help");
