@@ -7,6 +7,10 @@
 解决方法 -> 在命令前加上 插件名.
 例子 -> essentials:tpa.
 
+# 目录
+
+[TOC]
+
 # 实现功能
 
 - [x] AutoReSpawn
@@ -477,24 +481,37 @@ Use-Help:
 
 # 功能指令
 
+## AutoReSpawn
+
+| 指令        | 例子        | 描述             |
+| ----------- | ----------- | ---------------- |
+| /ars reload | /ars reload | 重载 AutoReSpawn |
+
+## ChatFormat
+
+| 指令            | 例子             | 描述            |
+| --------------- | ---------------- | --------------- |
+| /cf reload      | /cf reload       | 重载 ChatFormat |
+| /cf mute [玩家] | /cf mute player1 | 禁言 玩家       |
+
+## LoginTP
+
+| 指令       | 例子       | 描述         |
+| ---------- | ---------- | ------------ |
+| /lt reload | /lt reload | 重载 LoginTP |
+| /lt set    | /lt set    | 设置 登录点  |
+
 ## NotBuild
 
 | 指令       | 例子       | 描述 |
 | ---------- | ---------- | ---- |
 | /nb reload | /nb reload | 重载 |
 
-## WelcomeMessage:
+## WelcomeMessage
 
 | 指令       | 例子       | 描述 |
 | ---------- | ---------- | ---- |
 | /wm reload | /wm reload | 重载 |
-
-## LoginTP
-
-| 指令       | 例子       | 描述         |
-| ---------- | ---------- | ------------ |
-| /lt set    | /lt set    | 设置登录点   |
-| /lt reload | /lt reload | 重载 LoginTP |
 
 # 功能权限
 
