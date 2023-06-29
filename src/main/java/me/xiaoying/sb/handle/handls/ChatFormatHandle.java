@@ -1,20 +1,17 @@
 package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
-import me.xiaoying.sb.command.notbuildcommand.NotBuildCommand;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
-import me.xiaoying.sb.files.config.FileNotBuild;
 import me.xiaoying.sb.handle.Handle;
-import me.xiaoying.sb.listener.ChatFormatListener;
-import me.xiaoying.sb.listener.NotBuildListener;
+import me.xiaoying.sb.listener.listeners.ChatFormatListener;
 import me.xiaoying.sb.service.ChatFormatService;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import me.xiaoying.sb.utils.YamlUtil;
 
 public class ChatFormatHandle implements Handle {
-    @Override
+
     public boolean enable() {
         return ChatFormatConstant.SET_ENABLE;
     }
@@ -34,9 +31,11 @@ public class ChatFormatHandle implements Handle {
 
     @Override
     public void reload() {
+        ChatFormatService.unregisterChatFormats();
         ServerBuild.getFileService().file("ChatFormat");
         ServerBuild.getFileService().init("ChatFormat");
-        ChatFormatService.unregisterChatFormats();
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("cf", ServerBuild.getInstance());
@@ -47,7 +46,8 @@ public class ChatFormatHandle implements Handle {
             ChatFormatService.registerChatFormat(new ChatFormatEntity(string));
         });
 
-        ServerUtil.registerEvent(new ChatFormatListener());
+        ServerBuild.getListenerService().registerListener(this, new ChatFormatListener());
+        ServerBuild.getListenerService().runListeners(this);
 //        ServerUtil.registerCommand("nb", new NotBuildCommand());
     }
 }

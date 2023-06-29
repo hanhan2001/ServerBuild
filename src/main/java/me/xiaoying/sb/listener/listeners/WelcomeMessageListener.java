@@ -1,4 +1,4 @@
-package me.xiaoying.sb.listener;
+package me.xiaoying.sb.listener.listeners;
 
 import me.xiaoying.sb.constant.WelcomeMessageConstant;
 import me.xiaoying.sb.entity.WelcomeMessageEntity;

@@ -5,7 +5,7 @@ import me.xiaoying.sb.command.welcomemessagecommand.WelcomeMessageCommand;
 import me.xiaoying.sb.constant.WelcomeMessageConstant;
 import me.xiaoying.sb.entity.WelcomeMessageEntity;
 import me.xiaoying.sb.handle.Handle;
-import me.xiaoying.sb.listener.WelcomeMessageListener;
+import me.xiaoying.sb.listener.listeners.WelcomeMessageListener;
 import me.xiaoying.sb.service.WelcomeMessageService;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
@@ -38,6 +38,8 @@ public class WelcomeMessageHandle implements Handle {
         ServerBuild.getFileService().file("WelcomeMessage");
         ServerBuild.getFileService().init("WelcomeMessage");
         WelcomeMessageService.unregisterWelcomeMessages();
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("wm", ServerBuild.getInstance());
@@ -50,7 +52,9 @@ public class WelcomeMessageHandle implements Handle {
 
             WelcomeMessageService.registerWelcomeMessage(new WelcomeMessageEntity(string));
         });
-        ServerUtil.registerCommand("wm", new WelcomeMessageCommand());
+
+        ServerBuild.getListenerService().registerListener(this, new WelcomeMessageListener());
+        ServerBuild.getListenerService().runListeners(this);
         ServerUtil.registerEvent(new WelcomeMessageListener());
     }
 }

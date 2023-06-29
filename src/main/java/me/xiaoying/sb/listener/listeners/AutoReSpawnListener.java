@@ -1,12 +1,10 @@
-package me.xiaoying.sb.listener;
+package me.xiaoying.sb.listener.listeners;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.constant.AutoReSpawnConstant;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.handle.Handler;
-import me.xiaoying.sb.utils.ColorUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;

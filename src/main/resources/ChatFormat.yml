@@ -4,6 +4,11 @@
 #开关
 Enable: false
 
+#设置
+Set:
+  #%date% 变量格式(如若无法编辑修改，请检查是否在 Config.yml 开启了全局配置)
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
+
 #格式
 #注: 优先级相同时匹配到的是位居下方的格式
 #    如 admin 优先级为 0, vip 优先级为 0, 而 vip 写在 admin 的后几行，则匹配到的是 vip 格式
@@ -19,11 +24,22 @@ Formats:
   #格式二
   admin:
     #数值越低优先级越高
-    Priority: 0
+    Priority: -1
     #权限
     Permission: "cf.admin"
     #格式
-    Format: "&b[%date%] &c[管理员] &f%player%&8>> &f%message%"
+    Format:
+      - "&b[%date%] &c[管理员] &f%player%&8>> &f%message%"
+  vip:
+    #数值越低优先级越高
+    Priority: 0
+    #权限
+    Permission: "custom.vip"
+    #格式
+    Format:
+      - ""
+      - "&b[%date%] &c[管理员] &f%player%&8>> &f%message%"
+      - ""
 
 #聊天字符个数限制(每次聊天发送的字符最大数)
 CharacterLimit:
@@ -32,7 +48,11 @@ CharacterLimit:
   #限制字符
   Limit: 32
   #消息提示(删除内容及""则不提示消息)
-  Message: "&c嚷嚷什么呢，说这么一大串"
+  #可单行，如 -> Message: "&c嚷嚷什么呢，说这么大一串"
+  Message:
+    - ""
+    - "&c嚷嚷什么呢，说这么一大串"
+    - ""
 
 #聊天呼叫（@某某）
 Call:
@@ -75,13 +95,9 @@ Message:
   #前缀
   Prefix: "&a[&bChatFormat&a]&e>> "
   #重载插件
-  Reload: "&a插件已重载！"
+  Reload: "%prefix%&a插件已重载！"
   #无权限提示
-  NoPermission: "&c你无法这样做！"
-
-#日期格式
-#设置 %date% 变量格式(如若无法编辑修改，请检查是否在 Config.yml 开启了全局配置)
-DateFormat: "yyyy/MM/dd-HH:mm:ss"
+  NoPermission: "%prefix%&c你无法这样做！"
 
 #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
 Use-Help:
