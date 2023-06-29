@@ -1,6 +1,6 @@
 package me.xiaoying.sb.task;
 
-import me.xiaoying.sb.exception.NotFountTaskHandleException;
+import me.xiaoying.sb.exception.NotFoundTaskHandleException;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.utils.ExceptionUtil;
 
@@ -75,7 +75,7 @@ public class TaskService {
             return;
 
         if (!list.contains(task))
-            ExceptionUtil.throwException(new NotFountTaskHandleException("Cannot find TaskHandle '" + task.getClass().getName() + "'"));
+            ExceptionUtil.throwException(new NotFoundTaskHandleException("Cannot find TaskHandle '" + task.getClass().getName() + "'"));
 
         task.stop();
         list.remove(task);
@@ -117,7 +117,7 @@ public class TaskService {
             return;
 
         if (!list.contains(task))
-            ExceptionUtil.throwException(new NotFountTaskHandleException("Cannot find TaskHandle '" + task.getClass().getName() + "'"));
+            ExceptionUtil.throwException(new NotFoundTaskHandleException("Cannot find TaskHandle '" + task.getClass().getName() + "'"));
 
         task.stop();
     }
@@ -159,7 +159,7 @@ public class TaskService {
             return;
 
         if (!list.contains(task))
-            ExceptionUtil.throwException(new NotFountTaskHandleException("Cannot find TaskHandle '" + task.getClass().getName() + "'"));
+            ExceptionUtil.throwException(new NotFoundTaskHandleException("Cannot find TaskHandle '" + task.getClass().getName() + "'"));
 
         task.stop();
     }
