@@ -7,29 +7,29 @@ public class FileService {
     private final Map<String, SubFile> files = new HashMap<>();
 
     public void fileAll() {
-        for (SubFile file : files.values())
+        for (SubFile file : this.files.values())
             file.newFile();
     }
 
     public void file(String name) {
-        files.get(name.toUpperCase()).newFile();
+        this.files.get(name.toUpperCase()).newFile();
     }
 
     public void delAll() {
-        for (SubFile file : files.values())
+        for (SubFile file : this.files.values())
             file.delFile();
     }
 
     public void del(String name) {
-        files.get(name.toUpperCase()).delFile();
+        this.files.get(name.toUpperCase()).delFile();
     }
 
     public void init(String name) {
-        files.get(name.toUpperCase()).initFile();
+        this.files.get(name.toUpperCase()).initFile();
     }
 
     public void initAll() {
-        for (SubFile file : files.values())
+        for (SubFile file : this.files.values())
             file.initFile();
     }
 
@@ -38,10 +38,10 @@ public class FileService {
     }
 
     public void unregister(String name) {
-        files.remove(name);
+        this.files.remove(name);
     }
 
     public void unregisters() {
-        files.clear();
+        this.files.clear();
     }
 }
