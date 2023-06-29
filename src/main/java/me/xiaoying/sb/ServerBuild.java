@@ -7,6 +7,7 @@ import me.xiaoying.sb.file.files.*;
 import me.xiaoying.sb.files.FileManager;
 import me.xiaoying.sb.handle.*;
 import me.xiaoying.sb.handle.handls.*;
+import me.xiaoying.sb.listener.ListenerService;
 import me.xiaoying.sb.task.TaskService;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
@@ -20,6 +21,7 @@ public class ServerBuild extends JavaPlugin {
     private static ServerBuild instance;
     private static final TaskService taskService = new TaskService();
     private static final FileService fileService = new FileService();
+    private static final ListenerService listenerService = new ListenerService();
 
     @Override
     public void onEnable() {
@@ -93,7 +95,11 @@ public class ServerBuild extends JavaPlugin {
 
     // 格式化
     public static void clear() {
+        // 关闭线程
+        taskService.stopTasks();
 
+        // 关闭事件
+        listenerService.stopListeners();
     }
 
     public static TaskService getTaskServer() {
@@ -102,6 +108,10 @@ public class ServerBuild extends JavaPlugin {
 
     public static FileService getFileService() {
         return fileService;
+    }
+
+    public static ListenerService getListenerService() {
+        return listenerService;
     }
 
     public static ServerBuild getInstance() {
