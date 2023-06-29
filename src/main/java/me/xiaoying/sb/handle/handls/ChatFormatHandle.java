@@ -12,6 +12,7 @@ import me.xiaoying.sb.utils.YamlUtil;
 
 public class ChatFormatHandle implements Handle {
 
+    @Override
     public boolean enable() {
         return ChatFormatConstant.SET_ENABLE;
     }
