@@ -42,7 +42,12 @@ public class VariableFactory {
     }
 
     public VariableFactory chatmessgae(String message) {
-        this.string = string.replace("%message%", message);
+        this.string = this.string.replace("%message%", message);
+        return this;
+    }
+
+    public VariableFactory file(String file) {
+        this.string = this.string.replace("%file%", file);
         return this;
     }
 
