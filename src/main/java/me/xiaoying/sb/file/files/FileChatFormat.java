@@ -2,6 +2,7 @@ package me.xiaoying.sb.file.files;
 
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.constant.ConfigConstant;
+import me.xiaoying.sb.constant.FileMonitorConstant;
 import me.xiaoying.sb.file.SubFile;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -47,7 +48,7 @@ public class FileChatFormat extends SubFile {
         ChatFormatConstant.BLACK_TERMS_MESSAGE = getStringList("BlackTerms.Message");
         ChatFormatConstant.BLACK_TERMS_TERMS = chatFormat.getStringList("BlackTerms.Terms");
 
-        ChatFormatConstant.MESSAGE_NOPERMISSION = chatFormat.getString("Message.NoPermission");
+        ChatFormatConstant.MESSAGE_NOPERMISSION = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_NOPERMISSION : chatFormat.getString("Message.NoPermission");
 
         ChatFormatConstant.MESSAGE_HELP = chatFormat.getStringList("Use-Help");
     }
