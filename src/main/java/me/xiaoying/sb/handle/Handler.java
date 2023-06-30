@@ -29,9 +29,7 @@ public class Handler {
     }
 
     public static void reloadHandles() {
-        for (Handle value : handles.values()) {
-            value.reload();
-        }
+        handles.values().forEach(Handle::reload);
     }
 
     public static void reloadHandle(String name) {
