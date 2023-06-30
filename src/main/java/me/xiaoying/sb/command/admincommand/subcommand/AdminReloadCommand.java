@@ -17,8 +17,9 @@ public class AdminReloadCommand extends SubCommand {
             return false;
         }
 
-        Handler.reloadHandles();
         ServerBuild.clear();
+        Handler.reloadHandles();
+        ServerBuild.initialize();
         sender.sendMessage(ColorUtil.translate(ConfigConstant.OVERALL_MESSAGE_PREFIX + ConfigConstant.OVERALL_MESSAGE_RELOAD));
         return false;
     }
