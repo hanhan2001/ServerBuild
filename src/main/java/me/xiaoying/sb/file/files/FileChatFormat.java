@@ -49,7 +49,7 @@ public class FileChatFormat extends SubFile {
 
         ChatFormatConstant.MESSAGE_NOPERMISSION = chatFormat.getString("Message.NoPermission");
 
-        ConfigConstant.MESSAGE_HELP = chatFormat.getStringList("Use-Help");
+        ChatFormatConstant.MESSAGE_HELP = chatFormat.getStringList("Use-Help");
     }
 
     private static List<String> getStringList(String path) {
