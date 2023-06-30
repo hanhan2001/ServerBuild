@@ -55,6 +55,7 @@ public class WelcomeMessageHandle implements Handle {
 
         ServerBuild.getListenerService().registerListener(this, new WelcomeMessageListener());
         ServerBuild.getListenerService().runListeners(this);
-        ServerUtil.registerEvent(new WelcomeMessageListener());
+        ServerUtil.registerCommand("wm", new WelcomeMessageCommand());
+//        ServerUtil.registerEvent(new WelcomeMessageListener());
     }
 }
