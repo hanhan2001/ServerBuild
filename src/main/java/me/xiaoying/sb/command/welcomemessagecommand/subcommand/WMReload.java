@@ -7,7 +7,7 @@ import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.CommandSender;
 
-@Command(values = "reload", length = 1)
+@Command(values = "reload", length = 0)
 public class WMReload extends SubCommand {
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
