@@ -51,4 +51,9 @@ public class AutoReSpawnHandle implements Handle {
 
         ServerUtil.registerCommand("ars", new AutoReSpawnCommand());
     }
+
+    @Override
+    public void stop() {
+
+    }
 }

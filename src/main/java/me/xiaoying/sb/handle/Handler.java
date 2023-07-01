@@ -35,4 +35,12 @@ public class Handler {
     public static void reloadHandle(String name) {
         handles.get(name).reload();
     }
+
+    public static void stopHandles() {
+        handles.values().forEach(Handle::stop);
+    }
+
+    public static void stopHandle(String name) {
+        handles.get(name).stop();
+    }
 }

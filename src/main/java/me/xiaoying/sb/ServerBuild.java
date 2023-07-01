@@ -97,6 +97,9 @@ public class ServerBuild extends JavaPlugin {
 
     // 格式化
     public static void clear() {
+        // 关闭 Function
+        Handler.stopHandles();
+
         // 关闭线程
         taskService.stopTasks();
 

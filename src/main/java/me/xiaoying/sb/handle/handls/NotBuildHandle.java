@@ -42,4 +42,9 @@ public class NotBuildHandle implements Handle {
         ServerBuild.getListenerService().runListeners(this);
         ServerUtil.registerCommand("nb", new NotBuildCommand());
     }
+
+    @Override
+    public void stop() {
+
+    }
 }

@@ -8,4 +8,5 @@ public interface Handle {
     void onEnable();
     void onDisable();
     void reload();
+    void stop();
 }

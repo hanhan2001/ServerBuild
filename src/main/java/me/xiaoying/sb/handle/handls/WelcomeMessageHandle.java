@@ -57,4 +57,9 @@ public class WelcomeMessageHandle implements Handle {
         ServerBuild.getListenerService().runListeners(this);
         ServerUtil.registerCommand("wm", new WelcomeMessageCommand());
     }
+
+    @Override
+    public void stop() {
+
+    }
 }

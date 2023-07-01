@@ -45,4 +45,9 @@ public class LoginTPHandle implements Handle {
         ServerBuild.getListenerService().runListeners(this);
         ServerUtil.registerCommand("ltp", new LoginTPCommand());
     }
+
+    @Override
+    public void stop() {
+
+    }
 }
