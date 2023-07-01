@@ -43,7 +43,7 @@ public class FileFileMonitor extends SubFile {
         FileMonitorConstant.MESSAGE_OPERATOR_CHAT = getStringList("FileMonitor.Message.Operator.Set.Chat.Message");
         FileMonitorConstant.MESSAGE_OPERATOR_TITLE_TITLE = fileMonitor.getString("FileMonitor.Message.Operator.Set.Title.Title");
         FileMonitorConstant.MESSAGE_OPERATOR_TITLE_SUBTITLE = fileMonitor.getString("FileMonitor.Message.Operator.Set.Title.SubTitle");
-        FileMonitorConstant.MESSAGE_OPERATOR_ACTIONBAR = fileMonitor.getString("FileMonitor.Message.Operator.ActionBar.Message");
+        FileMonitorConstant.MESSAGE_OPERATOR_ACTIONBAR = fileMonitor.getString("FileMonitor.Message.Operator.Set.ActionBar.Message");
     }
 
     private static List<String> getStringList(String path) {
