@@ -7,7 +7,7 @@ public class Handler {
     private static final Map<String, Handle> handles = new HashMap<>();
 
     public static void registerHandle(String name, Handle handle) {
-        handles.put(name, handle);
+        handles.put(name.toUpperCase(), handle);
     }
 
     public static void loadHandles() {
