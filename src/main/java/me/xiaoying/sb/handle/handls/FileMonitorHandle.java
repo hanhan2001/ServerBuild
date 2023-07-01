@@ -7,9 +7,17 @@ import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.listeners.FileMonitorListener;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
-import org.bukkit.Bukkit;
+import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileAlterationObserver;
 
 public class FileMonitorHandle implements Handle {
+    FileAlterationObserver fileAlterationObserver = new FileAlterationObserver(ServerUtil.getDataFolder());
+    FileAlterationMonitor fileAlterationMonitor = new FileAlterationMonitor(500, fileAlterationObserver);
+
+    {
+        fileAlterationObserver.addListener(new FileMonitorListener());
+    }
+
     @Override
     public boolean enable() {
         return FileMonitorConstant.SET_ENABLE;
@@ -30,38 +38,35 @@ public class FileMonitorHandle implements Handle {
 
     @Override
     public void reload() {
-        if (FileMonitorConstant.MONITOR_ENABLE) {
-            try {
-                FileMonitorConstant.fileAlterationMonitor.stop(0);
-                FileMonitorConstant.fileAlterationMonitor.removeObserver(FileMonitorConstant.fileAlterationObserver);
-                FileMonitorConstant.MONITOR_ENABLE = false;
-            } catch (Exception e) {
-                //
-            }
+        ServerBuild.getFileService().file("FileMonitor");
+        ServerBuild.getFileService().init("FileMonitor");
+
+        try {
+            this.fileAlterationMonitor.stop();
+        } catch (Exception e) {
+            //
         }
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("fm", ServerBuild.getInstance());
-            try {
-                FileMonitorConstant.fileAlterationMonitor.removeObserver(FileMonitorConstant.fileAlterationObserver);
-                FileMonitorConstant.fileAlterationMonitor.stop();
-                FileMonitorConstant.MONITOR_ENABLE = false;
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
             return;
         }
 
-        if (!FileMonitorConstant.MONITOR_ENABLE) {
-            try {
-                FileMonitorConstant.fileAlterationObserver.addListener(new FileMonitorListener());
-                FileMonitorConstant.fileAlterationMonitor.start();
-                FileMonitorConstant.MONITOR_ENABLE = true;
-            } catch (Exception e) {
-                //
-            }
+        try {
+            this.fileAlterationMonitor.start();
+        } catch (Exception e) {
+            //
         }
 
         ServerUtil.registerCommand("fm", new FileMonitorCommand());
+    }
+
+    @Override
+    public void stop() {
+        try {
+            this.fileAlterationMonitor.stop();
+        } catch (Exception e) {
+            //
+        }
     }
 }
