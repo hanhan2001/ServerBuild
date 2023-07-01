@@ -15,7 +15,7 @@ public class FileMonitorHandle implements Handle {
     FileAlterationMonitor fileAlterationMonitor = new FileAlterationMonitor(500, fileAlterationObserver);
 
     {
-        fileAlterationObserver.addListener(new FileMonitorListener());
+        this.fileAlterationObserver.addListener(new FileMonitorListener());
     }
 
     @Override
