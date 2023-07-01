@@ -20,12 +20,12 @@ public class Handler {
     }
 
     public static Handle getHandle(String name) {
-        return handles.get(name);
+        return handles.get(name.toUpperCase());
     }
 
     public static void unregisterHandle(String name) {
-        handles.get(name).onDisable();
-        handles.remove(name);
+        handles.get(name.toUpperCase()).onDisable();
+        handles.remove(name.toUpperCase());
     }
 
     public static void reloadHandles() {
@@ -33,7 +33,7 @@ public class Handler {
     }
 
     public static void reloadHandle(String name) {
-        handles.get(name).reload();
+        handles.get(name.toUpperCase()).reload();
     }
 
     public static void stopHandles() {
@@ -41,6 +41,6 @@ public class Handler {
     }
 
     public static void stopHandle(String name) {
-        handles.get(name).stop();
+        handles.get(name.toUpperCase()).stop();
     }
 }
