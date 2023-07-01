@@ -2,6 +2,7 @@ package me.xiaoying.sb.listener.listeners;
 
 import me.xiaoying.sb.constant.FileMonitorConstant;
 import me.xiaoying.sb.factory.VariableFactory;
+import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
@@ -39,7 +40,11 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
                     .file(file.getName())
                     .date(FileMonitorConstant.SET_VARIABLE_DATEFORMAT).getString(), true);
 
-        Handler.getHandle(file.getName().split("\\.")[0]).reload();
+        Handle handle = Handler.getHandle(file.getName().split("\\.")[0]);
+        if (handle == null)
+            return;
+
+        handle.reload();
     }
 
     @Override
