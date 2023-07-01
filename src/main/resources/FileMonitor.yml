@@ -15,7 +15,7 @@ FileMonitor:
   Message:
     #是否控制台发送
     Console: true
-    #服务器内消息(只会发送给 op)
+    #服务器内消息(只会发送给 op, 或拥有权限 sb.fm.admin 玩家)
     Operator:
       #是否服务器内发送
       Enable: false
