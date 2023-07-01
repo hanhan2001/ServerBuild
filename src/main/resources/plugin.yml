@@ -45,3 +45,6 @@ permissions:
   sb.wm.admin:
     description: (WelcomeMessage) 管理员权限
     default: op
+  sb.fm.admin:
+    description: (FileMonitor) 管理员权限
+    default: op
