@@ -8,7 +8,6 @@ import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
 import java.io.File;
-import java.util.Objects;
 
 public class FileMonitorListener extends FileAlterationListenerAdaptor {
     @Override
