@@ -1,11 +1,13 @@
 package me.xiaoying.sb.listener;
 
+import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.exception.NotFoundListenerException;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.utils.ExceptionUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.RegisteredListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +37,12 @@ public class ListenerService {
 
         // 关闭监听事件
         for (Listener listener : this.listeners.get(handle)) {
-            if (!HandlerList.getHandlerLists().contains(listener))
-                continue;
+            for (RegisteredListener registeredListener : HandlerList.getRegisteredListeners(ServerBuild.getInstance())) {
+                if (registeredListener.getListener() != listener)
+                    continue;
 
-            HandlerList.unregisterAll(listener);
+                HandlerList.unregisterAll(listener);
+            }
         }
 
         this.listeners.remove(handle);
