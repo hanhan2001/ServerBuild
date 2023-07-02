@@ -35,13 +35,9 @@ public class ChatFormatEntity {
     }
 
     private static List<String> getStringList(String path) {
-        List<String> function;
-        try {
-            function = FileChatFormat.chatFormat.getStringList(path);
-        } catch (Exception e) {
-            function = new ArrayList<>();
+        List<String> function = FileChatFormat.chatFormat.getStringList(path);
+        if (function.size() == 0)
             function.add(FileChatFormat.chatFormat.getString(path));
-        }
         return function;
     }
 }
