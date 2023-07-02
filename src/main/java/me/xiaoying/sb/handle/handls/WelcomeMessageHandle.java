@@ -35,11 +35,10 @@ public class WelcomeMessageHandle implements Handle {
 
     @Override
     public void reload() {
+        stop();
+
         ServerBuild.getFileService().file("WelcomeMessage");
         ServerBuild.getFileService().init("WelcomeMessage");
-        WelcomeMessageService.unregisterWelcomeMessages();
-        if (ServerBuild.getListenerService().getListeners(this) != null)
-            ServerBuild.getListenerService().unregisterListener(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("wm", ServerBuild.getInstance());
@@ -60,6 +59,8 @@ public class WelcomeMessageHandle implements Handle {
 
     @Override
     public void stop() {
-
+        WelcomeMessageService.unregisterWelcomeMessages();
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
     }
 }

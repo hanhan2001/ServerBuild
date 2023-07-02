@@ -31,10 +31,10 @@ public class LoginTPHandle implements Handle {
 
     @Override
     public void reload() {
+        stop();
+
         ServerBuild.getFileService().file("LoginTp");
         ServerBuild.getFileService().init("LoginTp");
-        if (ServerBuild.getListenerService().getListeners(this) != null)
-            ServerBuild.getListenerService().unregisterListener(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("ltp", ServerBuild.getInstance());
@@ -48,6 +48,7 @@ public class LoginTPHandle implements Handle {
 
     @Override
     public void stop() {
-
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
     }
 }

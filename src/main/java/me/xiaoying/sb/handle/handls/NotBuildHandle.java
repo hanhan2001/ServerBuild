@@ -29,9 +29,9 @@ public class NotBuildHandle implements Handle {
 
     @Override
     public void reload() {
+        stop();
+
         FileNotBuild.fileNotBuild();
-        if (ServerBuild.getListenerService().getListeners(this) != null)
-            ServerBuild.getListenerService().unregisterListener(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("nb", ServerBuild.getInstance());
@@ -45,6 +45,7 @@ public class NotBuildHandle implements Handle {
 
     @Override
     public void stop() {
-
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
     }
 }

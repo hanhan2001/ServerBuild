@@ -32,11 +32,10 @@ public class ChatFormatHandle implements Handle {
 
     @Override
     public void reload() {
-        ChatFormatService.unregisterChatFormats();
+        stop();
+
         ServerBuild.getFileService().file("ChatFormat");
         ServerBuild.getFileService().init("ChatFormat");
-        if (ServerBuild.getListenerService().getListeners(this) != null)
-            ServerBuild.getListenerService().unregisterListener(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("cf", ServerBuild.getInstance());
@@ -54,6 +53,8 @@ public class ChatFormatHandle implements Handle {
 
     @Override
     public void stop() {
-
+        ChatFormatService.unregisterChatFormats();
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
     }
 }

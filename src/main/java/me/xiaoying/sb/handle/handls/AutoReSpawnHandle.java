@@ -32,12 +32,10 @@ public class AutoReSpawnHandle implements Handle {
 
     @Override
     public void reload() {
+        stop();
+
         ServerBuild.getFileService().file("AutoReSpawn");
         ServerBuild.getFileService().init("AutoReSpawn");
-        if (ServerBuild.getListenerService().getListeners(this) != null)
-            ServerBuild.getListenerService().unregisterListener(this);
-        if (ServerBuild.getTaskServer().getTasks(this) != null)
-            ServerBuild.getTaskServer().unregisterTasks(this);
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("ars", ServerBuild.getInstance());
@@ -54,6 +52,9 @@ public class AutoReSpawnHandle implements Handle {
 
     @Override
     public void stop() {
-
+        if (ServerBuild.getListenerService().getListeners(this) != null)
+            ServerBuild.getListenerService().unregisterListener(this);
+        if (ServerBuild.getTaskServer().getTasks(this) != null)
+            ServerBuild.getTaskServer().unregisterTasks(this);
     }
 }

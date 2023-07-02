@@ -38,14 +38,10 @@ public class FileMonitorHandle implements Handle {
 
     @Override
     public void reload() {
+        stop();
+
         ServerBuild.getFileService().file("FileMonitor");
         ServerBuild.getFileService().init("FileMonitor");
-
-        try {
-            this.fileAlterationMonitor.stop();
-        } catch (Exception e) {
-            //
-        }
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("fm", ServerBuild.getInstance());
