@@ -79,15 +79,20 @@ BlackTerms:
   ForEveryBody: false
   #是否阻止玩家发送此条消息
   Cancel: true
-  #让触发玩家做什么
-  #让玩家执行指令 -> command: <指令>
-  #让玩家以op身份执行指令 -> opcommand: <指令>（注: op身份是给玩家op再去除op，可能会出现卡op的情况）
-  #让玩家发送消息 -> send: <内容>
-  #控制台指令 -> console: <指令>
-  #无任何标头代指操作(如command、opcommand)则默认使用send(删除""内信息则不提示)
+  #触发指令
+  #触发为插件内置的 ScriptCommand
+  #内置命令:
+  #send -> 全服玩家发送消息
+  #    eg: send 测试消息
+  #for -> 循环执行
+  #    eg: for 3 -> send 循环执行 3 次 send 命令
+  #delay -> 延迟执行
+  #    eg: delay 3 -> 整体延迟 3 秒
+  #console -> 控制台命令
+  #    eg: console kill %player% -> 已控制台身份执行 kill %player% 命令
   Todo:
-    - 'command: suicide'
-    - 'send: 我是sb'
+    - 'console kill %player%'
+    - 'send %player% 说 我是sb'
   #触发提示(删除""内信息则不提示)
   Message: "&c素质青年,从我做起"
   #关键词
