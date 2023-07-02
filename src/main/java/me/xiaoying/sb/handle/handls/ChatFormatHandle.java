@@ -1,11 +1,13 @@
 package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
+import me.xiaoying.sb.command.chatformatcommand.ChatFormatCommand;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.listeners.ChatFormatListener;
 import me.xiaoying.sb.service.ChatFormatService;
+import me.xiaoying.sb.task.tasks.ChatFormatTask;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import me.xiaoying.sb.utils.YamlUtil;
@@ -42,13 +44,13 @@ public class ChatFormatHandle implements Handle {
             return;
         }
 
-        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> {
-            ChatFormatService.registerChatFormat(new ChatFormatEntity(string));
-        });
+        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> ChatFormatService.registerChatFormat(new ChatFormatEntity(string)));
 
         ServerBuild.getListenerService().registerListener(this, new ChatFormatListener());
         ServerBuild.getListenerService().runListeners(this);
-//        ServerUtil.registerCommand("nb", new NotBuildCommand());
+        ServerBuild.getTaskServer().registerTask(this, new ChatFormatTask());
+        ServerBuild.getTaskServer().runTasks(this);
+        ServerUtil.registerCommand("cf", new ChatFormatCommand());
     }
 
     @Override
@@ -56,5 +58,7 @@ public class ChatFormatHandle implements Handle {
         ChatFormatService.unregisterChatFormats();
         if (ServerBuild.getListenerService().getListeners(this) != null)
             ServerBuild.getListenerService().unregisterListener(this);
+        if (ServerBuild.getTaskServer().getTasks(this) != null)
+            ServerBuild.getTaskServer().unregisterTasks(this);
     }
 }

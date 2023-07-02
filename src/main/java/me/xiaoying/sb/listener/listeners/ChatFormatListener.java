@@ -8,6 +8,7 @@ import me.xiaoying.sb.utils.PlayerUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -17,23 +18,28 @@ import java.util.Objects;
  * 监听事件 ChatFormat
  */
 public class ChatFormatListener implements Listener {
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerChatMute(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        if (player.getMetadata("mute").size() == 0)
+            return;
+
+        event.setCancelled(true);
+        for (String s : ChatFormatConstant.CHAT_MUTE_MESSAGE) {
+            player.sendMessage(new VariableFactory(s)
+                    .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                    .player(player)
+                    .time(player.getMetadata("mute").get(0).asString())
+                    .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                    .placeholder(player)
+                    .color()
+                    .getString());
+        }
+    }
+
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (player.getMetadata("mute").size() != 0) {
-            event.setCancelled(true);
-            for (String s : ChatFormatConstant.CHAT_MUTE_MESSAGE) {
-                player.sendMessage(new VariableFactory(s)
-                        .prefix(ChatFormatConstant.MESSAGE_PREFIX)
-                        .player(player)
-                        .time(player.getMetadata("mute").get(0).asString())
-                        .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
-                        .placeholder(player)
-                        .color()
-                        .getString());
-            }
-            return;
-        }
 
         // 屏蔽关键词
         if (ChatFormatConstant.BLACK_TERMS_ENABLE) {

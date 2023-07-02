@@ -36,6 +36,11 @@ public class FileChatFormat extends SubFile {
         ChatFormatConstant.MESSAGE_PREFIX = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_PREFIX : chatFormat.getString("Message.Prefix");
         ChatFormatConstant.MESSAGE_RELOAD = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_RELOAD : chatFormat.getString("Message.Reload");
 
+        ChatFormatConstant.CHAT_DEFAULTTIME = chatFormat.getInt("Mute.DefaultTime");
+        ChatFormatConstant.MESSAGE_MUTEWRONG = chatFormat.getString("Message.MuteWrong");
+        ChatFormatConstant.CHAT_MUTE_MESSAGE = getStringList("Mute.Message");
+        ChatFormatConstant.MUTE_SUCCESS = chatFormat.getString("Message.MuteSuccess");
+
         ChatFormatConstant.CHAR_LIMIT_MESSAGE = getStringList("CharacterLimit.Message");
         ChatFormatConstant.CALL_ENABLE = chatFormat.getBoolean("Call.Enable");
         ChatFormatConstant.CALL_KEY = chatFormat.getString("Call.Key");
@@ -54,13 +59,18 @@ public class FileChatFormat extends SubFile {
     }
 
     private static List<String> getStringList(String path) {
-        List<String> function;
-        try {
-            function = chatFormat.getStringList(path);
-        } catch (Exception e) {
-            function = new ArrayList<>();
+        List<String> function = chatFormat.getStringList(path);
+        System.out.println(function.size());
+        if (function.size() == 0)
             function.add(chatFormat.getString(path));
-        }
+//        try {
+//            function = chatFormat.getStringList(path);
+//        } catch (Exception e) {
+//            function = new ArrayList<>();
+//            function.add(chatFormat.getString(path));
+//        }
+//        System.out.println(function);
+        System.out.println(function.size());
         return function;
     }
 }
