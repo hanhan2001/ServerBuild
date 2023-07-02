@@ -51,6 +51,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory time(String time) {
+        this.string = this.string.replace("%time%", time);
+        return this;
+    }
+
     public String getString() {
         return this.string;
     }
