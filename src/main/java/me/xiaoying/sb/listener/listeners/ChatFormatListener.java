@@ -81,14 +81,15 @@ public class ChatFormatListener implements Listener {
         if (chatFormat == null)
             return;
 
-        for (String s : chatFormat.getFormat()) {
-            s = new VariableFactory(s)
-                    .player(player)
-                    .chatmessgae(event.getMessage())
-                    .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
-                    .getString();
-            ServerUtil.onlinePlayersSendMessage(s);
-            ServerUtil.sendMessage(s, true);
+        for (Player onlinePlayer : ServerUtil.getOnlinePlayers()) {
+            chatFormat.getFormat().forEach(string -> {
+                onlinePlayer.sendMessage(new VariableFactory(string)
+                        .player(player)
+                        .chatmessgae(event.getMessage())
+                        .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                        .getString());
+                ServerUtil.sendMessage(string, true);
+            });
         }
         event.setCancelled(true);
     }
