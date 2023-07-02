@@ -1,5 +1,6 @@
 package me.xiaoying.sb.listener.listeners;
 
+import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.constant.FileMonitorConstant;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.handle.Handle;
@@ -113,7 +114,14 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
             }
         }
 
-        Handle handle = Handler.getHandle(file.getName().split("\\.")[0]);
+        String filename = file.getName().split("\\.")[0];
+        if (filename.equalsIgnoreCase("config")) {
+            ServerBuild.getFileService().file("Config.yml");
+            ServerBuild.getFileService().init("Config.yml");
+            return;
+        }
+
+        Handle handle = Handler.getHandle(filename);
         if (handle == null)
             return;
 
