@@ -32,7 +32,7 @@
 | NotBuild         | 禁止建筑       | 禁止建筑                                   |
 | PlayerShout      | 喊话           | 玩家喊话                                   |
 | Scoreboard       | 计分板         | 玩家计分板                                 |
-| Teleport         | 传输           | 传输                                       |
+| Teleport         | 传送           | 传送                                       |
 | WelcomeMessage   | 服务器欢迎消息 | 更改原版玩家进入/退出服务器消息格式        |
 
 # 功能配置文件
