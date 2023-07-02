@@ -8,6 +8,7 @@ import me.xiaoying.sb.files.FileManager;
 import me.xiaoying.sb.handle.*;
 import me.xiaoying.sb.handle.handls.*;
 import me.xiaoying.sb.listener.ListenerService;
+import me.xiaoying.sb.service.scriptcommand.ScriptCommandService;
 import me.xiaoying.sb.task.TaskService;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
@@ -22,6 +23,7 @@ public class ServerBuild extends JavaPlugin {
     private static final TaskService taskService = new TaskService();
     private static final FileService fileService = new FileService();
     private static final ListenerService listenerService = new ListenerService();
+    private static final ScriptCommandService scriptCommandService = new ScriptCommandService();
 
     @Override
     public void onEnable() {
@@ -80,6 +82,7 @@ public class ServerBuild extends JavaPlugin {
     public static void initialize() {
         // 检测插件使用量
         new Metrics(ServerBuild.getInstance(), 16512);
+        scriptCommandService.registerCommands();
 
         // 初始化配置文件
         fileService.register("Config", new FileConfig());
@@ -117,6 +120,10 @@ public class ServerBuild extends JavaPlugin {
 
     public static ListenerService getListenerService() {
         return listenerService;
+    }
+
+    public static ScriptCommandService getScriptCommandService() {
+        return scriptCommandService;
     }
 
     public static ServerBuild getInstance() {

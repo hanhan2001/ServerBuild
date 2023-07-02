@@ -2,13 +2,21 @@ package me.xiaoying.sb.utils;
 
 import me.xiaoying.sb.ServerBuild;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -137,5 +145,97 @@ public class ServerUtil {
      */
     public static Collection<? extends Player> getOnlinePlayers() {
         return Bukkit.getServer().getOnlinePlayers();
+    }
+
+
+    /**
+     * 创建 Bossbar
+     *
+     * @param name 名称
+     * @param color 颜色
+     * @param style ?
+     * @param healthMax 血量值
+     * @return Bossbar
+     */
+    public static BossBar newBossBar(String name, BarColor color, BarStyle style, double healthMax) {
+        BossBar bossBar = ServerBuild.getInstance().getServer().createBossBar(name, color, style);
+        bossBar.setProgress(healthMax);
+        return bossBar;
+    }
+
+    /**
+     * 设置方块
+     *
+     * @param world 事件
+     * @param location 坐标
+     * @param blockType 方块类型
+     */
+    public static void setBlock(World world, Location location, String blockType) {
+        Block block = world.getBlockAt(location);
+        block.setType(Objects.requireNonNull(Material.getMaterial(blockType.toUpperCase())));
+    }
+
+    /**
+     * 获取服务器所有mod
+     *
+     * @return ArrayList
+     */
+    public static List<String> getMods() {
+        List<String> mods = new ArrayList<>();
+
+        File jarFile = new File(System.getProperty("user.dir"));
+        if ((jarFile = new File(jarFile.getPath() + "/mods")).listFiles() == null) {
+            return new ArrayList<>(0);
+        }
+        block0: for (File file : Objects.requireNonNull(jarFile.listFiles())) {
+            String fileMessage = ZipReadUtil.getZipFile(file.getPath(), "META-INF/mods.toml");
+            for (String s : fileMessage.split("\n")) {
+                if (!s.startsWith("modId=")) continue;
+                String[] strings = s.split("=");
+                mods.add(strings[1].replace("\"", ""));
+                continue block0;
+            }
+        }
+        return mods;
+    }
+
+    /**
+     * 获取 NMS 包
+     *
+     * @param name 包名
+     * @return Class
+     * @throws ClassNotFoundException 抛出报错
+     */
+    public static Class<?> getObcClass(String name) throws ClassNotFoundException {
+        return Class.forName("org.bukkit.craftbukkit." + ServerUtil.getServerVersion() + "." + name);
+    }
+
+    /**
+     * 字符串转Location
+     * 只可做绝对位置
+     *
+     * @param x X
+     * @param y Y
+     * @param z Z
+     * @return Location
+     */
+    public static Location stringToLocation(String x, String y, String z) {
+
+        return null;
+    }
+
+    /**
+     * 字符串转Location
+     * 可用作相对位置
+     *
+     * @param player 玩家
+     * @param x X
+     * @param y Y
+     * @param z Z
+     * @return Location
+     */
+    public static Location stringToLocation(Player player, String x, String y, String z) {
+
+        return null;
     }
 }
