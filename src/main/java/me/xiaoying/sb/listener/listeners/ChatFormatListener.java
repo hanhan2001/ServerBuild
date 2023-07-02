@@ -1,10 +1,10 @@
 package me.xiaoying.sb.listener.listeners;
 
+import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.service.ChatFormatService;
-import me.xiaoying.sb.utils.PlayerUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,33 +35,38 @@ public class ChatFormatListener implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerChatBlackTerms(AsyncPlayerChatEvent event) {
+        if (!ChatFormatConstant.BLACK_TERMS_ENABLE)
+            return;
+
+        String result = blackTerms(event);
+        if (result != null)
+            event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerChatCharaLimit(AsyncPlayerChatEvent event) {
+        if (!ChatFormatConstant.CHAR_LIMIT_ENABLE || event.getMessage().length() <= ChatFormatConstant.CHAR_LIMIT_LIMIT)
+            return;
+
+        for (String s : ChatFormatConstant.CHAR_LIMIT_MESSAGE) {
+            s = new VariableFactory(s)
+                    .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                    .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                    .placeholder(event.getPlayer())
+                    .color().getString();
+            event.getPlayer().sendMessage(s);
+        }
+        event.setCancelled(true);
+    }
+
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         if (event.isCancelled())
             return;
 
         Player player = event.getPlayer();
-
-        // 屏蔽关键词
-        if (ChatFormatConstant.BLACK_TERMS_ENABLE) {
-            String result = blackTerms(event);
-            if (result != null)
-                return;
-        }
-
-        // 数量限制
-        if (ChatFormatConstant.CHAR_LIMIT_ENABLE && event.getMessage().length() > ChatFormatConstant.CHAR_LIMIT_LIMIT) {
-            for (String s : ChatFormatConstant.CHAR_LIMIT_MESSAGE) {
-                s = new VariableFactory(s)
-                        .prefix(ChatFormatConstant.MESSAGE_PREFIX)
-                        .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
-                        .placeholder(event.getPlayer())
-                        .color().getString();
-                event.getPlayer().sendMessage(s);
-            }
-            event.setCancelled(true);
-            return;
-        }
 
         // 聊天格式
         ChatFormatEntity chatFormat = null;
@@ -127,43 +132,7 @@ public class ChatFormatListener implements Listener {
             return;
 
         for (String cmd : ChatFormatConstant.BLACK_TERMS_TODO) {
-            String[] strs = cmd.split(" ");
-
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 1; i < strs.length; i++) stringBuilder.append(strs[i]).append(" ");
-            String todo = stringBuilder.toString();
-            todo = new VariableFactory(todo).placeholder(player).color().getString();
-            // 定义 标头
-            String howdo = strs[0];
-
-            // 判断 格式
-            switch (howdo.toUpperCase()) {
-                case "COMMAND:":
-                    player.performCommand(todo);
-                    break;
-                case "OPCOMMAND:":
-                    if (player.isOp())
-                        player.performCommand(todo);
-                    else {
-                        player.setOp(true);
-                        player.performCommand(todo);
-                        player.setOp(false);
-                    }
-                    break;
-                case "CONSOLE:":
-                    ServerUtil.dispatchCommand(todo);
-                    break;
-                case "SEND:":
-                    PlayerUtil.sendMessage(player, todo);
-                    break;
-                default:
-                    StringBuilder stringBuilder1 = new StringBuilder();
-                    for (String str : strs)
-                        stringBuilder1.append(str);
-                    String howdo1 = stringBuilder1.toString();
-                    howdo1 = new VariableFactory(howdo1).placeholder(player).color().getString();
-                    PlayerUtil.sendMessage(player, howdo1);
-            }
+            ServerBuild.getScriptCommandService().onCommand(cmd, player);
         }
     }
 }
