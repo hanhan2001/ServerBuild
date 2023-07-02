@@ -91,6 +91,7 @@ public class ChatFormatListener implements Listener {
                         .chatmessgae(event.getMessage())
                         .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                         .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                        .placeholder(onlinePlayer)
                         .color()
                         .getString());
                 ServerUtil.sendMessage(string, true);
