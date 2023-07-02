@@ -39,6 +39,9 @@ public class ChatFormatListener implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
+        if (event.isCancelled())
+            return;
+
         Player player = event.getPlayer();
 
         // 屏蔽关键词
@@ -86,7 +89,9 @@ public class ChatFormatListener implements Listener {
                 onlinePlayer.sendMessage(new VariableFactory(string)
                         .player(player)
                         .chatmessgae(event.getMessage())
+                        .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                         .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                        .color()
                         .getString());
                 ServerUtil.sendMessage(string, true);
             });
