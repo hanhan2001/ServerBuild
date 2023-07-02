@@ -3,8 +3,6 @@ package me.xiaoying.sb.listener.listeners;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.factory.VariableFactory;
-import me.xiaoying.sb.handle.Handle;
-import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.service.ChatFormatService;
 import me.xiaoying.sb.utils.PlayerUtil;
 import me.xiaoying.sb.utils.ServerUtil;
@@ -13,20 +11,33 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.util.Objects;
+
 /**
  * 监听事件 ChatFormat
  */
 public class ChatFormatListener implements Listener {
-    Handle handle = Handler.getHandle("ChatFormat");
-
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        if (!handle.enable())
+        Player player = event.getPlayer();
+        if (player.getMetadata("mute").size() != 0) {
+            event.setCancelled(true);
+            for (String s : ChatFormatConstant.CHAT_MUTE_MESSAGE) {
+                player.sendMessage(new VariableFactory(s)
+                        .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                        .player(player)
+                        .time(player.getMetadata("mute").get(0).asString())
+                        .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                        .placeholder(player)
+                        .color()
+                        .getString());
+            }
             return;
+        }
 
         // 屏蔽关键词
         if (ChatFormatConstant.BLACK_TERMS_ENABLE) {
-            if (blackTerms(event).equalsIgnoreCase("return"))
+            if (Objects.requireNonNull(blackTerms(event)).equalsIgnoreCase("return"))
                 return;
         }
 
@@ -44,8 +55,6 @@ public class ChatFormatListener implements Listener {
             return;
         }
 
-        Player player = event.getPlayer();
-
         // 聊天格式
         ChatFormatEntity chatFormat = null;
         int priority = 0;
@@ -62,6 +71,9 @@ public class ChatFormatListener implements Listener {
             if (priority >= chatFormatEntity.getPriority())
                 chatFormat = chatFormatEntity;
         }
+
+        if (chatFormat == null)
+            return;
 
         for (String s : chatFormat.getFormat()) {
             s = new VariableFactory(s)
