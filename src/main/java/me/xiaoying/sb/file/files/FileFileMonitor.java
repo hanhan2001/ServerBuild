@@ -47,13 +47,9 @@ public class FileFileMonitor extends SubFile {
     }
 
     private static List<String> getStringList(String path) {
-        List<String> function;
-        try {
-            function = fileMonitor.getStringList(path);
-        } catch (Exception e) {
-            function = new ArrayList<>();
+        List<String> function = fileMonitor.getStringList(path);
+        if (function.size() == 0)
             function.add(fileMonitor.getString(path));
-        }
         return function;
     }
 }
