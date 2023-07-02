@@ -90,6 +90,8 @@ BlackTerms:
   #    eg: delay 3 -> 整体延迟 3 秒
   #console -> 控制台命令
   #    eg: console kill %player% -> 已控制台身份执行 kill %player% 命令
+  #
+  #若有其他插件注册 ScriptCommand 命令，在本处一样可用
   Todo:
     - 'console kill %player%'
     - 'send %player% 说 我是sb'
