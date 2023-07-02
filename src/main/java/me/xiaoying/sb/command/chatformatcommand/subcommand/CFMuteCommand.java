@@ -25,16 +25,18 @@ public class CFMuteCommand extends SubCommand {
         float time = ChatFormatConstant.CHAT_DEFAULTTIME;
         if (args.length == 2) {
             if (!Character.isDigit(args[1].charAt(0))) {
-                sender.sendMessage(new VariableFactory("%prefix%&c时间不可为字符串").prefix(ChatFormatConstant.MESSAGE_PREFIX).color().getString());
+                sender.sendMessage(new VariableFactory(ChatFormatConstant.MESSAGE_MUTEWRONG)
+                        .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                        .color()
+                        .getString());
                 return false;
             }
 
             time = Float.parseFloat(args[1]);
             player.setMetadata("mute", new MuteMetaData(time, TimeUnit.SECONDS));
-            return false;
-        }
+        } else
+            player.setMetadata("mute", new MuteMetaData(time, TimeUnit.SECONDS));
 
-        player.setMetadata("mute", new MuteMetaData(time, TimeUnit.SECONDS));
         sender.sendMessage(new VariableFactory(ChatFormatConstant.MUTE_SUCCESS)
                         .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                         .player(player)
@@ -43,7 +45,16 @@ public class CFMuteCommand extends SubCommand {
                         .placeholder(player)
                         .color()
                         .getString());
-        player.sendMessage();
+        for (String s : ChatFormatConstant.CHAT_MUTE_MESSAGE) {
+            player.sendMessage(new VariableFactory(s)
+                    .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                    .player(player)
+                    .time(player.getMetadata("mute").get(0).asString())
+                    .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                    .placeholder(player)
+                    .color()
+                    .getString());
+        }
         return false;
     }
 }
