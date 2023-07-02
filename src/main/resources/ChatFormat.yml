@@ -60,10 +60,7 @@ CharacterLimit:
   Limit: 32
   #消息提示(删除内容及""则不提示消息)
   #可单行，如 -> Message: "&c嚷嚷什么呢，说这么大一串"
-  Message:
-    - ""
-    - "&c嚷嚷什么呢，说这么一大串"
-    - ""
+  Message: "%prefix%&c嚷嚷什么呢，说这么一大串"
 
 #聊天呼叫（@某某）
 Call:
@@ -81,11 +78,12 @@ BlackTerms:
   #是否惩治所有类型玩家(包含拥有屏蔽权限及OP玩家)
   ForEveryBody: false
   #是否阻止玩家发送此条消息
-  Cancel: false
+  Cancel: true
   #让触发玩家做什么
   #让玩家执行指令 -> command: <指令>
   #让玩家以op身份执行指令 -> opcommand: <指令>（注: op身份是给玩家op再去除op，可能会出现卡op的情况）
   #让玩家发送消息 -> send: <内容>
+  #控制台指令 -> console: <指令>
   #无任何标头代指操作(如command、opcommand)则默认使用send(删除""内信息则不提示)
   Todo:
     - 'command: suicide'
