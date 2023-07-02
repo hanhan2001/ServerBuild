@@ -12,8 +12,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import java.util.Objects;
-
 /**
  * 监听事件 ChatFormat
  */
@@ -46,7 +44,8 @@ public class ChatFormatListener implements Listener {
 
         // 屏蔽关键词
         if (ChatFormatConstant.BLACK_TERMS_ENABLE) {
-            if (Objects.requireNonNull(blackTerms(event)).equalsIgnoreCase("return"))
+            String result = blackTerms(event);
+            if (result != null)
                 return;
         }
 
@@ -150,6 +149,9 @@ public class ChatFormatListener implements Listener {
                         player.performCommand(todo);
                         player.setOp(false);
                     }
+                    break;
+                case "CONSOLE:":
+                    ServerUtil.dispatchCommand(todo);
                     break;
                 case "SEND:":
                     PlayerUtil.sendMessage(player, todo);
