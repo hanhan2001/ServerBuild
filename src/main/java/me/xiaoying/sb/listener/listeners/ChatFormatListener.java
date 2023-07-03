@@ -51,6 +51,11 @@ public class ChatFormatListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChatCharaLimit(AsyncPlayerChatEvent event) {
+        if (event.getPlayer().hasPermission("sb.cf.jump")
+                || event.getPlayer().hasPermission("sb.cf.admin")
+                || event.getPlayer().isOp())
+            return;
+
         if (!ChatFormatConstant.CHAR_LIMIT_ENABLE || event.getMessage().length() <= ChatFormatConstant.CHAR_LIMIT_LIMIT)
             return;
 
@@ -89,14 +94,17 @@ public class ChatFormatListener implements Listener {
                 chatFormat = chatFormatEntity;
         }
 
+        // 如果没有获取到 Format 则按原来内容显示
         if (chatFormat == null)
             return;
 
+        // call
         for (Player callPlayer : getCallPlayers(event.getMessage()))
             event.setMessage(event.getMessage().replace(ChatFormatConstant.CALL_KEY + callPlayer.getName(), "&b" + ChatFormatConstant.CALL_KEY + callPlayer.getName() + "&r"));
 
         List<Player> callPlayer = getCallPlayers(event.getMessage());
 
+        // 发送消息
         for (Player onlinePlayer : ServerUtil.getOnlinePlayers()) {
             if (callPlayer.contains(onlinePlayer))
                 onlinePlayer.playSound(onlinePlayer.getLocation(), ChatFormatConstant.CALL_SOUND, 1F, 0F);
@@ -117,6 +125,12 @@ public class ChatFormatListener implements Listener {
         event.setCancelled(true);
     }
 
+    /**
+     * 获取字符串内的玩家
+     *
+     * @param str 字符串
+     * @return ArrayList
+     */
     private List<Player> getCallPlayers(String str) {
         List<Player> list = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
@@ -151,14 +165,16 @@ public class ChatFormatListener implements Listener {
                 list.remove(index);
                 list.add(Bukkit.getPlayerExact(stringBuilder.toString()));
             }
-            System.out.println(stringBuilder.toString());
         }
 
         return list;
     }
 
     private String blackTerms(AsyncPlayerChatEvent event) {
-        if (!ChatFormatConstant.BLACK_TERMS_EVERY && (event.getPlayer().hasPermission("sb.cf.jump") || event.getPlayer().isOp()))
+        if (!ChatFormatConstant.BLACK_TERMS_EVERY
+                && (event.getPlayer().hasPermission("sb.cf.jump")
+                    || event.getPlayer().hasPermission("sb.cf.admin")
+                    || event.getPlayer().isOp()))
             return null;
 
         boolean hasTerm = false;
@@ -174,7 +190,11 @@ public class ChatFormatListener implements Listener {
 
         Player player = event.getPlayer();
 
-        todo(player);
+        // 执行 to-do 内命令
+        for (String cmd : ChatFormatConstant.BLACK_TERMS_TODO)
+            ServerBuild.getScriptCommandService().onCommand(cmd, player);
+
+        // 发送Message
         for (String s : ChatFormatConstant.BLACK_TERMS_MESSAGE) {
             player.sendMessage(new VariableFactory(s)
                             .player(player)
@@ -188,14 +208,5 @@ public class ChatFormatListener implements Listener {
             return "return";
 
         return null;
-    }
-
-    private void todo(Player player) {
-        if (!ChatFormatConstant.BLACK_TERMS_EVERY && (player.hasPermission("sb.cf.jump") || player.isOp()))
-            return;
-
-        for (String cmd : ChatFormatConstant.BLACK_TERMS_TODO) {
-            ServerBuild.getScriptCommandService().onCommand(cmd, player);
-        }
     }
 }
