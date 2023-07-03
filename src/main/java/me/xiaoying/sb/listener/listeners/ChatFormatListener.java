@@ -106,6 +106,9 @@ public class ChatFormatListener implements Listener {
     }
 
     private String blackTerms(AsyncPlayerChatEvent event) {
+        if (!ChatFormatConstant.BLACK_TERMS_EVERY && (event.getPlayer().hasPermission("sb.cf.jump") || event.getPlayer().isOp()))
+            return null;
+
         boolean hasTerm = false;
         for (String blackTermsTerm : ChatFormatConstant.BLACK_TERMS_TERMS) {
             if (event.getMessage().contains(blackTermsTerm)) {
