@@ -1,9 +1,10 @@
 # 前言
 
-本插件的每个功能都由独立文本控制，避免了功能杂糅的情况.
+插件的每个功能都由独立文本控制，避免了功能杂糅的情况.
 当在 `Config.yml` 文件中启用了全局配置，其他功能的设置都将同步.
 
-未开启相应功能也不会占用其他插件指令，也就意味着本插件可以和cmi, ess之类的插件同时使用
+未开启相应功能也不会占用其他插件指令，也就意味着本插件可以和cmi, ess之类的插件同时使用.
+插件自动检测文件更改，可以无需用指令重载(不需要自动检测可在 FileMonitor 关闭此功能)
 
 # 实现功能
 
@@ -110,7 +111,7 @@ Use-Help:
 #(不想做的太复杂就没有写点击聊天框的东西)
 
 #开关
-Enable: false
+Enable: true
 
 #设置
 Set:
@@ -136,30 +137,30 @@ Formats:
     #权限
     Permission: "cf.admin"
     #格式
-    Format:
-      - "&b[%date%] &c[管理员] &f%player%&8>> &f%message%"
-  vip:
-    #数值越低优先级越高
-    Priority: 0
-    #权限
-    Permission: "custom.vip"
-    #格式
-    Format:
-      - ""
-      - "&b[%date%] &c[管理员] &f%player%&8>> &f%message%"
-      - ""
-
+    Format: "&b[%date%] &c[管理员] &f%player%&8>> &f%message%"
+      
+#禁言
+Mute:
+  #没有设置时间所调用的默认值(例: 如指令 /cf mute [player] 后未jie)
+  #单位: 秒
+  DefaultTime: 10
+  #被禁言玩家尝试发送消息提示
+  Message:
+    - ""
+    - "%prefix%&c被禁言了哦~现在还剩下 &e%time% &c秒"
+    - ""
+    
 #聊天字符个数限制(每次聊天发送的字符最大数)
 CharacterLimit:
   #开关
-  Enable: false
+  Enable: true
   #限制字符
   Limit: 32
   #消息提示(删除内容及""则不提示消息)
   #可单行，如 -> Message: "&c嚷嚷什么呢，说这么大一串"
   Message:
     - ""
-    - "&c嚷嚷什么呢，说这么一大串"
+    - "%prefix%&c嚷嚷什么呢，说这么一大串"
     - ""
 
 #聊天呼叫（@某某）
@@ -174,19 +175,19 @@ Call:
 #屏蔽关键词
 BlackTerms:
   #开关
-  Enable: false
+  Enable: true
   #是否惩治所有类型玩家(包含拥有屏蔽权限及OP玩家)
-  ForEveryBody: false
+  ForEveryBody: true
   #是否阻止玩家发送此条消息
-  Cancel: false
+  Cancel: true
   #让触发玩家做什么
   #让玩家执行指令 -> command: <指令>
   #让玩家以op身份执行指令 -> opcommand: <指令>（注: op身份是给玩家op再去除op，可能会出现卡op的情况）
   #让玩家发送消息 -> send: <内容>
   #无任何标头代指操作(如command、opcommand)则默认使用send(删除""内信息则不提示)
   Todo:
-    - 'command: suicide'
-    - 'send: 我是sb'
+    - 'console kill %player%'
+    - 'send 我是sb'
   #触发提示(删除""内信息则不提示)
   Message: "&c素质青年,从我做起"
   #关键词
@@ -206,6 +207,10 @@ Message:
   Reload: "%prefix%&a插件已重载！"
   #无权限提示
   NoPermission: "%prefix%&c你无法这样做！"
+  #禁言错误提示
+  MuteWrong: "%prefix%&c时间不可为字符串"
+  #禁言成功提示
+  MuteSuccess: "%prefix%&a禁言成功"
 
 #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
 Use-Help:
