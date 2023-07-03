@@ -6,11 +6,15 @@ import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.service.ChatFormatService;
 import me.xiaoying.sb.utils.ServerUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 监听事件 ChatFormat
@@ -88,7 +92,14 @@ public class ChatFormatListener implements Listener {
         if (chatFormat == null)
             return;
 
+        for (Player callPlayer : getCallPlayers(event.getMessage()))
+            event.setMessage(event.getMessage().replace(ChatFormatConstant.CALL_KEY + callPlayer.getName(), "&b" + ChatFormatConstant.CALL_KEY + callPlayer.getName() + "&r"));
+
+        List<Player> callPlayer = getCallPlayers(event.getMessage());
+
         for (Player onlinePlayer : ServerUtil.getOnlinePlayers()) {
+            if (callPlayer.contains(onlinePlayer))
+                onlinePlayer.playSound(onlinePlayer.getLocation(), ChatFormatConstant.CALL_SOUND, 1F, 0F);
             chatFormat.getFormat().forEach(string -> {
                 string = new VariableFactory(string)
                         .player(player)
@@ -98,11 +109,52 @@ public class ChatFormatListener implements Listener {
                         .placeholder(onlinePlayer)
                         .color()
                         .getString();
+                System.out.println(getCallPlayers(string));
                 onlinePlayer.sendMessage(string);
                 ServerUtil.sendMessage(string, true);
             });
         }
         event.setCancelled(true);
+    }
+
+    private List<Player> getCallPlayers(String str) {
+        List<Player> list = new ArrayList<>();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        boolean isRegex = false;
+        boolean isAdd = false;
+        int index = 0;
+        for (String s : str.split("")) {
+            if (s.equalsIgnoreCase(ChatFormatConstant.CALL_KEY) && !isRegex) {
+                isRegex = true;
+                continue;
+            }
+
+            if (s.equalsIgnoreCase(ChatFormatConstant.CALL_KEY) && isRegex) {
+                isRegex = false;
+                isAdd = false;
+                stringBuilder.delete(0, stringBuilder.length());
+                continue;
+            }
+
+            if (isRegex)
+                stringBuilder.append(s);
+
+            if (Bukkit.getPlayerExact(stringBuilder.toString()) != null && !isAdd) {
+                list.add(Bukkit.getPlayerExact(stringBuilder.toString()));
+                isAdd = true;
+                index++;
+                continue;
+            }
+
+            if (Bukkit.getPlayerExact(stringBuilder.toString()) != null && isAdd) {
+                list.remove(index);
+                list.add(Bukkit.getPlayerExact(stringBuilder.toString()));
+            }
+            System.out.println(stringBuilder.toString());
+        }
+
+        return list;
     }
 
     private String blackTerms(AsyncPlayerChatEvent event) {
