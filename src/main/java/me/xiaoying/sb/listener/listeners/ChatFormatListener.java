@@ -123,7 +123,15 @@ public class ChatFormatListener implements Listener {
         Player player = event.getPlayer();
 
         todo(player);
-
+        for (String s : ChatFormatConstant.BLACK_TERMS_MESSAGE) {
+            player.sendMessage(new VariableFactory(s)
+                            .player(player)
+                            .chatmessgae(event.getMessage())
+                            .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                            .placeholder(player)
+                            .color()
+                            .getString());
+        }
         if (ChatFormatConstant.BLACK_TERMS_CANCEL)
             return "return";
 
