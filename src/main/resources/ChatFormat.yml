@@ -75,7 +75,7 @@ Call:
 BlackTerms:
   #开关
   Enable: false
-  #是否惩治所有类型玩家(包含拥有屏蔽权限及OP玩家)
+  #是否惩治所有类型玩家(拥有权限 sb.cf.jump 的玩家及op)
   ForEveryBody: false
   #是否阻止玩家发送此条消息
   Cancel: true
