@@ -96,7 +96,7 @@ BlackTerms:
     - 'console kill %player%'
     - 'send %player% 说 &a素质青年从我做起！'
   #触发提示(删除""内信息则不提示)
-  Message: "&c素质青年,从我做起"
+  Message: "%prefix%&c素质青年,从我做起"
   #关键词
   Terms:
     - 傻逼
