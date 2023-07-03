@@ -60,17 +60,8 @@ public class FileChatFormat extends SubFile {
 
     private static List<String> getStringList(String path) {
         List<String> function = chatFormat.getStringList(path);
-        System.out.println(function.size());
         if (function.size() == 0)
             function.add(chatFormat.getString(path));
-//        try {
-//            function = chatFormat.getStringList(path);
-//        } catch (Exception e) {
-//            function = new ArrayList<>();
-//            function.add(chatFormat.getString(path));
-//        }
-//        System.out.println(function);
-        System.out.println(function.size());
         return function;
     }
 }
