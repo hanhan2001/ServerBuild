@@ -3,7 +3,7 @@ version: 0.0.2
 main: me.xiaoying.sb.ServerBuild
 softdepend:
   - PlaceholderAPI
-author: 筱樱
+authors: [筱樱, Tom, 清辰]
 commands:
   sb:
     description: 全局命令
