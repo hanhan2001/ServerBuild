@@ -21,7 +21,7 @@ public class CFMuteCommand extends SubCommand {
             sender.sendMessage(new VariableFactory(ChatFormatConstant.MESSAGE_NOTFOUNPAYER)
                             .color()
                             .player(args[0])
-                            .prefix(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                            .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                             .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
                             .getString());
             return false;
