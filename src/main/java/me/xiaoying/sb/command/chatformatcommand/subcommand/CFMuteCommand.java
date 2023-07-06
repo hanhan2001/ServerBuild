@@ -19,10 +19,10 @@ public class CFMuteCommand extends SubCommand {
         Player player = Bukkit.getServer().getPlayerExact(args[0]);
         if (player == null) {
             sender.sendMessage(new VariableFactory(ChatFormatConstant.MESSAGE_NOTFOUNPAYER)
-                            .color()
                             .player(args[0])
                             .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                             .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                            .color()
                             .getString());
             return false;
         }
