@@ -49,7 +49,11 @@ public class WelcomeMessageListener implements Listener {
 
         // Chat
         if (welcomeMessageEntity.enableJoinChat())
-            welcomeMessageEntity.getJoinChatMessage().forEach(s -> ServerUtil.onlinePlayersSendMessage(new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString()));
+            welcomeMessageEntity.getJoinChatMessage().forEach(s -> {
+                s = new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                ServerUtil.onlinePlayersSendMessage(s);
+                ServerUtil.sendMessage(s, true);
+            });
 
         //  Title
         if (welcomeMessageEntity.enableJoinTitle()) {
@@ -109,7 +113,11 @@ public class WelcomeMessageListener implements Listener {
         // Chat
         assert welcomeMessageEntity != null;
         if (welcomeMessageEntity.enableQuitChat())
-            welcomeMessageEntity.getQuitChatMessage().forEach(s -> ServerUtil.onlinePlayersSendMessage(new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString()));
+            welcomeMessageEntity.getQuitChatMessage().forEach(s -> {
+                s = new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                ServerUtil.onlinePlayersSendMessage(s);
+                ServerUtil.sendMessage(s, true);
+            });
 
         //  Title
         if (welcomeMessageEntity.enableQuitTitle()) {
