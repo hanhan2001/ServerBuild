@@ -141,9 +141,9 @@ public class WelcomeMessageEntity {
     }
 
     private static List<String> getStringList(String path) {
-        List<String> function = FileChatFormat.chatFormat.getStringList(path);
+        List<String> function = FileWelcomeMessage.welcomeMessage.getStringList(path);
         if (function.size() == 0)
-            function.add(FileChatFormat.chatFormat.getString(path));
+            function.add(FileWelcomeMessage.welcomeMessage.getString(path));
         return function;
     }
 }
