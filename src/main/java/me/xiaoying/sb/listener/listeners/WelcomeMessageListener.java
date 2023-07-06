@@ -109,7 +109,7 @@ public class WelcomeMessageListener implements Listener {
         // Chat
         assert welcomeMessageEntity != null;
         if (welcomeMessageEntity.enableQuitChat())
-            welcomeMessageEntity.getQuitChatMessage().forEach(s -> ServerUtil.onlinePlayersSendMessage(new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).toString()));
+            welcomeMessageEntity.getQuitChatMessage().forEach(s -> ServerUtil.onlinePlayersSendMessage(new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString()));
 
         //  Title
         if (welcomeMessageEntity.enableQuitTitle()) {
