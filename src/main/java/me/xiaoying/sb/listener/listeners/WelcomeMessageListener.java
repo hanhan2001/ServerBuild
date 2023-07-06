@@ -50,7 +50,9 @@ public class WelcomeMessageListener implements Listener {
         // Chat
         if (welcomeMessageEntity.enableJoinChat())
             welcomeMessageEntity.getJoinChatMessage().forEach(s -> {
-                s = new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                s = new VariableFactory(s)
+                        .player(player)
+                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
                 ServerUtil.onlinePlayersSendMessage(s);
                 ServerUtil.sendMessage(s, true);
             });
@@ -59,12 +61,14 @@ public class WelcomeMessageListener implements Listener {
         if (welcomeMessageEntity.enableJoinTitle()) {
             String title = welcomeMessageEntity.getJoinTitleTitle();
             if (title != null)
-                title = new VariableFactory(title).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                title = new VariableFactory(title)
+                        .player(player)
+                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
 
 
             String subtitle = welcomeMessageEntity.getJoinTitleSubtitle();
             if (subtitle != null)
-                subtitle = new VariableFactory(subtitle).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                subtitle = new VariableFactory(subtitle).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
 
             if (welcomeMessageEntity.enableJoinTitleAllPlayer())
                 ServerUtil.onlinePlayersSendTitle(title, subtitle);
@@ -75,9 +79,9 @@ public class WelcomeMessageListener implements Listener {
         // Actionbar
         if (welcomeMessageEntity.enableJoinActionBar()) {
             if (welcomeMessageEntity.enableJoinActionbarAllPlayer())
-                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
+                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
             else
-                PlayerUtil.sendActionbar(player, new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
+                PlayerUtil.sendActionbar(player, new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
         }
     }
 
@@ -114,7 +118,9 @@ public class WelcomeMessageListener implements Listener {
         assert welcomeMessageEntity != null;
         if (welcomeMessageEntity.enableQuitChat())
             welcomeMessageEntity.getQuitChatMessage().forEach(s -> {
-                s = new VariableFactory(s).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                s = new VariableFactory(s)
+                        .player(player)
+                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
                 ServerUtil.onlinePlayersSendMessage(s);
                 ServerUtil.sendMessage(s, true);
             });
@@ -123,17 +129,17 @@ public class WelcomeMessageListener implements Listener {
         if (welcomeMessageEntity.enableQuitTitle()) {
             String title = welcomeMessageEntity.getQuitTitleTitle();
             if (title != null)
-                title = new VariableFactory(title).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                title = new VariableFactory(title).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
 
             String subtitle = welcomeMessageEntity.getQuitTitleSubtitle();
             if (subtitle != null)
-                subtitle = new VariableFactory(subtitle).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                subtitle = new VariableFactory(subtitle).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
 
             ServerUtil.onlinePlayersSendTitle(title, subtitle);
         }
 
         // Actionbar
         if (welcomeMessageEntity.enableQuitActionBar())
-                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getQuitActionbarMessage()).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).toString());
+                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getQuitActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).toString());
     }
 }
