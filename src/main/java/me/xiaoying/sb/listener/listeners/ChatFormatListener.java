@@ -117,7 +117,6 @@ public class ChatFormatListener implements Listener {
                         .placeholder(onlinePlayer)
                         .color()
                         .getString();
-                System.out.println(getCallPlayers(string));
                 onlinePlayer.sendMessage(string);
                 ServerUtil.sendMessage(string, true);
             });
