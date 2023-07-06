@@ -19,7 +19,8 @@ public class ChatFormatConstant {
             MESSAGE_RELOAD,
             MESSAGE_NOPERMISSION,
             MESSAGE_MUTEWRONG,
-            SET_VARIABLE_DATEFORMAT;
+            SET_VARIABLE_DATEFORMAT,
+            MESSAGE_NOTFOUNPAYER;
     public static List<String> CHAT_MUTE_MESSAGE,
             CHAR_LIMIT_MESSAGE,
             BLACK_TERMS_MESSAGE,

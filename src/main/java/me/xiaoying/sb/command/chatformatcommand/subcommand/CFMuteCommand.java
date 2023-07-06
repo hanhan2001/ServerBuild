@@ -16,8 +16,15 @@ import java.util.concurrent.TimeUnit;
 public class CFMuteCommand extends SubCommand {
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
-        Player player = Bukkit.getServer().getPlayer(args[0]);
-        assert player != null;
+        Player player = Bukkit.getServer().getPlayerExact(args[0]);
+        if (player == null) {
+            sender.sendMessage(new VariableFactory(ChatFormatConstant.MESSAGE_NOTFOUNPAYER)
+                            .color()
+                            .player(args[0])
+                            .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                            .getString());
+            return false;
+        }
 
         if (player.getMetadata("mute").size() != 0)
             player.removeMetadata("mute", ServerBuild.getInstance());

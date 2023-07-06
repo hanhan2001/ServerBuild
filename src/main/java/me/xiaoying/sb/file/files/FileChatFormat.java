@@ -45,6 +45,7 @@ public class FileChatFormat extends SubFile {
         ChatFormatConstant.CALL_ENABLE = chatFormat.getBoolean("Call.Enable");
         ChatFormatConstant.CALL_KEY = chatFormat.getString("Call.Key");
         ChatFormatConstant.CALL_SOUND = chatFormat.getString("Call.Sound");
+        ChatFormatConstant.MESSAGE_NOTFOUNPAYER = chatFormat.getString("Message.NotFoundPlayer");
 
         ChatFormatConstant.BLACK_TERMS_ENABLE = chatFormat.getBoolean("BlackTerms.Enable");
         ChatFormatConstant.BLACK_TERMS_EVERY = chatFormat.getBoolean("BlackTerms.ForEveryBody");
