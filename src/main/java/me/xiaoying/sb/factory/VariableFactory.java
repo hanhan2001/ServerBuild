@@ -21,6 +21,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory player(String player) {
+        this.string = this.string.replace("%player%", player);
+        return this;
+    }
+
     public VariableFactory date(String dateFormat) {
         this.string = this.string.replace("%date%", DateUtil.getDate(dateFormat));
         return this;
