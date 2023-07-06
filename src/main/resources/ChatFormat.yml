@@ -119,7 +119,7 @@ Message:
   #禁言成功提示
   MuteSuccess: "%prefix%&a禁言成功"
   #找不到玩家
-  NotFoundPlayer: "&c找不到玩家"
+  NotFoundPlayer: "%prefix%&c找不到玩家"
 
 #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
 Use-Help:
