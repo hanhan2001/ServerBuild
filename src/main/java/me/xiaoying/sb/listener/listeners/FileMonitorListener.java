@@ -116,8 +116,8 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
 
         String filename = file.getName().split("\\.")[0];
         if (filename.equalsIgnoreCase("config")) {
-            ServerBuild.getFileService().file("Config.yml");
-            ServerBuild.getFileService().init("Config.yml");
+            ServerBuild.getFileService().file("Config");
+            ServerBuild.getFileService().init("Config");
             return;
         }
 
