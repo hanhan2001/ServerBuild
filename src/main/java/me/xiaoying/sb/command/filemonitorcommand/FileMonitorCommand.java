@@ -3,6 +3,7 @@ package me.xiaoying.sb.command.filemonitorcommand;
 import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.autorespawncommand.subcommand.ARSRloadCommand;
+import me.xiaoying.sb.command.filemonitorcommand.subcommand.FMReloadCommand;
 import me.xiaoying.sb.constant.FileMonitorConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.Command;
@@ -17,7 +18,7 @@ public class FileMonitorCommand implements TabExecutor {
     private final Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
 
     public FileMonitorCommand() {
-        this.registerCommand(new ARSRloadCommand());
+        this.registerCommand(new FMReloadCommand());
     }
 
     private void registerCommand(SubCommand subCommand) {
