@@ -2,6 +2,7 @@ package me.xiaoying.sb.entity;
 
 import me.xiaoying.sb.file.files.FileChatFormat;
 import me.xiaoying.sb.file.files.FileWelcomeMessage;
+import me.xiaoying.sb.utils.YamlUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class WelcomeMessageEntity {
         JOIN_ENABLE_TITLE_ALL = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Join.Title.AllPlayer");
         JOIN_ENABLE_ACTIONBAR_ALL = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Join.ActionBar.AllPlayer");
 
-        JOIN_CHAT_MESSAGE = getStringList(key + ".Join.Chat.Message");
+        JOIN_CHAT_MESSAGE = YamlUtil.getStringList(FileWelcomeMessage.welcomeMessage, key + ".Join.Chat.Message");
         JOIN_TITLE_TITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.Title.Title");
         JOIN_TITLE_SUBTITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.Title.SubTitle");
         JOIN_ACTIONBAR_MESSAGE = FileWelcomeMessage.welcomeMessage.getString(key + ".Join.ActionBar.Message");
@@ -58,7 +59,7 @@ public class WelcomeMessageEntity {
         QUIT_ENABLE_TITLE = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Quit.Title.Enable");
         QUIT_ENABLE_ACTIONBAR = FileWelcomeMessage.welcomeMessage.getBoolean(key + ".Quit.ActionBar.Enable");
 
-        QUIT_CHAT_MESSAGE = getStringList(key + ".Quit.Chat.Message");
+        QUIT_CHAT_MESSAGE = YamlUtil.getStringList(FileWelcomeMessage.welcomeMessage, key + ".Quit.Chat.Message");
         QUIT_TITLE_TITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Quit.Title.Title");
         QUIT_TITLE_SUBTITLE = FileWelcomeMessage.welcomeMessage.getString(key + ".Quit.Title.SubTitle");
         QUIT_ACTIONBAR_MESSAGE = FileWelcomeMessage.welcomeMessage.getString(key + ".Quit.Actionbar.Message");
@@ -138,12 +139,5 @@ public class WelcomeMessageEntity {
 
     public List<String> getQuitChatMessage() {
         return this.QUIT_CHAT_MESSAGE;
-    }
-
-    private static List<String> getStringList(String path) {
-        List<String> function = FileWelcomeMessage.welcomeMessage.getStringList(path);
-        if (function.size() == 0)
-            function.add(FileWelcomeMessage.welcomeMessage.getString(path));
-        return function;
     }
 }

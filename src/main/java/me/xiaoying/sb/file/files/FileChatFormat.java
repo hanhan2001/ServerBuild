@@ -5,6 +5,7 @@ import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.constant.FileMonitorConstant;
 import me.xiaoying.sb.file.SubFile;
 import me.xiaoying.sb.utils.ServerUtil;
+import me.xiaoying.sb.utils.YamlUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -38,10 +39,10 @@ public class FileChatFormat extends SubFile {
 
         ChatFormatConstant.CHAT_DEFAULTTIME = chatFormat.getInt("Mute.DefaultTime");
         ChatFormatConstant.MESSAGE_MUTEWRONG = chatFormat.getString("Message.MuteWrong");
-        ChatFormatConstant.CHAT_MUTE_MESSAGE = getStringList("Mute.Message");
+        ChatFormatConstant.CHAT_MUTE_MESSAGE = YamlUtil.getStringList(chatFormat, "Mute.Message");
         ChatFormatConstant.MUTE_SUCCESS = chatFormat.getString("Message.MuteSuccess");
 
-        ChatFormatConstant.CHAR_LIMIT_MESSAGE = getStringList("CharacterLimit.Message");
+        ChatFormatConstant.CHAR_LIMIT_MESSAGE = YamlUtil.getStringList(chatFormat, "CharacterLimit.Message");
         ChatFormatConstant.CALL_ENABLE = chatFormat.getBoolean("Call.Enable");
         ChatFormatConstant.CALL_KEY = chatFormat.getString("Call.Key");
         ChatFormatConstant.CALL_SOUND = chatFormat.getString("Call.Sound");
@@ -51,18 +52,11 @@ public class FileChatFormat extends SubFile {
         ChatFormatConstant.BLACK_TERMS_EVERY = chatFormat.getBoolean("BlackTerms.ForEveryBody");
         ChatFormatConstant.BLACK_TERMS_CANCEL = chatFormat.getBoolean("BlackTerms.Cancel");
         ChatFormatConstant.BLACK_TERMS_TODO = chatFormat.getStringList("BlackTerms.Todo");
-        ChatFormatConstant.BLACK_TERMS_MESSAGE = getStringList("BlackTerms.Message");
+        ChatFormatConstant.BLACK_TERMS_MESSAGE = YamlUtil.getStringList(chatFormat, "BlackTerms.Message");
         ChatFormatConstant.BLACK_TERMS_TERMS = chatFormat.getStringList("BlackTerms.Terms");
 
         ChatFormatConstant.MESSAGE_NOPERMISSION = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_NOPERMISSION : chatFormat.getString("Message.NoPermission");
 
         ChatFormatConstant.MESSAGE_HELP = chatFormat.getStringList("Use-Help");
-    }
-
-    private static List<String> getStringList(String path) {
-        List<String> function = chatFormat.getStringList(path);
-        if (function.size() == 0)
-            function.add(chatFormat.getString(path));
-        return function;
     }
 }

@@ -1,5 +1,6 @@
 package me.xiaoying.sb.utils;
 
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -149,5 +150,19 @@ public class YamlUtil {
             e.printStackTrace();
         }
         return allNodes;
+    }
+
+    /**
+     * 获取string为list
+     *
+     * @param configuration YamlConfiguration
+     * @param path 键值
+     * @return ArrayList
+     */
+    public static List<String> getStringList(YamlConfiguration configuration, String path) {
+        List<String> function = configuration.getStringList(path);
+        if (function.size() == 0)
+            function.add(configuration.getString(path));
+        return function;
     }
 }

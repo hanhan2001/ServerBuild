@@ -4,6 +4,7 @@ import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.constant.FileMonitorConstant;
 import me.xiaoying.sb.file.SubFile;
 import me.xiaoying.sb.utils.ServerUtil;
+import me.xiaoying.sb.utils.YamlUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -40,16 +41,9 @@ public class FileFileMonitor extends SubFile {
         FileMonitorConstant.MESSAGE_UPDATE = fileMonitor.getString("Message.Update");
         FileMonitorConstant.MESSAGE_NOPERMISSION = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_NOPERMISSION : fileMonitor.getString("Message.NoPermission");
 
-        FileMonitorConstant.MESSAGE_OPERATOR_CHAT = getStringList("FileMonitor.Message.Operator.Set.Chat.Message");
+        FileMonitorConstant.MESSAGE_OPERATOR_CHAT = YamlUtil.getStringList(fileMonitor, "FileMonitor.Message.Operator.Set.Chat.Message");
         FileMonitorConstant.MESSAGE_OPERATOR_TITLE_TITLE = fileMonitor.getString("FileMonitor.Message.Operator.Set.Title.Title");
         FileMonitorConstant.MESSAGE_OPERATOR_TITLE_SUBTITLE = fileMonitor.getString("FileMonitor.Message.Operator.Set.Title.SubTitle");
         FileMonitorConstant.MESSAGE_OPERATOR_ACTIONBAR = fileMonitor.getString("FileMonitor.Message.Operator.Set.ActionBar.Message");
-    }
-
-    private static List<String> getStringList(String path) {
-        List<String> function = fileMonitor.getStringList(path);
-        if (function.size() == 0)
-            function.add(fileMonitor.getString(path));
-        return function;
     }
 }
