@@ -6,14 +6,23 @@ import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.metadata.MuteMetaData;
+import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Command(values = "mute", length = {1, 2})
 public class CFMuteCommand extends SubCommand {
+    @Override
+    public void registerCommand(SubCommand command) {
+
+    }
+
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
         Player player = Bukkit.getServer().getPlayerExact(args[0]);
@@ -64,5 +73,18 @@ public class CFMuteCommand extends SubCommand {
                     .getString());
         }
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
+        System.out.println(Arrays.toString(args));
+        System.out.println(args.length);
+        if (args.length > 2) {
+            return new ArrayList<>();
+        }
+        List<String> list = new ArrayList<>();
+        for (Player onlinePlayer : ServerUtil.getOnlinePlayers())
+            list.add(onlinePlayer.getName());
+        return list;
     }
 }

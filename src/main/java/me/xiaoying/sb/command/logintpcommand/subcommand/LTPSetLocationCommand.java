@@ -10,10 +10,17 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Command(values = "set", length = 1)
 public class LTPSetLocationCommand extends SubCommand {
+    @Override
+    public void registerCommand(SubCommand command) {
+
+    }
+
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.lt.admin") && !sender.isOp()) {
@@ -42,5 +49,10 @@ public class LTPSetLocationCommand extends SubCommand {
         YamlUtil.changeYamlContent(ServerUtil.getDataFolder() + "/LoginTP.yml", "Location.Yaw", yaw);
         YamlUtil.changeYamlContent(ServerUtil.getDataFolder() + "/LoginTP.yml", "Location.Pitch", pitch);
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
+        return new ArrayList<>();
     }
 }

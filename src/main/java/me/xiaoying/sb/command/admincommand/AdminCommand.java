@@ -4,7 +4,7 @@ import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.admincommand.subcommand.AdminReloadCommand;
 import me.xiaoying.sb.constant.ConfigConstant;
-import me.xiaoying.sb.utils.ColorUtil;
+import me.xiaoying.sb.factory.VariableFactory;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class AdminCommand implements TabExecutor {
-    public static Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
+    private static final Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
 
     public AdminCommand() {
         this.registerCommand(new AdminReloadCommand());
@@ -23,9 +23,9 @@ public class AdminCommand implements TabExecutor {
     private void registerCommand(SubCommand subCommand) {
         for (String value : subCommand.getClass().getAnnotation(me.xiaoying.sb.command.Command.class).values()) {
             List<RegisteredCommand> list = new ArrayList<>();
-            for (int i : subCommand.getClass().getAnnotation(me.xiaoying.sb.command.Command.class).length()) {
+            for (int i : subCommand.getClass().getAnnotation(me.xiaoying.sb.command.Command.class).length())
                 list.add(new RegisteredCommand(i, subCommand));
-            }
+
             registeredCommands.put(value, list);
         }
     }
@@ -33,13 +33,21 @@ public class AdminCommand implements TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args == null || args.length == 0) {
-            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(new VariableFactory(string)
+                    .prefix(ConfigConstant.OVERALL_MESSAGE_PREFIX)
+                    .date(ConfigConstant.OVERALL_VARIABLE_DATAFORMAT)
+                    .color()
+                    .getString()));
             return false;
         }
 
         String cmd = args[0];
         if (!registeredCommands.containsKey(cmd)) {
-            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(new VariableFactory(string)
+                    .prefix(ConfigConstant.OVERALL_MESSAGE_PREFIX)
+                    .date(ConfigConstant.OVERALL_VARIABLE_DATAFORMAT)
+                    .color()
+                    .getString()));
             return false;
         }
 
@@ -56,7 +64,11 @@ public class AdminCommand implements TabExecutor {
         }
 
         if (!isDo) {
-            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            ConfigConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(new VariableFactory(string)
+                            .prefix(ConfigConstant.OVERALL_MESSAGE_PREFIX)
+                            .date(ConfigConstant.OVERALL_VARIABLE_DATAFORMAT)
+                            .color()
+                            .getString()));
             return false;
         }
         return false;
@@ -65,6 +77,31 @@ public class AdminCommand implements TabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        return new ArrayList<>(registeredCommands.keySet());
+        List<String> list = new ArrayList<>(registeredCommands.keySet());
+        if (strings.length == 1) {
+            List<String> conditionList = new ArrayList<>();
+            for (String s1 : list) {
+                if (!s1.startsWith(strings[0]))
+                    continue;
+                conditionList.add(s1);
+            }
+
+            if (conditionList.size() == 0)
+                return list;
+            return conditionList;
+        }
+
+        List<RegisteredCommand> registeredCommand = registeredCommands.get(strings[0]);
+        if (registeredCommand == null)
+            return new ArrayList<>();
+
+        for (RegisteredCommand registeredCommand1 : registeredCommand) {
+            List<String> l;
+            if ((l = registeredCommand1.getSubCommand().onTabComplete(commandSender, command, s, strings)) == null)
+                return null;
+
+            return l;
+        }
+        return new ArrayList<>();
     }
 }

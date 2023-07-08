@@ -9,9 +9,19 @@ import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.handle.Handler;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Command(values = "reload", length = 0)
 public class CFReloadCommand extends SubCommand {
+    @Override
+    public void registerCommand(SubCommand command) {
+
+    }
+
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.ars.admin") && !sender.isOp()) {
@@ -28,5 +38,10 @@ public class CFReloadCommand extends SubCommand {
                 .color()
                 .getString());
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
+        return new ArrayList<>();
     }
 }

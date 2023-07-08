@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class AutoReSpawnCommand implements TabExecutor {
-    public static Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
+    private final Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
 
     public AutoReSpawnCommand() {
         this.registerCommand(new ARSRloadCommand());
@@ -66,6 +66,31 @@ public class AutoReSpawnCommand implements TabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        return new ArrayList<>(registeredCommands.keySet());
+        List<String> list = new ArrayList<>(registeredCommands.keySet());
+        if (strings.length == 1) {
+            List<String> conditionList = new ArrayList<>();
+            for (String s1 : list) {
+                if (!s1.startsWith(strings[0]))
+                    continue;
+                conditionList.add(s1);
+            }
+
+            if (conditionList.size() == 0)
+                return list;
+            return conditionList;
+        }
+
+        List<RegisteredCommand> registeredCommand = registeredCommands.get(strings[0]);
+        if (registeredCommand == null)
+            return new ArrayList<>();
+
+        for (RegisteredCommand registeredCommand1 : registeredCommand) {
+            List<String> l;
+            if ((l = registeredCommand1.getSubCommand().onTabComplete(commandSender, command, s, strings)) == null)
+                return null;
+
+            return l;
+        }
+        return new ArrayList<>();
     }
 }
