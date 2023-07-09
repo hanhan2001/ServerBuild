@@ -1,10 +1,8 @@
 package me.xiaoying.sb.entity;
 
-import me.xiaoying.sb.file.files.FileChatFormat;
 import me.xiaoying.sb.file.files.FileWelcomeMessage;
 import me.xiaoying.sb.utils.YamlUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
