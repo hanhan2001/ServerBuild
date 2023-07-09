@@ -1,6 +1,6 @@
 package me.xiaoying.sb.listener.listeners;
 
-import me.xiaoying.sb.files.config.FileNotBuild;
+import me.xiaoying.sb.constant.NotBuildConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import me.xiaoying.sb.utils.DateUtil;
 import org.bukkit.Location;
@@ -18,42 +18,36 @@ import java.util.Objects;
 public class NotBuildListener implements Listener {
     @EventHandler
     public void onPlayerBuild(BlockPlaceEvent event) {
-        if (!FileNotBuild.SET_ENABLE || !FileNotBuild.SET_BUILD_ENABLE)
-            return;
-
         Player player = event.getPlayer();
         Location location = player.getLocation();
-        if (!FileNotBuild.BUILD_WORLDS.contains(Objects.requireNonNull(location.getWorld()).getName()))
+        if (!NotBuildConstant.BUILD_WORLDS.contains(Objects.requireNonNull(location.getWorld()).getName()))
             return;
 
         if (player.hasPermission("sb.nb.destruction") || !player.isOp())
             return;
 
         event.setCancelled(true);
-        FileNotBuild.MESSAGE_BUILD.forEach(string -> {
+        NotBuildConstant.MESSAGE_BUILD.forEach(string -> {
             if (string.contains("%date%"))
-                string = string.replace("%date%", DateUtil.getDate(FileNotBuild.SET_DATEFORMAT));
+                string = string.replace("%date%", DateUtil.getDate(NotBuildConstant.SET_VARIABLE_DATEFORMAT));
             player.sendMessage(ColorUtil.translate(string));
         });
     }
 
     @EventHandler
     public void onPlayerDestruction(BlockBreakEvent event) {
-        if (!FileNotBuild.SET_ENABLE || !FileNotBuild.SET_DESTRUCTION_ENABLE)
-            return;
-
         Player player = event.getPlayer();
         Location location = player.getLocation();
-        if (!FileNotBuild.DESTRUCTION_WORLDS.contains(Objects.requireNonNull(location.getWorld()).getName()))
+        if (!NotBuildConstant.DESTRUCTION_WORLDS.contains(Objects.requireNonNull(location.getWorld()).getName()))
             return;
 
         if (player.hasPermission("sb.nb.destruction") || !player.isOp())
             return;
 
         event.setCancelled(true);
-        FileNotBuild.MESSAGE_DESTRUCTION.forEach(string -> {
+        NotBuildConstant.MESSAGE_DESTRUCTION.forEach(string -> {
             if (string.contains("%date%"))
-                string = string.replace("%date%", DateUtil.getDate(FileNotBuild.SET_DATEFORMAT));
+                string = string.replace("%date%", DateUtil.getDate(NotBuildConstant.SET_VARIABLE_DATEFORMAT));
             player.sendMessage(ColorUtil.translate(string));
         });
     }

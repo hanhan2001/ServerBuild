@@ -2,7 +2,7 @@ package me.xiaoying.sb.handle.handls;
 
 import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.command.notbuildcommand.NotBuildCommand;
-import me.xiaoying.sb.files.config.FileNotBuild;
+import me.xiaoying.sb.constant.NotBuildConstant;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.listeners.NotBuildListener;
 import me.xiaoying.sb.utils.PluginUtil;
@@ -11,7 +11,7 @@ import me.xiaoying.sb.utils.ServerUtil;
 public class NotBuildHandle implements Handle {
     @Override
     public boolean enable() {
-        return FileNotBuild.SET_ENABLE;
+        return NotBuildConstant.SET_ENABLE;
     }
 
     @Override
@@ -31,7 +31,8 @@ public class NotBuildHandle implements Handle {
     public void reload() {
         stop();
 
-        FileNotBuild.fileNotBuild();
+        ServerBuild.getFileService().file("NotBuild");
+        ServerBuild.getFileService().init("NotBuild");
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("nb", ServerBuild.getInstance());

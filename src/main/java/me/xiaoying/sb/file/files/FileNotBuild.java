@@ -4,6 +4,7 @@ import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.constant.NotBuildConstant;
 import me.xiaoying.sb.file.SubFile;
 import me.xiaoying.sb.utils.ServerUtil;
+import me.xiaoying.sb.utils.YamlUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -29,9 +30,9 @@ public class FileNotBuild extends SubFile {
         NotBuildConstant.SET_BUILD_ENABLE = notbuild.getBoolean("Build.Enable");
         NotBuildConstant.SET_DESTRUCTION_ENABLE = notbuild.getBoolean("Destruction.Enable");
 
-        NotBuildConstant.SET_DATEFORMAT = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_PREFIX : notbuild.getString("Set.DateFormat");
-        NotBuildConstant.MESSAGE_BUILD = notbuild.getStringList("Destruction.Message");
-        NotBuildConstant.MESSAGE_DESTRUCTION = notbuild.getStringList("Build.Message");
+        NotBuildConstant.SET_VARIABLE_DATEFORMAT = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_MESSAGE ? ConfigConstant.OVERALL_MESSAGE_PREFIX : notbuild.getString("Set.DateFormat");
+        NotBuildConstant.MESSAGE_BUILD = YamlUtil.getStringList(FileNotBuild.notbuild, "Destruction.Message");
+        NotBuildConstant.MESSAGE_DESTRUCTION = YamlUtil.getStringList(FileNotBuild.notbuild, "Build.Message");
         NotBuildConstant.MESSAGE_HELP = notbuild.getStringList("Use-Help");
 
         NotBuildConstant.BUILD_WORLDS = notbuild.getStringList("Build.World");
