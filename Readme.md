@@ -14,7 +14,7 @@
 - [ ] ClearEntity
 - [ ] Home
 - [x] LoginTP
-- [ ] MessageAnnouncer
+- [x] MessageAnnouncer
 - [x] NotBuild
 - [ ] PlayerShout
 - [ ] Scoreboard
