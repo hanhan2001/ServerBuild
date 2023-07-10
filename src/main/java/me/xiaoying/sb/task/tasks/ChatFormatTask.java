@@ -35,7 +35,7 @@ public class ChatFormatTask implements TaskHandle {
     }
 
     @Override
-    public Integer getTask() {
-        return this.task;
+    public Integer[] getTasks() {
+        return new Integer[] {this.task};
     }
 }
