@@ -110,9 +110,7 @@ public class ServerUtil {
      * @param message 消息
      */
     public static void onlinePlayersSendMessage(String message) {
-        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
-            PlayerUtil.sendMessage(player, message);
-        });
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> PlayerUtil.sendMessage(player, message));
     }
 
     /**
@@ -122,9 +120,7 @@ public class ServerUtil {
      * @param subtitle 副标题
      */
     public static void onlinePlayersSendTitle(String title, String subtitle) {
-        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
-            PlayerUtil.sendTitle(player, title, subtitle);
-        });
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> PlayerUtil.sendTitle(player, title, subtitle));
     }
 
     /**

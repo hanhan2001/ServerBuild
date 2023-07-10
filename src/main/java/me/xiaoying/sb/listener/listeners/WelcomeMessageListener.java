@@ -68,7 +68,10 @@ public class WelcomeMessageListener implements Listener {
 
             String subtitle = welcomeMessageEntity.getJoinTitleSubtitle();
             if (subtitle != null)
-                subtitle = new VariableFactory(subtitle).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                subtitle = new VariableFactory(subtitle)
+                        .player(player)
+                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                        .getString();
 
             if (welcomeMessageEntity.enableJoinTitleAllPlayer())
                 ServerUtil.onlinePlayersSendTitle(title, subtitle);

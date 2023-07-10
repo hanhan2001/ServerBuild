@@ -73,6 +73,7 @@ public class ServerBuild extends JavaPlugin {
         Handler.registerHandle("AutoReSpawn", new AutoReSpawnHandle());
         Handler.registerHandle("FileMonitor", new FileMonitorHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
+        Handler.registerHandle("MessageAnnouncer", new MessageAnnouncerHandle());
 
         Handler.loadHandles();
     }
@@ -92,6 +93,7 @@ public class ServerBuild extends JavaPlugin {
         fileService.register("AutoReSpawn", new FileAutoReSpawn());
         fileService.register("FileMonitor", new FileFileMonitor());
         fileService.register("WelcomeMessage", new FileWelcomeMessage());
+        fileService.register("MessageAnnouncer", new FileMessageAnnouncer());
         fileService.fileAll();
         fileService.initAll();
 

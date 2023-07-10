@@ -21,8 +21,6 @@ public class PlayerUtil {
      * @param message 消息
      */
     public static void sendMessage(Player player, String message) {
-        message = message.replace("%player%", player.getName());
-        message = PlaceholderAPI.setPlaceholders(player, message);
         player.sendMessage(ColorUtil.translate(message));
     }
 
@@ -48,14 +46,6 @@ public class PlayerUtil {
      * @param out 淡出时间
      */
     public static void sendTitle(Player player, String title, String subtitle, int in, int stay, int out) {
-        title = title.replace("%player%", player.getName());
-        title = PlaceholderAPI.setPlaceholders(player, title);
-        title = ColorUtil.translate(title);
-
-        subtitle = subtitle.replace("%player%", player.getName());
-        subtitle = PlaceholderAPI.setPlaceholders(player, subtitle);
-        subtitle = ColorUtil.translate(subtitle);
-
         player.sendTitle(title, subtitle, in, stay, out);
     }
 
@@ -67,11 +57,7 @@ public class PlayerUtil {
      * @param second 停留时间
      */
     public static void sendActionbar(Player player, String message, int second) {
-        message = message.replace("%player%", player.getName());
-        message = PlaceholderAPI.setPlaceholders(player, message);
-        message = ColorUtil.translate(message);
-        String finalMessage1 = message;
-        int i = Bukkit.getScheduler().scheduleSyncRepeatingTask(ServerBuild.getInstance(), () -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(finalMessage1)), 0L, 20L);
+        int i = Bukkit.getScheduler().scheduleSyncRepeatingTask(ServerBuild.getInstance(), () -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message)), 0L, 20L);
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
                 TimeUnit.SECONDS.sleep(second);
