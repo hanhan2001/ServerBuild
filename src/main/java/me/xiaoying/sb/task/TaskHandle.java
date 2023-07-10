@@ -4,5 +4,5 @@ public interface TaskHandle {
     void run();
     void stop();
 
-    Integer getTask();
+    Integer[] getTasks();
 }
