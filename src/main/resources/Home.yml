@@ -1,0 +1,37 @@
+# Home 家
+
+#开关
+Enable: false
+
+#设置
+#设置每个组 设置家的数量
+# serverbuild.sethome.[group]
+#无限设置家：serverbuild.sethome.unlimited
+
+sethome-multiple:
+  default: 3
+  vip: 5
+  other: 8
+
+#传送前的等待时间
+home_tpwait: 3
+
+#词条
+Message:
+  #前缀
+  Prefix: "&a[&bHome&a]&e>> "
+  #重载
+  Reload: "&a已重载！"
+  #无权限提示
+  NoPermission: "&c你无法这样做！"
+  #玩家身份
+  UsePlayer: "&c只能在游戏内使用"
+
+#指令
+Use-help:
+  - ""
+  - "&a<-=-=-=-=-=-=-=-=-=-= &e&lHome &a=-=-=-=-=-=-=-=-=-=->"
+  - "&b/home &7传送到 家"
+  - "&b/sethome []&7设置 家"
+  - "&b/home reload &7重载配置"
+  - ""
