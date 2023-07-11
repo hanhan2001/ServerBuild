@@ -1,21 +1,31 @@
-# Home 家
+# 家 Home
 
 #开关
 Enable: false
 
-#设置
-#设置每个组 设置家的数量
-# serverbuild.sethome.[group]
-#无限设置家：serverbuild.sethome.unlimited
+#设置(如若无法更改请查看是否在 Config.yml 文件中启用了全局配置)
+Set:
+  #日期格式，作用于变量 %date%
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
 
-sethome-multiple:
-  default: 3
-  vip: 5
-  other: 8
-
-#传送前的等待时间
-home_tpwait: 3
-
+#
+#权限：serverbuild.command.sethome.[groupname]
+#无限：serverbuildd.command.sethome.unlimited
+#自定义数量：serverbuild.command.sethome.[number]
+Homes:
+  Groups:
+    default: 2
+    Newbie: 3
+    GGB: 5
+  # 可以用来作为家的名字的正则限制
+HomeNameRegex: '[^a-zA-Z0-9\-\_]'
+  # 是否启用世界限制
+WorldLimits:
+  Enable: false
+  World:
+  - world
+  - world_nether
+  - world_the_end
 #词条
 Message:
   #前缀
@@ -24,14 +34,13 @@ Message:
   Reload: "&a已重载！"
   #无权限提示
   NoPermission: "&c你无法这样做！"
-  #玩家身份
-  UsePlayer: "&c只能在游戏内使用"
 
-#指令
-Use-help:
+#指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+Use-Help:
   - ""
   - "&a<-=-=-=-=-=-=-=-=-=-= &e&lHome &a=-=-=-=-=-=-=-=-=-=->"
-  - "&b/home &7传送到 家"
-  - "&b/sethome []&7设置 家"
-  - "&b/home reload &7重载配置"
+  - "&b/home reload &7重载 家"
+  - "&b/home &7回家"
+  - "&b/sethome []&7设置家"
+  - "&b/delhome [] &7删除家"
   - ""
