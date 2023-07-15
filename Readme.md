@@ -12,6 +12,7 @@
 - [ ] BookContent
 - [x] ChatFormat
 - [ ] ClearEntity
+- [x] FileMonitor
 - [ ] Home
 - [x] LoginTP
 - [x] MessageAnnouncer
@@ -27,6 +28,7 @@
 | BookContent      | 书本文章       | 生成一个带文章的书本，文章在服务器后台配置 |
 | ChatFormat       | 聊天格式       | 更改游戏原版聊天格式                       |
 | ClearEntity      | 清理实体       | 清理服务器内实体                           |
+| FileMonitor      | 文件检测       | 检测文件变动并自动重载对应功能(默认开启)   |
 | Home             | 家             | 家                                         |
 | LoginTP          | 固定登录点     | 固定玩家每次上线位置                       |
 | MessageAnnouncer | 公告           | 定时公告                                   |
