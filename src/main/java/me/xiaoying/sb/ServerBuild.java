@@ -67,6 +67,7 @@ public class ServerBuild extends JavaPlugin {
     }
 
     private void loadHandle() {
+        Handler.registerHandle("Home", new HomeHandle());
         Handler.registerHandle("LoginTP", new LoginTPHandle());
         Handler.registerHandle("NotBuild", new NotBuildHandle());
         Handler.registerHandle("ChatFormat", new ChatFormatHandle());
@@ -85,6 +86,7 @@ public class ServerBuild extends JavaPlugin {
         scriptCommandService.registerCommands();
 
         // 初始化配置文件
+        fileService.register("Home", new FileHome());
         fileService.register("Config", new FileConfig());
         fileService.register("LoginTP", new FileLoginTp());
         fileService.register("NotBuild", new FileNotBuild());

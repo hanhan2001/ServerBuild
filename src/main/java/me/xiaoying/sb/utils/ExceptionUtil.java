@@ -1,6 +1,6 @@
 package me.xiaoying.sb.utils;
 
-public class ExceptionUtil {
+public class  ExceptionUtil {
     public static void throwException(Exception exception) {
         try {
             throw exception;

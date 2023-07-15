@@ -19,16 +19,25 @@ commands:
     aliases: [logintp]
   tpa:
     description: (Teleport) 管理员指令
-    permission: se.tp.tpa
+    permission: sb.tp.tpa
     aliases: [teleport]
   wm:
     description: (WelcomeMessage) 管理员指令
-    permission: se.wm.admin
+    permission: sb.wm.admin
     aliases: [welcomemessage]
   ars:
     description: (AutoReSpawn) 管理员指令
-    permission: se.wm.admin
+    permission: sb.wm.admin
     aliases: [autorespawn]
+  home:
+    description: (Home) 家
+    permission: sb.home
+  sethome:
+    description: (Home) 设置家
+    permission: sb.home.sethome
+  delhome:
+    description: (Home) 删除家
+    permission: sb.home.delhome
 permissions:
   sb.admin:
     description: 全局管理权限

@@ -1,0 +1,93 @@
+package me.xiaoying.sb.command.homecommand;
+
+import me.xiaoying.sb.constant.HomeConstant;
+import me.xiaoying.sb.factory.VariableFactory;
+import me.xiaoying.sb.metadata.CustomHomeMetaData;
+import me.xiaoying.sb.service.HomeService;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
+import org.bukkit.metadata.MetadataValue;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 命令 Home setHome
+ */
+public class SetHomeCommand implements TabExecutor {
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_ERROR_IDENTITY)
+                            .prefix(HomeConstant.MESSAGE_PREFIX)
+                            .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
+                            .color()
+                            .getString());
+            return false;
+        }
+
+        String name;
+        if (strings.length > 0)
+            name = strings[0];
+        else
+            name = "home";
+
+        Player player = (Player) sender;
+
+        int max = 0;
+        for (String groupHome : HomeService.getGroupHomes()) {
+            if (!player.hasPermission("sb.home.group." + groupHome))
+                continue;
+
+            if (max < HomeService.getGroupHome(groupHome))
+                max = HomeService.getGroupHome(groupHome);
+        }
+        if (player.isOp() || player.hasPermission("sb.home.group.unlimited"))
+            max = 99999;
+
+        // 判断是否存在相同名字的家
+        if (player.getMetadata("home").size() != 0) {
+            for (MetadataValue home : player.getMetadata("home")) {
+                if (!home.value().toString().split("\\|")[0].equalsIgnoreCase(name))
+                    continue;
+
+                sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_ALREADY_EXISTS)
+                        .prefix(HomeConstant.MESSAGE_PREFIX)
+                        .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
+                        .color()
+                        .getString());
+                return false;
+            }
+        }
+
+        // 判断是否超出权限许可家数量范围
+        if (player.getMetadata("home").size() >= max) {
+            sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_OVER_LIMIT)
+                            .prefix(HomeConstant.MESSAGE_PREFIX)
+                            .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
+                            .color()
+                            .getString());
+            return false;
+        }
+
+        player.setMetadata("home", new CustomHomeMetaData(name, player));
+        player.sendMessage(new VariableFactory(HomeConstant.MESSAGE_SET_SUCCESS)
+                .prefix(HomeConstant.MESSAGE_PREFIX)
+                .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
+                .player(player)
+                .placeholder(player)
+                .color()
+                .getString());
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        return new ArrayList<>();
+    }
+}

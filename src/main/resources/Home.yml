@@ -1,5 +1,10 @@
 # 家 Home
 
+#功能所占用权限
+#sb.home.x
+#sb.home
+#sb.home.admin
+
 #开关
 Enable: false
 
@@ -8,39 +13,53 @@ Set:
   #日期格式，作用于变量 %date%
   DateFormat: "yyyy/MM/dd-HH:mm:ss"
 
-#
-#权限：serverbuild.command.sethome.[groupname]
-#无限：serverbuildd.command.sethome.unlimited
-#自定义数量：serverbuild.command.sethome.[number]
+#权限：sb.home.[groupname]
+#无限：sb.home.unlimited
+#自定义数量：sb.home.[number]
 Homes:
+  #权限对应创建家数量
   Groups:
     default: 2
     Newbie: 3
     GGB: 5
-  # 可以用来作为家的名字的正则限制
-HomeNameRegex: '[^a-zA-Z0-9\-\_]'
-  # 是否启用世界限制
-WorldLimits:
-  Enable: false
-  World:
-  - world
-  - world_nether
-  - world_the_end
+  #可以用来作为家的名字的正则限制
+  HomeNameRegex: '[^a-zA-Z0-9\-\_]'
+  #是否启用世界限制
+  WorldLimits:
+    Enable: false
+    #限制世界
+    World:
+      - world
+      - world_nether
+      - world_the_end
+
 #词条
 Message:
   #前缀
   Prefix: "&a[&bHome&a]&e>> "
   #重载
-  Reload: "&a已重载！"
+  Reload: "%prefix%&a已重载！"
   #无权限提示
-  NoPermission: "&c你无法这样做！"
+  NoPermission: "%prefix%&c你无法这样做！"
+  #已存在相应的家名称
+  AlreadyExists: "%prefix%&c不能创建相同的家名称！可以尝试 &e/delhome [name] &c删除家"
+  #目标世界不存在
+  WorldNotExists: "%prefix%&c家所处世界被删除了！"
+  #身份错误
+  ErrorIdentity: "%prefix%&c请以玩家身份执行！"
+  #操作成功
+  SetSuccess: "%prefix%&a操作完成"
+  #超出可设置家数量
+  OverLimit: "%prefix%不能创建更多的家了！"
+  #目标家不存在
+  HomeNotExists: "%prefix%&c没有找到你的家哦(；′⌒`)"
 
 #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
 Use-Help:
   - ""
   - "&a<-=-=-=-=-=-=-=-=-=-= &e&lHome &a=-=-=-=-=-=-=-=-=-=->"
   - "&b/home reload &7重载 家"
-  - "&b/home &7回家"
-  - "&b/sethome []&7设置家"
-  - "&b/delhome [] &7删除家"
+  - "&b/home [name] &7回家"
+  - "&b/sethome [name] &7设置家"
+  - "&b/delhome [name] &7删除家"
   - ""
