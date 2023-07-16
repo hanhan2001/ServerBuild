@@ -39,6 +39,10 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
 
     @Override
     public void onFileChange(File file) {
+        // 文件过滤
+        if (file.getName().equalsIgnoreCase("ServerBuild.db"))
+            return;
+
         // console
         if (FileMonitorConstant.SET_MESSAGE_CONSOLE)
             ServerUtil.sendMessage(new VariableFactory(FileMonitorConstant.MESSAGE_UPDATE)
