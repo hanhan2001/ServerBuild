@@ -90,9 +90,6 @@ public class ServerBuild extends JavaPlugin {
         // ScriptCommand
         scriptCommandService.registerCommands();
 
-        // PlayerData
-        playerDataService.registerPlayerData("Home", new HomePlayerData());
-
         // 初始化配置文件
         fileService.register("Home", new FileHome());
         fileService.register("Config", new FileConfig());
