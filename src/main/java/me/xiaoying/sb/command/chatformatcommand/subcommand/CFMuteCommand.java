@@ -77,14 +77,22 @@ public class CFMuteCommand extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
-        System.out.println(Arrays.toString(args));
-        System.out.println(args.length);
         if (args.length > 2) {
             return new ArrayList<>();
         }
         List<String> list = new ArrayList<>();
         for (Player onlinePlayer : ServerUtil.getOnlinePlayers())
             list.add(onlinePlayer.getName());
-        return list;
+
+        List<String> conditionList = new ArrayList<>();
+        for (String s1 : list) {
+            if (!s1.startsWith(args[0]))
+                continue;
+            conditionList.add(s1);
+        }
+
+        if (conditionList.size() == 0)
+            return list;
+        return new ArrayList<>();
     }
 }

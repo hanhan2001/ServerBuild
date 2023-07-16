@@ -70,11 +70,25 @@ public class HomeCommand implements TabExecutor {
         if (!(sender instanceof Player))
             return new ArrayList<>();
 
+
+        if (strings.length > 1)
+            return new ArrayList<>();
+
         Player player = (Player) sender;
-        List<String> l = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         List<HomeEntity> homes = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
         for (HomeEntity home : homes)
-            l.add(home.getName());
-        return l;
+            list.add(home.getName());
+
+        List<String> conditionList = new ArrayList<>();
+        for (String s1 : list) {
+            if (!s1.startsWith(strings[0]))
+                continue;
+            conditionList.add(s1);
+        }
+
+        if (conditionList.size() == 0)
+            return list;
+        return conditionList;
     }
 }
