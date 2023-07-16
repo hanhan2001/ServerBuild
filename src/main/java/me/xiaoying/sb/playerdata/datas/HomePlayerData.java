@@ -30,7 +30,7 @@ public class HomePlayerData extends SubPlayerData {
                 .run()
                 .get("homes");
 
-        if (list.size() == 0)
+        if (list == null)
             return new ArrayList<>();
 
         String source = (String) list.get(0);
