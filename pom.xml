@@ -95,9 +95,8 @@
         </dependency>
         <dependency>
             <groupId>me.xiaoying</groupId>
-            <artifactId>MysqlFactory</artifactId>
+            <artifactId>SqlFactory</artifactId>
             <version>0.0.2</version>
         </dependency>
-
     </dependencies>
 </project>
