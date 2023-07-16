@@ -1,6 +1,8 @@
 package me.xiaoying.sb.command.homecommand;
 
+import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.constant.HomeConstant;
+import me.xiaoying.sb.entity.HomeEntity;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.metadata.CustomHomeMetaData;
 import org.bukkit.Bukkit;
@@ -16,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeCommand implements TabExecutor {
     @Override
@@ -24,7 +27,8 @@ public class HomeCommand implements TabExecutor {
             return false;
 
         Player player = (Player) sender;
-        if (player.getMetadata("home").size() == 0) {
+        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        if (list.size() == 0) {
             player.sendMessage(new VariableFactory(HomeConstant.MESSAGE_HOME_NOT_EXISTS)
                             .prefix(HomeConstant.MESSAGE_PREFIX)
                             .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
@@ -41,32 +45,12 @@ public class HomeCommand implements TabExecutor {
         else
             home = strings[0];
 
-        if (player.getMetadata("home").size() == 0) {
-            player.sendMessage(new VariableFactory(HomeConstant.MESSAGE_HOME_NOT_EXISTS)
-                            .prefix(HomeConstant.MESSAGE_PREFIX)
-                            .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
-                            .player(player)
-                            .placeholder(player)
-                            .color()
-                            .getString());
-            return false;
-        }
-
-        for (MetadataValue metadatum : player.getMetadata("home")) {
-            if (!metadatum.value().toString().split("\\|")[0].equalsIgnoreCase(home))
+        // 检测传送家
+        for (HomeEntity homeEntity : list) {
+            if (!homeEntity.getName().equalsIgnoreCase(home))
                 continue;
 
-            String locationString = metadatum.value().toString().split("\\|")[1];
-            String[] split = locationString.split(":");
-            World world = Bukkit.getServer().getWorld(split[0]);
-            double x = Double.parseDouble(split[1]);
-            double y = Double.parseDouble(split[2]);
-            double z = Double.parseDouble(split[3]);
-            float yaw = Float.parseFloat(split[4]);
-            float pitch = Float.parseFloat(split[5]);
-            player.teleport(new Location(world, x, y, z, yaw, pitch));
-
-//            player.teleport(((CustomHomeMetaData) metadatum).getLocation());
+            player.teleport(homeEntity.getLocation());
             return false;
         }
 
@@ -88,8 +72,9 @@ public class HomeCommand implements TabExecutor {
 
         Player player = (Player) sender;
         List<String> l = new ArrayList<>();
-        for (MetadataValue home : player.getMetadata("home"))
-            l.add(((CustomHomeMetaData) home).getName());
+        List<HomeEntity> homes = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        for (HomeEntity home : homes)
+            l.add(home.getName());
         return l;
     }
 }

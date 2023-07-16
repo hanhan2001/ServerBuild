@@ -1,14 +1,17 @@
 package me.xiaoying.sb.command.homecommand;
 
+import me.xiaoying.mf.SqlType;
+import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.constant.HomeConstant;
+import me.xiaoying.sb.entity.HomeEntity;
 import me.xiaoying.sb.factory.VariableFactory;
-import me.xiaoying.sb.metadata.CustomHomeMetaData;
+
+
 import me.xiaoying.sb.service.HomeService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.MetadataValue;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,31 +53,48 @@ public class SetHomeCommand implements TabExecutor {
             max = 99999;
 
         // 判断是否存在相同名字的家
-        if (player.getMetadata("home").size() != 0) {
-            for (MetadataValue home : player.getMetadata("home")) {
-                if (!home.value().toString().split("\\|")[0].equalsIgnoreCase(name))
-                    continue;
+        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        for (HomeEntity homeEntity : list) {
+            if (!homeEntity.getName().equalsIgnoreCase(name))
+                continue;
 
-                sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_ALREADY_EXISTS)
-                        .prefix(HomeConstant.MESSAGE_PREFIX)
-                        .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
-                        .color()
-                        .getString());
-                return false;
-            }
-        }
-
-        // 判断是否超出权限许可家数量范围
-        if (player.getMetadata("home").size() >= max) {
-            sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_OVER_LIMIT)
-                            .prefix(HomeConstant.MESSAGE_PREFIX)
-                            .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
-                            .color()
-                            .getString());
+            sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_ALREADY_EXISTS)
+                    .prefix(HomeConstant.MESSAGE_PREFIX)
+                    .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
+                    .color()
+                    .getString());
             return false;
         }
 
-        player.setMetadata("home", new CustomHomeMetaData(name, player));
+        // 判断是否超出权限许可家数量范围
+        if (list.size() >= max) {
+            sender.sendMessage(new VariableFactory(HomeConstant.MESSAGE_OVER_LIMIT)
+                    .prefix(HomeConstant.MESSAGE_PREFIX)
+                    .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
+                    .color()
+                    .getString());
+            return false;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            stringBuilder.append(list.get(i));
+
+            if (i + 1 < list.size())
+                stringBuilder.append(",");
+        }
+
+        // 创建新的家
+        HomeEntity homeEntity = new HomeEntity(name, player);
+        if (stringBuilder.toString().isEmpty())
+            stringBuilder.append(",");
+        stringBuilder.append(homeEntity);
+
+        ServerBuild.getPlayerDataService().getSqlFactory()
+                .table("home")
+                .type(SqlType.UPDATE)
+                .set("homes", stringBuilder.toString())
+                .condition("player", player.getName());
         player.sendMessage(new VariableFactory(HomeConstant.MESSAGE_SET_SUCCESS)
                 .prefix(HomeConstant.MESSAGE_PREFIX)
                 .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
