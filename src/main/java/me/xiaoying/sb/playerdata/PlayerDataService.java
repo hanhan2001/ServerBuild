@@ -2,7 +2,6 @@ package me.xiaoying.sb.playerdata;
 
 import me.xiaoying.mf.SqlFactory;
 import me.xiaoying.sb.exception.NotFoundPlayerDataException;
-import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.utils.ExceptionUtil;
 
 import java.util.HashMap;
@@ -34,6 +33,6 @@ public class PlayerDataService {
     }
 
     public SqlFactory getSqlFactory() {
-        return new SqlFactory("jdbc:sqlite", "ServerBuild.db");
+        return new SqlFactory("jdbc:sqlite", "plugins/ServerBuild/ServerBuild.db");
     }
 }
