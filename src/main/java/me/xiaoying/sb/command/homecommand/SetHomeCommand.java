@@ -6,7 +6,6 @@ import me.xiaoying.sb.constant.HomeConstant;
 import me.xiaoying.sb.entity.HomeEntity;
 import me.xiaoying.sb.factory.VariableFactory;
 
-
 import me.xiaoying.sb.service.HomeService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
