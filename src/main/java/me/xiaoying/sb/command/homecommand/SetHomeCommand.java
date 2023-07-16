@@ -86,15 +86,23 @@ public class SetHomeCommand implements TabExecutor {
 
         // 创建新的家
         HomeEntity homeEntity = new HomeEntity(name, player);
-        if (stringBuilder.toString().isEmpty())
+        if (!stringBuilder.toString().isEmpty())
             stringBuilder.append(",");
         stringBuilder.append(homeEntity);
 
-        ServerBuild.getPlayerDataService().getSqlFactory()
-                .table("home")
-                .type(SqlType.UPDATE)
-                .set("homes", stringBuilder.toString())
-                .condition("player", player.getName());
+        if (((List<?>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player)).size() == 0)
+            ServerBuild.getPlayerDataService().getSqlFactory()
+                    .type(SqlType.INSERT)
+                    .table("home")
+                    .insert(player.getName(), new HomeEntity(name, player).toString()).run();
+        else
+            ServerBuild.getPlayerDataService().getSqlFactory()
+                    .table("home")
+                    .type(SqlType.UPDATE)
+                    .set("homes", stringBuilder.toString())
+                    .condition("player", player.getName())
+                    .run();
+
         player.sendMessage(new VariableFactory(HomeConstant.MESSAGE_SET_SUCCESS)
                 .prefix(HomeConstant.MESSAGE_PREFIX)
                 .date(HomeConstant.SET_VARIABLE_DATEFORMAT)
