@@ -7,7 +7,7 @@ import me.xiaoying.sb.command.homecommand.HomeCommand;
 import me.xiaoying.sb.command.homecommand.SetHomeCommand;
 import me.xiaoying.sb.constant.HomeConstant;
 import me.xiaoying.sb.handle.Handle;
-import me.xiaoying.sb.playerdata.datas.HomePlayerData;
+import me.xiaoying.sb.playerdata.data.HomePlayerData;
 import me.xiaoying.sb.service.HomeService;
 import me.xiaoying.sb.utils.PluginUtil;
 import me.xiaoying.sb.utils.ServerUtil;

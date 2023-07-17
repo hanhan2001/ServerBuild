@@ -1,4 +1,4 @@
-package me.xiaoying.sb.playerdata.datas;
+package me.xiaoying.sb.playerdata.data;
 
 import me.xiaoying.mf.SqlType;
 import me.xiaoying.sb.ServerBuild;
