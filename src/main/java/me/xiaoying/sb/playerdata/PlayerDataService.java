@@ -12,12 +12,15 @@ public class PlayerDataService {
     Map<String, List<SubPlayerData>> data = new HashMap<>();
 
     public void filePlayerData(String handle) {
-        for (SubPlayerData value : this.data.get(handle))
+        if (this.data.get(handle.toUpperCase()) == null)
+            return;
+
+        for (SubPlayerData value : this.data.get(handle.toUpperCase()))
             value.fileData();
     }
 
     public void filePlayerData(String handle, String playerData) {
-        for (SubPlayerData value : this.data.get(handle)) {
+        for (SubPlayerData value : this.data.get(handle.toUpperCase())) {
             if (!playerData.equalsIgnoreCase(value.getName()))
                 continue;
 
@@ -77,10 +80,6 @@ public class PlayerDataService {
     }
 
     public SubPlayerData getData(String handle, String playerData) {
-        if (this.data.get(handle.toUpperCase()) == null)
-            return null;
-
-
         for (SubPlayerData subPlayerData : this.data.get(handle.toUpperCase())) {
             if (!subPlayerData.getName().equalsIgnoreCase(playerData))
                 continue;

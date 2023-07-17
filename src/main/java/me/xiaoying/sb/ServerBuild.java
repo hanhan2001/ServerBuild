@@ -83,10 +83,6 @@ public class ServerBuild extends JavaPlugin {
 
     // 初始化
     public static void initialize() {
-        // 检测插件使用量
-        if (ConfigConstant.SET_BSTATS)
-            new Metrics(ServerBuild.getInstance(), 16512);
-
         // ScriptCommand
         scriptCommandService.registerCommands();
 
@@ -103,6 +99,10 @@ public class ServerBuild extends JavaPlugin {
         fileService.register("MessageAnnouncer", new FileMessageAnnouncer());
         fileService.fileAll();
         fileService.initAll();
+
+        // 检测插件使用量
+        if (ConfigConstant.SET_BSTATS)
+            new Metrics(ServerBuild.getInstance(), 16512);
 
         ServerUtil.registerCommand("sb", new AdminCommand());
     }

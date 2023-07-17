@@ -44,8 +44,10 @@ public class CFMuteCommand extends SubCommand {
         String handle = "Home";
         String handleName = "ChatFormat_Mute";
         for (SubPlayerData home : ServerBuild.getPlayerDataService().getData(handle)) {
+            System.out.println(123);
             if (!home.getName().equalsIgnoreCase(handleName))
                 continue;
+            System.out.println(11);
 
             chatFormatPlayerData = (ChatFormatPlayerData) home;
         }
