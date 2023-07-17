@@ -5,23 +5,49 @@ import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.playerdata.SubPlayerData;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ChatFormatPlayerData extends SubPlayerData {
+    /**
+     * 获取玩家禁言信息
+     *
+     * @param player 玩家
+     * @return Map
+     */
     @Override
     public Object getPlayerData(String player) {
         ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.CREATE)
                 .table("chatformat_mute")
                 .create("player", "varchar", 255)
                 .create("save", "varchar", 255)
-                .create("mute", "varchar", 255);
-        String time = (String) ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.SELECT)
+                .create("mute", "varchar", 255)
+                .run();
+        Map<String, List<Object>> source =  ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.SELECT)
                 .table("chatformat_mute")
                 .condition("player", player)
-                .run().get("mute").get(0);
+                .run();
 
-        if (time == null)
-            return 0;
+        // 开始禁言时间
+        String saveTime;
+        if (source.get("save").size() != 0)
+            saveTime = (String) source.get("save").get(0);
+        else
+            return null;
 
-        return Integer.parseInt(time);
+        // 禁言毫秒
+        int time = 0;
+        List<Object> list = source.get("mute");
+        if (list.size() != 0)
+            return Integer.parseInt((String) list.get(0));
+
+        // 存入Map数据
+        Map<String, Object> map = new HashMap<>();
+        map.put("save", saveTime)
+        map.put("mute", time);
+
+        return map;
     }
 
     @Override
