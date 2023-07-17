@@ -16,13 +16,21 @@ public class HomePlayerData extends SubPlayerData {
     String table = "home";
 
     @Override
-    public Object getPlayerData(String player) {
+    public String getName() {
+        return "Home";
+    }
+
+    @Override
+    public void fileData() {
         ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.CREATE)
                 .table(this.table)
                 .create("player", "varchar", 255)
                 .create("homes", "longtext", 0)
                 .run();
+    }
 
+    @Override
+    public Object getPlayerData(String player) {
         List<Object> list = ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.SELECT)
                 .table(this.table)
                 .cols("player", "homes")
@@ -46,12 +54,22 @@ public class HomePlayerData extends SubPlayerData {
     }
 
     @Override
-    public void setPlayerData(String player, Object object) {
+    public void setPlayerData(String player, Object[] object) {
 
     }
 
     @Override
-    public void setPlayerData(Player player, Object object) {
+    public void setPlayerData(Player player, Object[] object) {
+
+    }
+
+    @Override
+    public void delPlayerData(String player) {
+
+    }
+
+    @Override
+    public void delPlayerData(Player player) {
 
     }
 }

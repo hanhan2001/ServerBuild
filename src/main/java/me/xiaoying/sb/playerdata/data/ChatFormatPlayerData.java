@@ -10,6 +10,23 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatFormatPlayerData extends SubPlayerData {
+    String table = "chatformat_mute";
+
+    @Override
+    public String getName() {
+        return "ChatFormat_Mute";
+    }
+
+    @Override
+    public void fileData() {
+        ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.CREATE)
+                .table(this.table)
+                .create("player", "varchar", 255)
+                .create("save", "varchar", 255)
+                .create("mute", "varchar", 255)
+                .run();
+    }
+
     /**
      * 获取玩家禁言信息
      *
@@ -18,14 +35,8 @@ public class ChatFormatPlayerData extends SubPlayerData {
      */
     @Override
     public Object getPlayerData(String player) {
-        ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.CREATE)
-                .table("chatformat_mute")
-                .create("player", "varchar", 255)
-                .create("save", "varchar", 255)
-                .create("mute", "varchar", 255)
-                .run();
         Map<String, List<Object>> source =  ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.SELECT)
-                .table("chatformat_mute")
+                .table(this.table)
                 .condition("player", player)
                 .run();
 
@@ -56,12 +67,47 @@ public class ChatFormatPlayerData extends SubPlayerData {
     }
 
     @Override
-    public void setPlayerData(String player, Object object) {
+    public void setPlayerData(String player, Object[] object) {
+        int time = (int) object[1];
+
+        if (time == 0) {
+            ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.DELETE)
+                    .table(this.table)
+                    .condition("player", player).run();
+            return;
+        }
+
+        if (ServerBuild.getPlayerDataService().getSqlFactory()
+                        .type(SqlType.SELECT)
+                        .table(this.table)
+                        .run().get("mute") == null) {
+            ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.INSERT)
+                    .table(this.table)
+                    .insert(player, (String) object[0], String.valueOf(time)).run();
+            return;
+        }
+
+        ServerBuild.getPlayerDataService().getSqlFactory()
+                .type(SqlType.UPDATE)
+                .table(this.table)
+                .set("mute", String.valueOf(time))
+                .set("save", (String) object[0])
+                .condition("player", player)
+                .run();
+    }
+
+    @Override
+    public void setPlayerData(Player player, Object[] object) {
+        this.setPlayerData(player.getName(), object);
+    }
+
+    @Override
+    public void delPlayerData(String player) {
 
     }
 
     @Override
-    public void setPlayerData(Player player, Object object) {
+    public void delPlayerData(Player player) {
 
     }
 }

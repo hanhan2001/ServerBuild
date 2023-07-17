@@ -6,6 +6,7 @@ import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.listeners.ChatFormatListener;
+import me.xiaoying.sb.playerdata.data.HomePlayerData;
 import me.xiaoying.sb.service.ChatFormatService;
 import me.xiaoying.sb.task.tasks.ChatFormatTask;
 import me.xiaoying.sb.utils.PluginUtil;
@@ -39,12 +40,12 @@ public class ChatFormatHandle implements Handle {
         ServerBuild.getFileService().file("ChatFormat");
         ServerBuild.getFileService().init("ChatFormat");
 
-        if (!this.enable()) {
-            PluginUtil.unregisterCommand("cf", ServerBuild.getInstance());
-            return;
-        }
+        if (!this.enable())
+            this.stop();
 
         YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> ChatFormatService.registerChatFormat(new ChatFormatEntity(string)));
+        ServerBuild.getPlayerDataService().registerPlayerData("Home", new HomePlayerData());
+        ServerBuild.getPlayerDataService().filePlayerData("Home");
 
         ServerBuild.getListenerService().registerListener(this, new ChatFormatListener());
         ServerBuild.getListenerService().runListeners(this);
@@ -55,6 +56,8 @@ public class ChatFormatHandle implements Handle {
 
     @Override
     public void stop() {
+        PluginUtil.unregisterCommand("cf", ServerBuild.getInstance());
+
         ChatFormatService.unregisterChatFormats();
         if (ServerBuild.getListenerService().getListeners(this) != null)
             ServerBuild.getListenerService().unregisterListener(this);

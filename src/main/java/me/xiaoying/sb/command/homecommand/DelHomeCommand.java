@@ -28,7 +28,7 @@ public class DelHomeCommand implements TabExecutor {
         }
 
         Player player = (Player) sender;
-        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home", "Home").getPlayerData(player);
         String home;
 
         if (strings.length > 0)
@@ -108,7 +108,7 @@ public class DelHomeCommand implements TabExecutor {
 
         Player player = (Player) sender;
         List<String> list = new ArrayList<>();
-        List<HomeEntity> homes = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        List<HomeEntity> homes = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home", "Home").getPlayerData(player);
         for (HomeEntity home : homes)
             list.add(home.getName());
 

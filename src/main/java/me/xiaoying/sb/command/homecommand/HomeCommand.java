@@ -21,7 +21,7 @@ public class HomeCommand implements TabExecutor {
             return false;
 
         Player player = (Player) sender;
-        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home", "Home").getPlayerData(player);
         if (list.size() == 0) {
             player.sendMessage(new VariableFactory(HomeConstant.MESSAGE_HOME_NOT_EXISTS)
                             .prefix(HomeConstant.MESSAGE_PREFIX)
@@ -70,7 +70,7 @@ public class HomeCommand implements TabExecutor {
 
         Player player = (Player) sender;
         List<String> list = new ArrayList<>();
-        List<HomeEntity> homes = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        List<HomeEntity> homes = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home", "Home").getPlayerData(player);
         for (HomeEntity home : homes)
             list.add(home.getName());
 

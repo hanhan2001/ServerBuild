@@ -52,7 +52,7 @@ public class SetHomeCommand implements TabExecutor {
             max = 99999;
 
         // 判断是否存在相同名字的家
-        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player);
+        List<HomeEntity> list = (List<HomeEntity>) ServerBuild.getPlayerDataService().getData("Home", "Home").getPlayerData(player);
         for (HomeEntity homeEntity : list) {
             if (!homeEntity.getName().equalsIgnoreCase(name))
                 continue;
@@ -89,7 +89,7 @@ public class SetHomeCommand implements TabExecutor {
             stringBuilder.append(",");
         stringBuilder.append(homeEntity);
 
-        if (((List<?>) ServerBuild.getPlayerDataService().getData("Home").getPlayerData(player)).size() == 0)
+        if (((List<?>) ServerBuild.getPlayerDataService().getData("Home", "Home").getPlayerData(player)).size() == 0)
             ServerBuild.getPlayerDataService().getSqlFactory()
                     .type(SqlType.INSERT)
                     .table("home")
