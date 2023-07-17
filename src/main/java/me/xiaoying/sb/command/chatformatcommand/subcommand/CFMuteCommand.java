@@ -4,15 +4,19 @@ import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.command.Command;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.constant.ChatFormatConstant;
+import me.xiaoying.sb.exception.NotFoundPlayerDataException;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.metadata.MuteMetaData;
+import me.xiaoying.sb.playerdata.SubPlayerData;
+import me.xiaoying.sb.playerdata.data.ChatFormatPlayerData;
+import me.xiaoying.sb.utils.DateUtil;
+import me.xiaoying.sb.utils.ExceptionUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -36,8 +40,21 @@ public class CFMuteCommand extends SubCommand {
             return false;
         }
 
-        if (player.getMetadata("mute").size() != 0)
-            player.removeMetadata("mute", ServerBuild.getInstance());
+        ChatFormatPlayerData chatFormatPlayerData = null;
+        String handle = "Home";
+        String handleName = "ChatFormat_Mute";
+        for (SubPlayerData home : ServerBuild.getPlayerDataService().getData(handle)) {
+            if (!home.getName().equalsIgnoreCase(handleName))
+                continue;
+
+            chatFormatPlayerData = (ChatFormatPlayerData) home;
+        }
+
+        if (chatFormatPlayerData == null)
+            ExceptionUtil.throwException(new NotFoundPlayerDataException("Can't find PlayerData '" + handle + "-" + handleName + "', please check is registered this PlayerData."));
+
+        assert chatFormatPlayerData != null;
+        chatFormatPlayerData.setPlayerData(player, new String[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), args[1]});
 
         float time = ChatFormatConstant.CHAT_DEFAULTTIME;
         if (args.length == 2) {
@@ -50,9 +67,9 @@ public class CFMuteCommand extends SubCommand {
             }
 
             time = Float.parseFloat(args[1]);
-            player.setMetadata("mute", new MuteMetaData(time, TimeUnit.SECONDS));
+            chatFormatPlayerData.setPlayerData(player, new String[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), args[1]});
         } else
-            player.setMetadata("mute", new MuteMetaData(time, TimeUnit.SECONDS));
+            chatFormatPlayerData.setPlayerData(player, new String[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), args[1]});
 
         sender.sendMessage(new VariableFactory(ChatFormatConstant.MUTE_SUCCESS)
                         .prefix(ChatFormatConstant.MESSAGE_PREFIX)
