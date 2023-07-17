@@ -1,6 +1,7 @@
 package me.xiaoying.sb.playerdata;
 
 import me.xiaoying.mf.SqlFactory;
+import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.exception.NotFoundPlayerDataException;
 import me.xiaoying.sb.utils.ExceptionUtil;
 
@@ -33,6 +34,6 @@ public class PlayerDataService {
     }
 
     public SqlFactory getSqlFactory() {
-        return new SqlFactory("jdbc:sqlite", "plugins/ServerBuild/ServerBuild.db");
+        return new SqlFactory("jdbc:sqlite", ConfigConstant.SET_DATAPATH);
     }
 }

@@ -85,7 +85,8 @@ public class ServerBuild extends JavaPlugin {
     // 初始化
     public static void initialize() {
         // 检测插件使用量
-        new Metrics(ServerBuild.getInstance(), 16512);
+        if (ConfigConstant.SET_BSTATS)
+            new Metrics(ServerBuild.getInstance(), 16512);
 
         // ScriptCommand
         scriptCommandService.registerCommands();

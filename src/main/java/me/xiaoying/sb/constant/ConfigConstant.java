@@ -5,6 +5,7 @@ import java.util.List;
 public class ConfigConstant {
     /**
      * SET_BSTATS 是否上传使用插件数据
+     * SET_DATAPATH 数据存储位置
      * OVERALL_ENABLE 是否开启全局配置
      * OVERALL_ENABLE_VARIABLE 是否开启全局变量
      * OVERALL_ENABLE_MESSAGE 是否开启全局词条
@@ -22,7 +23,8 @@ public class ConfigConstant {
     public static String OVERALL_VARIABLE_DATAFORMAT,
             OVERALL_MESSAGE_PREFIX,
             OVERALL_MESSAGE_RELOAD,
-            OVERALL_MESSAGE_NOPERMISSION;
+            OVERALL_MESSAGE_NOPERMISSION,
+            SET_DATAPATH;
 
     public static List<String> MESSAGE_HELP;
 }

@@ -4,6 +4,8 @@
 Set:
   #是否上传使用插件数据(只用于统计)
   Bstats: false
+  #信息存储
+  DataPath: "plugins/ServerBuild/ServerBuild.db"
 
 #全局配置
 #总开关，以下功能单独拥有一个小开关

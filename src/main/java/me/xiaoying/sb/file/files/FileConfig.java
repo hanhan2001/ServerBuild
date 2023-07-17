@@ -25,6 +25,7 @@ public class FileConfig extends SubFile {
     @Override
     public void initFile() {
         ConfigConstant.SET_BSTATS = config.getBoolean("Set.Bstats");
+        ConfigConstant.SET_DATAPATH = config.getString("Set.DataPath") == null ? "plugins/ServerBuild/ServerBuild.db" : config.getString("Set.DataPath");
         ConfigConstant.OVERALL_ENABLE = config.getBoolean("Enable");
         ConfigConstant.OVERALL_ENABLE_MESSAGE = config.getBoolean("Message.Enable");
         ConfigConstant.OVERALL_ENABLE_VARIABLE = config.getBoolean("Variable.Enable");
