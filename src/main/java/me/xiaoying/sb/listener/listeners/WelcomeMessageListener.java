@@ -51,8 +51,12 @@ public class WelcomeMessageListener implements Listener {
         if (welcomeMessageEntity.enableJoinChat())
             welcomeMessageEntity.getJoinChatMessage().forEach(s -> {
                 s = new VariableFactory(s)
+                        .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
                         .player(player)
-                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                        .placeholder(player)
+                        .color()
+                        .getString();
                 ServerUtil.onlinePlayersSendMessage(s);
                 ServerUtil.sendMessage(s, true);
             });
@@ -62,15 +66,22 @@ public class WelcomeMessageListener implements Listener {
             String title = welcomeMessageEntity.getJoinTitleTitle();
             if (title != null)
                 title = new VariableFactory(title)
+                        .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
                         .player(player)
-                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                        .placeholder(player)
+                        .color()
+                        .getString();
 
 
             String subtitle = welcomeMessageEntity.getJoinTitleSubtitle();
             if (subtitle != null)
                 subtitle = new VariableFactory(subtitle)
-                        .player(player)
+                        .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
                         .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                        .player(player)
+                        .placeholder(player)
+                        .color()
                         .getString();
 
             if (welcomeMessageEntity.enableJoinTitleAllPlayer())
@@ -82,7 +93,13 @@ public class WelcomeMessageListener implements Listener {
         // Actionbar
         if (welcomeMessageEntity.enableJoinActionBar()) {
             if (welcomeMessageEntity.enableJoinActionbarAllPlayer())
-                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
+                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage())
+                                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                                .player(player)
+                                .placeholder(player)
+                                .color()
+                                .getString());
             else
                 PlayerUtil.sendActionbar(player, new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
         }
