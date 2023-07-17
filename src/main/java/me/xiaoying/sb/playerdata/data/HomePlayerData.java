@@ -44,4 +44,14 @@ public class HomePlayerData extends SubPlayerData {
     public Object getPlayerData(Player player) {
         return this.getPlayerData(player.getName());
     }
+
+    @Override
+    public void setPlayerData(String player, Object object) {
+
+    }
+
+    @Override
+    public void setPlayerData(Player player, Object object) {
+
+    }
 }

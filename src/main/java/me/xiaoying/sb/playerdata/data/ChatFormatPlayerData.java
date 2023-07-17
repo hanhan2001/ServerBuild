@@ -44,7 +44,7 @@ public class ChatFormatPlayerData extends SubPlayerData {
 
         // 存入Map数据
         Map<String, Object> map = new HashMap<>();
-        map.put("save", saveTime)
+        map.put("save", saveTime);
         map.put("mute", time);
 
         return map;
@@ -53,5 +53,15 @@ public class ChatFormatPlayerData extends SubPlayerData {
     @Override
     public Object getPlayerData(Player player) {
         return getPlayerData(player.getName());
+    }
+
+    @Override
+    public void setPlayerData(String player, Object object) {
+
+    }
+
+    @Override
+    public void setPlayerData(Player player, Object object) {
+
     }
 }
