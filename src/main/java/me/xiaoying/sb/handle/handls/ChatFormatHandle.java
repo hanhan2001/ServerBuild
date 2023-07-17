@@ -6,6 +6,7 @@ import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.listeners.ChatFormatListener;
+import me.xiaoying.sb.playerdata.data.ChatFormatPlayerData;
 import me.xiaoying.sb.playerdata.data.HomePlayerData;
 import me.xiaoying.sb.service.ChatFormatService;
 import me.xiaoying.sb.task.tasks.ChatFormatTask;
@@ -44,8 +45,8 @@ public class ChatFormatHandle implements Handle {
             this.stop();
 
         YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> ChatFormatService.registerChatFormat(new ChatFormatEntity(string)));
-        ServerBuild.getPlayerDataService().registerPlayerData("Home", new HomePlayerData());
-        ServerBuild.getPlayerDataService().filePlayerData("Home");
+        ServerBuild.getPlayerDataService().registerPlayerData("chatformat", new ChatFormatPlayerData());
+        ServerBuild.getPlayerDataService().filePlayerData("chatformat");
 
         ServerBuild.getListenerService().registerListener(this, new ChatFormatListener());
         ServerBuild.getListenerService().runListeners(this);

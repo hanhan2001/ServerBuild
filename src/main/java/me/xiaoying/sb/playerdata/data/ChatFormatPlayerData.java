@@ -71,9 +71,7 @@ public class ChatFormatPlayerData extends SubPlayerData {
         int time = (int) object[1];
 
         if (time == 0) {
-            ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.DELETE)
-                    .table(this.table)
-                    .condition("player", player).run();
+            this.delPlayerData(player);
             return;
         }
 
@@ -103,11 +101,13 @@ public class ChatFormatPlayerData extends SubPlayerData {
 
     @Override
     public void delPlayerData(String player) {
-
+        ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.DELETE)
+                .table(this.table)
+                .condition("player", player).run();
     }
 
     @Override
     public void delPlayerData(Player player) {
-
+        this.delPlayerData(player.getName());
     }
 }

@@ -41,9 +41,8 @@ public class HomeHandle implements Handle {
         ServerBuild.getFileService().init("Home");
 
         YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/Home.yml", "Homes.Groups").forEach(HomeService::registerGroupHomeSet);
-
-        ServerBuild.getPlayerDataService().registerPlayerData("home", new HomePlayerData());
-        ServerBuild.getPlayerDataService().filePlayerData("home");
+        ServerBuild.getPlayerDataService().registerPlayerData("Home", new HomePlayerData());
+        ServerBuild.getPlayerDataService().filePlayerData("Home");
 
         if (!this.enable())
             this.stop();
