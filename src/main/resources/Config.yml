@@ -25,9 +25,9 @@ Message:
   #前缀
   Prefix: "&a[&bServerBuild&a]&e>> "
   #重载
-  Reload: "&a重载完成"
+  Reload: "%prefix%&a重载完成"
   #无权限操作
-  NoPermission: "&c你没有权限这么做！"
+  NoPermission: "%prefix%&c你没有权限这么做！"
 
 #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
 Use-Help:
