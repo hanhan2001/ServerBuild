@@ -7,7 +7,6 @@ import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.listener.listeners.ChatFormatListener;
 import me.xiaoying.sb.playerdata.data.ChatFormatPlayerData;
-import me.xiaoying.sb.playerdata.data.HomePlayerData;
 import me.xiaoying.sb.service.ChatFormatService;
 import me.xiaoying.sb.task.tasks.ChatFormatTask;
 import me.xiaoying.sb.utils.PluginUtil;
