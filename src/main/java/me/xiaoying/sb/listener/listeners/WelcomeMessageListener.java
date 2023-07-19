@@ -91,17 +91,18 @@ public class WelcomeMessageListener implements Listener {
         }
 
         // Actionbar
+        String actionbar = new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage())
+                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                .player(player)
+                .placeholder(player)
+                .color()
+                .getString();
         if (welcomeMessageEntity.enableJoinActionBar()) {
             if (welcomeMessageEntity.enableJoinActionbarAllPlayer())
-                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage())
-                                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
-                                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
-                                .player(player)
-                                .placeholder(player)
-                                .color()
-                                .getString());
+                ServerUtil.onlinePlayersSendActionbar(actionbar);
             else
-                PlayerUtil.sendActionbar(player, new VariableFactory(welcomeMessageEntity.getJoinActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString());
+                PlayerUtil.sendActionbar(player, actionbar);
         }
     }
 
