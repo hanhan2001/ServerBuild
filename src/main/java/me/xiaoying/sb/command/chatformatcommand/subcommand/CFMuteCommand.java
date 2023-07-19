@@ -6,7 +6,6 @@ import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.exception.NotFoundPlayerDataException;
 import me.xiaoying.sb.factory.VariableFactory;
-import me.xiaoying.sb.metadata.MuteMetaData;
 import me.xiaoying.sb.playerdata.SubPlayerData;
 import me.xiaoying.sb.playerdata.data.ChatFormatPlayerData;
 import me.xiaoying.sb.utils.DateUtil;
@@ -18,7 +17,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Command(values = "mute", length = {1, 2})
 public class CFMuteCommand extends SubCommand {
@@ -41,37 +39,35 @@ public class CFMuteCommand extends SubCommand {
         }
 
         ChatFormatPlayerData chatFormatPlayerData = null;
-        String handle = "Home";
+        String handle = "chatformat";
         String handleName = "ChatFormat_Mute";
-        for (SubPlayerData home : ServerBuild.getPlayerDataService().getData(handle)) {
-            System.out.println(123);
-            if (!home.getName().equalsIgnoreCase(handleName))
+        for (SubPlayerData chatformat : ServerBuild.getPlayerDataService().getData(handle)) {
+            if (!chatformat.getName().equalsIgnoreCase(handleName))
                 continue;
-            System.out.println(11);
 
-            chatFormatPlayerData = (ChatFormatPlayerData) home;
+            chatFormatPlayerData = (ChatFormatPlayerData) chatformat;
         }
 
         if (chatFormatPlayerData == null)
             ExceptionUtil.throwException(new NotFoundPlayerDataException("Can't find PlayerData '" + handle + "-" + handleName + "', please check is registered this PlayerData."));
 
         assert chatFormatPlayerData != null;
-        chatFormatPlayerData.setPlayerData(player, new String[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), args[1]});
 
         float time = ChatFormatConstant.CHAT_DEFAULTTIME;
         if (args.length == 2) {
             if (!Character.isDigit(args[1].charAt(0))) {
                 sender.sendMessage(new VariableFactory(ChatFormatConstant.MESSAGE_MUTEWRONG)
                         .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                        .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
                         .color()
                         .getString());
                 return false;
             }
 
             time = Float.parseFloat(args[1]);
-            chatFormatPlayerData.setPlayerData(player, new String[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), args[1]});
+            chatFormatPlayerData.setPlayerData(player, new Object[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), time});
         } else
-            chatFormatPlayerData.setPlayerData(player, new String[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), args[1]});
+            chatFormatPlayerData.setPlayerData(player, new Object[]{DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), 10});
 
         sender.sendMessage(new VariableFactory(ChatFormatConstant.MUTE_SUCCESS)
                         .prefix(ChatFormatConstant.MESSAGE_PREFIX)
@@ -81,15 +77,16 @@ public class CFMuteCommand extends SubCommand {
                         .placeholder(player)
                         .color()
                         .getString());
+
         for (String s : ChatFormatConstant.CHAT_MUTE_MESSAGE) {
             player.sendMessage(new VariableFactory(s)
-                    .prefix(ChatFormatConstant.MESSAGE_PREFIX)
-                    .player(player)
-                    .time(player.getMetadata("mute").get(0).asString())
-                    .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
-                    .placeholder(player)
-                    .color()
-                    .getString());
+                            .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                            .player(player)
+                            .time(String.valueOf(time))
+                            .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                            .placeholder(player)
+                            .color()
+                            .getString());
         }
         return false;
     }

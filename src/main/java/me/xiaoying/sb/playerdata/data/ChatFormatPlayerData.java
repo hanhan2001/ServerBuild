@@ -37,26 +37,23 @@ public class ChatFormatPlayerData extends SubPlayerData {
     public Object getPlayerData(String player) {
         Map<String, List<Object>> source =  ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.SELECT)
                 .table(this.table)
+                .cols("player", "save", "mute")
                 .condition("player", player)
                 .run();
 
         // 开始禁言时间
         String saveTime;
-        if (source.get("save").size() != 0)
+        if (source.get("save") == null)
+            return null;
+        else if (source.get("save").size() != 0)
             saveTime = (String) source.get("save").get(0);
         else
             return null;
 
-        // 禁言毫秒
-        int time = 0;
-        List<Object> list = source.get("mute");
-        if (list.size() != 0)
-            return Integer.parseInt((String) list.get(0));
-
         // 存入Map数据
         Map<String, Object> map = new HashMap<>();
         map.put("save", saveTime);
-        map.put("mute", time);
+        map.put("mute", Float.parseFloat(source.get("mute").get(0).toString()));
 
         return map;
     }
@@ -68,7 +65,7 @@ public class ChatFormatPlayerData extends SubPlayerData {
 
     @Override
     public void setPlayerData(String player, Object[] object) {
-        int time = (int) object[1];
+        float time = Float.parseFloat(object[1].toString());
 
         if (time == 0) {
             this.delPlayerData(player);
@@ -76,9 +73,11 @@ public class ChatFormatPlayerData extends SubPlayerData {
         }
 
         if (ServerBuild.getPlayerDataService().getSqlFactory()
-                        .type(SqlType.SELECT)
-                        .table(this.table)
-                        .run().get("mute") == null) {
+                .type(SqlType.SELECT)
+                .table(this.table)
+                .cols("player", "mute")
+                .condition("player", player)
+                .run().get("mute") == null) {
             ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.INSERT)
                     .table(this.table)
                     .insert(player, (String) object[0], String.valueOf(time)).run();

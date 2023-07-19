@@ -1,10 +1,13 @@
 package me.xiaoying.sb.listener.listeners;
 
+import me.xiaoying.mf.SqlType;
 import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.entity.ChatFormatEntity;
 import me.xiaoying.sb.factory.VariableFactory;
+import me.xiaoying.sb.playerdata.SubPlayerData;
 import me.xiaoying.sb.service.ChatFormatService;
+import me.xiaoying.sb.utils.DateUtil;
 import me.xiaoying.sb.utils.ServerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,6 +18,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 监听事件 ChatFormat
@@ -23,15 +27,30 @@ public class ChatFormatListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerChatMute(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (player.getMetadata("mute").size() == 0)
+
+        SubPlayerData playerData = ServerBuild.getPlayerDataService().getData("chatformat", "chatformat_mute");
+
+        if (playerData.getPlayerData(player) == null)
             return;
+
+        Map<String, Object> map = (Map<String, Object>) playerData.getPlayerData(player);
+        String save = (String) map.get("save");
+        float time = Float.parseFloat(map.get("mute").toString());
+        float reduce = DateUtil.getDateReduce(DateUtil.getDate(ChatFormatConstant.SET_VARIABLE_DATEFORMAT), save, ChatFormatConstant.SET_VARIABLE_DATEFORMAT);
+        if (reduce / 1000 >= time) {
+            ServerBuild.getPlayerDataService().getSqlFactory().type(SqlType.DELETE)
+                    .table("chatformat_mute")
+                    .condition("player", player.getName())
+                    .run();
+            return;
+        }
 
         event.setCancelled(true);
         for (String s : ChatFormatConstant.CHAT_MUTE_MESSAGE) {
             player.sendMessage(new VariableFactory(s)
                     .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                     .player(player)
-                    .time(player.getMetadata("mute").get(0).asString())
+                    .time(String.valueOf(time - reduce / 1000))
                     .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
                     .placeholder(player)
                     .color()
