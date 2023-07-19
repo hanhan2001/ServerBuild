@@ -38,6 +38,10 @@ commands:
   delhome:
     description: (Home) 删除家
     permission: sb.home.delhome
+  ce:
+    description: (ClearEntity) 清除实体
+    permission: sb.ce.admin
+    aliases: [clearentity]
 permissions:
   sb.admin:
     description: 全局管理权限

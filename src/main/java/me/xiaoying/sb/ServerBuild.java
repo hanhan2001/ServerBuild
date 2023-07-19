@@ -99,6 +99,7 @@ public class ServerBuild extends JavaPlugin {
         fileService.register("Teleport", new FileTeleport());
         fileService.register("ChatFormat", new FileChatFormat());
         fileService.register("AutoReSpawn", new FileAutoReSpawn());
+        fileService.register("ClearEntity", new FileClearEntity());
         fileService.register("FileMonitor", new FileFileMonitor());
         fileService.register("WelcomeMessage", new FileWelcomeMessage());
         fileService.register("MessageAnnouncer", new FileMessageAnnouncer());
