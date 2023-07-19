@@ -20,10 +20,15 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class ServerBuild extends JavaPlugin {
     private static ServerBuild instance;
+    // 线程总控
     private static final TaskService taskService = new TaskService();
+    // 文件总控
     private static final FileService fileService = new FileService();
+    // 事件总控
     private static final ListenerService listenerService = new ListenerService();
+    // 玩家数据总控
     private static final PlayerDataService playerDataService = new PlayerDataService();
+    // 脚本命令总控
     private static final ScriptCommandService scriptCommandService = new ScriptCommandService();
 
     @Override
