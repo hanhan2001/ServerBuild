@@ -25,7 +25,11 @@ public class CFReloadCommand extends SubCommand {
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.cf.admin") && !sender.isOp()) {
-            sender.sendMessage(ColorUtil.translate(LoginTpConstant.MESSAGE_PREFIX + LoginTpConstant.MESSAGE_NOPERMISSION));
+            sender.sendMessage(ColorUtil.translate(new VariableFactory(ChatFormatConstant.MESSAGE_NOPERMISSION)
+                            .prefix(ChatFormatConstant.MESSAGE_PREFIX)
+                            .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
+                            .color()
+                            .getString()));
             return false;
         }
 
