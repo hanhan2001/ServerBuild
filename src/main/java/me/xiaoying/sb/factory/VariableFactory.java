@@ -61,6 +61,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory amount(String amount) {
+        this.string = this.string.replace("%amount%", amount);
+        return this;
+    }
+
     public String getString() {
         return this.string;
     }
