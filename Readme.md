@@ -13,7 +13,7 @@
 - [x] AutoReSpawn
 - [ ] BookContent
 - [x] ChatFormat
-- [ ] ClearEntity
+- [x] ClearEntity
 - [x] FileMonitor
 - [x] Home
 - [x] LoginTP
@@ -45,9 +45,7 @@
 ## 配置文件
 
 - [AutoReSpawn](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/AutoReSpawn.yml)
-
 + [BookContent](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/AutoReSpawn.yml)
-
 - [ChatFormat](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/ChatFormat.yml)
 - [ClearEntity](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/ClearEntity.yml)
 - [FileMonitor](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/FileMonitor.yml)
