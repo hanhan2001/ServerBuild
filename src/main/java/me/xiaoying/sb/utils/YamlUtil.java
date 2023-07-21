@@ -111,8 +111,8 @@ public class YamlUtil {
      * @param key 需要获取子节点的节点
      * @return 子节点列表
      */
-    public static List<String> getChildrenNode(String path, String key) {
-        List<String> allNodes;
+    public static List<Object> getChildrenNode(String path, String key) {
+        List<Object> allNodes;
         try {
             FileInputStream fileInputStream = new FileInputStream(path);
             HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);

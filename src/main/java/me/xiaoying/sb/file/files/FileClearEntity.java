@@ -1,6 +1,8 @@
 package me.xiaoying.sb.file.files;
 
+import me.xiaoying.sb.constant.ChatFormatConstant;
 import me.xiaoying.sb.constant.ClearEntityConstant;
+import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.file.SubFile;
 import me.xiaoying.sb.utils.ServerUtil;
 import me.xiaoying.sb.utils.YamlUtil;
@@ -35,8 +37,17 @@ public class FileClearEntity extends SubFile {
         ClearEntityConstant.CLEAR_TOTAL_LIMIT = clearEntity.getInt("ClearEntity.Total.Limit");
 
         ClearEntityConstant.CLEAR_ENTITY = clearEntity.getStringList("ClearEntity.Entity");
-        ClearEntityConstant.CLEAR_NOCLEAR = clearEntity.getStringList("ClearEntity.NoClear");
+        ClearEntityConstant.CLEAR_NOTCLEAR_ITEM = clearEntity.getStringList("ClearEntity.NotClearItem");
+        ClearEntityConstant.CLEAR_NOTCLEAR_MONSTER = clearEntity.getStringList("ClearEntity.NotClearMonster");
+        ClearEntityConstant.CLEAR_NOTCLEAR_ANIMAL = clearEntity.getStringList("ClearEntity.NotClearAnimal");
         ClearEntityConstant.CLEAR_TIME = clearEntity.getStringList("ClearEntity.CountTime");
+        ClearEntityConstant.CLEAR_BLACKWORLDS = clearEntity.getStringList("ClearEntity.BlackWorlds");
         ClearEntityConstant.CLEAR_MESSAGE_COUNTDOWN = YamlUtil.getStringList(clearEntity, "ClearMessage.CountDown");
+
+        ClearEntityConstant.MESSAGE_HELP = clearEntity.getStringList("Use-Help");
+        ClearEntityConstant.SET_VARIABLE_DATEFORMAT = ConfigConstant.OVERALL_ENABLE && ConfigConstant.OVERALL_ENABLE_VARIABLE ? ConfigConstant.OVERALL_VARIABLE_DATAFORMAT : clearEntity.getString("Set.DateFormat");
+        ClearEntityConstant.MESSAGE_PREFIX = clearEntity.getString("Message.Prefix");
+        ClearEntityConstant.MESSAGE_RELOAD = clearEntity.getString("Message.Reload");
+        ClearEntityConstant.MESSAGE_NOPERMISSION = clearEntity.getString("Message.NoPermission");
     }
 }

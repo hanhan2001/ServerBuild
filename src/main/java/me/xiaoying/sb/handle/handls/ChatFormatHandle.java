@@ -43,7 +43,7 @@ public class ChatFormatHandle implements Handle {
         if (!this.enable())
             this.stop();
 
-        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> ChatFormatService.registerChatFormat(new ChatFormatEntity(string)));
+        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/ChatFormat.yml", "Formats").forEach(string -> ChatFormatService.registerChatFormat(new ChatFormatEntity(string.toString())));
         ServerBuild.getPlayerDataService().registerPlayerData("chatformat", new ChatFormatPlayerData());
         ServerBuild.getPlayerDataService().filePlayerData("chatformat");
 

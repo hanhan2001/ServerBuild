@@ -42,9 +42,9 @@ public class MessageAnnouncerHandle implements Handle {
         ServerBuild.getFileService().init("MessageAnnouncer");
         ServerBuild.getFileService().file("MessageAnnouncer");
 
-        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.Chat.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new ChatAnnouncerEntity(string)));
-        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.Title.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new TitleAnnouncerEntity(string)));
-        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.ActionBar.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new ActionbarAnnouncerEntity(string)));
+        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.Chat.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new ChatAnnouncerEntity(string.toString())));
+        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.Title.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new TitleAnnouncerEntity(string.toString())));
+        YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.ActionBar.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new ActionbarAnnouncerEntity(string.toString())));
 
         if (!this.enable()) {
             PluginUtil.unregisterCommand("ma", ServerBuild.getInstance());
