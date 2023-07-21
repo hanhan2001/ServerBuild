@@ -3,6 +3,10 @@
 #开关
 Enable: false
 
+#设置(如若无法更改请查看是否在 Config.yml 文件中启用了全局配置)
+Set:
+  #日期格式，作用于变量 %date%
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
 
 #功能配置
 ClearEntity:
@@ -18,16 +22,23 @@ ClearEntity:
     Enable: false
     #上限数量
     Limit: 1200
-  #清理实体
+  #清理实体(填写 Item、Animals、Monster, Other)
   Entity:
     - Item
     - Animals
     - Monster
-  #不清除物品
-  NotClear:
-    - Item:Diamond
-    - Item:Iron
-    - Item:Gold
+  #不清理世界
+  BlackWorlds:
+    - bad_world
+  #不清理物品(清除对象中包含才经行操作，如 ClearEntity.Entity 中不包含 Monster 则 ClearEntity.NotClearMonster 无效)
+  NotClearItem:
+    - Item1
+  #不清理怪物(清除对象中包含才经行操作，如 ClearEntity.Entity 中不包含 Monster 则 ClearEntity.NotClearMonster 无效)
+  NotClearMonster:
+    - Monster1
+  #不清理动物(清除对象中包含才经行操作，如 ClearEntity.Entity 中不包含 Monster 则 ClearEntity.NotClearMonster 无效)
+  NotClearAnimal:
+    - Animal1
   #倒计时提示时间
   CountTime:
     - 60
@@ -49,27 +60,27 @@ ClearMessage:
       #判断方式(如 x = 0)
       Type: "="
       #消息内容
-      Message: "&c怎么回事！！！？怎么会一点都没有！！！？？？இ௰இ &e(%amount%个)"
+      Message: "%prefix%&c怎么回事！！！？怎么会一点都没有！！！？？？இ௰இ &e(%amount%个)"
     30:
       #判断方式(如 x <= 0)
       Type: "<="
       #消息内容
-      Message: "&6怎么才这么点？根本不够吃啊！太让人伤心了！ψ(._. )> &e(%amount%个)"
+      Message: "%prefix%&6怎么才这么点？根本不够吃啊！太让人伤心了！ψ(._. )> &e(%amount%个)"
     31:
       #判断方式
       Type: ">"
       #消息内容
-      Message: "&6勉勉强强吧≡[。。]≡ &e(%amount%个)"
+      Message: "%prefix%&6勉勉强强吧≡[。。]≡ &e(%amount%个)"
     50:
       #判断方式
       Type: "<"
       #消息内容
-      Message: "&6嗯哼，数量还行(ง •_•)ง &e(%amount%个)"
+      Message: "%prefix%&6嗯哼，数量还行(ง •_•)ง &e(%amount%个)"
     100:
       #判断方式
       Type: ">="
       #消息内容
-      Message: "&6吼吼吼，有这么多零食！赚大发了！(๑•̀ㅂ•́)و✧ &e(%amount%个)"
+      Message: "%prefix%&6吼吼吼，有这么多零食！赚大发了！(๑•̀ㅂ•́)و✧ &e(%amount%个)"
 
 #词条
 Message:

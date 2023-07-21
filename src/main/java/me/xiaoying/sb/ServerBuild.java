@@ -79,6 +79,7 @@ public class ServerBuild extends JavaPlugin {
         Handler.registerHandle("NotBuild", new NotBuildHandle());
         Handler.registerHandle("ChatFormat", new ChatFormatHandle());
         Handler.registerHandle("AutoReSpawn", new AutoReSpawnHandle());
+        Handler.registerHandle("ClearEntity", new ClearEntityHandle());
         Handler.registerHandle("FileMonitor", new FileMonitorHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
         Handler.registerHandle("MessageAnnouncer", new MessageAnnouncerHandle());
