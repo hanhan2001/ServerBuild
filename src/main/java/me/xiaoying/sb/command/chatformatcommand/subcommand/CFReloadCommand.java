@@ -24,7 +24,7 @@ public class CFReloadCommand extends SubCommand {
 
     @Override
     public boolean performCommand(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.ars.admin") && !sender.isOp()) {
+        if (!sender.hasPermission("sb.admin") && !sender.hasPermission("sb.cf.admin") && !sender.isOp()) {
             sender.sendMessage(ColorUtil.translate(LoginTpConstant.MESSAGE_PREFIX + LoginTpConstant.MESSAGE_NOPERMISSION));
             return false;
         }
