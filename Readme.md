@@ -11,16 +11,22 @@
 ## 重构进度
 
 - [x] AutoReSpawn
+- [ ] BanPlayer
 - [ ] BookContent
+- [ ] CommandBan
 - [x] ChatFormat
 - [x] ClearEntity
 - [x] FileMonitor
+- [ ] Fly
+- [ ] GroupSpawn
 - [x] Home
 - [x] LoginTP
 - [x] MessageAnnouncer
 - [x] NotBuild
 - [ ] PlayerShout
+- [ ] PlayerStatus
 - [ ] Scoreboard
+- [ ] ServerStatus
 - [ ] Teleport
 - [x] WelcomeMessage
 
