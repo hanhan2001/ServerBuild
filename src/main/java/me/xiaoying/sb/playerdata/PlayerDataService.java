@@ -3,7 +3,7 @@ package me.xiaoying.sb.playerdata;
 import me.xiaoying.mf.SqlFactory;
 import me.xiaoying.sb.constant.ConfigConstant;
 import me.xiaoying.sb.exception.NotFoundPlayerDataException;
-import me.xiaoying.sb.exception.SamePlayerData;
+import me.xiaoying.sb.exception.SamePlayerDataException;
 import me.xiaoying.sb.utils.ExceptionUtil;
 
 import java.util.*;
@@ -41,7 +41,7 @@ public class PlayerDataService {
             list = this.data.get(handle.toUpperCase());
 
         if (list.contains(playerData))
-            ExceptionUtil.throwException(new SamePlayerData("Already registered same name PlayerData, please check your code."));
+            ExceptionUtil.throwException(new SamePlayerDataException("Already registered same name PlayerData, please check your code."));
 
         list.add(playerData);
         this.data.put(handle.toUpperCase(), list);
