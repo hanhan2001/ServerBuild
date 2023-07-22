@@ -18,7 +18,10 @@
 - [x] ChatFormat
 - [x] ClearEntity
 - [x] FileMonitor
+- [ ] Fix
+- [ ] FileProtect
 - [ ] Fly
+- [ ] Gamemode
 - [ ] GroupSpawn
 - [x] Home
 - [x] LoginTP
@@ -28,6 +31,7 @@
 - [ ] PlayerStatus
 - [ ] Scoreboard
 - [ ] ServerStatus
+- [ ] Suicide
 - [ ] Teleport
 - [x] WelcomeMessage
 
@@ -52,7 +56,7 @@
 ## 配置文件
 
 - [AutoReSpawn](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/AutoReSpawn.yml)
-+ [BookContent](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/AutoReSpawn.yml)
+- [BookContent](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/AutoReSpawn.yml)
 - [ChatFormat](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/ChatFormat.yml)
 - [ClearEntity](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/ClearEntity.yml)
 - [FileMonitor](https://github.com/hanhan2001/ServerBuild/blob/master/src/main/resources/FileMonitor.yml)
