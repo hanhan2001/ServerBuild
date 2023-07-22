@@ -66,6 +66,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory name(String name) {
+        this.string = this.string.replace("%name%", name);
+        return this;
+    }
+
     public String getString() {
         return this.string;
     }
