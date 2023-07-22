@@ -130,7 +130,7 @@ public class ChatFormatListener implements Listener {
             chatFormat.getFormat().forEach(string -> {
                 string = new VariableFactory(string)
                         .player(player)
-                        .chatmessgae(event.getMessage())
+                        .message(event.getMessage())
                         .prefix(ChatFormatConstant.MESSAGE_PREFIX)
                         .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
                         .placeholder(onlinePlayer)
@@ -216,7 +216,7 @@ public class ChatFormatListener implements Listener {
         for (String s : ChatFormatConstant.BLACK_TERMS_MESSAGE) {
             player.sendMessage(new VariableFactory(s)
                             .player(player)
-                            .chatmessgae(event.getMessage())
+                            .message(event.getMessage())
                             .date(ChatFormatConstant.SET_VARIABLE_DATEFORMAT)
                             .placeholder(player)
                             .color()
