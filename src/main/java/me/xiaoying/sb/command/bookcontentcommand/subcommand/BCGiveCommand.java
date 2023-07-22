@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Command(values = "give", length = 1)
@@ -96,6 +97,9 @@ public class BCGiveCommand extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
-        return null;
+        List<String> list = new ArrayList<>();
+        for (BookContentEntity bookContent : BookContentServer.getBookContents())
+            list.add(bookContent.getId());
+        return list;
     }
 }
