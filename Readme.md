@@ -12,7 +12,7 @@
 
 - [x] AutoReSpawn
 - [ ] BanPlayer
-- [ ] BookContent
+- [x] BookContent
 - [ ] CommandBan
 - [x] ChatFormat
 - [x] ClearEntity

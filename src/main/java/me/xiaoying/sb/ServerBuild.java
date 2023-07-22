@@ -79,6 +79,7 @@ public class ServerBuild extends JavaPlugin {
         Handler.registerHandle("NotBuild", new NotBuildHandle());
         Handler.registerHandle("ChatFormat", new ChatFormatHandle());
         Handler.registerHandle("AutoReSpawn", new AutoReSpawnHandle());
+        Handler.registerHandle("BookContent", new BookContentHandle());
         Handler.registerHandle("ClearEntity", new ClearEntityHandle());
         Handler.registerHandle("FileMonitor", new FileMonitorHandle());
         Handler.registerHandle("WelcomeMessage", new WelcomeMessageHandle());
@@ -100,6 +101,7 @@ public class ServerBuild extends JavaPlugin {
         fileService.register("Teleport", new FileTeleport());
         fileService.register("ChatFormat", new FileChatFormat());
         fileService.register("AutoReSpawn", new FileAutoReSpawn());
+        fileService.register("BookContent", new FileBookContent());
         fileService.register("ClearEntity", new FileClearEntity());
         fileService.register("FileMonitor", new FileFileMonitor());
         fileService.register("WelcomeMessage", new FileWelcomeMessage());
