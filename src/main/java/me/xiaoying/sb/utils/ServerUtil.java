@@ -10,6 +10,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
@@ -23,6 +24,23 @@ import java.util.Objects;
  * 工具类 服务器
  */
 public class ServerUtil {
+    /**
+     * 判断命令发送者是否拥有权限
+     *
+     * @param sender 发送者
+     * @param permissions 权限
+     * @return 逻辑值
+     */
+    public static boolean hasPermission(CommandSender sender, String... permissions) {
+        for (String permission : permissions) {
+            if (sender.hasPermission(permission))
+                continue;
+
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 发送控制台消息
      *
