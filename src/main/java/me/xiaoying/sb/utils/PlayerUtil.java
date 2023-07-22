@@ -1,6 +1,5 @@
 package me.xiaoying.sb.utils;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.sb.ServerBuild;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -14,6 +13,23 @@ import java.util.concurrent.TimeUnit;
  * 工具类 玩家
  */
 public class PlayerUtil {
+    /**
+     * 判断玩家是否拥有指定权限
+     *
+     * @param player 玩家
+     * @param permissions 权限
+     * @return 逻辑值
+     */
+    public static boolean hasPermission(Player player, String... permissions) {
+        for (String permission : permissions) {
+            if (player.hasPermission(permission))
+                continue;
+
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 发送消息
      *
