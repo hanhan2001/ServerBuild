@@ -7,6 +7,7 @@ import me.xiaoying.sb.entity.BookContentEntity;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.service.BookContentServer;
 import me.xiaoying.sb.utils.ServerUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ import org.bukkit.inventory.meta.BookMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(values = "give", length = 1)
+@Command(values = "give", length = {1, 2})
 public class BCGiveCommand extends SubCommand {
     @Override
     public void registerCommand(SubCommand command) {
@@ -35,6 +36,7 @@ public class BCGiveCommand extends SubCommand {
             return false;
         }
 
+        // 判断对象是否为玩家
         if (!(sender instanceof Player)) {
             sender.sendMessage(new VariableFactory(BookContentConstant.MESSAGE_USEPLAYER)
                             .prefix(BookContentConstant.MESSAGE_PREFIX)
@@ -44,8 +46,19 @@ public class BCGiveCommand extends SubCommand {
             return false;
         }
 
-        Player player = (Player) sender;
-        String id = args[0];
+        Player player;
+        String id;
+
+        if (args.length == 1) {
+            player = (Player) sender;
+            id = args[0];
+        }
+        else {
+            player = Bukkit.getPlayerExact(args[0]);
+            id = args[1];
+        }
+
+        // 过滤其他书本实体
         BookContentEntity bookContentEntity = null;
         for (BookContentEntity bookContent : BookContentServer.getBookContents()) {
             if (!bookContent.getId().equalsIgnoreCase(id))
@@ -65,9 +78,11 @@ public class BCGiveCommand extends SubCommand {
             return false;
         }
 
+        // 创建书本物品
         ItemStack itemStack = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) itemStack.getItemMeta();
         assert (bookMeta != null);
+        // 物品名称
         bookMeta.setDisplayName(new VariableFactory(bookContentEntity.getName())
                         .prefix(BookContentConstant.MESSAGE_PREFIX)
                         .date(BookContentConstant.SET_VARIABLE_DATEFORMAT)
@@ -75,8 +90,16 @@ public class BCGiveCommand extends SubCommand {
                         .placeholder(player)
                         .color()
                         .getString());
+        // 书作者
+        if (bookContentEntity.getAuthor() != null)
+            bookMeta.setAuthor(bookContentEntity.getAuthor());
+        // 书标题
+        if (bookContentEntity.getTitle() != null)
+            bookMeta.setTitle(bookContentEntity.getTitle());
+        // 书页面
         bookMeta.setPages(new String[]{bookContentEntity.getContent()});
         itemStack.setItemMeta(bookMeta);
+        // 存入玩家背包
         PlayerInventory playerInventory = ((Player) sender).getInventory();
         for (int i = 0; i < playerInventory.getSize(); ++i) {
             if (playerInventory.getItem(i) != null) continue;
@@ -92,11 +115,18 @@ public class BCGiveCommand extends SubCommand {
                         .placeholder(player)
                         .color()
                         .getString());
+        player.sendMessage();
         return false;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String s, String[] args) {
+        if (args.length < 3)
+            return null;
+
+        if (args.length > 3)
+            return new ArrayList<>();
+
         List<String> list = new ArrayList<>();
         for (BookContentEntity bookContent : BookContentServer.getBookContents())
             list.add(bookContent.getId());

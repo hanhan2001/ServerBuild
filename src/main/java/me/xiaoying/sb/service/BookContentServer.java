@@ -12,9 +12,11 @@ public class BookContentServer {
 
     public static void registerBookContent(String key) {
         String name = FileBookContent.bookContent.getString("BookContent." + key + ".Name");
+        String author = FileBookContent.bookContent.getString("BookContent." + key + ".Author");
+        String title = FileBookContent.bookContent.getString("BookContent." + key + ".Title");
         String content = FileBookContent.bookContent.getString("BookContent." + key + ".Content");
 
-        list.add(new BookContentEntity(key, name, content));
+        list.add(new BookContentEntity(key, name, author, title, content));
     }
 
     public static void unregisterBookContent(String key) {

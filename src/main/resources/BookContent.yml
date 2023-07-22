@@ -18,6 +18,10 @@ BookContent:
   testContent:
     #书本名字
     Name: "一本书"
+    #标题
+    Title: "标题"
+    #作者
+    Author: "筱樱"
     #内容
     Content: |-
       内容1
@@ -26,6 +30,10 @@ BookContent:
   testContent2:
     #书本名字
     Name: "二本书"
+    #标题
+    Title: "标题"
+    #作者
+    Author: "筱樱"
     #内容
     Content: |-
       内容12
