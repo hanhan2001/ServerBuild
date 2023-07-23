@@ -26,10 +26,9 @@ public class FileTeleport extends SubFile {
 
     @Override
     public void initFile() {
-
-        TeleportConstant.TP_TRIGGER = YamlUtil.getStringList(teleport, "Tp.Format.Trigger");
-        TeleportConstant.TP_TRIGGERED = YamlUtil.getStringList(teleport, "Tp.Format.Triggered");
-        TeleportConstant.TPPOS_TRIGGER = YamlUtil.getStringList(teleport, "Tppos.Format.Trigger");
+        TeleportConstant.TP_PLAYER_TRIGGER = YamlUtil.getStringList(teleport, "Tp.Player.Format.Trigger");
+        TeleportConstant.TP_PLAYER_TRIGGERED = YamlUtil.getStringList(teleport, "Tp.Player.Format.Triggered");
+        TeleportConstant.TP_POS_TRIGGER = YamlUtil.getStringList(teleport, "Tp.Position.Format.Trigger");
         TeleportConstant.TPA_TRIGGER = YamlUtil.getStringList(teleport, "Tpa.Format.Trigger");
         TeleportConstant.TPA_TRIGGERED = YamlUtil.getStringList(teleport, "Tpa.Format.Triggered");
         TeleportConstant.TPA_MESSAGE = YamlUtil.getStringList(teleport, "Tpa.Message.AlreadyApply");

@@ -14,9 +14,9 @@ public class TeleportConstant {
 
     public static List<String> MESSAGE_HELP;
 
-    public static List<String> TP_TRIGGER,
-            TP_TRIGGERED,
-            TPPOS_TRIGGER,
+    public static List<String> TP_PLAYER_TRIGGER,
+            TP_PLAYER_TRIGGERED,
+            TP_POS_TRIGGER,
             TPA_TRIGGER,
             TPA_TRIGGERED,
             TPA_MESSAGE,

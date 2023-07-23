@@ -15,6 +15,9 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 /**
  * 插件主类
  */
@@ -30,6 +33,8 @@ public class ServerBuild extends JavaPlugin {
     private static final PlayerDataService playerDataService = new PlayerDataService();
     // 脚本命令总控
     private static final ScriptCommandService scriptCommandService = new ScriptCommandService();
+
+//    public static ScheduledExecutorService executor = Executors.newScheduledThreadPool(200);
 
     @Override
     public void onEnable() {

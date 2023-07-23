@@ -1,0 +1,32 @@
+#聊天按钮组件
+
+#按钮id
+button1:
+  #显示内容
+  Value: "[按钮]"
+  #点击事件
+  Click:
+    #类型(可选 Url, File, Command, Copy)
+    Type: "Command"
+    #执行值
+    Value: "help"
+  #浮上按钮事件
+  Hover:
+    #类型(可选 Text, Item, Entity)
+    Type: "Text"
+    Value: ""
+#按钮id
+button2:
+  #显示内容
+  Value: "[按钮]"
+  #点击事件
+  Click:
+    #类型
+    Type: "Command"
+    #执行值
+    Value: "help"
+  #浮上按钮事件
+  Hover:
+    #类型(可选 Text, Item, Entity)
+    Type: "Text"
+    Value: ""

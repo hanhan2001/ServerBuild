@@ -10,49 +10,26 @@ Set:
   #日期格式，作用于变量 %date%(如若无法编辑修改，请检查是否在 Config.yml 开启了全局变量配置)
   DateFormat: "yyyy/MM/dd-HH:mm:ss"
 
-#按钮设置
-#可自行追加按钮,需按照格式添加
-#如以下实例
-# newButton:
-#   #显示内容
-#   Message: "&c[新的按钮]"
-#   #执行指令(点击之后发送指令)
-#   Action: "help"
-Buttons:
-  #接受传送
-  tpaccept:
-    #显示内容
-    Message: "&a[接受]"
-    #执行指令(点击之后发送指令)
-    Action: "tpaccept"
-  #拒绝传送
-  tpdeny:
-    #显示内容
-    Message: "&c[拒绝]"
-    #执行指令(点击之后发送指令)
-    Action: "tpdeny"
-
 #TP指令
 Tp:
   #提示格式
   Format:
-    #触发者消息提示(如 aa 传送到 bb, aa 将会收到该条消息提示)
-    Trigger: "%prefix%&6传送至 &e%player% &6附近"
-    #触发者消息提示(如 aa 传送到 bb, bb 将会收到该条消息提示)
-    Triggered:
-      - ""
-      - "&b[%date%] &e%player% &6传送到了你身边"
-      - ""
-
-#TP指令
-Tppos:
-  #提示格式
-  Format:
-    #触发者信息
-    Trigger:
-      - ""
-      - "%prefix%&6传送至地标"
-      - ""
+    #传送至玩家
+    Player:
+      #触发者消息提示(如 aa 传送到 bb, aa 将会收到该条消息提示)
+      Trigger: "%prefix%&6传送至 &e%player% &6附近"
+      #触发者消息提示(如 aa 传送到 bb, bb 将会收到该条消息提示)
+      Triggered:
+        - ""
+        - "&b[%date%] &e%player% &6传送到了你身边"
+        - ""
+    #传送至地标
+    Position:
+      #触发者信息
+      Trigger:
+        - ""
+        - "%prefix%&6传送至地标"
+        - ""
 
 #TPA指令
 Tpa:
@@ -160,20 +137,6 @@ Tpcancel:
       - ""
       - "%prefix%&c没有需要取消的请求"
       - ""
-
-#Back指令
-Back:
-  #提示格式
-  Format:
-    #触发者消息提示
-    Trigger:
-      - ""
-      - "%prefix%&a返回上一地点"
-      - ""
-  #词条
-  Message:
-    #没有上一地点
-    NotFoundPoint: "%prefix%&c没有上一个地标"
 
 #词条(不支持多行)
 Message:
