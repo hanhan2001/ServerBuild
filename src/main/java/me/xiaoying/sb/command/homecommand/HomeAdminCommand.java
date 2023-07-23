@@ -3,7 +3,7 @@ package me.xiaoying.sb.command.homecommand;
 import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.command.homecommand.subcommand.HReload;
-import me.xiaoying.sb.constant.WelcomeMessageConstant;
+import me.xiaoying.sb.constant.HomeConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -36,13 +36,13 @@ public class HomeAdminCommand implements TabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args == null || args.length == 0) {
-            WelcomeMessageConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            HomeConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
         String cmd = args[0];
         if (!registeredCommands.containsKey(cmd)) {
-            WelcomeMessageConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            HomeConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
 
@@ -59,7 +59,7 @@ public class HomeAdminCommand implements TabExecutor {
         }
 
         if (!isDo) {
-            WelcomeMessageConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
+            HomeConstant.MESSAGE_HELP.forEach(string -> sender.sendMessage(ColorUtil.translate(string)));
             return false;
         }
         return false;
