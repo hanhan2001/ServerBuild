@@ -1,7 +1,7 @@
 package me.xiaoying.sb.listener;
 
 import me.xiaoying.sb.ServerBuild;
-import me.xiaoying.sb.exception.NotFoundListenerException;
+import me.xiaoying.sb.exception.ListenerException;
 import me.xiaoying.sb.handle.Handle;
 import me.xiaoying.sb.utils.ExceptionUtil;
 import me.xiaoying.sb.utils.ServerUtil;
@@ -50,10 +50,10 @@ public class ListenerService {
 
     public void runListener(Handle handle, Listener listener) {
         if (this.listeners.get(handle) == null)
-            ExceptionUtil.throwException(new NotFoundListenerException("This handle(" + handle.getClass().getName() + ")'s listener is null"));
+            ExceptionUtil.throwException(new ListenerException("This handle(" + handle.getClass().getName() + ")'s listener is null"));
 
         if (!this.listeners.get(handle).contains(listener))
-            ExceptionUtil.throwException(new NotFoundListenerException("Can't found " + listener.getClass().getName() + " listener in this handle(" + handle.getClass().getName() + ")"));
+            ExceptionUtil.throwException(new ListenerException("Can't found " + listener.getClass().getName() + " listener in this handle(" + handle.getClass().getName() + ")"));
 
         ServerUtil.registerEvent(listener);
     }
@@ -69,10 +69,10 @@ public class ListenerService {
 
     public void stopListener(Handle handle, Listener listener) {
         if (this.listeners.get(handle) == null)
-            ExceptionUtil.throwException(new NotFoundListenerException("This handle(" + handle.getClass().getName() + ")'s listener is null"));
+            ExceptionUtil.throwException(new ListenerException("This handle(" + handle.getClass().getName() + ")'s listener is null"));
 
         if (!this.listeners.get(handle).contains(listener))
-            ExceptionUtil.throwException(new NotFoundListenerException("Can't found " + listener.getClass().getName() + " listener in this handle(" + handle.getClass().getName() + ")"));
+            ExceptionUtil.throwException(new ListenerException("Can't found " + listener.getClass().getName() + " listener in this handle(" + handle.getClass().getName() + ")"));
 
         HandlerList.unregisterAll(listener);
     }

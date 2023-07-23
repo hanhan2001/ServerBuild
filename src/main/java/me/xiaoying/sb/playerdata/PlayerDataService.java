@@ -2,8 +2,7 @@ package me.xiaoying.sb.playerdata;
 
 import me.xiaoying.mf.SqlFactory;
 import me.xiaoying.sb.constant.ConfigConstant;
-import me.xiaoying.sb.exception.NotFoundPlayerDataException;
-import me.xiaoying.sb.exception.SamePlayerDataException;
+import me.xiaoying.sb.exception.PlayerDataException;
 import me.xiaoying.sb.utils.ExceptionUtil;
 
 import java.util.*;
@@ -41,7 +40,7 @@ public class PlayerDataService {
             list = this.data.get(handle.toUpperCase());
 
         if (list.contains(playerData))
-            ExceptionUtil.throwException(new SamePlayerDataException("Already registered same name PlayerData, please check your code."));
+            ExceptionUtil.throwException(new PlayerDataException("Already registered same name PlayerData, please check your code."));
 
         list.add(playerData);
         this.data.put(handle.toUpperCase(), list);
@@ -74,7 +73,7 @@ public class PlayerDataService {
 
     public List<SubPlayerData> getData(String handle) {
         if (this.data.get(handle.toUpperCase()) == null)
-            ExceptionUtil.throwException(new NotFoundPlayerDataException("Can't find PlayerData '" + handle + "', please check is registered this PlayerData."));
+            ExceptionUtil.throwException(new PlayerDataException("Can't find PlayerData '" + handle + "', please check is registered this PlayerData."));
 
         return this.data.get(handle.toUpperCase());
     }
@@ -87,7 +86,7 @@ public class PlayerDataService {
             return subPlayerData;
         }
 
-        ExceptionUtil.throwException(new NotFoundPlayerDataException("Can't find PlayerData '" + handle + "', please check is registered this PlayerData."));
+        ExceptionUtil.throwException(new PlayerDataException("Can't find PlayerData '" + handle + "', please check is registered this PlayerData."));
         return null;
     }
 

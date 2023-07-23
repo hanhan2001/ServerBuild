@@ -4,7 +4,7 @@ import me.xiaoying.sb.ServerBuild;
 import me.xiaoying.sb.command.Command;
 import me.xiaoying.sb.command.SubCommand;
 import me.xiaoying.sb.constant.ChatFormatConstant;
-import me.xiaoying.sb.exception.NotFoundPlayerDataException;
+import me.xiaoying.sb.exception.PlayerDataException;
 import me.xiaoying.sb.factory.VariableFactory;
 import me.xiaoying.sb.playerdata.SubPlayerData;
 import me.xiaoying.sb.playerdata.data.ChatFormatPlayerData;
@@ -49,7 +49,7 @@ public class CFMuteCommand extends SubCommand {
         }
 
         if (chatFormatPlayerData == null)
-            ExceptionUtil.throwException(new NotFoundPlayerDataException("Can't find PlayerData '" + handle + "-" + handleName + "', please check is registered this PlayerData."));
+            ExceptionUtil.throwException(new PlayerDataException("Can't find PlayerData '" + handle + "-" + handleName + "', please check is registered this PlayerData."));
 
         assert chatFormatPlayerData != null;
 
