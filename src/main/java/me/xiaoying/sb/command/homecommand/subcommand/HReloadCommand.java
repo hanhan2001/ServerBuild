@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Command(values = "reload", length = 0)
-public class HReload extends SubCommand {
+public class HReloadCommand extends SubCommand {
     @Override
     public void registerCommand(SubCommand command) {
 
