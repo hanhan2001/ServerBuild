@@ -46,10 +46,8 @@ public class MessageAnnouncerHandle implements Handle {
         YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.Title.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new TitleAnnouncerEntity(string.toString())));
         YamlUtil.getChildrenNode(ServerUtil.getDataFolder() + "/MessageAnnouncer.yml", "MessageAnnouncer.ActionBar.Message").forEach(string -> MessageAnnouncerService.registerAnnouncer(new ActionbarAnnouncerEntity(string.toString())));
 
-        if (!this.enable()) {
-            PluginUtil.unregisterCommand("ma", ServerBuild.getInstance());
+        if (!this.enable())
             return;
-        }
 
         ServerBuild.getTaskServer().registerTask(this, new MessageAnnouncerTask());
         ServerBuild.getTaskServer().runTasks(this);
@@ -59,6 +57,7 @@ public class MessageAnnouncerHandle implements Handle {
     @Override
     public void stop() {
         MessageAnnouncerService.unregisterAnnouncers();
+        PluginUtil.unregisterCommand("ma", ServerBuild.getInstance());
 
         if (ServerBuild.getTaskServer().getTasks(this) != null)
             ServerBuild.getTaskServer().unregisterTasks(this);
