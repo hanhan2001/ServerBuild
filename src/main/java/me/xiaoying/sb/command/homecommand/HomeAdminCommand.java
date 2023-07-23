@@ -2,7 +2,7 @@ package me.xiaoying.sb.command.homecommand;
 
 import me.xiaoying.sb.command.RegisteredCommand;
 import me.xiaoying.sb.command.SubCommand;
-import me.xiaoying.sb.command.homecommand.subcommand.HReload;
+import me.xiaoying.sb.command.homecommand.subcommand.HReloadCommand;
 import me.xiaoying.sb.constant.HomeConstant;
 import me.xiaoying.sb.utils.ColorUtil;
 import org.bukkit.command.Command;
@@ -20,7 +20,7 @@ public class HomeAdminCommand implements TabExecutor {
     private final Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
 
     public HomeAdminCommand() {
-        this.registerCommand(new HReload());
+        this.registerCommand(new HReloadCommand());
     }
 
     private void registerCommand(SubCommand subCommand) {
