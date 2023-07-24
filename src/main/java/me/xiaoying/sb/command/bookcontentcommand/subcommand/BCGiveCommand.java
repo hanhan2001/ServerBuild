@@ -97,13 +97,19 @@ public class BCGiveCommand extends SubCommand {
         if (bookContentEntity.getTitle() != null)
             bookMeta.setTitle(bookContentEntity.getTitle());
         // 书页面
-        bookMeta.setPages(new String[]{bookContentEntity.getContent()});
+        bookMeta.setPages(new VariableFactory(bookContentEntity.getContent())
+                .prefix(BookContentConstant.MESSAGE_PREFIX)
+                .date(BookContentConstant.SET_VARIABLE_DATEFORMAT)
+                .player(player)
+                .placeholder(player)
+                .color()
+                .getString());
         itemStack.setItemMeta(bookMeta);
         // 存入玩家背包
         PlayerInventory playerInventory = ((Player) sender).getInventory();
         for (int i = 0; i < playerInventory.getSize(); ++i) {
             if (playerInventory.getItem(i) != null) continue;
-            ((Player) sender).getInventory().addItem(new ItemStack[]{itemStack});
+            ((Player) sender).getInventory().addItem(itemStack);
             break;
         }
 
