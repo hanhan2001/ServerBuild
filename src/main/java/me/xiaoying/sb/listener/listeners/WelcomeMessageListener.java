@@ -131,7 +131,7 @@ public class WelcomeMessageListener implements Listener {
             if (welcomeMessageEntity == null)
                 welcomeMessageEntity = messageEntity;
 
-            if (welcomeMessageEntity.getPriority() < messageEntity.getPriority())
+            if (welcomeMessageEntity.getPriority() > messageEntity.getPriority())
                 welcomeMessageEntity = messageEntity;
         }
 
