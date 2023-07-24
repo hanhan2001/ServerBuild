@@ -74,4 +74,9 @@ public class VariableFactory {
     public String getString() {
         return this.string;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
