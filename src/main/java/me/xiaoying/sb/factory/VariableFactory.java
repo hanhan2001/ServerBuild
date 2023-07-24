@@ -1,6 +1,5 @@
 package me.xiaoying.sb.factory;
 
-
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.sb.utils.ColorUtil;
 import me.xiaoying.sb.utils.DateUtil;

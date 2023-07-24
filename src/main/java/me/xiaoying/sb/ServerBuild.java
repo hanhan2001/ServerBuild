@@ -82,6 +82,7 @@ public class ServerBuild extends JavaPlugin {
         Handler.registerHandle("Home", new HomeHandle());
         Handler.registerHandle("LoginTP", new LoginTPHandle());
         Handler.registerHandle("NotBuild", new NotBuildHandle());
+        Handler.registerHandle("Teleport", new TeleportHandle());
         Handler.registerHandle("ChatFormat", new ChatFormatHandle());
         Handler.registerHandle("AutoReSpawn", new AutoReSpawnHandle());
         Handler.registerHandle("BookContent", new BookContentHandle());
