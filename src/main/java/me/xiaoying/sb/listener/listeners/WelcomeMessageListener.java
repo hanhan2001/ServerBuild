@@ -140,8 +140,12 @@ public class WelcomeMessageListener implements Listener {
         if (welcomeMessageEntity.enableQuitChat())
             welcomeMessageEntity.getQuitChatMessage().forEach(s -> {
                 s = new VariableFactory(s)
-                        .player(player)
-                        .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                                .player(player)
+                                .placeholder(player)
+                                .color()
+                                .getString();
                 ServerUtil.onlinePlayersSendMessage(s);
                 ServerUtil.sendMessage(s, true);
             });
@@ -150,17 +154,35 @@ public class WelcomeMessageListener implements Listener {
         if (welcomeMessageEntity.enableQuitTitle()) {
             String title = welcomeMessageEntity.getQuitTitleTitle();
             if (title != null)
-                title = new VariableFactory(title).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                title = new VariableFactory(title)
+                                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                                .player(player)
+                                .placeholder(player)
+                                .color()
+                                .getString();
 
             String subtitle = welcomeMessageEntity.getQuitTitleSubtitle();
             if (subtitle != null)
-                subtitle = new VariableFactory(subtitle).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).getString();
+                subtitle = new VariableFactory(subtitle)
+                                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                                .player(player)
+                                .placeholder(player)
+                                .color()
+                                .getString();
 
             ServerUtil.onlinePlayersSendTitle(title, subtitle);
         }
 
         // Actionbar
         if (welcomeMessageEntity.enableQuitActionBar())
-                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getQuitActionbarMessage()).player(player).date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT).toString());
+                ServerUtil.onlinePlayersSendActionbar(new VariableFactory(welcomeMessageEntity.getQuitActionbarMessage())
+                                .prefix(WelcomeMessageConstant.MESSAGE_PREFIX)
+                                .date(WelcomeMessageConstant.SET_VARIABLE_DATEFORMAT)
+                                .player(player)
+                                .placeholder(player)
+                                .color()
+                                .toString());
     }
 }
