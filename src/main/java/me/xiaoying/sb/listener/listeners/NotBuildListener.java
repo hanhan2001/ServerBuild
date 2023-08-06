@@ -23,7 +23,7 @@ public class NotBuildListener implements Listener {
         if (!NotBuildConstant.BUILD_WORLDS.contains(Objects.requireNonNull(location.getWorld()).getName()))
             return;
 
-        if (player.hasPermission("sb.nb.destruction") || !player.isOp())
+        if (player.hasPermission("sb.nb.destruction") || player.isOp())
             return;
 
         event.setCancelled(true);
@@ -41,7 +41,7 @@ public class NotBuildListener implements Listener {
         if (!NotBuildConstant.DESTRUCTION_WORLDS.contains(Objects.requireNonNull(location.getWorld()).getName()))
             return;
 
-        if (player.hasPermission("sb.nb.destruction") || !player.isOp())
+        if (player.hasPermission("sb.nb.destruction") || player.isOp())
             return;
 
         event.setCancelled(true);
