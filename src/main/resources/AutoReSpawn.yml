@@ -1,61 +1,41 @@
-#自动重生
+#AutoRespawn 自动重生
 
 #开关
 Enable: false
 
-#设置
+#基本设置(如果无法修改请检查 Config.yml 中是否开启全局变量配置)
 Set:
   #%date% 变量格式(如若无法编辑修改，请检查是否在 Config.yml 开启了全局变量配置)
   DateFormat: "yyyy/MM/dd-HH:mm:ss"
+  #%prefix% 变量内容(如若无法编辑修改，请检查是否在 Config.yml 开启了全局变量配置)
+  Prefix: "&a[&bAutoReSpawn&a]&e>> "
 
-#设置
+#自动重生设置
 AutoReSpawn:
-  #检测时间(单位: tick)(是用来复活玩家的,需要检测玩家是否死亡)
-  CheckTime: 1
-  #聊天框消息
-  Chat:
-    #开关
-    Enable: false
-    #格式
-    Format:
-      - ""
-      - "&b[%date%] &6已为您自动重生"
-      - ""
-  #标题信息
-  Title:
-    #开关
-    Enable: false
-    #淡入时间
-    FadeIn: 10
-    #停留时间
-    Stay: 70
-    #淡出时间
-    FadeOut: 10
-    #主标题
-    Title: "&6已为您自动重生！"
-    #副标题
-    SubTitle: "&e%player%: &6我又行了!"
-  #显示在ActionBar(只支持Spigot(如果别的服务器核心也有Spigot方法就能用))
-  ActionBar:
-    #开关
-    Enable: false
-    #持续时间
-    Time: 3
-    #内容
-    Message: "&6你给我等着！看我弄不能死你！"
+  #时间验证类型
+  # player -> 玩家死亡 x tick 后为其重生
+  # server -> 每 x tick 检测死亡玩家并为其复活
+  Type: "server"
+  #执行/检测 时间(单位: tick)
+  Tick: 1
+  #玩家触发 ServeBuild 脚本命令
+  Event: |-
+    title %player% &a已自动重生:&6[&b%function%&6] 
+    send %player%
+    send %player% &b[%date%] &6已为您自动重生‘( •̀ ω •́ )✧
+    send %player%
+    actionbar %player% &6%target%你给我等着！看我弄不弄死你！
 
 #词条
 Message:
-  #前缀
-  Prefix: "&a[&bAutoReSpawn&a]&e>> "
   #重载插件
   Reload: "%prefix%&a已重载！"
   #无权限提示
   NoPermission: "%prefix%&c你无法这样做！"
-
-#指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
-Use-Help:
-  - ""
-  - "&a<-=-=-=-=-=-=-=-=-=-= &e&lAutoReSpawn &a=-=-=-=-=-=-=-=-=-=->"
-  - "&b/ars reload &7重载 自动重生"
-  - ""
+  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+  Help:
+    - ""
+    - "&a<-=-=-=-=-=-=-=-=-=-= &e&lAutoReSpawn &a=-=-=-=-=-=-=-=-=-=->"
+    - "&b/ars reload &7重载"
+    - "&b/ars respawn [player]/ &7立马为 某个/所有 玩家重生"
+    - ""
