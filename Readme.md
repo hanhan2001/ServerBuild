@@ -10,30 +10,30 @@
 
 ## 重构进度
 
-- [x] AutoReSpawn
+- [ ] AutoReSpawn
 - [ ] Back
 - [ ] BanPlayer
-- [x] BookContent
+- [ ] BookContent
 - [ ] CommandBan
-- [x] ChatFormat
-- [x] ClearEntity
-- [x] FileMonitor
+- [ ] ChatFormat
+- [ ] ClearEntity
+- [ ] FileMonitor
 - [ ] Fix
 - [ ] FileProtect
 - [ ] Fly
 - [ ] Gamemode
 - [ ] GroupSpawn
-- [x] Home
-- [x] LoginTP
-- [x] MessageAnnouncer
-- [x] NotBuild
+- [ ] Home
+- [ ] LoginTP
+- [ ] MessageAnnouncer
+- [ ] NotBuild
 - [ ] PlayerShout
 - [ ] PlayerStatus
 - [ ] Scoreboard
 - [ ] ServerStatus
 - [ ] Suicide
 - [ ] Teleport
-- [x] WelcomeMessage
+- [ ] WelcomeMessage
 
 ## 功能
 
