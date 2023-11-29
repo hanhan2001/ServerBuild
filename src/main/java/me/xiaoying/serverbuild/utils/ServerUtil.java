@@ -13,6 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -222,6 +223,32 @@ public class ServerUtil {
      */
     public static Class<?> getObcClass(String name) throws ClassNotFoundException {
         return Class.forName("org.bukkit.craftbukkit." + ServerUtil.getServerVersion() + "." + name);
+    }
+
+    /**
+     * 关闭线程
+     *
+     * @param task task id
+     */
+    public static void cancelTask(int task) {
+        try {
+            Bukkit.getServer().getScheduler().cancelTask(task);
+        } catch (Exception e) {
+            // nothing
+        }
+    }
+
+    /**
+     * 关闭线程
+     *
+     * @param plugin 插件
+     */
+    public static void cancelTask(Plugin plugin) {
+        try {
+            Bukkit.getServer().getScheduler().cancelTasks(plugin);
+        } catch (Exception e) {
+            // nothing
+        }
     }
 
     /**
