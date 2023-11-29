@@ -7,6 +7,8 @@ import me.xiaoying.serverbuild.function.Function;
 import me.xiaoying.serverbuild.function.FunctionService;
 import me.xiaoying.serverbuild.file.file.FileConfig;
 import me.xiaoying.serverbuild.function.functions.AutoReSpawnFunction;
+import me.xiaoying.serverbuild.task.SubTask;
+import me.xiaoying.serverbuild.task.TaskService;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ServerBuild extends JavaPlugin {
     private static ServerBuild instance;
     private static final FileService fileService = new FileService();
+    private static final TaskService taskService = new TaskService();
     private static final FunctionService functionService = new FunctionService();
 
     @Override
@@ -49,6 +52,11 @@ public class ServerBuild extends JavaPlugin {
             ServerUtil.sendMessage("&b|    &a统计信息(Bstats): &c未开启", true);
         ServerUtil.sendMessage("&b|    &a数据存储方式(DataType): &e" + ConstantCommon.SYSTEM_DATA_TYPE, true);
         ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
+
+        // Function 处理
+        functionService.enableFunctions();
+        for (SubTask subTask : taskService.getTasks())
+            subTask.run();
     }
 
     @Override
@@ -72,7 +80,8 @@ public class ServerBuild extends JavaPlugin {
 
     // 取消初始化
     public static void unInitialize() {
-
+        for (SubTask subTask : taskService.getTasks())
+            subTask.stop();
     }
 
     // 加载 Function
@@ -91,6 +100,11 @@ public class ServerBuild extends JavaPlugin {
     // 获取 FileService
     public static FileService getFileService() {
         return fileService;
+    }
+
+    // 获取 TaskService
+    public static TaskService getTaskService() {
+        return taskService;
     }
 
     // 获取 FunctionService

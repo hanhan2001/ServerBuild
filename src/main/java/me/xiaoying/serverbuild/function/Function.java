@@ -1,7 +1,7 @@
 package me.xiaoying.serverbuild.function;
 
-import me.xiaoying.serverbuild.constant.ConstantCommon;
 import me.xiaoying.serverbuild.file.SubFile;
+import me.xiaoying.serverbuild.task.SubTask;
 import org.bukkit.event.Listener;
 
 import java.util.List;
@@ -18,5 +18,6 @@ public interface Function {
     void stop();
 
     List<SubFile> getFiles();
+    List<SubTask> getTasks();
     List<Listener> getListeners();
 }
