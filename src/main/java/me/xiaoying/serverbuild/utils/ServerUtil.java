@@ -12,6 +12,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
@@ -74,6 +75,15 @@ public class ServerUtil {
      */
     public static void registerEvent(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, ServerBuild.getInstance());
+    }
+
+    /**
+     * 取消注册 事件
+     *
+     * @param listener 事件
+     */
+    public static void unregisterListener(Listener listener) {
+        HandlerList.unregisterAll(listener);
     }
 
     /**
