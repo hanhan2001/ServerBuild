@@ -1,10 +1,15 @@
 package me.xiaoying.serverbuild.function.functions;
 
-import me.xiaoying.serverbuild.constant.ConstantAutoReSpawn;
-import me.xiaoying.serverbuild.file.SubFile;
-import me.xiaoying.serverbuild.file.file.FileAutoReSpawn;
-import me.xiaoying.serverbuild.function.Function;
 import org.bukkit.event.Listener;
+import me.xiaoying.serverbuild.ServerBuild;
+import me.xiaoying.serverbuild.file.SubFile;
+import me.xiaoying.serverbuild.task.SubTask;
+import me.xiaoying.serverbuild.utils.ServerUtil;
+import me.xiaoying.serverbuild.function.Function;
+import me.xiaoying.serverbuild.file.file.FileAutoReSpawn;
+import me.xiaoying.serverbuild.task.tasks.AutoReSpawnTask;
+import me.xiaoying.serverbuild.listener.AutoReSpawnListener;
+import me.xiaoying.serverbuild.constant.ConstantAutoReSpawn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +18,15 @@ import java.util.List;
  * Function AutoReSpawn
  */
 public class AutoReSpawnFunction implements Function {
-    private final List<SubFile> files = new ArrayList<>();
+    List<SubFile> files = new ArrayList<>();
+    List<SubTask> tasks = new ArrayList<>();
+    List<Listener> listeners = new ArrayList<>();
+
     {
-        files.add(new FileAutoReSpawn());
+        this.files.add(new FileAutoReSpawn());
+        this.tasks.add(new AutoReSpawnTask());
     }
+
     @Override
     public String getName() {
         return "AutoReSpawn";
@@ -46,12 +56,31 @@ public class AutoReSpawnFunction implements Function {
 
     @Override
     public void onEnable() {
-
+        ConstantAutoReSpawn content = (ConstantAutoReSpawn) this.getFiles().get(0).getConstant();
+        switch (content.AUTORESPAWN_TYPE.toUpperCase()) {
+            case "SERVER": {
+                for (SubTask task : this.getTasks())
+                    ServerBuild.getTaskService().registerTask(task);
+                break;
+            }
+            case "PLAYER": {
+                Listener listener = new AutoReSpawnListener();
+                ServerUtil.registerEvent(listener);
+                this.listeners.add(listener);
+                break;
+            }
+        }
     }
 
     @Override
     public void onDisable() {
+        // 取消注册 监听
+        for (Listener listener : this.getListeners())
+            ServerUtil.unregisterListener(listener);
 
+        // 停止 事件
+        for (SubTask task : this.getTasks())
+            ServerUtil.cancelTask(task.getId());
     }
 
     @Override
@@ -70,7 +99,12 @@ public class AutoReSpawnFunction implements Function {
     }
 
     @Override
+    public List<SubTask> getTasks() {
+        return this.tasks;
+    }
+
+    @Override
     public List<Listener> getListeners() {
-        return null;
+        return this.listeners;
     }
 }

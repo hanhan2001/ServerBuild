@@ -16,11 +16,11 @@ AutoReSpawn:
   # player -> 玩家死亡 x tick 后为其重生
   # server -> 每 x tick 检测死亡玩家并为其复活
   Type: "server"
-  #执行/检测 时间(单位: tick)
-  Tick: 1
+  #执行/检测 时间(单位: 毫秒)
+  Tick: 3
   #玩家触发 ServeBuild 脚本命令
   Event: |-
-    title %player% &a已自动重生:&6[&b%function%&6] 
+    title %player% &a已自动重生:&6[&b%function%&6]
     send %player%
     send %player% &b[%date%] &6已为您自动重生‘( •̀ ω •́ )✧
     send %player%
