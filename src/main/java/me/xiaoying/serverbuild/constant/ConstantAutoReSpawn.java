@@ -17,5 +17,6 @@ public class ConstantAutoReSpawn extends ConstantCommon {
     public String MESSAGE_RELOAD,
             MESSAGE_NOPERMISSION;
 
-    public List<String> AUTORESPAWN_EVENT, MESSAGE_HELP;
+    public List<String> AUTORESPAWN_EVENT,
+            MESSAGE_HELP;
 }
