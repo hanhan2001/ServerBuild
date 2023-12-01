@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild.factory;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.serverbuild.utils.ColorUtil;
+import me.xiaoying.serverbuild.utils.DateUtil;
 import org.bukkit.entity.Player;
 
 /**
@@ -12,6 +13,11 @@ public class VariableFactory {
 
     public VariableFactory(String string) {
         this.string = string;
+    }
+
+    public VariableFactory date(String dateFormat) {
+        this.string = this.string.replace("%date%", DateUtil.getDate(dateFormat));
+        return this;
     }
 
     public VariableFactory placeholder(Player player) {
