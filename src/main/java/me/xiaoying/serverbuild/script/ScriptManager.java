@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild.script;
 
 import me.xiaoying.serverbuild.ServerBuild;
+import me.xiaoying.serverbuild.script.scripts.SendScript;
 import me.xiaoying.serverbuild.script.scripts.TitleScript;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bukkit.plugin.Plugin;
@@ -14,6 +15,7 @@ public class ScriptManager {
     Map<String, Script> knownScript = new HashMap<>();
 
     public ScriptManager() {
+        this.registerScript(new SendScript(), ServerBuild.getInstance());
         this.registerScript(new TitleScript(), ServerBuild.getInstance());
     }
 
