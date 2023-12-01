@@ -20,7 +20,7 @@ AutoReSpawn:
   Tick: 3
   #玩家触发 ServeBuild 脚本命令
   Event: |-
-    title %player% &a已自动重生:&6[&b%function%&6]
+    title %player% &a已自动重生:&6[&bAutoReSpawn&6]
     send %player%
     send %player% &b[%date%] &6已为您自动重生‘( •̀ ω •́ )✧
     send %player%
