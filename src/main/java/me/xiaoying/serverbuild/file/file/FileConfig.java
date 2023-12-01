@@ -58,7 +58,11 @@ public class FileConfig implements SubFile {
             ConstantCommon.SYSTEM_DATA_TYPE = "SQLite";
             ServerUtil.sendMessage("&e指定 数据存储 方式不存在(可选 Mysql/SQLite)，将默认设置为 SQLite", true);
         }
-        ConstantCommon.SYSTEM_DATA_SQLITE_DATAPATH = yamlConfiguration.getString("Set.DataPath");
+        ConstantCommon.SYSTEM_DATA_SQLITE_DATAPATH = yamlConfiguration.getString("Set.Data.SQLite.DataPath");
+        if (ConstantCommon.SYSTEM_DATA_TYPE.equalsIgnoreCase("SQLite") && StringUtil.isEmpty(ConstantCommon.SYSTEM_DATA_SQLITE_DATAPATH)) {
+            ConstantCommon.SYSTEM_DATA_SQLITE_DATAPATH = "plugins/ServerBuild/ServerBuild.db";
+            ServerUtil.sendMessage("&e选用 SQLite 作为数据存储方式，但未设置存储文件位置，将默认设置为 plugins/ServerBuild/ServerBuild.db", true);
+        }
         ConstantCommon.SYSTEM_MYSQL_HOST = yamlConfiguration.getString("Set.Data.Mysql.Host");
         ConstantCommon.SYSTEM_MYSQL_DATABASE = yamlConfiguration.getString("Set.Data.Mysql.Database");
         ConstantCommon.SYSTEM_MYSQL_USERNAME = yamlConfiguration.getString("Set.Data.Mysql.Username");
