@@ -35,6 +35,7 @@ public class AutoReSpawnTask implements SubTask {
                 ConstantAutoReSpawn constantAutoReSpawn = (ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant();
                 for (String s : constantAutoReSpawn.AUTORESPAWN_EVENT) {
                     s = new VariableFactory(s)
+                            .date(constantAutoReSpawn.SET_DATEFORMAT)
                             .player(onlinePlayer.getName())
                             .color()
                             .toString();
