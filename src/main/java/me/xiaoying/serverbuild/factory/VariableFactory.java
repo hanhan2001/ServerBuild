@@ -1,5 +1,6 @@
 package me.xiaoying.serverbuild.factory;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.serverbuild.utils.ColorUtil;
 import org.bukkit.entity.Player;
 
@@ -11,6 +12,11 @@ public class VariableFactory {
 
     public VariableFactory(String string) {
         this.string = string;
+    }
+
+    public VariableFactory placeholder(Player player) {
+        this.string = PlaceholderAPI.setPlaceholders(player, this.string);
+        return this;
     }
 
     public VariableFactory player(String player) {
