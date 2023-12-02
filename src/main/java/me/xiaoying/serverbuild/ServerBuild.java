@@ -7,6 +7,7 @@ import me.xiaoying.serverbuild.function.Function;
 import me.xiaoying.serverbuild.function.FunctionService;
 import me.xiaoying.serverbuild.file.file.FileConfig;
 import me.xiaoying.serverbuild.function.functions.AutoReSpawnFunction;
+import me.xiaoying.serverbuild.function.functions.FileMonitorFunction;
 import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.serverbuild.task.SubTask;
 import me.xiaoying.serverbuild.task.TaskService;
@@ -57,8 +58,12 @@ public class ServerBuild extends JavaPlugin {
 
         // Function 处理
         functionService.enableFunctions();
-        for (SubTask subTask : taskService.getTasks())
+        for (SubTask subTask : taskService.getTasks()) {
+            if (subTask.isRunning())
+                continue;
+
             subTask.run();
+        }
     }
 
     @Override
@@ -80,6 +85,7 @@ public class ServerBuild extends JavaPlugin {
         fileService.register("Config", new FileConfig());
 
         functionService.registerFunction(new AutoReSpawnFunction());
+        functionService.registerFunction(new FileMonitorFunction());
 
         fileService.fileAll();
         fileService.initializeAll();

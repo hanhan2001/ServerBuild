@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
  */
 public class AutoReSpawnTask implements SubTask {
     int task;
+    boolean isRunning = false;
 
     @Override
     public int getId() {
@@ -24,7 +25,19 @@ public class AutoReSpawnTask implements SubTask {
     }
 
     @Override
+    public boolean isRunning() {
+        return this.isRunning;
+    }
+
+    @Override
+    public void setRunning(boolean running) {
+        this.isRunning = running;
+    }
+
+    @Override
     public void run() {
+        this.setRunning(true);
+
         this.task = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(ServerBuild.getInstance(), () -> {
             for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
                 if (!onlinePlayer.isDead())
@@ -48,6 +61,8 @@ public class AutoReSpawnTask implements SubTask {
 
     @Override
     public void stop() {
+        this.setRunning(false);
+
         try { Bukkit.getScheduler().cancelTask(this.task); } catch (Exception e) {}
     }
 }

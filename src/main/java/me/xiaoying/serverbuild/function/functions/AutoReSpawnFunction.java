@@ -59,8 +59,10 @@ public class AutoReSpawnFunction implements Function {
         ConstantAutoReSpawn content = (ConstantAutoReSpawn) this.getFiles().get(0).getConstant();
         switch (content.AUTORESPAWN_TYPE.toUpperCase()) {
             case "SERVER": {
-                for (SubTask task : this.getTasks())
+                for (SubTask task : this.getTasks()) {
                     ServerBuild.getTaskService().registerTask(task);
+                    task.run();
+                }
                 break;
             }
             case "PLAYER": {
