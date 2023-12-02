@@ -6,11 +6,8 @@ import me.xiaoying.serverbuild.script.interpreter.Interpreter;
  * InterpreterService OperationService
  */
 public class OperationInterpreterService implements Interpreter {
-
-
-
     @Override
-    public String interpret() {
+    public String interpret(String string) {
         return null;
     }
 }

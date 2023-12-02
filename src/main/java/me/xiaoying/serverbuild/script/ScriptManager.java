@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild.script;
 
 import me.xiaoying.serverbuild.ServerBuild;
+import me.xiaoying.serverbuild.script.interpreter.InterpreterService;
 import me.xiaoying.serverbuild.script.scripts.ActionbarScript;
 import me.xiaoying.serverbuild.script.scripts.SendScript;
 import me.xiaoying.serverbuild.script.scripts.TitleScript;
@@ -14,6 +15,7 @@ import java.util.*;
  */
 public class ScriptManager {
     Map<String, Script> knownScript = new HashMap<>();
+    InterpreterService interpreterService = new InterpreterService();
 
     public ScriptManager() {
         this.registerScript(new SendScript(), ServerBuild.getInstance());
@@ -73,7 +75,7 @@ public class ScriptManager {
      * @param command String
      */
     public void callScript(String command) {
-        ServerBuild.getTaskService().getScheduledExecutor().execute(() -> onCommand(command));
+        ServerBuild.getTaskService().getScheduledExecutor().execute(() -> callScript(command));
     }
 
     /**
@@ -84,6 +86,13 @@ public class ScriptManager {
     public void onCommand(String command) {
         command = command.toLowerCase();
         String[] split = command.split(" ");
+
+        command = this.interpreterService.interpreter(command);
+        if (command.contains("\n")) {
+            for (String s : command.split("\n"))
+                this.callScript(s);
+            return;
+        }
 
         // 命令头处理
         String head = split[0];

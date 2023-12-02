@@ -1,5 +1,7 @@
 package me.xiaoying.serverbuild.script.interpreter;
 
+import me.xiaoying.serverbuild.script.interpreter.interpreters.PlayerSelectInterpreter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class InterpreterService {
      * 初始化
      */
     public InterpreterService() {
-
+        this.registerInterpreter(new PlayerSelectInterpreter());
     }
 
     /**
@@ -57,7 +59,7 @@ public class InterpreterService {
 
         // 执行解释器
         for (Interpreter interpreter : this.knownInterpreter)
-            string = interpreter.interpret();
+            string = interpreter.interpret(string);
 
         // 判断内容是否与源内容相符
         while (!origin.equals(string)) {
