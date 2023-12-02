@@ -3,6 +3,7 @@ package me.xiaoying.serverbuild.factory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.serverbuild.utils.ColorUtil;
 import me.xiaoying.serverbuild.utils.DateUtil;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 /**
@@ -37,6 +38,16 @@ public class VariableFactory {
 
     public VariableFactory prefix(String prefix) {
         this.string = this.string.replace("%prefix%", prefix);
+        return this;
+    }
+
+    public VariableFactory target(String target) {
+        this.string = this.string.replace("%target%", target);
+        return this;
+    }
+
+    public VariableFactory target(Entity entity) {
+        this.string = this.string.replace("%target%", entity.getName());
         return this;
     }
 
