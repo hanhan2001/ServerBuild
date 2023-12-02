@@ -25,7 +25,7 @@ public class AutoReSpawnListener implements Listener {
                         .player(event.getEntity().getName())
                         .color()
                         .toString();
-                ServerBuild.getScriptManager().onCommand(s);
+                ServerBuild.getScriptManager().callScript(s);
             }
         }, ((ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant()).AUTORESPAWN_TICK);
     }

@@ -86,6 +86,27 @@ public class AutoReSpawnFunction implements Function {
     }
 
     @Override
+    public void reload() {
+        this.onDisable();
+
+        this.files.clear();
+        this.tasks.clear();
+
+        for (Listener listener : this.listeners)
+            ServerUtil.unregisterListener(listener);
+
+        this.files.add(new FileAutoReSpawn());
+        this.tasks.add(new AutoReSpawnTask());
+
+        for (SubFile file : this.getFiles()) {
+            file.file();
+            file.initialize();
+        }
+
+        this.onEnable();
+    }
+
+    @Override
     public List<SubFile> getFiles() {
         return this.files;
     }
