@@ -10,7 +10,7 @@
 
 ## 重构进度
 
-- [ ] AutoReSpawn
+- [x] AutoReSpawn
 - [ ] Back
 - [ ] BanPlayer
 - [ ] BookContent
