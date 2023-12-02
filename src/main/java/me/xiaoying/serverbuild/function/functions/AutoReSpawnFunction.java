@@ -84,16 +84,6 @@ public class AutoReSpawnFunction implements Function {
     }
 
     @Override
-    public void run() {
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
     public List<SubFile> getFiles() {
         return this.files;
     }

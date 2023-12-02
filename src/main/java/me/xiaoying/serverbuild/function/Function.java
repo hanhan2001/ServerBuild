@@ -14,8 +14,6 @@ public interface Function {
     boolean enable();
     void onEnable();
     void onDisable();
-    void run();
-    void stop();
 
     List<SubFile> getFiles();
     List<SubTask> getTasks();
