@@ -4,12 +4,9 @@ import me.xiaoying.serverbuild.ServerBuild;
 import me.xiaoying.serverbuild.constant.ConstantAutoReSpawn;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Listener AutoReSpawn
