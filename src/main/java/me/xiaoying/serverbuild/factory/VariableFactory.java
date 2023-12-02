@@ -35,6 +35,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory prefix(String prefix) {
+        this.string = this.string.replace("%prefix%", prefix);
+        return this;
+    }
+
     public VariableFactory color() {
         this.string = ColorUtil.translate(this.string);
         return this;
