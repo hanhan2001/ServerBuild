@@ -201,6 +201,16 @@ public class StringUtil {
     }
 
     /**
+     * 移除所有空格
+     *
+     * @param string string
+     * @return String
+     */
+    public static String removeAllSpace(String string) {
+        return string.replace(" ", "");
+    }
+
+    /**
      * 大小写转换
      *
      * @param str       源字符串
