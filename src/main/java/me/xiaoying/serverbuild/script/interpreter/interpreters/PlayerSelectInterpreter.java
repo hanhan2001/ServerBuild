@@ -20,7 +20,7 @@ public class PlayerSelectInterpreter implements Interpreter {
      */
     private List<Player> identity(String identity) {
         if (!identity.equalsIgnoreCase("op") && !identity.equalsIgnoreCase("player"))
-            return null;
+            return new ArrayList<>();
 
         List<Player> players = new ArrayList<>();
         for (Player onlinePlayer : ServerUtil.getOnlinePlayers()) {
@@ -78,6 +78,8 @@ public class PlayerSelectInterpreter implements Interpreter {
                     i = StringUtil.removeSomeString(i, 0);
                     i = StringUtil.removeSomeString(i, 0);
                     i = StringUtil.removeSomeString(i, 0);
+                    i = StringUtil.removeSomeString(i, 0);
+                    i = StringUtil.removeSomeString(i, i.length() - 1);
                     identity = this.identity(i);
                 }
                 if (condition.startsWith("permission=")) {
@@ -92,6 +94,8 @@ public class PlayerSelectInterpreter implements Interpreter {
                     i = StringUtil.removeSomeString(i, 0);
                     i = StringUtil.removeSomeString(i, 0);
                     i = StringUtil.removeSomeString(i, 0);
+                    i = StringUtil.removeSomeString(i, 0);
+                    i = StringUtil.removeSomeString(i, i.length() - 1);
                     permission = this.permission(i);
                 }
             }
