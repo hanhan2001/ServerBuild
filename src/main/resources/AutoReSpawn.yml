@@ -24,7 +24,7 @@ AutoReSpawn:
     send %player%
     send %player% &b[%date%] &6已为您自动重生‘( •̀ ω •́ )✧
     send %player%
-    actionbar %player% &6%target%你给我等着！看我弄不弄死你！
+    actionbar %player% &6我一定会回来的！！
 
 #词条
 Message:
