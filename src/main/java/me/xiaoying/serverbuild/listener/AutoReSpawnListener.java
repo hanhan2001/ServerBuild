@@ -3,6 +3,8 @@ package me.xiaoying.serverbuild.listener;
 import me.xiaoying.serverbuild.ServerBuild;
 import me.xiaoying.serverbuild.constant.ConstantAutoReSpawn;
 import me.xiaoying.serverbuild.factory.VariableFactory;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -15,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class AutoReSpawnListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        ServerBuild.getTaskService().getScheduledExecutor().schedule(() -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(ServerBuild.getInstance(), () -> {
             event.getEntity().spigot().respawn();
 
             ConstantAutoReSpawn constantAutoReSpawn = (ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant();
@@ -27,6 +29,6 @@ public class AutoReSpawnListener implements Listener {
                         .toString();
                 ServerBuild.getScriptManager().onCommand(s);
             }
-        }, ((ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant()).AUTORESPAWN_TICK, TimeUnit.MILLISECONDS);
+        }, ((ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant()).AUTORESPAWN_TICK);
     }
 }
