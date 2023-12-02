@@ -23,6 +23,7 @@ public class AutoReSpawnListener implements Listener {
             ConstantAutoReSpawn constantAutoReSpawn = (ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant();
             for (String s : constantAutoReSpawn.AUTORESPAWN_EVENT) {
                 s = new VariableFactory(s)
+                        .prefix(constantAutoReSpawn.SET_PREFIX)
                         .date(constantAutoReSpawn.SET_DATEFORMAT)
                         .player(event.getEntity().getName())
                         .color()
