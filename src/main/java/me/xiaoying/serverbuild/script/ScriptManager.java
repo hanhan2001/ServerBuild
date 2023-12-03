@@ -75,7 +75,7 @@ public class ScriptManager {
      * @param command String
      */
     public void callScript(String command) {
-        ServerBuild.getTaskService().getScheduledExecutor().execute(() -> callScript(command));
+        ServerBuild.getTaskService().getScheduledExecutor().execute(() -> this.onCommand(command));
     }
 
     /**
@@ -86,6 +86,8 @@ public class ScriptManager {
     public void onCommand(String command) {
         command = command.toLowerCase();
         String[] split = command.split(" ");
+
+        ServerUtil.sendMessage(this.interpreterService.interpreter(command), true);
 
         command = this.interpreterService.interpreter(command);
         if (command.contains("\n")) {
