@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild;
 
 import me.xiaoying.mf.SqlFactory;
+import me.xiaoying.serverbuild.command.serverbuild.ServerBuildCommand;
 import me.xiaoying.serverbuild.constant.ConstantCommon;
 import me.xiaoying.serverbuild.file.FileService;
 import me.xiaoying.serverbuild.function.Function;
@@ -56,14 +57,7 @@ public class ServerBuild extends JavaPlugin {
         ServerUtil.sendMessage("&b|    &a数据存储方式(DataType): &e" + ConstantCommon.SYSTEM_DATA_TYPE, true);
         ServerUtil.sendMessage("&b|=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=->", true);
 
-        // Function 处理
-        functionService.enableFunctions();
-        for (SubTask subTask : taskService.getTasks()) {
-            if (subTask.isRunning())
-                continue;
-
-            subTask.run();
-        }
+        runFunction();
     }
 
     @Override
@@ -89,6 +83,9 @@ public class ServerBuild extends JavaPlugin {
 
         fileService.fileAll();
         fileService.initializeAll();
+
+        // 注册主指令
+        ServerUtil.registerCommand("sb", new ServerBuildCommand());
     }
 
     // 取消初始化
@@ -107,6 +104,18 @@ public class ServerBuild extends JavaPlugin {
 
             function.onDisable();
             ServerUtil.sendMessage("&b|    &a" + function.getAliasName() + "(" + function.getName() + "): &e已开启", true);
+        }
+    }
+
+    // 启动 Function
+    public static void runFunction() {
+        // Function 处理
+        functionService.enableFunctions();
+        for (SubTask subTask : taskService.getTasks()) {
+            if (subTask.isRunning())
+                continue;
+
+            subTask.run();
         }
     }
 
