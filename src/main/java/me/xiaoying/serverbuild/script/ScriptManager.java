@@ -6,7 +6,6 @@ import me.xiaoying.serverbuild.script.scripts.ActionbarScript;
 import me.xiaoying.serverbuild.script.scripts.SendScript;
 import me.xiaoying.serverbuild.script.scripts.TitleScript;
 import me.xiaoying.serverbuild.utils.ServerUtil;
-import me.xiaoying.serverbuild.utils.StringUtil;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
