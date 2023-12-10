@@ -107,6 +107,11 @@ public class AutoReSpawnFunction implements Function {
     }
 
     @Override
+    public List<String> getCommands() {
+        return null;
+    }
+
+    @Override
     public List<SubFile> getFiles() {
         return this.files;
     }

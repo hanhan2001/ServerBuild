@@ -1,6 +1,5 @@
 package me.xiaoying.serverbuild.function.functions;
 
-import me.xiaoying.serverbuild.constant.ConstantAutoReSpawn;
 import me.xiaoying.serverbuild.constant.ConstantFileMonitor;
 import me.xiaoying.serverbuild.file.SubFile;
 import me.xiaoying.serverbuild.file.file.FileFileMonitor;
@@ -87,6 +86,11 @@ public class FileMonitorFunction implements Function {
             file.file();
             file.initialize();
         }
+    }
+
+    @Override
+    public List<String> getCommands() {
+        return null;
     }
 
     @Override

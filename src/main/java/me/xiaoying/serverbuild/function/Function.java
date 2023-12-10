@@ -16,6 +16,7 @@ public interface Function {
     void onDisable();
     void reload();
 
+    List<String> getCommands();
     List<SubFile> getFiles();
     List<SubTask> getTasks();
     List<Listener> getListeners();
