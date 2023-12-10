@@ -21,6 +21,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory file(String file) {
+        this.string = this.string.replace("%file%", file);
+        return this;
+    }
+
     public VariableFactory placeholder(Player player) {
         this.string = PlaceholderAPI.setPlaceholders(player, this.string);
         return this;
