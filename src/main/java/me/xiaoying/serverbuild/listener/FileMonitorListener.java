@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild.listener;
 
 import me.xiaoying.serverbuild.ServerBuild;
 import me.xiaoying.serverbuild.constant.ConstantFileMonitor;
+import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.SubFile;
 import me.xiaoying.serverbuild.function.Function;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
@@ -64,7 +65,12 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
 
         ConstantFileMonitor constant = (ConstantFileMonitor) ServerBuild.getFunctionService().getFunction("FileMonitor").getFiles().get(0).getConstant();
         for (String s : constant.FILEMONITOR_EVENT)
-            ServerBuild.getScriptManager().callScript(s);
+            ServerBuild.getScriptManager().callScript(new VariableFactory(s)
+                            .prefix(constant.SET_PREFIX)
+                            .date(constant.SET_DATEFORMAT)
+                            .file(filename)
+                            .color()
+                            .getString());
     }
 
     @Override
