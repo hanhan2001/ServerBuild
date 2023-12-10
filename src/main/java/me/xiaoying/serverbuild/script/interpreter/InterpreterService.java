@@ -55,17 +55,10 @@ public class InterpreterService {
      * @return String[]
      */
     public String interpreter(String string) {
-        String origin = string;
-
         // 执行解释器
         for (Interpreter interpreter : this.knownInterpreter)
             string = interpreter.interpret(string);
 
-        // 判断内容是否与源内容相符
-        while (!origin.equals(string)) {
-            origin = string;
-            string = this.interpreter(string);
-        }
         return string;
     }
 }
