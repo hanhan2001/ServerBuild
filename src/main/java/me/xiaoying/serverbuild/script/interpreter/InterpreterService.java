@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild.script.interpreter;
 
 import me.xiaoying.serverbuild.script.interpreter.interpreters.PlayerSelectInterpreter;
+import me.xiaoying.serverbuild.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,10 +56,13 @@ public class InterpreterService {
      * @return String[]
      */
     public String interpreter(String string) {
+        String origin = string;
         // 执行解释器
         for (Interpreter interpreter : this.knownInterpreter)
             string = interpreter.interpret(string);
 
+        if (StringUtil.isEmpty(string))
+            string = origin;
         return string;
     }
 }
