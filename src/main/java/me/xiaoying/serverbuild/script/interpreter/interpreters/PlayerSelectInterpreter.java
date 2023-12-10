@@ -52,7 +52,7 @@ public class PlayerSelectInterpreter implements Interpreter {
 
     @Override
     public String interpret(String string) {
-        List<String> strings = new ArrayList<>();
+        StringBuilder interpretedString = new StringBuilder();
 
         for (String s : StringUtil.rexStr(string, "*{", "}")) {
             String origin = s;
@@ -61,46 +61,40 @@ public class PlayerSelectInterpreter implements Interpreter {
             s = StringUtil.removeSomeString(s, s.length() - 1);
 
             List<String> conditions = new ArrayList<>();
-            for (String s1 : s.split(","))
-                conditions.add(StringUtil.removeAllSpace(s1));
+            // 添加判断条件
+            // 不含 = 则省略
+            for (String s1 : s.split(",")) {
+                if (!s1.contains("="))
+                    continue;
+
+                conditions.add(s1);
+            }
 
             List<Player> identity = new ArrayList<>();
             List<Player> permission = new ArrayList<>();
+            // 获取满足要求的玩家
             for (String condition : conditions) {
-                if (condition.startsWith("identity=")) {
-                    String i = StringUtil.removeSomeString(condition, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, i.length() - 1);
-                    identity = this.identity(i);
+                String[] split = condition.split("=");
+                String type = split[0];
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 1; i < split.length; i++) {
+                    stringBuilder.append(split[i]);
+
+                    if (i == split.length - 1)
+                        break;
+
+                    stringBuilder.append("=");
                 }
-                if (condition.startsWith("permission=")) {
-                    String i = StringUtil.removeSomeString(condition, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, 0);
-                    i = StringUtil.removeSomeString(i, i.length() - 1);
-                    permission = this.permission(i);
-                }
+                String content = stringBuilder.toString();
+
+                if (type.equalsIgnoreCase("identity"))
+                    identity = this.identity(content);
+                if (type.equalsIgnoreCase("permission"))
+                    permission = this.permission(content);
             }
 
             List<Player> players = new ArrayList<>();
+            // 获取两个 ArrayList 都满足的玩家
             if (identity.size() != 0 && permission.size() != 0) {
                 for (Player player : identity) {
                     if (!permission.contains(player))
@@ -113,26 +107,31 @@ public class PlayerSelectInterpreter implements Interpreter {
             else
                 players = permission;
 
-            List<String> conditionStrings = new ArrayList<>();
-            for (Player player : players)
-                conditionStrings.add(string);
+            List<String> listString = new ArrayList<>();
+            for (Player player : players) {
+                String[] split = string.split(origin.replace("*", "\\*").replace(".", "\\.").replace("{", "\\{"));
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < split.length; i++) {
+                    stringBuilder.append(split[i]);
 
-            int i = 0;
-            for (String string1 : conditionStrings) {
-                strings.add(string1.replace(origin, players.get(i).getName()));
-                i++;
+                    if (i == split.length - 1)
+                        break;
+
+                    stringBuilder.append(player.getName());
+                }
+
+                listString.add(stringBuilder.toString());
+            }
+
+            for (int i = 0; i < listString.size(); i++) {
+                interpretedString.append(listString.get(i));
+
+                if (i == listString.size() - 1)
+                    break;
+
+                interpretedString.append("\n");
             }
         }
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < strings.size(); i++) {
-            stringBuilder.append(strings.get(i));
-
-            if (i == strings.size() - 1)
-                break;
-
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+        return interpretedString.toString();
     }
 }
