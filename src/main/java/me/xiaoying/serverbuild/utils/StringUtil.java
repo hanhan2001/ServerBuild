@@ -19,6 +19,31 @@ public class StringUtil {
     }
 
     /**
+     * 字符串通配符 ? *<br>
+     *
+     * @param s1 匹配规则
+     * @param s2 匹配数据
+     * @param c1 位置1
+     * @param c2 位置2
+     * @return Boolean
+     */
+    public static boolean wildcard(String s1, String s2, int c1, int c2) {
+        if (c1 == s1.length() && c2 == s2.length())
+            return true;
+        if (c1 == s1.length() || c2 == s2.length())
+            return false;
+
+        if (s1.charAt(c1) == '?')
+            return wildcard(s1, s2, c1 + 1, c2 + 1);
+        else if (s1.charAt(c1) == '*')
+            return wildcard(s1, s2, c1 + 1, c2) || wildcard(s1, s2, c1 + 1, c2 + 1) || wildcard(s1, s2, c1, c2 + 1);
+        else if (s1.charAt(c1) == s2.charAt(c2))
+            return wildcard(s1, s2, c1 + 1, c2 + 1);
+
+        return false;
+    }
+
+    /**
      * 移除前面的空格
      *
      * @param original 源字符串
