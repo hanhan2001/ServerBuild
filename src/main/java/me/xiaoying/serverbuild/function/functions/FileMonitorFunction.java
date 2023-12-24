@@ -28,7 +28,6 @@ public class FileMonitorFunction implements Function {
         this.files.add(new FileFileMonitor());
     }
 
-
     @Override
     public String getName() {
         return "FileMonitor";
