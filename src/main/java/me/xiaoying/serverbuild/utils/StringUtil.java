@@ -188,8 +188,8 @@ public class StringUtil {
     /**
      * 获取字符串的某个字符个数
      *
-     * @param str     源内容
-     * @param key     计数字符
+     * @param str 源内容
+     * @param key 计数字符
      * @param capital 是否区分大小写
      * @return 个数
      */
@@ -228,8 +228,8 @@ public class StringUtil {
     /**
      * 大小写转换
      *
-     * @param str       源字符串
-     * @param index     字符串位数
+     * @param str 源字符串
+     * @param index 字符串位数
      * @param uppercase 设置大小写
      * @return 转换后字符串
      */
@@ -238,11 +238,10 @@ public class StringUtil {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < strings.length; i++) {
             if (i == index) {
-                if (uppercase) {
+                if (uppercase)
                     strings[i] = strings[i].toUpperCase();
-                } else {
+                else
                     strings[i] = strings[i].toLowerCase();
-                }
             }
             stringBuilder.append(strings[i]);
         }
