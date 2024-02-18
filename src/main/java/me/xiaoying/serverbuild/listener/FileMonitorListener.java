@@ -65,7 +65,7 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
 
         ConstantFileMonitor constant = (ConstantFileMonitor) ServerBuild.getFunctionService().getFunction("FileMonitor").getFiles().get(0).getConstant();
         for (String s : constant.FILEMONITOR_EVENT)
-            ServerBuild.getScriptManager().callScript(new VariableFactory(s)
+            ServerBuild.getScriptManager().onCommand(new VariableFactory(s)
                             .prefix(constant.SET_PREFIX)
                             .date(constant.SET_DATEFORMAT)
                             .file(filename)

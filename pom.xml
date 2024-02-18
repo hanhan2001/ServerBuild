@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.1-R0.1-SNAPSHOT</version>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
         </dependency>
         <!-- commons-->
         <dependency>
@@ -94,6 +94,5 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.61</version>
         </dependency>
-
     </dependencies>
 </project>

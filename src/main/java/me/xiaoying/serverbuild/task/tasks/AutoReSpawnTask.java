@@ -53,7 +53,7 @@ public class AutoReSpawnTask implements SubTask {
                             .player(onlinePlayer.getName())
                             .color()
                             .toString();
-                    ServerBuild.getScriptManager().callScript(s);
+                    ServerBuild.getScriptManager().onCommand(s);
                 }
             }
         }, 0L, ((ConstantAutoReSpawn) ServerBuild.getFunctionService().getFunction("AutoReSpawn").getFiles().get(0).getConstant()).AUTORESPAWN_TICK);
