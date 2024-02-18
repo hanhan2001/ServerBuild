@@ -1,6 +1,5 @@
 package me.xiaoying.serverbuild;
 
-import me.xiaoying.mf.SqlFactory;
 import me.xiaoying.serverbuild.command.serverbuild.ServerBuildCommand;
 import me.xiaoying.serverbuild.constant.ConstantCommon;
 import me.xiaoying.serverbuild.file.FileService;
@@ -8,11 +7,15 @@ import me.xiaoying.serverbuild.function.Function;
 import me.xiaoying.serverbuild.function.FunctionService;
 import me.xiaoying.serverbuild.file.file.FileConfig;
 import me.xiaoying.serverbuild.function.functions.AutoReSpawnFunction;
+import me.xiaoying.serverbuild.function.functions.ChatFormatFunction;
 import me.xiaoying.serverbuild.function.functions.FileMonitorFunction;
 import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.serverbuild.task.SubTask;
 import me.xiaoying.serverbuild.task.TaskService;
 import me.xiaoying.serverbuild.utils.ServerUtil;
+import me.xiaoying.sql.MysqlFactory;
+import me.xiaoying.sql.SqlFactory;
+import me.xiaoying.sql.SqliteFactory;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -78,6 +81,7 @@ public class ServerBuild extends JavaPlugin {
 
         fileService.register("Config", new FileConfig());
 
+        functionService.registerFunction(new ChatFormatFunction());
         functionService.registerFunction(new AutoReSpawnFunction());
         functionService.registerFunction(new FileMonitorFunction());
 
@@ -144,10 +148,10 @@ public class ServerBuild extends JavaPlugin {
         SqlFactory sqlFactory = null;
         switch (ConstantCommon.SYSTEM_DATA_TYPE.toUpperCase()) {
             case "MYSQL":
-                sqlFactory = new SqlFactory(ConstantCommon.SYSTEM_MYSQL_HOST, ConstantCommon.SYSTEM_MYSQL_PORT, ConstantCommon.SYSTEM_MYSQL_DATABASE, ConstantCommon.SYSTEM_MYSQL_USERNAME, ConstantCommon.SYSTEM_MYSQL_PASSWORD);
+                sqlFactory = new MysqlFactory(ConstantCommon.SYSTEM_MYSQL_HOST, ConstantCommon.SYSTEM_MYSQL_PORT, ConstantCommon.SYSTEM_MYSQL_DATABASE, ConstantCommon.SYSTEM_MYSQL_USERNAME, ConstantCommon.SYSTEM_MYSQL_PASSWORD);
                 break;
             case "SQLITE":
-                sqlFactory = new SqlFactory("jdbc:sqlite", ConstantCommon.SYSTEM_DATA_SQLITE_DATAPATH);
+                sqlFactory = new SqliteFactory("jdbc:sqlite", ConstantCommon.SYSTEM_DATA_SQLITE_DATAPATH);
                 break;
         }
         return sqlFactory;
