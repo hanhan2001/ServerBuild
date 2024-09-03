@@ -4,6 +4,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.text.SimpleDateFormat;
@@ -49,11 +50,14 @@ public class VariableFactory {
         return this;
     }
 
-    public VariableFactory placeholder(Player player) {
+    public VariableFactory placeholder(CommandSender sender) {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null)
             return this;
 
-        this.string = PlaceholderAPI.setPlaceholders(player, this.string);
+        if (!(sender instanceof Player))
+            return this;
+
+        this.string = PlaceholderAPI.setPlaceholders((Player) sender, this.string);
         return this;
     }
 
