@@ -1,0 +1,50 @@
+#自动重生
+#权限
+#ar.respawn -> 自动重生权限
+
+#开关
+Enable: false
+
+#设置
+Setting:
+  #%date% 变量格式(如若无法编辑修改，请检查是否在 Config.yml 开启了全局配置)
+  DateFormat: "yyyy/MM/dd-HH:mm:ss"
+  #%prefix% 变量内容(如若无法编辑修改，请检查是否在 Config.yml 开启了全局变量配置)
+  Prefix: "&a[&bAutoRespawn&a]&e>> "
+
+#自动重生设置
+AutoRespawn:
+  #设置自动重生方式
+  #Server -> 服务器循环检测玩家是否死亡并自动重生
+  #Player -> 根据玩家死亡时间延时xx秒后自动重生
+  Type: "Player"
+  #服务器循环检测时间(单位: tick)
+  Server: 2
+  #玩家死亡后多久重生(单位: tick)
+  Player: 20
+  #玩家进入服务器若是死亡状态是否自动重生
+  JoinRespawn: true
+  #玩家退出服务器若是死亡状态是否自动重生
+  QuitRespawn: true
+  #重生触发脚本命令
+  Script:
+    actionbar 上辈子大意，这辈子我要你们加倍换回来！╰（‵□′）╯
+
+#词条
+#如若无法编辑修改，请检查是否在 Config.yml 开启了全局配置
+Message:
+  #重载插件
+  Reload: "%prefix%&a插件已重载！"
+  #无权限提示
+  MissingPermission: "%prefix%&c你无法这样做！"
+  #找不到玩家
+  NotFoundPlayer: "%prefix%&c找不到玩家"
+  #操作完成
+  Complete: "%prefix%&a执行完成!"
+  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+  Help: |-
+    
+    &a<-=-=-=-=-=-=-=-=-=-= &e&lAutoRespawn &a=-=-=-=-=-=-=-=-=-=->
+    &b/ar reload &7重载 聊天格式
+    &b/ar respawn [玩家ID] &7为玩家重生
+    &f

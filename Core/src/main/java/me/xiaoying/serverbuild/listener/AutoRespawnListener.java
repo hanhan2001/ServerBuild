@@ -1,0 +1,39 @@
+package me.xiaoying.serverbuild.listener;
+
+import me.xiaoying.serverbuild.core.SBPlugin;
+import me.xiaoying.serverbuild.file.FileAutoRespawn;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+
+public class AutoRespawnListener implements Listener {
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (!FileAutoRespawn.AUTO_RESPAWN_TYPE.equalsIgnoreCase("Player"))
+            return;
+        Bukkit.getScheduler().runTaskLater(SBPlugin.getInstance(), () -> AutoRespawnListener.this.respawn(event.getEntity()), FileAutoRespawn.AUTO_RESPAWN_PLAYER);
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        this.respawn(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        this.respawn(event.getPlayer());
+    }
+
+    private void respawn(Player player) {
+        if (!player.isDead())
+            return;
+
+        player.spigot().respawn();
+        for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
+            SBPlugin.getScriptManager().performScript(s, player);
+    }
+}
