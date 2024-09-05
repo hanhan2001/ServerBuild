@@ -12,15 +12,13 @@ public class AutoRespawnScheduler extends Scheduler {
 
     @Override
     public Runnable getRunnable() {
-        return () -> {
-            ServerUtil.getOnlinePlayers().forEach(player -> {
-                if (!player.isDead())
-                    return;
+        return () -> ServerUtil.getOnlinePlayers().forEach(player -> {
+            if (!player.isDead())
+                return;
 
-                player.spigot().respawn();
-                for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
-                    SBPlugin.getScriptManager().performScript(new VariableFactory(s).prefix(FileAutoRespawn.SETTING_PREFIX).date(FileAutoRespawn.SETTING_DATEFORMAT).player(player).placeholder(player).color().toString(), player);
-            });
-        };
+            player.spigot().respawn();
+            for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
+                SBPlugin.getScriptManager().performScript(new VariableFactory(s).prefix(FileAutoRespawn.SETTING_PREFIX).date(FileAutoRespawn.SETTING_DATEFORMAT).player(player).placeholder(player).color().toString(), player);
+        });
     }
 }

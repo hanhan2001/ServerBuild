@@ -1,5 +1,7 @@
 package me.xiaoying.serverbuild.file;
 
+import me.xiaoying.serverbuild.utils.YamlUtil;
+
 public class FileAutoRespawn extends File {
     public static boolean ENABLE;
 

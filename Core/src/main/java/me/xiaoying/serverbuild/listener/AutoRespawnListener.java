@@ -16,23 +16,26 @@ public class AutoRespawnListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (!FileAutoRespawn.AUTO_RESPAWN_TYPE.equalsIgnoreCase("Player"))
             return;
-        Bukkit.getScheduler().runTaskLater(SBPlugin.getInstance(), () -> AutoRespawnListener.this.respawn(event.getEntity()), FileAutoRespawn.AUTO_RESPAWN_PLAYER);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SBPlugin.getInstance(), () -> AutoRespawnListener.this.respawn(event.getEntity()), FileAutoRespawn.AUTO_RESPAWN_PLAYER);
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        if (!event.getPlayer().isDead())
+            return;
+
         this.respawn(event.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
+        if (!event.getPlayer().isDead())
+            return;
+
         this.respawn(event.getPlayer());
     }
 
     private void respawn(Player player) {
-        if (!player.isDead())
-            return;
-
         player.spigot().respawn();
         for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
             SBPlugin.getScriptManager().performScript(new VariableFactory(s).prefix(FileAutoRespawn.SETTING_PREFIX).date(FileAutoRespawn.SETTING_DATEFORMAT).player(player).placeholder(player).color().toString(), player);
