@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild.listener;
 
 import me.xiaoying.serverbuild.core.SBPlugin;
+import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileAutoRespawn;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -34,6 +35,6 @@ public class AutoRespawnListener implements Listener {
 
         player.spigot().respawn();
         for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
-            SBPlugin.getScriptManager().performScript(s, player);
+            SBPlugin.getScriptManager().performScript(new VariableFactory(s).prefix(FileAutoRespawn.SETTING_PREFIX).date(FileAutoRespawn.SETTING_DATEFORMAT).player(player).placeholder(player).color().toString(), player);
     }
 }

@@ -28,7 +28,7 @@ AutoRespawn:
   QuitRespawn: true
   #重生触发脚本命令
   Script:
-    actionbar 上辈子大意，这辈子我要你们加倍换回来！╰（‵□′）╯
+    actionbar %player% 上辈子大意，这辈子我要你们加倍换回来！╰（‵□′）╯
 
 #词条
 #如若无法编辑修改，请检查是否在 Config.yml 开启了全局配置
