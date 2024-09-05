@@ -27,7 +27,7 @@ AutoRespawn:
   #玩家退出服务器若是死亡状态是否自动重生
   QuitRespawn: true
   #重生触发脚本命令
-  Script:
+  Script: |-
     actionbar %player% 上辈子大意，这辈子我要你们加倍换回来！╰（‵□′）╯
 
 #词条
