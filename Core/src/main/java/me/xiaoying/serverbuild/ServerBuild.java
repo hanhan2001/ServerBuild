@@ -89,6 +89,7 @@ public class ServerBuild extends JavaPlugin {
         // Module
         SBPlugin.getModuleManager().registerModule(new ChatFormatModule());
         SBPlugin.getModuleManager().registerModule(new ResolveLagModule());
+        SBPlugin.getModuleManager().registerModule(new AutoRespawnModule());
         SBPlugin.getModuleManager().registerModule(new FileMonitorModule());
         SBPlugin.getModuleManager().registerModule(new WelcomeMessageModule());
         SBPlugin.getModuleManager().registerModule(new MessageAnnouncerModule());
