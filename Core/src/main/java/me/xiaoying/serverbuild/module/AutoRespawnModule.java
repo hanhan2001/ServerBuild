@@ -8,17 +8,17 @@ import me.xiaoying.serverbuild.scheduler.AutoRespawnScheduler;
 public class AutoRespawnModule extends Module {
     @Override
     public String getName() {
-        return "AutoRespawn";
-    }
-
-    @Override
-    public String getAliasName() {
         return "自动重生";
     }
 
     @Override
+    public String getAliasName() {
+        return "AutoRespawn";
+    }
+
+    @Override
     public boolean ready() {
-        return false;
+        return FileAutoRespawn.ENABLE;
     }
 
     @Override
@@ -29,11 +29,11 @@ public class AutoRespawnModule extends Module {
         // commands
         this.registerCommand(new AutoRespawnCommand());
 
-        // listener
-        this.registerListener(new AutoRespawnListener());
-
-        // scheduler
-        this.registerScheduler(new AutoRespawnScheduler());
+        // listener or scheduler
+        if (FileAutoRespawn.AUTO_RESPAWN_TYPE.equalsIgnoreCase("Player"))
+            this.registerListener(new AutoRespawnListener());
+        else
+            this.registerScheduler(new AutoRespawnScheduler());
     }
 
     @Override

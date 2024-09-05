@@ -13,6 +13,9 @@ public class AutoRespawnScheduler extends Scheduler {
     public Runnable getRunnable() {
         return () -> {
             ServerUtil.getOnlinePlayers().forEach(player -> {
+                if (!player.isDead())
+                    return;
+
                 player.spigot().respawn();
                 for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
                     SBPlugin.getScriptManager().performScript(s, player);
