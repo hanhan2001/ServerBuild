@@ -32,6 +32,12 @@ public class WelcomeMessageCommand extends SCommand {
 
     @Override
     public void performCommand(CommandSender sender, String[] strings) {
+        // 判断命令长度
+        if (strings.length == 0) {
+            this.getHelpMessage().forEach(sender::sendMessage);
+            return;
+        }
+
         // 判断是否存在相应命令
         String head = strings[0];
         if (!this.getRegisteredCommands().containsKey(head)) {

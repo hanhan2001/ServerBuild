@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * ServerBuild Command
  */
-@Command(values = {"sb", "serverbuild"}, length = {1, 2})
+@Command(values = {"sb", "serverbuild"}, length = -1)
 public class ServerBuildCommand extends SCommand {
     public ServerBuildCommand() {
         this.registerCommand(new SBReloadCommand());
@@ -37,6 +37,12 @@ public class ServerBuildCommand extends SCommand {
 
     @Override
     public void performCommand(CommandSender sender, String[] strings) {
+        // 判断命令长度
+        if (strings.length == 0) {
+            this.getHelpMessage().forEach(sender::sendMessage);
+            return;
+        }
+
         // 判断是否存在相应命令
         String head = strings[0];
         if (!this.getRegisteredCommands().containsKey(head)) {

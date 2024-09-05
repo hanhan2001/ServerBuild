@@ -132,7 +132,7 @@ public abstract class SCommand {
         return new TabExecutor() {
             @Override
             public boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command cmd, @NotNull String s, @NotNull String[] strings) {
-                if (!SCommand.this.getLengths().contains(strings.length)) {
+                if (!SCommand.this.getLengths().contains(strings.length) && !SCommand.this.getLengths().contains(-1)) {
                     SCommand.this.getHelpMessage().forEach(sender::sendMessage);
                     return false;
                 }
