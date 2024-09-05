@@ -25,8 +25,8 @@ public class ActionbarScript implements Script {
             return;
         }
 
-        Player player = Bukkit.getServer().getPlayerExact(args[0]);
-        if (player == null) {
+        Player player;
+        if ((player = Bukkit.getServer().getPlayer(args[0])) == null) {
             sender.sendMessage(new VariableFactory("&c找不到玩家 &e" + args[0]).color().toString());
             return;
         }
