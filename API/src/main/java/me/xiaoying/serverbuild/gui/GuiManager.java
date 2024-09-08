@@ -13,7 +13,7 @@ public interface GuiManager {
     /**
      * Get gui by name
      *
-     * @param name GUI名称
+     * @param name GUI's name
      * @return GUI
      * @param <T> Gui
      */
@@ -22,7 +22,7 @@ public interface GuiManager {
     /**
      * Unregister gui
      *
-     * @param name Gui 名称
+     * @param name Gui's name
      */
     void unregisterGui(String name);
 

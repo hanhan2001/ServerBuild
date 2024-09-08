@@ -10,6 +10,7 @@ import java.util.List;
 
 public abstract class Gui implements Cloneable {
     private String name;
+    private String displayName;
     private List<Component> components = new ArrayList<>();
     private int height;
     private Runnable open;
@@ -17,6 +18,7 @@ public abstract class Gui implements Cloneable {
 
     public Gui(String name) {
         this.name = name;
+        this.displayName = name;
     }
 
     public void open(Player player) {
@@ -34,11 +36,33 @@ public abstract class Gui implements Cloneable {
         return this.name;
     }
 
-    public Gui setName(String name) {
-        this.name = name;
+    /**
+     * Get inventory display name
+     *
+     * @return String
+     */
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    /**
+     * Set inventory display name
+     *
+     * @param displayName display name
+     * @return Gui
+     */
+    public Gui setDisplayName(String displayName) {
+        this.displayName = displayName;
         return this;
     }
 
+    /**
+     * Get gui component by position
+     *
+     * @param x x-axis
+     * @param y t-axis
+     * @return Component
+     */
     public Component getComponent(int x, int y) {
         for (Component component : this.components) {
             if (component.getX() != x || component.getY() != y)
@@ -49,20 +73,44 @@ public abstract class Gui implements Cloneable {
         return null;
     }
 
+    /**
+     * Get components
+     *
+     * @return ArrayList
+     */
     public List<Component> getComponents() {
         return this.components;
     }
 
+    /**
+     * Add component to this gui
+     *
+     * @param component Component
+     * @return Gui
+     */
     public Gui addComponent(Component component) {
         this.components.add(component);
         return this;
     }
 
+    /**
+     * Remove component
+     *
+     * @param component  Component
+     * @return Gui
+     */
     public Gui removeComponent(Component component) {
         this.components.remove(component);
         return this;
     }
 
+    /**
+     * Remove component by position
+     *
+     * @param x x-axis
+     * @param y y-axis
+     * @return Gui
+     */
     public Gui removeComponent(int x, int y) {
         Iterator<Component> iterator = this.components.iterator();
         Component component;
@@ -77,10 +125,20 @@ public abstract class Gui implements Cloneable {
         return this;
     }
 
+    /**
+     * Get height of gui
+     *
+     * @return gui's height
+     */
     public int getHeight() {
         return this.height;
     }
 
+    /**
+     * Set height of gui
+     *
+     * @param height gui's height
+     */
     public void setHeight(int height) {
         if (height < 0 || height > 6)
             throw new RuntimeException(new IllegalArgumentException("GUI height need between 1 and 6."));
@@ -88,6 +146,11 @@ public abstract class Gui implements Cloneable {
         this.height = height;
     }
 
+    /**
+     * Get inventory of gui
+     *
+     * @return Inventory
+     */
     public Inventory getInventory() {
         Inventory inventory = Bukkit.createInventory(null, this.height * 9, this.getName());
         this.components.forEach(component -> {
