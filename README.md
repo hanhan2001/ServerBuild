@@ -17,7 +17,7 @@
 - [x] FileMonitor
 - [ ] Home
 - [ ] LoginTP
-- [ ] MessageAnnouncer
+- [X] MessageAnnouncer
 - [ ] NotBuild
 - [ ] PlayerShout
 - [ ] PlayerEdit
