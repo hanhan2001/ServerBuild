@@ -20,6 +20,8 @@ public class SimpleGuiManager implements GuiManager {
 
     public void unInitialize() {
         ServerUtil.unregisterListener(this.listener);
+
+        this.cacheGui.keySet().forEach(holder -> holder.getInventory().getViewers().forEach(HumanEntity::closeInventory));
     }
 
     public void registerGui(Gui gui) {
