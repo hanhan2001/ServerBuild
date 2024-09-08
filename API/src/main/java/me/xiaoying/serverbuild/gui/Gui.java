@@ -152,7 +152,7 @@ public abstract class Gui implements Cloneable {
      * @return Inventory
      */
     public Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(null, this.height * 9, this.getName());
+        Inventory inventory = Bukkit.createInventory(null, this.height * 9, this.getDisplayName());
         this.components.forEach(component -> {
             if (component.getY() > 5 || component.getY() > 8)
                 return;
