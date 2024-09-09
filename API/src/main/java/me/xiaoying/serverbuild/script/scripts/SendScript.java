@@ -18,8 +18,7 @@ public class SendScript implements Script {
 
     @Override
     public void performCommand(CommandSender sender, String[] args) {
-
-        if (args.length <= 1) {
+        if (args.length < 1) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c错误的命令格式，应当为 &esend [player] 内容"));
             return;
         }
