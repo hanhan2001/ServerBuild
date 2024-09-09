@@ -27,6 +27,30 @@ public class ColorUtil {
         if (!text.contains("#"))
             return text;
 
+        for (String s : ColorUtil.getHexCode(text)) {
+            if (s.length() < 3)
+                continue;
+
+            String color;
+            String old = null;
+            if (s.length() < 6) {
+                color = "#" + s.charAt(1) + s.charAt(1) + s.charAt(2) + s.charAt(2) + s.charAt(3) + s.charAt(3);
+                old = "#" + s.charAt(1) + s.charAt(2) + s.charAt(3);
+            } else
+                color = s;
+
+            text = old == null ? text.replace(color, net.md_5.bungee.api.ChatColor.of(color).toString()) : text.replace(old, net.md_5.bungee.api.ChatColor.of(color).toString());
+        }
+        return text;
+    }
+
+    /**
+     * 获取文本中十六进制颜色代码
+     *
+     * @param text 文本
+     * @return 十六进制颜色代码列表
+     */
+    public static Set<String> getHexCode(String text) {
         StringBuilder stringBuilder = new StringBuilder();
         boolean matching = false;
         Set<String> hexList = new HashSet<>();
@@ -62,20 +86,18 @@ public class ColorUtil {
             }
         }
 
+        Set<String> filter = new HashSet<>();
         for (String s : hexList) {
             if (s.length() < 3)
                 continue;
 
-            String color;
-            String old = null;
-            if (s.length() < 6) {
-                color = "#" + s.charAt(0) + s.charAt(0) + s.charAt(1) + s.charAt(1) + s.charAt(2) + s.charAt(2);
-                old = "#" + s.charAt(0) + s.charAt(1) + s.charAt(2);
-            } else
-                color = "#" + s;
+            if (s.length() < 6)
+                s = "#" + s.charAt(0) + s.charAt(1) + s.charAt(2);
+            else
+                s = "#" + s;
 
-            text = old == null ? text.replace(color, net.md_5.bungee.api.ChatColor.of(color).toString()) : text.replace(old, net.md_5.bungee.api.ChatColor.of(color).toString());
+            filter.add(s);
         }
-        return text;
+        return filter;
     }
 }
