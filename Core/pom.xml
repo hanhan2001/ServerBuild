@@ -84,7 +84,7 @@
         <dependency>
             <groupId>me.xiaoying</groupId>
             <artifactId>API</artifactId>
-            <version>0.0.1</version>
+            <version>1.0.0</version>
         </dependency>
         <!--Spigot -->
         <dependency>
