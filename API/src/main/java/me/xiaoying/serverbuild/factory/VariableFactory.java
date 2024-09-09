@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild.factory;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.xiaoying.serverbuild.utils.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -36,7 +37,7 @@ public class VariableFactory {
     }
 
     public VariableFactory color() {
-        this.string = ChatColor.translateAlternateColorCodes('&', this.string);
+        this.string = ColorUtil.translate(this.string);
         return this;
     }
 
