@@ -17,11 +17,12 @@
 - [x] FileMonitor
 - [ ] Home
 - [ ] LoginTP
-- [X] MessageAnnouncer
+- [x] MessageAnnouncer
 - [ ] NotBuild
 - [ ] PlayerShout
 - [ ] PlayerEdit
 - [ ] Scoreboard
+- [ ] Tab
 - [ ] Teleport
 - [x] WelcomeMessage
 
