@@ -2,45 +2,79 @@ package me.xiaoying.serverbuild.utils;
 
 import org.bukkit.ChatColor;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ColorUtil {
     /**
-     * 彩色文字
+     * 彩色文本
      *
-     * @param text 文字
-     * @return 替换后文字
+     * @param text 文本
+     * @return 替换后文本
      */
     public static String translate(String text) {
         text = ColorUtil.hexColor(text);
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
+    /**
+     * 十六进制彩色字体
+     *
+     * @param text 文本
+     * @return 替换后文本
+     */
     public static String hexColor(String text) {
         if (!text.contains("#"))
             return text;
 
-        Pattern six = Pattern.compile("#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]");
-        Matcher sixMatcher = six.matcher(text);
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean matching = false;
+        Set<String> hexList = new HashSet<>();
 
-        int time = 0;
-        while (sixMatcher.find()) {
-            text = text.replace(sixMatcher.group(time), net.md_5.bungee.api.ChatColor.of(sixMatcher.group(time)).toString());
-            time++;
+        for (String s : text.split("")) {
+            if (s.equalsIgnoreCase("#")) {
+                matching = true;
+                if (stringBuilder.length() <= 6) {
+                    hexList.add(stringBuilder.toString());
+                    stringBuilder.delete(0, stringBuilder.length());
+                }
+                continue;
+            }
+
+            if (matching) {
+                if (!"0123456789AaBbCcDdEeFf".contains(s)) {
+                    if (stringBuilder.length() <= 6) {
+                        hexList.add(stringBuilder.toString());
+                        stringBuilder.delete(0, stringBuilder.length());
+                    }
+
+                    matching = false;
+                    stringBuilder.delete(0, stringBuilder.length());
+                    continue;
+                }
+                stringBuilder.append(s);
+            }
+
+            if (stringBuilder.length() == 6) {
+                hexList.add(stringBuilder.toString());
+                stringBuilder.delete(0, stringBuilder.length());
+                matching = false;
+            }
         }
 
-        Pattern three = Pattern.compile("#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]");
-        Matcher threeMatcher = three.matcher(text);
+        for (String s : hexList) {
+            if (s.length() < 3)
+                continue;
 
-        time = 0;
-        while (threeMatcher.find()) {
-            String string = threeMatcher.group(time);
-            String stringBuilder = String.valueOf(string.charAt(1)) + string.charAt(1) +
-                    string.charAt(2) + string.charAt(2) +
-                    string.charAt(3) + string.charAt(3);
-            text = text.replace(string, net.md_5.bungee.api.ChatColor.of(stringBuilder).toString());
-            time++;
+            String color;
+            String old = null;
+            if (s.length() < 6) {
+                color = "#" + s.charAt(0) + s.charAt(0) + s.charAt(1) + s.charAt(1) + s.charAt(2) + s.charAt(2);
+                old = "#" + s.charAt(0) + s.charAt(1) + s.charAt(2);
+            } else
+                color = "#" + s;
+
+            text = old == null ? text.replace(color, net.md_5.bungee.api.ChatColor.of(color).toString()) : text.replace(old, net.md_5.bungee.api.ChatColor.of(color).toString());
         }
         return text;
     }
