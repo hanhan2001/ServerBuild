@@ -108,6 +108,39 @@ public class YamlUtil {
     /**
      * 获取子节点
      *
+     * @param yaml Yaml格式内容
+     * @param key 父节点
+     * @return 子节点列表
+     */
+    public static List<Object> getNodes(String yaml, String key) {
+        HashMap<String, Map<String, Object>> map = new Yaml().loadAs(yaml, HashMap.class);
+        Map<String, Object> map1 = new HashMap<>();
+        String[] strings = key.split("\\.");
+        for (int i = 0; i < strings.length; i++) {
+            if (i == 0) {
+                map1 = map.get(strings[i]);
+                continue;
+            }
+
+            map1 = (Map<String, Object>) map1.get(strings[i]);
+        }
+        return new ArrayList<>(map1.keySet());
+    }
+
+    /**
+     * 获取子节点
+     *
+     * @param yaml Yaml格式内容
+     * @return 子节点列表
+     */
+    public static List<Object> getNodes(String yaml) {
+        HashMap<String, Map<String, Object>> map = new Yaml().loadAs(yaml, HashMap.class);
+        return new ArrayList<>(map.keySet());
+    }
+
+    /**
+     * 获取子节点
+     *
      * @param file 文件
      * @param key 需要获取子节点的节点
      * @return 子节点列表
