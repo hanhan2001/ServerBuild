@@ -137,14 +137,14 @@ public class YamlUtil {
     /**
      * 获取YAML文本的所有一级节点
      *
-     * @param path 文件地址
+     * @param file 文件地址
      * @return 子节点列表
      */
-    public static List<String> getNodes(String path) {
+    public static List<String> getNodes(File file) {
         List<String> allNodes = new ArrayList<>();
 
         try {
-            FileInputStream fileInputStream = new FileInputStream(path);
+            FileInputStream fileInputStream = new FileInputStream(file);
             HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);
             allNodes.addAll(map.keySet());
         } catch (FileNotFoundException e) {
