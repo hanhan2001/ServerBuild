@@ -43,7 +43,7 @@ public class WelcomeMessageModule extends Module {
 
     @Override
     public void onEnable() {
-        YamlUtil.getNodes(this.file.getFile().getAbsolutePath(), "WelcomeMessage").forEach(object -> {
+        YamlUtil.getNodes(this.file.getFile(), "WelcomeMessage").forEach(object -> {
             String string = object.toString();
 
             this.welcomeMessageEntities.add(new WelcomeMessageEntity(string,

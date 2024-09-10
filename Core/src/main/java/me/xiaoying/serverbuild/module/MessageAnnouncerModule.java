@@ -46,7 +46,7 @@ public class MessageAnnouncerModule extends Module {
 
     @Override
     public void onEnable() {
-        YamlUtil.getNodes(this.file.getFile().getPath(), "MessageAnnouncer.Announcers").forEach(object -> {
+        YamlUtil.getNodes(this.file.getFile(), "MessageAnnouncer.Announcers").forEach(object -> {
             String string = object.toString();
             List<String> scripts = new ArrayList<>(Arrays.asList(Objects.requireNonNull(this.file.getConfiguration().getString("MessageAnnouncer.Announcers." + string + ".Script")).split("\n")));
             this.announcers.add(new MessageAnnouncerEntity(string, scripts));

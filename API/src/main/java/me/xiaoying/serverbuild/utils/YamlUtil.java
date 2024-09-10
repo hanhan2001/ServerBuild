@@ -108,14 +108,14 @@ public class YamlUtil {
     /**
      * 获取子节点
      *
-     * @param path 文件地址
+     * @param file 文件
      * @param key 需要获取子节点的节点
      * @return 子节点列表
      */
-    public static List<Object> getNodes(String path, String key) {
+    public static List<Object> getNodes(File file, String key) {
         List<Object> allNodes;
         try {
-            FileInputStream fileInputStream = new FileInputStream(path);
+            FileInputStream fileInputStream = new FileInputStream(file.getAbsoluteFile());
             HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);
             Map<String, Object> map1 = new HashMap<>();
             String[] strings = key.split("\\.");

@@ -42,7 +42,7 @@ public class ResolveLagModule extends Module {
 
     @Override
     public void onEnable() {
-        YamlUtil.getNodes(this.file.getFile().getAbsolutePath(), "ClearMessage.ClearDown").forEach(object -> {
+        YamlUtil.getNodes(this.file.getFile(), "ClearMessage.ClearDown").forEach(object -> {
             String string = object.toString();
             int integer;
             try {

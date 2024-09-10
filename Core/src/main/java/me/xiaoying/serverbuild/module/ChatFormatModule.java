@@ -48,7 +48,7 @@ public class ChatFormatModule extends Module {
 
     @Override
     public void onEnable() {
-        YamlUtil.getNodes(this.file.getFile().getPath(), "Formats").forEach(object -> {
+        YamlUtil.getNodes(this.file.getFile(), "Formats").forEach(object -> {
             String string = object.toString();
             ChatFormatEntity entity = new ChatFormatEntity(string,
                     this.file.getConfiguration().getInt("Formats." + string + ".Priority"),
