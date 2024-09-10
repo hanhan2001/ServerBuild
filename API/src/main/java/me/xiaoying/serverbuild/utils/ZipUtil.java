@@ -42,9 +42,7 @@ public class ZipUtil {
             //一定记得关闭流
             zipInputStream.closeEntry();
             input.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) {}
         return String.valueOf(stringBuilder);
     }
 }

@@ -93,6 +93,7 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.getModuleManager().registerModule(new FileMonitorModule());
         SBPlugin.getModuleManager().registerModule(new WelcomeMessageModule());
         SBPlugin.getModuleManager().registerModule(new MessageAnnouncerModule());
+        SBPlugin.getModuleManager().registerInterface(JavaModuleLoader.class);
         SBPlugin.getModuleManager().loadModules(SBPlugin.getInstance().getDataFolder().getParentFile());
     }
 

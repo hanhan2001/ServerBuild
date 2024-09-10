@@ -1,13 +1,39 @@
 package me.xiaoying.serverbuild.module;
 
-import me.xiaoying.serverbuild.utils.YamlUtil;
-import me.xiaoying.serverbuild.utils.ZipUtil;
+import me.xiaoying.serverbuild.utils.Preconditions;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SimpleModuleManager implements ModuleManager {
     private final List<Module> knownModules = new ArrayList<>();
+    private final Map<String, Module> lookupNames = new HashMap<>();
+    private final Map<Pattern, ModuleLoader> fileAssociations = new HashMap<>();
+
+    @Override
+    public void registerInterface(Class<? extends ModuleLoader> loader) throws IllegalArgumentException {
+        ModuleLoader moduleLoader;
+        if (!ModuleLoader.class.isAssignableFrom(loader))
+            throw new IllegalArgumentException(String.format("Class %s does not implement interface PluginLoader", loader.getName()));
+
+        try {
+            Constructor<? extends ModuleLoader> constructor = loader.getConstructor();
+            moduleLoader = constructor.newInstance();
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+
+        Pattern[] patterns = moduleLoader.getPluginFileFilters();
+
+        synchronized (this) {
+            for (Pattern pattern : patterns)
+                this.fileAssociations.put(pattern, moduleLoader);
+        }
+    }
 
     @Override
     public void registerModule(Module module) {
@@ -33,40 +59,47 @@ public class SimpleModuleManager implements ModuleManager {
     }
 
     @Override
-    public void loadModule(File file) {
-        String plugin = ZipUtil.getFile(file.getAbsolutePath(), "plugin.yml");
-        if (plugin == null || plugin.isEmpty())
-            return;
+    public JavaModule loadModule(File file) throws InvalidModuleException, InvalidDescriptionException {
+        Preconditions.checkArgument(file != null, "File cannot be null");
+        Set<Pattern> filters = this.fileAssociations.keySet();
+        JavaModule module = null;
 
-        if (!YamlUtil.getNodes(plugin).contains("module"))
-            return;
-        if (!YamlUtil.getNodes(plugin, "module").contains("main"))
-            return;
+        for (Pattern filter : filters) {
+            String name = file.getName();
 
-        try {
-            Class<?> superClazz = this.getClass().getClassLoader().loadClass(YamlUtil.getValueByKey(plugin, "module.main").toString()).getSuperclass();
-            while (superClazz != Object.class) {
-                if (superClazz == Module.class)
-                    break;
-
-                superClazz = superClazz.getSuperclass();
+            Matcher match = filter.matcher(name);
+            if (match.find()) {
+                ModuleLoader loader = this.fileAssociations.get(filter);
+                module = loader.loadModule(file);
             }
-            if (superClazz != Module.class)
-                return;
-
-            this.registerModule((Module) superClazz.newInstance());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
+
+        if (module != null) {
+            this.knownModules.add(module);
+            this.lookupNames.put(module.getDescription().getName(), module);
+        }
+
+        return module;
     }
 
     @Override
-    public void loadModules(File folder) {
-        if (!folder.isDirectory())
-            return;
+    public Module[] loadModules(File folder) {
+        Preconditions.checkArgument(folder != null, "Directory cannot be null");
+        Preconditions.checkArgument(folder.isDirectory(), "Directory must be a directory");
 
-        for (File file : Objects.requireNonNull(folder.listFiles()))
-            this.loadModule(file);
+        assert folder.listFiles() != null;
+
+        if (folder.listFiles() == null || Objects.requireNonNull(folder.listFiles()).length == 0)
+            return null;
+
+        for (File file : Objects.requireNonNull(folder.listFiles())) {
+            try {
+                this.loadModule(file);
+            } catch (InvalidModuleException | InvalidDescriptionException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return new ArrayList<>(this.knownModules).toArray(new Module[0]);
     }
 
     @Override

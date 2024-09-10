@@ -5,6 +5,14 @@ import java.util.List;
 
 public interface ModuleManager {
     /**
+     * Register interface
+     *
+     * @param loader ModuleLoader
+     * @throws IllegalArgumentException Throw
+     */
+    void registerInterface(Class<? extends ModuleLoader> loader) throws IllegalArgumentException;
+
+    /**
      * Register module
      *
      * @param module Module
@@ -28,14 +36,14 @@ public interface ModuleManager {
      *
      * @param file file
      */
-    void loadModule(File file);
+    JavaModule loadModule(File file) throws InvalidModuleException, InvalidDescriptionException;
 
     /**
      * Load modules from folder
      *
      * @param folder Folder file
      */
-    void loadModules(File folder);
+    Module[] loadModules(File folder);
 
     /**
      * Get module by module's alias name

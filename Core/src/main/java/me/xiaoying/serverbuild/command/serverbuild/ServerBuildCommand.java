@@ -5,6 +5,7 @@ import me.xiaoying.serverbuild.command.RegisteredCommand;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBReloadCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBScriptCommand;
+import me.xiaoying.serverbuild.command.serverbuild.commands.SBStatusCommand;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileConfig;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,7 @@ public class ServerBuildCommand extends SCommand {
     public ServerBuildCommand() {
         this.registerCommand(new SBReloadCommand());
         this.registerCommand(new SBScriptCommand());
+        this.registerCommand(new SBStatusCommand());
     }
 
     @Override
