@@ -23,6 +23,11 @@ public class FileConfig extends File {
             OVERALL_SITUATION_MESSAGE_COMPLETE,
             OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION,
             OVERALL_SITUATION_MESSAGE_NEED_PLAYER,
+            OVERALL_SITUATION_MESSAGE_MODULE_NOT_FOUND,
+            OVERALL_SITUATION_MESSAGE_MODULE_OPENED,
+            OVERALL_SITUATION_MESSAGE_MODULE_CLOSED,
+            OVERALL_SITUATION_MESSAGE_MODULE_OPEN,
+            OVERALL_SITUATION_MESSAGE_MODULE_CLOSE,
             OVERALL_SITUATION_MESSAGE_HELP;
 
     public FileConfig() {
@@ -49,6 +54,11 @@ public class FileConfig extends File {
         FileConfig.OVERALL_SITUATION_MESSAGE_COMPLETE = this.getConfiguration().getString("OverallSituation.Message.Complete");
         FileConfig.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION = this.getConfiguration().getString("OverallSituation.Message.MissingPermission");
         FileConfig.OVERALL_SITUATION_MESSAGE_NEED_PLAYER = this.getConfiguration().getString("OverallSituation.Message.NeedPlayer");
+        FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_NOT_FOUND = this.getConfiguration().getString("OverallSituation.Message.ModuleNotFound");
+        FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPENED = this.getConfiguration().getString("OverallSituation.Message.ModuleOpened");
+        FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_CLOSED = this.getConfiguration().getString("OverallSituation.Message.ModuleClosed");
+        FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPEN = this.getConfiguration().getString("OverallSituation.Message.ModuleOpen");
+        FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_CLOSE = this.getConfiguration().getString("OverallSituation.Message.ModuleClose");
         FileConfig.OVERALL_SITUATION_MESSAGE_HELP = this.getConfiguration().getString("OverallSituation.Message.Help");
     }
 
