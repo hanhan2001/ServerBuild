@@ -20,6 +20,7 @@ public class SimpleScriptManager implements ScriptManager {
     public SimpleScriptManager() {
         this.registerScript(new LogScript());
         this.registerScript(new SendScript());
+        this.registerScript(new SudoScript());
         this.registerScript(new TitleScript());
         this.registerScript(new ConsoleScript());
         this.registerScript(new ActionbarScript());
