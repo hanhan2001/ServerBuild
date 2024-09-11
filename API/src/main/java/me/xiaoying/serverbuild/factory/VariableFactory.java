@@ -1,6 +1,7 @@
 package me.xiaoying.serverbuild.factory;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import me.xiaoying.serverbuild.module.Module;
 import me.xiaoying.serverbuild.utils.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -48,6 +49,20 @@ public class VariableFactory {
 
     public VariableFactory message(String message) {
         this.string = this.string.replace("%message%", message);
+        return this;
+    }
+
+    public VariableFactory module(Module module) {
+        return this.module(module.getAliasName());
+    }
+
+    public VariableFactory module(String module) {
+        this.string = this.string.replace("%module%", module);
+        return  this;
+    }
+
+    public VariableFactory module_exact(Module module) {
+        this.string = this.string.replace("%module_exact%", module.getName());
         return this;
     }
 
