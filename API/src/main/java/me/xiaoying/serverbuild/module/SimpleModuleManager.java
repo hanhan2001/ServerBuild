@@ -92,13 +92,8 @@ public class SimpleModuleManager implements ModuleManager {
         if (folder.listFiles() == null || Objects.requireNonNull(folder.listFiles()).length == 0)
             return null;
 
-        for (File file : Objects.requireNonNull(folder.listFiles())) {
-            try {
-                this.loadModule(file);
-            } catch (InvalidModuleException) {
-                throw new RuntimeException(e);
-            }
-        }
+        for (File file : Objects.requireNonNull(folder.listFiles()))
+            this.loadModule(file);
         return new ArrayList<>(this.knownModules).toArray(new Module[0]);
     }
 
