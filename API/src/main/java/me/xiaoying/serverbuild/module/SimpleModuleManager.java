@@ -59,7 +59,7 @@ public class SimpleModuleManager implements ModuleManager {
     }
 
     @Override
-    public JavaModule loadModule(File file) throws InvalidModuleException, InvalidDescriptionException {
+    public JavaModule loadModule(File file) {
         Preconditions.checkArgument(file != null, "File cannot be null");
         Set<Pattern> filters = this.fileAssociations.keySet();
         JavaModule module = null;
@@ -70,7 +70,7 @@ public class SimpleModuleManager implements ModuleManager {
             Matcher match = filter.matcher(name);
             if (match.find()) {
                 ModuleLoader loader = this.fileAssociations.get(filter);
-                module = loader.loadModule(file);
+                try { module = loader.loadModule(file); } catch (InvalidModuleException e) { throw new RuntimeException(e); }
             }
         }
 
@@ -95,7 +95,7 @@ public class SimpleModuleManager implements ModuleManager {
         for (File file : Objects.requireNonNull(folder.listFiles())) {
             try {
                 this.loadModule(file);
-            } catch (InvalidModuleException | InvalidDescriptionException e) {
+            } catch (InvalidModuleException) {
                 throw new RuntimeException(e);
             }
         }
