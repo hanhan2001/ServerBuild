@@ -76,6 +76,8 @@ public abstract class JavaModule extends Module {
         this.onLoad();
     }
 
+    public abstract void onLoad();
+
     protected final void setEnabled(boolean enabled) {
         if (this.isEnabled == enabled)
             return;
@@ -90,8 +92,6 @@ public abstract class JavaModule extends Module {
     public boolean isEnabled() {
         return this.isEnabled;
     }
-
-    public abstract void onLoad();
 
     /**
      * Get file in jar package
