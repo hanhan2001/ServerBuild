@@ -13,6 +13,7 @@ import java.security.InvalidParameterException;
 
 public abstract class File {
     private final String path;
+    private String folderName;
     private final java.io.File file;
     private YamlConfiguration configuration;
 
@@ -24,6 +25,14 @@ public abstract class File {
     public File(String path, String name) {
         this.file = new java.io.File(path, name);
         this.path = name;
+    }
+
+    public void setSingleFolder(String folderName) {
+        this.folderName = folderName;
+    }
+
+    public String getSingleFolder() {
+        return this.folderName;
     }
 
     public java.io.File getParent() {
@@ -90,7 +99,9 @@ public abstract class File {
         if (in == null)
             throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found");
 
-        java.io.File outFile = new java.io.File(resourcePath);
+        java.io.File outFile = this.getSingleFolder() == null ? new java.io.File(SBPlugin.getInstance().getDataFolder(), resourcePath) : new java.io.File(System.getProperty("user.dir") + "/plugins/" + this.getSingleFolder(), resourcePath);
+        if (!outFile.getParentFile().exists()) outFile.getParentFile().mkdirs();
+
         int lastIndex = resourcePath.lastIndexOf('/');
         java.io.File outDir = new java.io.File(resourcePath.substring(0, Math.max(lastIndex, 0)));
 
