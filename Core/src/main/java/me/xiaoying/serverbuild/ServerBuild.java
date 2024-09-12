@@ -95,6 +95,7 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.getModuleManager().registerModule(new MessageAnnouncerModule());
         SBPlugin.getModuleManager().registerInterface(JavaModuleLoader.class);
         SBPlugin.getModuleManager().loadModules(SBPlugin.getInstance().getDataFolder().getParentFile());
+        SBPlugin.getModuleManager().unregisterInterfaces();
     }
 
     public static void unInitialize() {

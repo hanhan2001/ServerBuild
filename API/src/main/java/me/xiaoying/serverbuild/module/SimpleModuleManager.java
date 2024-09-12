@@ -36,6 +36,11 @@ public class SimpleModuleManager implements ModuleManager {
     }
 
     @Override
+    public void unregisterInterfaces() {
+        this.fileAssociations.clear();
+    }
+
+    @Override
     public void registerModule(Module module) {
         if (this.knownModules.contains(module))
             return;
@@ -55,6 +60,7 @@ public class SimpleModuleManager implements ModuleManager {
     @Override
     public void unregisterModules() {
         this.disableModules();
+        this.lookupNames.clear();
         this.knownModules.clear();
     }
 

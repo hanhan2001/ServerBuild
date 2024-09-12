@@ -13,6 +13,11 @@ public interface ModuleManager {
     void registerInterface(Class<? extends ModuleLoader> loader) throws IllegalArgumentException;
 
     /**
+     * Unregister interfaces
+     */
+    void unregisterInterfaces();
+
+    /**
      * Register module
      *
      * @param module Module
