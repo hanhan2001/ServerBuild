@@ -91,7 +91,7 @@ public abstract class JavaModule extends Module {
         return this.isEnabled;
     }
 
-    public void onLoad() {}
+    public abstract void onLoad();
 
     /**
      * Get file in jar package
