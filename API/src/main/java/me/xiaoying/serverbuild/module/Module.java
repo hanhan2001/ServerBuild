@@ -16,6 +16,7 @@ import java.util.List;
 
 public abstract class Module {
     private boolean opened = false;
+    private boolean enabled = false;
 
     private final List<Gui> guis = new ArrayList<>();
     private final List<File> files = new ArrayList<>();
@@ -253,6 +254,7 @@ public abstract class Module {
     public abstract void init();
 
     public void enable() {
+        this.enabled = true;
         // register listeners
         this.listeners.forEach(listener ->  Bukkit.getPluginManager().registerEvents(listener, SBPlugin.getInstance()));
         // register commands
@@ -279,6 +281,7 @@ public abstract class Module {
     }
 
     public void disable() {
+        this.enabled = false;
         this.onDisable();
 
         // unregister gui
@@ -317,4 +320,13 @@ public abstract class Module {
 
     public abstract void onEnable();
     public abstract void onDisable();
+
+    /**
+     * Get module is enabled
+     *
+     * @return Boolean
+     */
+    public boolean isEnabled() {
+        return this.enabled;
+    }
 }
