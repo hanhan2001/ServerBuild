@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(values = "statue", length = 0)
+@Command(values = "status", length = 0)
 public class SBStatusCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {
