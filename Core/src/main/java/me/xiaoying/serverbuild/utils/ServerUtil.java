@@ -241,35 +241,6 @@ public class ServerUtil {
         }
     }
 
-    /**
-     * 字符串转Location
-     * 只可做绝对位置
-     *
-     * @param x X
-     * @param y Y
-     * @param z Z
-     * @return Location
-     */
-    public static Location stringToLocation(String x, String y, String z) {
-
-        return null;
-    }
-
-    /**
-     * 字符串转Location
-     * 可用作相对位置
-     *
-     * @param player 玩家
-     * @param x X
-     * @param y Y
-     * @param z Z
-     * @return Location
-     */
-    public static Location stringToLocation(Player player, String x, String y, String z) {
-
-        return null;
-    }
-
     public static SqlFactory getSqlFactory() {
         SqlFactory sqlFactory;
         switch (FileConfig.SETTING_DATA_TYPE.toUpperCase(Locale.ENGLISH)) {
