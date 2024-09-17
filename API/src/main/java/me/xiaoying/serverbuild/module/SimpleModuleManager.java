@@ -1,5 +1,6 @@
 package me.xiaoying.serverbuild.module;
 
+import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.utils.Preconditions;
 
 import java.io.File;
@@ -13,6 +14,11 @@ public class SimpleModuleManager implements ModuleManager {
     private final List<Module> knownModules = new ArrayList<>();
     private final Map<String, Module> lookupNames = new HashMap<>();
     private final Map<Pattern, ModuleLoader> fileAssociations = new HashMap<>();
+
+    public SimpleModuleManager() {
+        File file = new File(SBPlugin.getInstance().getDataFolder(), "modules");
+        if (!file.exists()) file.mkdirs();
+    }
 
     @Override
     public void registerInterface(Class<? extends ModuleLoader> loader) throws IllegalArgumentException {

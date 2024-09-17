@@ -12,6 +12,7 @@ import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +96,7 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.getModuleManager().registerModule(new MessageAnnouncerModule());
         SBPlugin.getModuleManager().registerInterface(JavaModuleLoader.class);
         SBPlugin.getModuleManager().loadModules(SBPlugin.getInstance().getDataFolder().getParentFile());
+        SBPlugin.getModuleManager().loadModules(new File(SBPlugin.getInstance().getDataFolder(), "modules"));
         SBPlugin.getModuleManager().unregisterInterfaces();
     }
 
