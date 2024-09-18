@@ -47,7 +47,6 @@ public class ServerBuild extends JavaPlugin {
                 return;
             }
             ServerUtil.sendMessage("&b|&r    &a" + module.getName() + "(" + module.getAliasName() + "): " + "&e已开启");
-            module.enable();
         });
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
         ServerUtil.sendMessage("&b|&6全局配置状态:", true);
@@ -60,6 +59,14 @@ public class ServerBuild extends JavaPlugin {
         else
             ServerUtil.sendMessage("&b|    &a全局变量(Variable): &c未开启", true);
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
+
+        // enable modules
+        SBPlugin.getModuleManager().getModules().forEach(module -> {
+            if (!module.ready())
+                return;
+
+            module.enable();
+        });
     }
 
     @Override
