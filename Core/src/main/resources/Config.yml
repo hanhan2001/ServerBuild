@@ -60,7 +60,7 @@ OverallSituation:
     #关闭 Module
     ModuleClose: "%prefix%&e%module% &a已关启"
     #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
-    Help: |-
+    Help: |
       
       &a<-=-=-=-=-=-=-=-=-=-= &e&lServerBuild &a=-=-=-=-=-=-=-=-=-=->
       &b/sb reload &7重载
@@ -68,4 +68,3 @@ OverallSituation:
       &b/sb script [script] [...] &7执行脚本命令
       &b/sb open [Module] &7启动功能
       &b/sb off [Module] &7关闭功能
-      &f
