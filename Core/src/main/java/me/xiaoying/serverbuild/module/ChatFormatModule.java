@@ -73,9 +73,9 @@ public class ChatFormatModule extends Module {
 
     public static void createTables() {
         List<Column> columns = new ArrayList<>();
-        columns.add(new Column("uuid", "varchar", 255, false));
-        columns.add(new Column("save", "varchar", 255, false));
-        columns.add(new Column("over", "varchar", 255, false));
+        columns.add(new Column("uuid", "varchar", 255));
+        columns.add(new Column("save", "varchar", 255));
+        columns.add(new Column("over", "varchar", 255));
         Create create = new Create(columns, FileChatFormat.TABLE_MUTE);
         SBPlugin.getSqlFactory().run(create);
     }
