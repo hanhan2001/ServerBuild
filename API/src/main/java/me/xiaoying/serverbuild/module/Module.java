@@ -312,7 +312,8 @@ public abstract class Module {
         // gui
         this.guis.forEach(SBPlugin.getGuiManager()::registerGui);
         // placeholder
-        this.placeholders.forEach(PlaceholderModule::register);
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
+            this.placeholders.forEach(PlaceholderModule::register);
 
         this.opened = true;
         this.onEnable();
@@ -345,7 +346,8 @@ public abstract class Module {
         this.guis.clear();
 
         // unregister placeholder
-        this.placeholders.forEach(PlaceholderModule::unregister);
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
+            this.placeholders.forEach(PlaceholderModule::unregister);
         this.placeholders.clear();
 
         this.opened = false;
