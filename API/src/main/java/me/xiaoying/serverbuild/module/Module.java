@@ -1,10 +1,12 @@
 package me.xiaoying.serverbuild.module;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.serverbuild.command.Command;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.File;
 import me.xiaoying.serverbuild.gui.Gui;
+import me.xiaoying.serverbuild.placeholder.PlaceholderModule;
 import me.xiaoying.serverbuild.scheduler.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,6 +25,7 @@ public abstract class Module {
     private final List<SCommand> commands = new ArrayList<>();
     private final List<Listener> listeners = new ArrayList<>();
     private final List<Scheduler> schedulers = new ArrayList<>();
+    private final List<PlaceholderModule> placeholders = new ArrayList<>();
 
     /**
      * Get name of Module
@@ -249,6 +252,39 @@ public abstract class Module {
     }
 
     /**
+     * Register Placeholder
+     *
+     * @param placeholderModule PlaceholderModule
+     */
+    public void registerPlaceholder(PlaceholderModule placeholderModule) {
+        if (this.placeholders.contains(placeholderModule))
+            return;
+
+        this.placeholders.add(placeholderModule);
+    }
+
+    /**
+     * Unregister Placeholder
+     *
+     * @param placeholderModule PlaceholderModule
+     */
+    public void unregisterPlaceholder(PlaceholderModule placeholderModule) {
+        if (!this.placeholders.contains(placeholderModule))
+            return;
+
+        this.placeholders.add(placeholderModule);
+    }
+
+    /**
+     * Get registered placeholder of Module
+     *
+     * @return ArrayList
+     */
+    public List<PlaceholderModule> getPlaceholders() {
+        return this.placeholders;
+    }
+
+    /**
      * Initialize module
      */
     public abstract void init();
@@ -275,6 +311,8 @@ public abstract class Module {
         this.schedulers.forEach(Scheduler::run);
         // gui
         this.guis.forEach(SBPlugin.getGuiManager()::registerGui);
+        // placeholder
+        this.placeholders.forEach(PlaceholderModule::register);
 
         this.opened = true;
         this.onEnable();
@@ -301,6 +339,14 @@ public abstract class Module {
         // unregister files
         this.files.forEach(File::disable);
         this.files.clear();
+
+        // unregister guis
+        this.guis.forEach(gui -> SBPlugin.getGuiManager().unregisterGui(gui.getName()));
+        this.guis.clear();
+
+        // unregister placeholder
+        this.placeholders.forEach(PlaceholderModule::unregister);
+        this.placeholders.clear();
 
         this.opened = false;
     }
