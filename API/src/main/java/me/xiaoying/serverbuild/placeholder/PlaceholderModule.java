@@ -8,10 +8,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class PlaceholderModule extends PlaceholderExpansion {
     private final Module module;
@@ -19,6 +16,41 @@ public class PlaceholderModule extends PlaceholderExpansion {
 
     public PlaceholderModule(Module module) {
         this.module = module;
+    }
+
+    /**
+     * Register child placeholder<br>
+     * Eg: identifier_childKey -> serverbuild_hello
+     *
+     * @param placeholder SPlaceholder
+     */
+    private void registerPlaceholder(SPlaceholder placeholder) {
+        this.placeholders.put(placeholder.getKey(), placeholder);
+    }
+
+    /**
+     * Unregister placeholder by SPlaceholder's key
+     *
+     * @param childKey SPlaceholder's key
+     */
+    public void unregisterPlaceholder(String childKey) {
+        this.placeholders.remove(childKey);
+    }
+
+    /**
+     * Unregister placeholder by SPlaceholder
+     *
+     * @param placeholder SPlaceholder
+     */
+    public void unregisterPlaceholder(SPlaceholder placeholder) {
+        Iterator<String> iterator = this.placeholders.keySet().iterator();
+        String string;
+        while (iterator.hasNext() && (string = iterator.next()) != null) {
+            if (placeholder != this.placeholders.get(string))
+                continue;
+
+            iterator.remove();
+        }
     }
 
     @Override
