@@ -6,6 +6,8 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileConfig;
 import me.xiaoying.serverbuild.gui.SimpleGuiManager;
 import me.xiaoying.serverbuild.module.*;
+import me.xiaoying.serverbuild.scheduler.PlaceholderScheduler;
+import me.xiaoying.serverbuild.scheduler.Scheduler;
 import me.xiaoying.serverbuild.script.SimpleScriptManager;
 import me.xiaoying.serverbuild.utils.PluginUtil;
 import me.xiaoying.serverbuild.utils.ServerUtil;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 public class ServerBuild extends JavaPlugin {
     private static final List<SCommand> commands = new ArrayList<>();
+    private static final List<Scheduler> scheduler = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -105,11 +108,16 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.getModuleManager().loadModules(SBPlugin.getInstance().getDataFolder().getParentFile());
         SBPlugin.getModuleManager().loadModules(new File(SBPlugin.getInstance().getDataFolder(), "modules"));
         SBPlugin.getModuleManager().unregisterInterfaces();
+
+        // scheduler
+        ServerBuild.scheduler.add(new PlaceholderScheduler());
+        ServerBuild.scheduler.forEach(Scheduler::run);
     }
 
     public static void unInitialize() {
         // Command
         ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> PluginUtil.unregisterCommand(string, SBPlugin.getInstance())));
+        ServerBuild.commands.clear();
 
         // Module
         SBPlugin.getModuleManager().disableModules();
@@ -117,5 +125,9 @@ public class ServerBuild extends JavaPlugin {
 
         // unregister manager
         ((SimpleGuiManager) SBPlugin.getGuiManager()).unInitialize();
+
+        // Scheduler
+        ServerBuild.scheduler.forEach(Scheduler::stop);
+        ServerBuild.scheduler.clear();
     }
 }
