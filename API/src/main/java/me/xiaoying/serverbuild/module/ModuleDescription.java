@@ -1,14 +1,16 @@
 package me.xiaoying.serverbuild.module;
 
+import java.util.List;
+
 public class ModuleDescription {
     private final String name;
     private final String alias;
     private final String main;
     private final String version;
-    private final String[] authors;
+    private final List<String> authors;
     private final String description;
 
-    public ModuleDescription(String name, String alias, String main, String version, String[] author, String description) {
+    public ModuleDescription(String name, String alias, String main, String version, List<String> author, String description) {
         this.name = name;
         this.alias = alias;
         this.main = main;
@@ -33,7 +35,7 @@ public class ModuleDescription {
         return this.version;
     }
 
-    public String[] getAuthors() {
+    public List<String> getAuthors() {
         return this.authors;
     }
 

@@ -71,7 +71,7 @@ public class JavaModuleLoader implements ModuleLoader {
         if (yamlConfiguration.getStringList("module.authors") != null && !yamlConfiguration.getStringList("module.authors").isEmpty())
             authors.addAll(yamlConfiguration.getStringList("module.authors"));
         String description = yamlConfiguration.getString("module.description");
-        return new ModuleDescription(name, alias, main, version, authors.toArray(new String[0]), description);
+        return new ModuleDescription(name, alias, main, version, authors, description);
     }
 
     @Override
@@ -87,10 +87,10 @@ public class JavaModuleLoader implements ModuleLoader {
             return;
 
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < module.getDescription().getAuthors().length; i++) {
-            stringBuilder.append(module.getDescription().getAuthors()[i]);
+        for (int i = 0; i < module.getDescription().getAuthors().size(); i++) {
+            stringBuilder.append(module.getDescription().getAuthors().get(i));
 
-            if (i == module.getDescription().getAuthors().length - 1)
+            if (i == module.getDescription().getAuthors().size() - 1)
                 break;
 
             stringBuilder.append(", ");
