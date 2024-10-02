@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class PlaceholderModule extends PlaceholderExpansion {
+public class PlaceholderModule extends PlaceholderExpansion {
     private final Module module;
     private final Map<String, SPlaceholder> placeholders = new HashMap<>();
 
