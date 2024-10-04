@@ -81,16 +81,11 @@ public class PlaceholderModule extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        if (this.module instanceof JavaModule)
-            return ((JavaModule) this.module).getDescription().getVersion();
-        return SBPlugin.getInstance().getDescription().getVersion();
+        return this.module instanceof JavaModule ? ((JavaModule) this.module).getDescription().getVersion() : SBPlugin.getInstance().getDescription().getVersion();
     }
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        if (!this.placeholders.containsKey(params))
-            return null;
-
-        return this.placeholders.get(params).replace(player);
+        return !this.placeholders.containsKey(params) ? null : this.placeholders.get(params).replace(player);
     }
 }
