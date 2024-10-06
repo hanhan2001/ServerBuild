@@ -5,7 +5,6 @@ import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileConfig;
-import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
