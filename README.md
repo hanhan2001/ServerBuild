@@ -1,3 +1,7 @@
+![](https://github.com/hanhan2001/ServerBuild/blob/master/images/ServerBuild.png)
+
+
+
 # ServerBuild
 
 > 此插件将大多数小插件整合成在一起，并在原基础上开放更多可自定义设置.
@@ -59,7 +63,7 @@
 
 ## 附属开发
 
-插件提供了[ServerBuild-Core](https://github.com/hanhan2001/ServerBuild-Core)，可以通过ServerBuild-Core调用ServerBuild接口.
+插件提供了[Core](https://github.com/hanhan2001/ServerBuild-Core)，可以通过ServerBuild-Core调用ServerBuild接口.
 
 ServerBuild-Core提供了线程、文件、命令、监听器的处理方案，可以自动处理线程和监听器，从而避免出现创建多个线程或监听器导致插件问题。
 
