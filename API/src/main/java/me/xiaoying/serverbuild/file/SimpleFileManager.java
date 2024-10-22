@@ -41,10 +41,7 @@ public class SimpleFileManager implements FileManager {
 
     @Override
     public void loads() {
-        this.knownFiles.forEach(file -> {
-            file.load();
-            file.onLoad();
-        });
+        this.knownFiles.forEach(File::load);
     }
 
     @Override
@@ -54,9 +51,6 @@ public class SimpleFileManager implements FileManager {
 
     @Override
     public void deletes() {
-        this.knownFiles.forEach(file -> {
-            file.delete();
-            file.onDelete();
-        });
+        this.knownFiles.forEach(File::delete);
     }
 }
