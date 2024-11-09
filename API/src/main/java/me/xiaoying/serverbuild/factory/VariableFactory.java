@@ -16,7 +16,7 @@ import java.util.Date;
  * Factory Variable
  */
 public class VariableFactory {
-    private String string;
+    protected String string;
 
     public VariableFactory(String string) {
         this.string = string;
