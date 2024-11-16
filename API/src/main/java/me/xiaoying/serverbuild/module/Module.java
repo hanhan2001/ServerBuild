@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Module {
-    private boolean opened = false;
-    private boolean enabled = false;
+    protected boolean enabled = false;
 
     private final List<Gui> guis = new ArrayList<>();
     private final List<File> files = new ArrayList<>();
@@ -80,15 +79,6 @@ public abstract class Module {
     }
 
     /**
-     * Determine whether to activated
-     *
-     * @return Boolean
-     */
-    public boolean opened() {
-        return this.opened;
-    }
-
-    /**
      * Get Listeners
      *
      * @return ArrayList
@@ -109,7 +99,7 @@ public abstract class Module {
         this.listeners.add(listener);
 
         // register listener immediately if module opened
-        if (!this.opened)
+        if (!this.enabled)
             return;
 
         Bukkit.getPluginManager().registerEvents(listener, SBPlugin.getInstance());
@@ -148,7 +138,7 @@ public abstract class Module {
         this.schedulers.add(scheduler);
 
         // register listener immediately if module opened
-        if (!this.opened)
+        if (!this.enabled)
             return;
 
         scheduler.run();
@@ -209,7 +199,7 @@ public abstract class Module {
         this.commands.add(command);
 
         // register command immediately if module opened
-        if (!this.opened)
+        if (!this.enabled)
             return;
 
         Command annotation = command.getClass().getAnnotation(Command.class);
@@ -220,8 +210,9 @@ public abstract class Module {
         }
 
         for (String value : annotation.values()) {
-            SBPlugin.registerCommand(value, SBPlugin.getInstance());
-            SBPlugin.getInstance().getCommand(value).setExecutor(command.getTabExecutor());
+            SBPlugin.getPluginManager().registerCommand(value, command.getTabExecutor(), SBPlugin.getInstance());
+//            SBPlugin.registerCommand(value, SBPlugin.getInstance());
+//            SBPlugin.getInstance().getCommand(value).setExecutor(command.getTabExecutor());
         }
     }
 
@@ -231,7 +222,8 @@ public abstract class Module {
      * @param command SCommand
      */
     public void unregisterCommand(SCommand command) {
-        command.getValues().forEach(string -> SBPlugin.unregisterCommand(string, SBPlugin.getInstance()));
+        command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance()));
+//        command.getValues().forEach(string -> SBPlugin.unregisterCommand(string, SBPlugin.getInstance()));
     }
 
     /**
@@ -302,8 +294,9 @@ public abstract class Module {
             }
 
             for (String value : annotation.values()) {
-                SBPlugin.registerCommand(value, SBPlugin.getInstance());
-                SBPlugin.getInstance().getCommand(value).setExecutor(command.getTabExecutor());
+                SBPlugin.getPluginManager().registerCommand(value, command.getTabExecutor(), SBPlugin.getInstance());
+//                SBPlugin.registerCommand(value, SBPlugin.getInstance());
+//                SBPlugin.getInstance().getCommand(value).setExecutor(command.getTabExecutor());
             }
         });
         // scheduler
@@ -314,7 +307,6 @@ public abstract class Module {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             this.placeholders.forEach(PlaceholderModule::register);
 
-        this.opened = true;
         this.onEnable();
     }
 
@@ -333,7 +325,8 @@ public abstract class Module {
         this.listeners.clear();
 
         // unregister commands
-        this.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.unregisterCommand(string, SBPlugin.getInstance())));
+//        this.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.unregisterCommand(string, SBPlugin.getInstance())));
+        this.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance())));
         this.commands.clear();
 
         // unregister files
@@ -348,8 +341,6 @@ public abstract class Module {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
             this.placeholders.forEach(PlaceholderModule::unregister);
         this.placeholders.clear();
-
-        this.opened = false;
     }
 
     public void reload() {

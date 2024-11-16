@@ -10,8 +10,7 @@ public abstract class JavaModule extends Module {
     private JavaModuleLoader loader;
     private ModuleDescription description;
     private ClassLoader classLoader;
-    private java.io.File file;
-    private boolean isEnabled;
+    private File file;
 
     public JavaModule() {
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -79,18 +78,14 @@ public abstract class JavaModule extends Module {
     public abstract void onLoad();
 
     protected final void setEnabled(boolean enabled) {
-        if (this.isEnabled == enabled)
+        if (this.enabled == enabled)
             return;
 
-        this.isEnabled = enabled;
-        if (this.isEnabled)
+        this.enabled = enabled;
+        if (this.enabled)
             this.onEnable();
         else
             this.onDisable();
-    }
-
-    public boolean isEnabled() {
-        return this.isEnabled;
     }
 
     /**
