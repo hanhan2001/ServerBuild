@@ -5,7 +5,7 @@ import me.xiaoying.serverbuild.command.RegisteredCommand;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.modulecommand.SBModuleInfoCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.modulecommand.SBModuleOffCommand;
-import me.xiaoying.serverbuild.command.serverbuild.commands.modulecommand.SBModuleOnCommand;
+import me.xiaoying.serverbuild.command.serverbuild.commands.modulecommand.SBModuleOpenCommand;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileConfig;
 import org.bukkit.command.CommandSender;
@@ -17,7 +17,7 @@ import java.util.List;
 @Command(values = "module", length = 2)
 public class SBModuleCommand extends SCommand {
     public SBModuleCommand() {
-        this.registerCommand(new SBModuleOnCommand());
+        this.registerCommand(new SBModuleOpenCommand());
         this.registerCommand(new SBModuleOffCommand());
         this.registerCommand(new SBModuleInfoCommand());
     }
