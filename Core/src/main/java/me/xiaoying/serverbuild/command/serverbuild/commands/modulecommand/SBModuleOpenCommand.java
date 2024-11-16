@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Command(values = "on", length = 1)
-public class SBModuleOnCommand extends SCommand {
+@Command(values = "open", length = 1)
+public class SBModuleOpenCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {
         List<String> list = new ArrayList<>();
