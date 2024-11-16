@@ -34,17 +34,17 @@ public class SBModuleOpenCommand extends SCommand {
 
         Module module;
         if ((module = SBPlugin.getModuleManager().getModule(args[0])) == null) {
-            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_NOT_FOUND).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).placeholder(sender).color().toString());
+            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_NOT_FOUND).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(args[0]).placeholder(sender).color().toString());
             return;
         }
 
         if (module.isEnabled()) {
-            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPENED).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).placeholder(sender).color().toString());
+            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPENED).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
             return;
         }
 
         module.enable();
-        sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPEN).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).placeholder(sender).color().toString());
+        sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPEN).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
     }
 
     @Override
