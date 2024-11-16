@@ -18,7 +18,7 @@
     </properties>
 
     <build>
-        <finalName>ServerBuild</finalName>
+        <finalName>${parent.artifactId}-V${version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
