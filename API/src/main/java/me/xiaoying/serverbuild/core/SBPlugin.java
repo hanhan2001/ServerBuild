@@ -5,6 +5,7 @@ import me.xiaoying.serverbuild.file.SimpleFileManager;
 import me.xiaoying.serverbuild.gui.GuiManager;
 import me.xiaoying.serverbuild.module.ModuleManager;
 import me.xiaoying.serverbuild.module.SimpleModuleManager;
+import me.xiaoying.serverbuild.pluginmanager.PluginManager;
 import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.sql.SqlFactory;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 public class SBPlugin {
     private static JavaPlugin instance;
+    private static PluginManager pluginManager;
     private static ScriptManager scriptManager;
     private static GuiManager guiManager;
     private static FileManager fileManager;
@@ -28,7 +30,7 @@ public class SBPlugin {
     private static SqlFactory sqlFactory;
 
     public static JavaPlugin getInstance() {
-        return instance;
+        return SBPlugin.instance;
     }
 
     /**
@@ -37,10 +39,31 @@ public class SBPlugin {
      * @param plugin JavaPlugin
      */
     public static void setInstance(JavaPlugin plugin) {
-        instance = plugin;
+        SBPlugin.instance = plugin;
 
         SBPlugin.fileManager = new SimpleFileManager();
         SBPlugin.moduleManager = new SimpleModuleManager();
+    }
+
+    /**
+     * Get manager of plugin
+     *
+     * @return PluginManager
+     */
+    public static PluginManager getPluginManager() {
+        return SBPlugin.pluginManager;
+    }
+
+    /**
+     * Set manager of plugin
+     *
+     * @param pluginManager PluginManager
+     */
+    public static void setPluginManager(PluginManager pluginManager) {
+        if (SBPlugin.pluginManager != null)
+            return;
+
+        SBPlugin.pluginManager = pluginManager;
     }
 
     /**
@@ -49,7 +72,7 @@ public class SBPlugin {
      * @return ScriptManager
      */
     public static ScriptManager getScriptManager() {
-        return scriptManager;
+        return SBPlugin.scriptManager;
     }
 
     /**
@@ -67,10 +90,10 @@ public class SBPlugin {
     /**
      * Get manager of module
      *
-     * @return
+     * @return ModuleManager
      */
     public static ModuleManager getModuleManager() {
-        return moduleManager;
+        return SBPlugin.moduleManager;
     }
 
     /**
@@ -130,7 +153,7 @@ public class SBPlugin {
      * @return SqlFactory
      */
     public static SqlFactory getSqlFactory() {
-        return sqlFactory;
+        return SBPlugin.sqlFactory;
     }
 
     /**
@@ -140,69 +163,5 @@ public class SBPlugin {
      */
     public static void setSqlFactory(SqlFactory sqlFactory) {
         SBPlugin.sqlFactory = sqlFactory;
-    }
-
-    /**
-     * unregister command
-     *
-     * @param command Command
-     * @param plugin Plugin
-     */
-    public static void unregisterCommand(String command, Plugin plugin) {
-        try {
-            Field commandMapField = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
-            commandMapField.setAccessible(true);
-            SimpleCommandMap commandMap = (SimpleCommandMap) commandMapField.get(Bukkit.getServer().getPluginManager());
-            Field knownCommandsField = SimpleCommandMap.class.getDeclaredField("knownCommands");
-            knownCommandsField.setAccessible(true);
-            Map<String, Command> commands = (Map<String, Command>) knownCommandsField.get(commandMap);
-            Iterator<Map.Entry<String, Command>> it = commands.entrySet().iterator();
-            while (it.hasNext()) {
-                PluginCommand c;
-                Map.Entry<String, Command> entry = it.next();
-                if (!(entry.getValue() instanceof PluginCommand) ||
-                        (c = (PluginCommand)entry.getValue()).getPlugin() != plugin ||
-                        !((PluginCommand) entry.getValue()).getName().equalsIgnoreCase(command))
-                    continue;
-                c.unregister(commandMap);
-                it.remove();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Register command
-     *
-     * @param command Command
-     * @param plugin Plugin
-     */
-    public static void registerCommand(String command, Plugin plugin) {
-        try {
-            Field commandMapField = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
-            commandMapField.setAccessible(true);
-            SimpleCommandMap commandMap = (SimpleCommandMap) commandMapField.get(Bukkit.getServer().getPluginManager());
-            Field knownCommandsField = SimpleCommandMap.class.getDeclaredField("knownCommands");
-            knownCommandsField.setAccessible(true);
-            Map<String, Command> commands = (Map) knownCommandsField.get(commandMap);
-            for (Map.Entry<String, Command> stringCommandEntry : commands.entrySet()) {
-                if (!(stringCommandEntry.getValue() instanceof PluginCommand))
-                    continue;
-
-                PluginCommand cmd = (PluginCommand) stringCommandEntry.getValue();
-                if (cmd.getPlugin() == plugin && cmd.getName().equalsIgnoreCase(command))
-                    return;
-            }
-
-            Class<PluginCommand> clazz = PluginCommand.class;
-            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, Plugin.class);
-            constructor.setAccessible(true);
-            PluginCommand pluginCommand = (PluginCommand) constructor.newInstance(command, plugin);
-            pluginCommand.register(commandMap);
-            ((Map<String, Command>) knownCommandsField.get(commandMap)).put(command, pluginCommand);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

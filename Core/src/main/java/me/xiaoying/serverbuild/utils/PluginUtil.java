@@ -26,16 +26,17 @@ public class PluginUtil {
             Field knownCommandsField = SimpleCommandMap.class.getDeclaredField("knownCommands");
             knownCommandsField.setAccessible(true);
             Map<String, Command> commands = (Map<String, Command>) knownCommandsField.get(commandMap);
-            Iterator<Map.Entry<String, Command>> it = commands.entrySet().iterator();
-            while (it.hasNext()) {
-                PluginCommand c;
-                Map.Entry<String, Command> entry = it.next();
-                if (!(entry.getValue() instanceof PluginCommand) ||
-                        (c = (PluginCommand)entry.getValue()).getPlugin() != plugin ||
-                        !entry.getValue().getName().equalsIgnoreCase(command))
+
+            Iterator<String> iterator = commands.keySet().iterator();
+            while (iterator.hasNext()) {
+                String s = iterator.next();
+                Command c = commands.get(s);
+                PluginCommand pluginCommand;
+                if (!(c instanceof PluginCommand) || (pluginCommand = (PluginCommand) commands.get(s)).getPlugin() != plugin || !c.getName().equalsIgnoreCase(command))
                     continue;
-                c.unregister(commandMap);
-                it.remove();
+
+                pluginCommand.unregister(commandMap);
+                iterator.remove();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

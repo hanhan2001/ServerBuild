@@ -6,17 +6,21 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileConfig;
 import me.xiaoying.serverbuild.gui.SimpleGuiManager;
 import me.xiaoying.serverbuild.module.*;
+import me.xiaoying.serverbuild.pluginmanager.PaperPluginManager;
+import me.xiaoying.serverbuild.pluginmanager.SpigotPluginManager;
 import me.xiaoying.serverbuild.scheduler.PlaceholderScheduler;
 import me.xiaoying.serverbuild.scheduler.Scheduler;
 import me.xiaoying.serverbuild.script.SimpleScriptManager;
 import me.xiaoying.serverbuild.utils.PluginUtil;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Main
@@ -68,6 +72,7 @@ public class ServerBuild extends JavaPlugin {
             if (!module.ready())
                 return;
 
+            System.out.println("Start module - " + module.getName());
             module.enable();
         });
     }
@@ -86,6 +91,16 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.getFileManager().register(file);
         file.load();
 
+        // init PluginManager
+        switch (Bukkit.getServer().getName().toUpperCase(Locale.ENGLISH)) {
+            case "PAPER":
+                SBPlugin.setPluginManager(new PaperPluginManager());
+                break;
+            default:
+                SBPlugin.setPluginManager(new SpigotPluginManager());
+                break;
+        }
+
         // init ScriptManager
         SBPlugin.setScriptManager(new SimpleScriptManager());
 
@@ -95,7 +110,9 @@ public class ServerBuild extends JavaPlugin {
         // Command
         ServerBuildCommand serverBuildCommand = new ServerBuildCommand();
         ServerBuild.commands.add(serverBuildCommand);
-        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> ServerUtil.registerCommand(string, command.getTabExecutor())));
+        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().registerCommand(string, command.getTabExecutor(), SBPlugin.getInstance())));
+//        ServerBuild.commands.add(serverBuildCommand);
+//        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> ServerUtil.registerCommand(string, command.getTabExecutor())));
 
         // Module
         SBPlugin.getModuleManager().registerModule(new ChatFormatModule());
@@ -116,7 +133,8 @@ public class ServerBuild extends JavaPlugin {
 
     public static void unInitialize() {
         // Command
-        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> PluginUtil.unregisterCommand(string, SBPlugin.getInstance())));
+        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance())));
+//        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> PluginUtil.unregisterCommand(string, SBPlugin.getInstance())));
         ServerBuild.commands.clear();
 
         // Module
