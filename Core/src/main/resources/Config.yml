@@ -58,7 +58,7 @@ OverallSituation:
     #开启 Module
     ModuleOpen: "%prefix%&e%module% &a已开启"
     #关闭 Module
-    ModuleClose: "%prefix%&e%module% &a已关闭"
+    ModuleClose: "%prefix%&e%module% &6已关闭"
     #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
     Help: |
       
