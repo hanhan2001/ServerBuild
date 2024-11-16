@@ -43,6 +43,7 @@ public class SBModuleOpenCommand extends SCommand {
             return;
         }
 
+        module.init();
         module.enable();
         sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPEN).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
     }
