@@ -38,7 +38,6 @@ public class SBStatusCommand extends SCommand {
         sender.sendMessage(new VariableFactory("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>").color().toString());
         sender.sendMessage(new VariableFactory("&b|&6功能状态:").color().toString());
         SBPlugin.getModuleManager().getModules().forEach(module -> {
-
             if (!module.isEnabled()) {
                 sender.sendMessage(new VariableFactory("&b|&r    &a" + module.getName() + "(" + module.getAliasName() + "): " + "&c已关闭").color().toString());
                 return;
