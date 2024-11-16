@@ -3,6 +3,7 @@ package me.xiaoying.serverbuild.command.serverbuild;
 import me.xiaoying.serverbuild.command.Command;
 import me.xiaoying.serverbuild.command.RegisteredCommand;
 import me.xiaoying.serverbuild.command.SCommand;
+import me.xiaoying.serverbuild.command.serverbuild.commands.SBModuleCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBReloadCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBScriptCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBStatusCommand;
@@ -24,6 +25,7 @@ public class ServerBuildCommand extends SCommand {
         this.registerCommand(new SBReloadCommand());
         this.registerCommand(new SBScriptCommand());
         this.registerCommand(new SBStatusCommand());
+        this.registerCommand(new SBModuleCommand());
     }
 
     @Override
