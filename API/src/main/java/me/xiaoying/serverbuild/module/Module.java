@@ -1,6 +1,5 @@
 package me.xiaoying.serverbuild.module;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import me.xiaoying.serverbuild.command.Command;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.core.SBPlugin;
