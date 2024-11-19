@@ -11,7 +11,6 @@ import me.xiaoying.serverbuild.pluginmanager.SpigotPluginManager;
 import me.xiaoying.serverbuild.scheduler.PlaceholderScheduler;
 import me.xiaoying.serverbuild.scheduler.Scheduler;
 import me.xiaoying.serverbuild.script.SimpleScriptManager;
-import me.xiaoying.serverbuild.utils.PluginUtil;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -110,8 +109,6 @@ public class ServerBuild extends JavaPlugin {
         ServerBuildCommand serverBuildCommand = new ServerBuildCommand();
         ServerBuild.commands.add(serverBuildCommand);
         ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().registerCommand(string, command.getTabExecutor(), SBPlugin.getInstance())));
-//        ServerBuild.commands.add(serverBuildCommand);
-//        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> ServerUtil.registerCommand(string, command.getTabExecutor())));
 
         // Module
         SBPlugin.getModuleManager().registerModule(new ChatFormatModule());
@@ -133,7 +130,6 @@ public class ServerBuild extends JavaPlugin {
     public static void unInitialize() {
         // Command
         ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance())));
-//        ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> PluginUtil.unregisterCommand(string, SBPlugin.getInstance())));
         ServerBuild.commands.clear();
 
         // Module

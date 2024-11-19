@@ -209,11 +209,8 @@ public abstract class Module {
             return;
         }
 
-        for (String value : annotation.values()) {
+        for (String value : annotation.values())
             SBPlugin.getPluginManager().registerCommand(value, command.getTabExecutor(), SBPlugin.getInstance());
-//            SBPlugin.registerCommand(value, SBPlugin.getInstance());
-//            SBPlugin.getInstance().getCommand(value).setExecutor(command.getTabExecutor());
-        }
     }
 
     /**
@@ -223,7 +220,6 @@ public abstract class Module {
      */
     public void unregisterCommand(SCommand command) {
         command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance()));
-//        command.getValues().forEach(string -> SBPlugin.unregisterCommand(string, SBPlugin.getInstance()));
     }
 
     /**
@@ -293,11 +289,8 @@ public abstract class Module {
                 return;
             }
 
-            for (String value : annotation.values()) {
+            for (String value : annotation.values())
                 SBPlugin.getPluginManager().registerCommand(value, command.getTabExecutor(), SBPlugin.getInstance());
-//                SBPlugin.registerCommand(value, SBPlugin.getInstance());
-//                SBPlugin.getInstance().getCommand(value).setExecutor(command.getTabExecutor());
-            }
         });
         // scheduler
         this.schedulers.forEach(Scheduler::run);
@@ -325,7 +318,6 @@ public abstract class Module {
         this.listeners.clear();
 
         // unregister commands
-//        this.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.unregisterCommand(string, SBPlugin.getInstance())));
         this.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance())));
         this.commands.clear();
 
