@@ -72,7 +72,6 @@ public class ServerBuild extends JavaPlugin {
             if (!module.ready())
                 return;
 
-            System.out.println("Start module - " + module.getName());
             module.enable();
         });
     }
