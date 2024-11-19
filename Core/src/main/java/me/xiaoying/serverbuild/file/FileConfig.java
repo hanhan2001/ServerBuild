@@ -28,6 +28,7 @@ public class FileConfig extends File {
             OVERALL_SITUATION_MESSAGE_MODULE_CLOSED,
             OVERALL_SITUATION_MESSAGE_MODULE_OPEN,
             OVERALL_SITUATION_MESSAGE_MODULE_CLOSE,
+            OVERALL_SITUATION_MESSAGE_MODULE_INFO,
             OVERALL_SITUATION_MESSAGE_HELP;
 
     public FileConfig() {
@@ -59,6 +60,7 @@ public class FileConfig extends File {
         FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_CLOSED = this.getConfiguration().getString("OverallSituation.Message.ModuleClosed");
         FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPEN = this.getConfiguration().getString("OverallSituation.Message.ModuleOpen");
         FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_CLOSE = this.getConfiguration().getString("OverallSituation.Message.ModuleClose");
+        FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_INFO = this.getConfiguration().getString("OverallSituation.Message.ModuleInfo");
         FileConfig.OVERALL_SITUATION_MESSAGE_HELP = this.getConfiguration().getString("OverallSituation.Message.Help");
     }
 

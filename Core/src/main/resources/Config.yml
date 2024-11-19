@@ -59,6 +59,15 @@ OverallSituation:
     ModuleOpen: "%prefix%&e%module% &a已开启"
     #关闭 Module
     ModuleClose: "%prefix%&e%module% &6已关闭"
+    #查询 Module 信息
+    ModuleInfo: |
+      
+      &6&l查询Module: %module%(%module_exact%)
+        &e状态: %module_state_enable%
+        &e配置文件开启: %module_state_ready%
+        &e作者: %module_info_author%
+        &e版本: %module_info_version%
+
     #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
     Help: |
       
