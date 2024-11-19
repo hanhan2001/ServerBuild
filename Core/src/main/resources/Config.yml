@@ -63,11 +63,11 @@ OverallSituation:
     ModuleInfo: |
       
       &c&l！&6&l查询Module>> &b%module%(%module_exact%)
-       &7|- &e状态: &a%module_state_enable%
-       &7|- &e配置文件开启: &a%module_state_ready%
-       &7|- &e作者: &a%module_info_author%
-       &7|- &e版本: &a%module_info_version%
-       &r
+        &7|- &e状态: &a%module_state_enable%
+        &7|- &e配置文件开启: &a%module_state_ready%
+        &7|- &e作者: &a%module_info_author%
+        &7|- &e版本: &a%module_info_version%
+        &r
     #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
     Help: |
       
