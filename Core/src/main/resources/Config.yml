@@ -62,12 +62,12 @@ OverallSituation:
     #查询 Module 信息
     ModuleInfo: |
       
-      &6&l查询Module: %module%(%module_exact%)
-        &e状态: %module_state_enable%
-        &e配置文件开启: %module_state_ready%
-        &e作者: %module_info_author%
-        &e版本: %module_info_version%
-
+      &c&l！&6&l查询Module>> &b%module%(%module_exact%)
+       &7|- &e状态: &a%module_state_enable%
+       &7|- &e配置文件开启: &a%module_state_ready%
+       &7|- &e作者: &a%module_info_author%
+       &7|- &e版本: &a%module_info_version%
+       &r
     #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
     Help: |
       
@@ -75,5 +75,7 @@ OverallSituation:
       &b/sb reload &7重载
       &b/sb status &7查看插件 Module 状态
       &b/sb script [script] [...] &7执行脚本命令
-      &b/sb open [Module] &7启动功能
-      &b/sb off [Module] &7关闭功能
+      &b/sb module info [Module] &7查看 Module 信息
+      &b/sb module open [Module] &7启动 Module
+      &b/sb module off [Module] &7关闭 Module
+      &r

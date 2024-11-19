@@ -41,6 +41,8 @@ public class SBModuleInfoCommand extends SCommand {
         sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_INFO)
                 .prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX)
                 .date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
+                .module(module)
+                .module_exact(module)
                 .module_state_enable(module.isEnabled())
                 .module_state_ready(module.ready())
                 .module_info_author(module)
