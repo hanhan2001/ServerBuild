@@ -8,17 +8,7 @@ import me.xiaoying.serverbuild.module.SimpleModuleManager;
 import me.xiaoying.serverbuild.pluginmanager.PluginManager;
 import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.sql.SqlFactory;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Map;
 
 public class SBPlugin {
     private static JavaPlugin instance;
