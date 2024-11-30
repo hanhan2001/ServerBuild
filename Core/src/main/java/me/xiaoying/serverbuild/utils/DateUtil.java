@@ -119,7 +119,6 @@ public class DateUtil {
         return date.getTime() - date1.getTime();
     }
 
-
     /**
      * 日期相减
      *
@@ -140,5 +139,21 @@ public class DateUtil {
         assert d != null;
         assert d1 != null;
         return d.getTime() - d1.getTime();
+    }
+
+    /**
+     * 通过特定格式转换 Date
+     *
+     * @param date 待被转换的特殊格式的 Date
+     * @param format 转换格式
+     * @return Date
+     */
+    public Date parse(String date, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        try {
+            return simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
