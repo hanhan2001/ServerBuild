@@ -148,7 +148,7 @@ public class DateUtil {
      * @param format 转换格式
      * @return Date
      */
-    public Date parse(String date, String format) {
+    public static Date parse(String date, String format) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         try {
             return simpleDateFormat.parse(date);
