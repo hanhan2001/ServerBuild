@@ -145,7 +145,7 @@
         <dependency>
             <groupId>me.xiaoying</groupId>
             <artifactId>SqlFactory</artifactId>
-            <version>0.0.2</version>
+            <version>1.0.0</version>
         </dependency>
         <!-- PlaceholderAPI-->
         <dependency>
