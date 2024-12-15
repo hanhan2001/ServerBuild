@@ -5,3 +5,10 @@ main: me.xiaoying.serverbuild.ServerBuild
 author: 筱樱
 softdepend:
   - PlaceholderAPI
+permissions:
+  sb.use:
+    description: 默认使用权限
+    default: not op
+  sb.admin:
+    description: 管理员权限
+    default: op
