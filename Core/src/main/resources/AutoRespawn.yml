@@ -26,9 +26,27 @@ AutoRespawn:
   JoinRespawn: true
   #玩家退出服务器若是死亡状态是否自动重生
   QuitRespawn: true
-  #重生触发脚本命令
-  Script: |-
-    actionbar %player% 上辈子大意，这辈子我要你们加倍换回来！╰（‵□′）╯
+  #权限组设定
+  Group:
+    #默认设置
+    Default:
+      #权限
+      Permission: "sb.default"
+      #优先级(数值越低优先级越高)
+      Priority: 1
+      #重生后执行脚本
+      Script: |
+        actionbar %player% 上辈子大意，这辈子一定让你们加倍换回来！╰（‵□′）╯
+    #管理员设置
+    Admin:
+      #权限
+      Permission: "sb.admin"
+      #优先级(数值越低优先级越高)
+      Priority: 0
+      #重生后执行脚本
+      Script: |
+        title * {"title": "&c%player% 复活了！", "subtitle": "&6在吗在吗"}
+        actionbar %player% 上辈子大意，这辈子一定让你们加倍换回来！╰（‵□′）╯
 
 #词条
 #如若无法编辑修改，请检查是否在 Config.yml 开启了全局配置

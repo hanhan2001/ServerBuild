@@ -12,8 +12,7 @@ public class FileAutoRespawn extends File {
             MESSAGE_COMPLETE,
             MESSAGE_HELP;
 
-    public static String AUTO_RESPAWN_TYPE,
-            AUTO_RESPAWN_SCRIPT;
+    public static String AUTO_RESPAWN_TYPE;
 
     public static long AUTO_RESPAWN_SERVER,
             AUTO_RESPAWN_PLAYER;
@@ -43,7 +42,6 @@ public class FileAutoRespawn extends File {
         FileAutoRespawn.MESSAGE_HELP = FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_MESSAGE_ENABLE ? FileConfig.OVERALL_SITUATION_MESSAGE_HELP : this.getConfiguration().getString("Message.Help");
 
         FileAutoRespawn.AUTO_RESPAWN_TYPE = this.getConfiguration().getString("AutoRespawn.Type");
-        FileAutoRespawn.AUTO_RESPAWN_SCRIPT = this.getConfiguration().getString("AutoRespawn.Script");
 
         FileAutoRespawn.AUTO_RESPAWN_SERVER = this.getConfiguration().getLong("AutoRespawn.Server");
         FileAutoRespawn.AUTO_RESPAWN_PLAYER = this.getConfiguration().getLong("AutoRespawn.Player");

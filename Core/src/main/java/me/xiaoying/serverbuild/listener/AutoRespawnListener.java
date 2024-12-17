@@ -1,8 +1,10 @@
 package me.xiaoying.serverbuild.listener;
 
 import me.xiaoying.serverbuild.core.SBPlugin;
+import me.xiaoying.serverbuild.entity.AutoRespawnEntity;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileAutoRespawn;
+import me.xiaoying.serverbuild.module.AutoRespawnModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +18,7 @@ public class AutoRespawnListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (!FileAutoRespawn.AUTO_RESPAWN_TYPE.equalsIgnoreCase("Player"))
             return;
+
         Bukkit.getScheduler().scheduleSyncDelayedTask(SBPlugin.getInstance(), () -> AutoRespawnListener.this.respawn(event.getEntity()), FileAutoRespawn.AUTO_RESPAWN_PLAYER);
     }
 
@@ -36,8 +39,30 @@ public class AutoRespawnListener implements Listener {
     }
 
     private void respawn(Player player) {
+        AutoRespawnEntity autoRespawnEntity = null;
+
+        AutoRespawnModule module = (AutoRespawnModule) SBPlugin.getModuleManager().getModule("AutoRespawn");
+        for (AutoRespawnEntity entity : module.getAutoRespawnEntities()) {
+            if (!entity.useful(player))
+                continue;
+
+            if (autoRespawnEntity == null) {
+                autoRespawnEntity = entity;
+                continue;
+            }
+
+            if (autoRespawnEntity.getPriority() < entity.getPriority())
+                continue;
+
+            autoRespawnEntity = entity;
+        }
+
         player.spigot().respawn();
-        for (String s : FileAutoRespawn.AUTO_RESPAWN_SCRIPT.split("\n"))
-            SBPlugin.getScriptManager().performScript(new VariableFactory(s).prefix(FileAutoRespawn.SETTING_PREFIX).date(FileAutoRespawn.SETTING_DATEFORMAT).player(player).placeholder(player).color().toString(), player);
+
+        if (autoRespawnEntity == null)
+            return;
+
+        for (String script : autoRespawnEntity.getScripts())
+            SBPlugin.getScriptManager().performScript(new VariableFactory(script).prefix(FileAutoRespawn.SETTING_PREFIX).date(FileAutoRespawn.SETTING_DATEFORMAT).player(player).placeholder(player).color().toString(), player);
     }
 }
