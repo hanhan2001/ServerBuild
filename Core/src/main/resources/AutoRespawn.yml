@@ -45,7 +45,7 @@ AutoRespawn:
       Priority: 0
       #重生后执行脚本
       Script: |
-        title * {"title": "&c%player% 复活了！", "subtitle": "&6在吗在吗"}
+        title * {"title": "&c%player% 复活了！", "subtitle": "&a我回来的！"}
         actionbar %player% 上辈子大意，这辈子一定让你们加倍换回来！╰（‵□′）╯
 
 #词条
