@@ -33,7 +33,7 @@ public abstract class Module {
     public abstract String getName();
 
     /**
-     * Get alias name of Model
+     * Get alias name of Module
      *
      * @return String
      */
