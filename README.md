@@ -1,7 +1,4 @@
 ![](https://github.com/hanhan2001/ServerBuild/blob/master/images/ServerBuild.png)
-
-
-
 # ServerBuild
 
 > 此插件将大多数小插件整合成在一起，并在原基础上开放更多可自定义设置.
