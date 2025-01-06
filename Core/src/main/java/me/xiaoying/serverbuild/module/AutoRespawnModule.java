@@ -36,7 +36,7 @@ public class AutoRespawnModule extends Module {
         this.file = new FileAutoRespawn();
         this.registerFile(this.file);
 
-        YamlUtil.getNodes("AutoRespawn", "Group").forEach(object -> {
+        YamlUtil.getNodes(this.file.getFile(), "AutoRespawn.Group").forEach(object -> {
             String string = object.toString();
 
             this.autoRespawnEntities.add(new AutoRespawnEntity(this.file.getConfiguration().getString("AutoRespawn.Group." + string + ".Permission"), this.file.getConfiguration().getInt("AutoRespawn.Group." + string + ".Priority"), Collections.singletonList(this.file.getConfiguration().getString("AutoRespawn.Group." + string + ".Scripts"))));
