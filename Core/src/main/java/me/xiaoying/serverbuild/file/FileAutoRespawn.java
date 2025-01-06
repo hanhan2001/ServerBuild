@@ -1,6 +1,6 @@
 package me.xiaoying.serverbuild.file;
 
-public class FileAutoRespawn extends File {
+public class FileAutoRespawn extends SFile {
     public static boolean ENABLE;
 
     public static String SETTING_DATEFORMAT,

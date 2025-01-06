@@ -3,7 +3,7 @@ package me.xiaoying.serverbuild.file;
 /**
  * File MessageAnnouncer.yml
  */
-public class FileMessageAnnouncer extends File {
+public class FileMessageAnnouncer extends SFile {
     public static boolean ENABLE;
 
     public static String SETTING_DATEFORMAT,

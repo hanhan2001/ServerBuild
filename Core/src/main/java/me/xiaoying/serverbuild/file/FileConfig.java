@@ -3,7 +3,7 @@ package me.xiaoying.serverbuild.file;
 /**
  * File Config.yml
  */
-public class FileConfig extends File {
+public class FileConfig extends SFile {
     public static boolean SETTING_BSTATS;
 
     public static String SETTING_DATA_TYPE,

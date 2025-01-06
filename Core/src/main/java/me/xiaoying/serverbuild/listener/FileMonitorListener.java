@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild.listener;
 
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileFileMonitor;
+import me.xiaoying.serverbuild.file.SFile;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.bukkit.Bukkit;
 
@@ -17,8 +18,8 @@ public class FileMonitorListener extends FileAlterationListenerAdaptor {
         }
 
         SBPlugin.getModuleManager().getModules().forEach(module -> {
-            for (me.xiaoying.serverbuild.file.File moduleFile : module.getFiles()) {
-                if (!moduleFile.getName().equalsIgnoreCase(file.getName()))
+            for (SFile moduleSFile : module.getFiles()) {
+                if (!moduleSFile.getName().equalsIgnoreCase(file.getName()))
                     return;
 
                 module.reload();

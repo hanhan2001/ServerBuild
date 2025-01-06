@@ -1,6 +1,6 @@
 package me.xiaoying.serverbuild.file;
 
-public class FileWelcomeMessage extends File {
+public class FileWelcomeMessage extends SFile {
     public static boolean ENABLE;
 
     public static String SETTING_DATEFORMAT,

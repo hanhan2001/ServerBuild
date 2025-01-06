@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * File ResolveLag.yml
  */
-public class FileResolveLag extends File {
+public class FileResolveLag extends SFile {
     public static boolean ENABLE;
 
     public static String SETTING_DATEFORMAT, SETTING_PREFIX;

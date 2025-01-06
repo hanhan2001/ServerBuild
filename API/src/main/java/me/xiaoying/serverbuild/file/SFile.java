@@ -3,6 +3,7 @@ package me.xiaoying.serverbuild.file;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,18 +11,18 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 
-public abstract class File {
+public abstract class SFile {
     private final String path;
     private String folderName;
     private final java.io.File file;
     private YamlConfiguration configuration;
 
-    public File(String file) {
-        this.file = new java.io.File(SBPlugin.getInstance().getDataFolder(), file);
+    public SFile(String file) {
+        this.file = new File(SBPlugin.getInstance().getDataFolder(), file);
         this.path = file;
     }
 
-    public File(String path, String name) {
+    public SFile(String path, String name) {
         this.file = new java.io.File(path, name);
         this.path = name;
     }

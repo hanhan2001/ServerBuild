@@ -4,53 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleFileManager implements FileManager {
-    private final List<File> knownFiles = new ArrayList<>();
+    private final List<SFile> knownFiles = new ArrayList<>();
 
     @Override
-    public File getFile(String file) {
-        for (File knownFile : this.knownFiles) {
-            if (!knownFile.getName().equalsIgnoreCase(file))
+    public SFile getFile(String file) {
+        for (SFile knownSFile : this.knownFiles) {
+            if (!knownSFile.getName().equalsIgnoreCase(file))
                 continue;
 
-            return knownFile;
+            return knownSFile;
         }
         return null;
     }
 
     @Override
-    public void register(File file) {
-        if (this.knownFiles.contains(file))
+    public void register(SFile SFile) {
+        if (this.knownFiles.contains(SFile))
             return;
 
-        this.knownFiles.add(file);
+        this.knownFiles.add(SFile);
     }
 
     @Override
-    public void unregister(File file) {
-         if (!this.knownFiles.contains(file))
+    public void unregister(SFile SFile) {
+         if (!this.knownFiles.contains(SFile))
              return;
 
-         file.onDisable();
-         this.knownFiles.remove(file);
+         SFile.onDisable();
+         this.knownFiles.remove(SFile);
     }
 
     @Override
     public void unregisterAll() {
-        this.knownFiles.forEach(File::onDisable);
+        this.knownFiles.forEach(SFile::onDisable);
     }
 
     @Override
     public void loads() {
-        this.knownFiles.forEach(File::load);
+        this.knownFiles.forEach(SFile::load);
     }
 
     @Override
     public void disables() {
-        this.knownFiles.forEach(File::onDisable);
+        this.knownFiles.forEach(SFile::onDisable);
     }
 
     @Override
     public void deletes() {
-        this.knownFiles.forEach(File::delete);
+        this.knownFiles.forEach(SFile::delete);
     }
 }

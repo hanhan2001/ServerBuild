@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FileFileMonitor extends File {
+public class FileFileMonitor extends SFile {
     public static boolean ENABLE;
 
     public static String SETTING_DATEFORMAT, SETTING_PREFIX;

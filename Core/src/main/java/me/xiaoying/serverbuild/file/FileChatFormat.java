@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * File ChatFormat.yml
  */
-public class FileChatFormat extends File {
+public class FileChatFormat extends SFile {
     public static String TABLE_MUTE = "cf_mute";
 
     public static boolean ENABLE;

@@ -3,7 +3,7 @@ package me.xiaoying.serverbuild.module;
 import me.xiaoying.serverbuild.command.Command;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.core.SBPlugin;
-import me.xiaoying.serverbuild.file.File;
+import me.xiaoying.serverbuild.file.SFile;
 import me.xiaoying.serverbuild.gui.Gui;
 import me.xiaoying.serverbuild.placeholder.PlaceholderModule;
 import me.xiaoying.serverbuild.scheduler.Scheduler;
@@ -19,7 +19,7 @@ public abstract class Module {
     protected boolean enabled = false;
 
     private final List<Gui> guis = new ArrayList<>();
-    private final List<File> files = new ArrayList<>();
+    private final List<SFile> files = new ArrayList<>();
     private final List<SCommand> commands = new ArrayList<>();
     private final List<Listener> listeners = new ArrayList<>();
     private final List<Scheduler> schedulers = new ArrayList<>();
@@ -168,14 +168,14 @@ public abstract class Module {
     /**
      * Register file
      *
-     * @param file File
+     * @param SFile File
      */
-    public void registerFile(File file) {
-        if (this.files.contains(file))
+    public void registerFile(SFile SFile) {
+        if (this.files.contains(SFile))
             return;
 
-        this.files.add(file);
-        file.load();
+        this.files.add(SFile);
+        SFile.load();
     }
 
     /**
@@ -183,7 +183,7 @@ public abstract class Module {
      *
      * @return ArrayList
      */
-    public List<File> getFiles() {
+    public List<SFile> getFiles() {
         return this.files;
     }
 
@@ -322,7 +322,7 @@ public abstract class Module {
         this.commands.clear();
 
         // unregister files
-        this.files.forEach(File::disable);
+        this.files.forEach(SFile::disable);
         this.files.clear();
 
         // unregister guis
