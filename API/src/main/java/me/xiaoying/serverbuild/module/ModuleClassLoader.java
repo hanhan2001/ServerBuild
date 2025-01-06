@@ -21,31 +21,20 @@ public class ModuleClassLoader extends URLClassLoader {
     private final Map<String, Class<?>> classes = new ConcurrentHashMap<>();
 
     public ModuleClassLoader(JavaModuleLoader loader, ModuleDescription description, ClassLoader classLoader, File file, ClassLoader libraryLoader) throws IOException, InvalidModuleException {
-        super(new URL[]{ file.toURI().toURL() }, classLoader);
+        super(new URL[]{file.toURI().toURL()}, classLoader);
         this.loader = loader;
         this.file = file;
         this.libraryLoader = libraryLoader;
         this.description = description;
 
         try {
-            Class<?> jarClass;
-            try {
-                jarClass = Class.forName(description.getMain(), true, this);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-
-            Class<?> moduleClass;
-            try {
-                moduleClass = jarClass.asSubclass(JavaModule.class);
-            } catch (ClassCastException e) {
-                throw new InvalidModuleException("main class `" + description.getMain() + "` dose not extends JavaModule", e);
-            }
-
+            Class<?> jarClass = Class.forName(description.getMain(), true, this);
+            Class<?> moduleClass = jarClass.asSubclass(JavaModule.class);
             this.module = (JavaModule) moduleClass.newInstance();
         } catch (InstantiationException e) {
             throw new RuntimeException("No public constructor", e);
+        } catch (ClassNotFoundException e) {
+            throw new InvalidModuleException("main class `" + description.getMain() + "` dose not extends JavaModule", e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Abnormal plugin type", e);
         }
