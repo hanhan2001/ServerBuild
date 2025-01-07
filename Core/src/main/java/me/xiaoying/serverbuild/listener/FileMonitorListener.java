@@ -4,12 +4,9 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileFileMonitor;
 import me.xiaoying.serverbuild.file.SFile;
 import me.xiaoying.serverbuild.inf.FileWatcherInterface;
-import me.xiaoying.serverbuild.module.Module;
 import org.bukkit.Bukkit;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileMonitorListener implements FileWatcherInterface {
     @Override
@@ -30,14 +27,11 @@ public class FileMonitorListener implements FileWatcherInterface {
             return;
         }
 
-        List<Module> modules = new ArrayList<>();
-
         SBPlugin.getModuleManager().getModules().forEach(module -> {
             for (SFile moduleSFile : module.getFiles()) {
                 if (!moduleSFile.getName().equalsIgnoreCase(file.getName()))
                     return;
 
-                modules.add(module);
                 module.reload();
 
                 // script
