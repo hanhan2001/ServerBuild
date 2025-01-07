@@ -10,6 +10,9 @@ import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.sql.SqlFactory;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 public class SBPlugin {
     private static JavaPlugin instance;
     private static PluginManager pluginManager;
@@ -18,6 +21,8 @@ public class SBPlugin {
     private static FileManager fileManager;
     private static ModuleManager moduleManager;
     private static SqlFactory sqlFactory;
+
+    private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(200);
 
     public static JavaPlugin getInstance() {
         return SBPlugin.instance;
@@ -153,5 +158,14 @@ public class SBPlugin {
      */
     public static void setSqlFactory(SqlFactory sqlFactory) {
         SBPlugin.sqlFactory = sqlFactory;
+    }
+
+    /**
+     * Get Scheduler service at ServerBuild
+     *
+     * @return SchedulerExecutorService
+     */
+    public static ScheduledExecutorService getExecutorService() {
+        return SBPlugin.executorService;
     }
 }
