@@ -37,6 +37,7 @@ public class SBReloadCommand extends SCommand {
 
         ServerBuild.unInitialize();
         ServerBuild.initialize();
+
         SBPlugin.getModuleManager().getModules().forEach(module -> {
             module.init();
 

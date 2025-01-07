@@ -58,7 +58,7 @@ public class SimpleModuleManager implements ModuleManager {
     public void unregisterModule(Module module) {
         if (!this.knownModules.contains(module))
             return;
-        module.onDisable();
+
         module.disable();
         this.knownModules.remove(module);
     }
@@ -132,9 +132,6 @@ public class SimpleModuleManager implements ModuleManager {
 
     @Override
     public void disableModules() {
-        this.knownModules.forEach(module -> {
-            module.onDisable();
-            module.disable();
-        });
+        this.knownModules.forEach(Module::disable);
     }
 }
