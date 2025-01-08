@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
  * Module FileMonitor
  */
 public class FileMonitorModule extends Module {
-
     private final List<FileWatcherInterface> listeners = new ArrayList<>();
     private WatchService watchService;
 
@@ -64,6 +63,14 @@ public class FileMonitorModule extends Module {
     public void onDisable() {
         if (this.scheduledFuture != null)
             this.scheduledFuture.cancel(true);
+
+        this.listeners.clear();
+
+        try {
+            this.watchService.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void watch() {
