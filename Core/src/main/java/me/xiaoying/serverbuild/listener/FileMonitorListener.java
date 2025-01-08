@@ -35,7 +35,7 @@ public class FileMonitorListener implements FileWatcherInterface {
                 module.reload();
 
                 // script
-                FileFileMonitor.FILE_MONITOR_EVENT.forEach(script -> SBPlugin.getScriptManager().performScript(script, Bukkit.getServer().getConsoleSender()));
+                FileFileMonitor.FILE_MONITOR_EVENT.forEach(script -> SBPlugin.getScriptManager().performScript(script.replace("%file%", file.getName()), Bukkit.getServer().getConsoleSender()));
             }
         });
     }
