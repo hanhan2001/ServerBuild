@@ -4,11 +4,10 @@ import me.xiaoying.serverbuild.script.interpreter.interpreters.PlayerSelectInter
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class SimpleInterpreterManager implements InterpreterManager {
-    private List<Interpreter> interpreters = new ArrayList<>();
+    private final List<Interpreter> interpreters = new ArrayList<>();
 
     public SimpleInterpreterManager() {
         this.registerInterpreter(new PlayerSelectInterpreter());
@@ -48,7 +47,7 @@ public class SimpleInterpreterManager implements InterpreterManager {
             list.addAll(Arrays.asList(strings));
         }
 
-        if (list.size() == 0)
+        if (list.isEmpty())
             list.add(string);
 
         return list.toArray(new String[0]);

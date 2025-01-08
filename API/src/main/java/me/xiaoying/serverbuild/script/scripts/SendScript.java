@@ -39,7 +39,7 @@ public class SendScript implements Script {
             stringBuilder.append(" ");
         }
 
-        player.sendMessage(stringBuilder.toString());
+        player.sendMessage(stringBuilder.toString().replace("\\n", "\n"));
     }
 
     @Override
