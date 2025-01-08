@@ -70,11 +70,10 @@ public class FileMonitorModule extends Module {
         WatchKey watchKey;
         try {
             watchKey = this.watchService.take();
+            Thread.sleep(50);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        try { Thread.sleep(50); } catch (InterruptedException e) { throw new RuntimeException(e); }
 
         for (WatchEvent<?> pollEvent : watchKey.pollEvents()) {
             WatchEvent<Path> curEvent = (WatchEvent<Path>) pollEvent;
