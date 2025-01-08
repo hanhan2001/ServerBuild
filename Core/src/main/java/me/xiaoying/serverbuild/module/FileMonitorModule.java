@@ -57,7 +57,7 @@ public class FileMonitorModule extends Module {
 
         this.listeners.add(new FileMonitorListener());
 
-       this.scheduledFuture = SBPlugin.getExecutorService().scheduleAtFixedRate(this::watch, 0, 1, TimeUnit.SECONDS);
+        this.scheduledFuture = SBPlugin.getExecutorService().scheduleAtFixedRate(this::watch, 0, 1, TimeUnit.SECONDS);
     }
 
     @Override
