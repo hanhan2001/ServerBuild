@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.xiaoying</groupId>
-    <artifactId>ServerBuild</artifactId>
+    <artifactId>serverbuild-parent</artifactId>
     <version>1.0.1</version>
     <packaging>pom</packaging>
     <modules>
-        <module>API</module>
-        <module>Core</module>
+        <module>serverbuild-api</module>
+        <module>serverbuild-core</module>
     </modules>
 
     <properties>

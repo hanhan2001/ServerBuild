@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>me.xiaoying</groupId>
-        <artifactId>ServerBuild</artifactId>
+        <artifactId>serverbuild-parent</artifactId>
         <version>1.0.1</version>
     </parent>
 
-    <artifactId>Core</artifactId>
+    <artifactId>serverbuild-core</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,7 +18,7 @@
     </properties>
 
     <build>
-        <finalName>${parent.artifactId}-V${version}</finalName>
+        <finalName>ServerBuild-V${version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -89,7 +89,7 @@
         <!--ServerBuild-Core -->
         <dependency>
             <groupId>me.xiaoying</groupId>
-            <artifactId>API</artifactId>
+            <artifactId>serverbuild-api</artifactId>
             <version>1.0.1</version>
         </dependency>
         <!--Spigot -->
