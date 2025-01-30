@@ -12,6 +12,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-java-doc-plugin.version>3.8.0</maven-java-doc-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
     </properties>
 
     <build>
@@ -59,15 +61,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
-                <!-- 绑定source插件到Maven的生命周期,并在生命周期后执行绑定的source的goal -->
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
-                        <!-- 绑定source插件到Maven的生命周期 -->
-                        <phase>compile</phase>
-                        <!--在生命周期后执行绑定的source插件的goals -->
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -76,41 +75,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>${maven-java-doc-plugin.version}</version>
                 <configuration>
-                    <destDir>doc</destDir>
-                    <tags>
-                        <tag>
-                            <head>描述</head>
-                            <name>Description</name>
-                            <placement>a</placement>
-                        </tag>
-                        <tag>
-                            <head>return</head>
-                            <name>return</name>
-                            <placement>a</placement>
-                        </tag>
-                        <tag>
-                            <head>参数</head>
-                            <name>param...</name>
-                            <placement>a</placement>
-                        </tag>
-                        <tag>
-                            <head>时间</head>
-                            <name>date</name>
-                            <placement>a</placement>
-                        </tag>
-                        <tag>
-                            <head>时间</head>
-                            <name>Date</name>
-                            <placement>a</placement>
-                        </tag>
-                    </tags>
+                    <encoding>UTF-8</encoding>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>attach-javadoc</id>
-                        <phase>package</phase>
+                        <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
