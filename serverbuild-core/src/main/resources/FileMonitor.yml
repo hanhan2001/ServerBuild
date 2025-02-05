@@ -12,6 +12,8 @@ Setting:
 
 #文件检测配置
 FileMonitor:
+  #检测更新时间(单位: ms)
+  IntervalTime: 50
   #文件变更后执行 ServerBuild 脚本
   Event: |-
     title *{identity=op} {title:"&6检测到文件更新 &e%file%", subtitle:"&b已自动重载对应Function"}
