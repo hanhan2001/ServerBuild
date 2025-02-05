@@ -48,7 +48,8 @@ public class SimpleScriptManager implements ScriptManager {
 
     @Override
     public void performScript(String command, CommandSender sender) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SBPlugin.getInstance(), () -> callScript(command, sender));
+//        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(SBPlugin.getInstance(), () -> callScript(command, sender));
+        this.callScript(command, sender);
     }
 
     private void callScript(String command, CommandSender sender) {
