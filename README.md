@@ -60,8 +60,11 @@
 
 ## 附属开发
 
-插件提供了[Core](https://github.com/hanhan2001/ServerBuild-Core)，可以通过ServerBuild-Core调用ServerBuild接口.
+插件提供 serverbuild-api 模块，可以通过编辑此模块并作为开发依赖进行 附属插件 或 module 的开发.
 
-ServerBuild-Core提供了线程、文件、命令、监听器的处理方案，可以自动处理线程和监听器，从而避免出现创建多个线程或监听器导致插件问题。
 
-在我的设想中应该可以通过plugin.yml设置ServerBuild-Core的加载主类，不过现在还没实现(懒)
+
+## 文档
+
+- **使用教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/XLRmwVXfYiKZ1dkvPFvcbu4cnYf?fromScene=spaceOverview)
+- **开发教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/Mhh2whpzJii9tukNNR2chrAGnhg)
