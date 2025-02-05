@@ -1,16 +1,29 @@
 ![](https://github.com/hanhan2001/ServerBuild/blob/master/images/ServerBuild.png)
 # ServerBuild
 
-> 此插件将大多数小插件整合成在一起，并在原基础上开放更多可自定义设置.
+> 此插件将大多数小插件整合成在一起做到真正的简化插件，并在原基础上开放更多可自定义设置.
 >
 > 插件的每个功能都由独立文本控制，避免了功能杂糅的情况. 当在 `Config.yml` 文件中启用了全局配置，其他功能的设置都将同步.
 >
-> 未开启相应功能也不会占用其他插件指令，我的意思是此插件可以和cmi, ess之类的插件搭配使用. 插件自动检测文件更改，可以无需用指令重载(不需要自动检测可在 FileMonitor 关闭此功能).
+> 未开启相应功能也不会占用其他插件指令，这意味着 ServerBuild 可以和 CMI, Ess 之类的插件搭配使用. 插件自动检测文件更改，可以无需用指令重载(不需要自动检测可在 FileMonitor 关闭此功能).
 
 ## 文档
 
 - **使用教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/XLRmwVXfYiKZ1dkvPFvcbu4cnYf?fromScene=spaceOverview)
 - **开发教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/Mhh2whpzJii9tukNNR2chrAGnhg)
+
+## 集成工具
+
+> ServerBuild 提供了大部分常用功能，简化开发步骤，缩减开发周期
+
+- GUI工具(使用原版Inventory实现，或将更改为发包)
+  - 事件控制
+  - 刷新控制
+- 命令管理工具
+- 模块管理工具
+- 任务管理工具
+- 插件管理工具
+- 脚本命令工具
 
 ## 重构进度
 
