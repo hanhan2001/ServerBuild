@@ -7,6 +7,11 @@
 >
 > 未开启相应功能也不会占用其他插件指令，我的意思是此插件可以和cmi, ess之类的插件搭配使用. 插件自动检测文件更改，可以无需用指令重载(不需要自动检测可在 FileMonitor 关闭此功能).
 
+## 文档
+
+- **使用教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/XLRmwVXfYiKZ1dkvPFvcbu4cnYf?fromScene=spaceOverview)
+- **开发教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/Mhh2whpzJii9tukNNR2chrAGnhg)
+
 ## 重构进度
 
 > 重构过程中可能新增更多功能
@@ -56,15 +61,6 @@
 
 暂无
 
-
-
 ## 附属开发
 
 插件提供 serverbuild-api 模块，可以通过编辑此模块并作为开发依赖进行 附属插件 或 module 的开发.
-
-
-
-## 文档
-
-- **使用教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/XLRmwVXfYiKZ1dkvPFvcbu4cnYf?fromScene=spaceOverview)
-- **开发教程:** [首页 - 飞书云文档](https://jn0frpwf93.feishu.cn/wiki/Mhh2whpzJii9tukNNR2chrAGnhg)
