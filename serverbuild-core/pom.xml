@@ -124,6 +124,5 @@
             <artifactId>craftbukkit</artifactId>
             <version>1_20_R4</version>
         </dependency>
-
     </dependencies>
 </project>
