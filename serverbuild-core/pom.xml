@@ -115,7 +115,7 @@
         <!-- SqlFactory-->
         <dependency>
             <groupId>me.xiaoying</groupId>
-            <artifactId>SqlFactory</artifactId>
+            <artifactId>sqlfactory</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
