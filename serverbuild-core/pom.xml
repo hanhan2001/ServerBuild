@@ -118,5 +118,12 @@
             <artifactId>sqlfactory</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- CraftBukkit -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>1_20_R4</version>
+        </dependency>
+
     </dependencies>
 </project>
