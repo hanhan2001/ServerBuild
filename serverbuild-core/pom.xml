@@ -45,6 +45,10 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
+                                        <exclude>data/**</exclude>
+                                        <exclude>configuration/**</exclude>
+                                        <exclude>com/mojang/**</exclude>
+                                        <exclude>assets/**</exclude>
                                         <exclude>org/checkerframework/**</exclude>
                                         <exclude>org/joml/**</exclude>
                                         <exclude>org/spigotmc/**</exclude>
@@ -52,6 +56,7 @@
                                         <exclude>org/yaml/**</exclude>
                                         <exclude>org/sqlite/**</exclude>
                                         <exclude>org/bukkit/**</exclude>
+                                        <exclude>org/spigotmc/**</exclude>
                                         <exclude>net/**</exclude>
                                         <exclude>com/**</exclude>
                                         <exclude>google/**</exclude>
@@ -83,6 +88,11 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+        <!-- NMSProxy -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -98,21 +108,21 @@
             <artifactId>spigot-api</artifactId>
             <version>1.21.3-R0.1-SNAPSHOT</version>
         </dependency>
-        <!-- PlaceholderAPI-->
+        <!-- PlaceholderAPI -->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.6</version>
             <scope>provided</scope>
         </dependency>
-        <!-- bStats-->
+        <!-- bStats -->
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
-        <!-- SqlFactory-->
+        <!-- SqlFactory -->
         <dependency>
             <groupId>me.xiaoying</groupId>
             <artifactId>sqlfactory</artifactId>
@@ -120,9 +130,16 @@
         </dependency>
         <!-- CraftBukkit -->
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit</artifactId>
-            <version>1_20_R4</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>minecraft-server</artifactId>
+            <version>1.20.6-R0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- NMSProxy -->
+        <dependency>
+            <groupId>com.github.theminecoder</groupId>
+            <artifactId>NMSProxy</artifactId>
+            <version>0.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

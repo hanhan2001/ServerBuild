@@ -94,15 +94,20 @@
     </build>
 
     <repositories>
-        <!-- Spigot-->
+        <!-- Spigot -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <!-- PlaceHolderAPI-->
+        <!-- PlaceHolderAPI -->
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <!-- NMSProxy -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -113,18 +118,12 @@
             <artifactId>spigot-api</artifactId>
             <version>1.21.3-R0.1-SNAPSHOT</version>
         </dependency>
-        <!-- PlaceholderAPI-->
+        <!-- PlaceholderAPI -->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
             <version>2.11.6</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- Gson-->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.11.0</version>
         </dependency>
         <!-- Yaml -->
         <dependency>
@@ -132,11 +131,18 @@
             <artifactId>snakeyaml</artifactId>
             <version>2.3</version>
         </dependency>
-        <!-- SqlFactory-->
+        <!-- SqlFactory -->
         <dependency>
             <groupId>me.xiaoying</groupId>
             <artifactId>sqlfactory</artifactId>
             <version>1.0.0</version>
+        </dependency>
+        <!-- NMSProxy -->
+        <dependency>
+            <groupId>com.github.theminecoder</groupId>
+            <artifactId>NMSProxy</artifactId>
+            <version>0.3</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
