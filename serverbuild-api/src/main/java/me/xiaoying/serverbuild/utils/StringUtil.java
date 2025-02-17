@@ -9,10 +9,6 @@ import java.util.stream.Collectors;
  * Util String
  */
 public class StringUtil {
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static final String INTEGER_CHARS = "123456789";
-    private static final Random RANDOM = new Random();
-
     /**
      * 生成指定长度的随机字符串
      *
@@ -20,8 +16,9 @@ public class StringUtil {
      * @return 随机字符串
      */
     public static String generateRandomString(int length) {
-        return RANDOM.ints(length, 0, CHARACTERS.length())
-                .mapToObj(i -> String.valueOf(CHARACTERS.charAt(i)))
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        return new Random().ints(length, 0, characters.length())
+                .mapToObj(i -> String.valueOf(characters.charAt(i)))
                 .collect(Collectors.joining());
     }
 
@@ -32,11 +29,11 @@ public class StringUtil {
      * @return 随机字符串
      */
     public static String generateRandomIntString(int length) {
-        return RANDOM.ints(length, 0, INTEGER_CHARS.length())
-                .mapToObj(i -> String.valueOf(INTEGER_CHARS.charAt(i)))
+        String integerChars = "123465789";
+        return new Random().ints(length, 0, integerChars.length())
+                .mapToObj(i -> String.valueOf(integerChars.charAt(i)))
                 .collect(Collectors.joining());
     }
-
 
     /**
      * 是否为空
@@ -46,7 +43,7 @@ public class StringUtil {
      * @return 逻辑值
      */
     public static boolean isEmpty(String str) {
-        return  str == null || str.length() == 0;
+        return  str == null || str.isEmpty();
     }
 
     /**
