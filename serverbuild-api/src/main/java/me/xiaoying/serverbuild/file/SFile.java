@@ -12,19 +12,38 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 
 public abstract class SFile {
-    private final String path;
+//    private final String path;
     private String folderName;
+    private String outFile;
+    private final String resourcesFile;
     private final java.io.File file;
     private YamlConfiguration configuration;
 
-    public SFile(String file) {
-        this.file = new File(SBPlugin.getInstance().getDataFolder(), file);
-        this.path = file;
+    public SFile(String resourceFile) {
+        this.resourcesFile = resourceFile;
+
+        if (resourceFile.contains("/") || resourceFile.contains("\\")) {
+            String s = resourceFile.replace("\\", "/");
+            String[] split = s.split("/");
+            this.file = new File(SBPlugin.getInstance().getDataFolder(), split[split.length - 1]);
+        } else
+            this.file = new File(SBPlugin.getInstance().getDataFolder(), this.resourcesFile);
+
+        this.outFile = SBPlugin.getInstance().getDataFolder().getAbsolutePath();
     }
 
-    public SFile(String path, String name) {
-        this.file = new java.io.File(path, name);
-        this.path = name;
+    public SFile(String resourceFile, String outFile) {
+        this.resourcesFile = resourceFile;
+
+        if (resourceFile.contains("/") || resourceFile.contains("\\")) {
+            String s = resourceFile.replace("\\", "/");
+            String[] split = s.split("/");
+            this.file = new File(SBPlugin.getInstance().getDataFolder(), split[split.length - 1]);
+        } else
+            this.file = new File(SBPlugin.getInstance().getDataFolder(), this.resourcesFile);
+
+        this.outFile = outFile;
+//        this.path = outFile;
     }
 
     public void setSingleFolder(String folderName) {
@@ -52,12 +71,15 @@ public abstract class SFile {
     }
 
     public void load() {
-        if (!this.file.exists()) {
-            if (this.path.contains("/"))
-                this.saveResource(this.path, false);
-            else
-                this.saveResource(this.file.getName(), false);
-        }
+//        if (!this.file.exists()) {
+//            if (this.path.contains("/"))
+//                this.saveResource(this.path, false);
+//            else
+//                this.saveResource(this.file.getName(), false);
+//        }
+
+        if (!this.file.exists())
+            this.saveResource(this.resourcesFile, false);
         this.configuration = YamlConfiguration.loadConfiguration(this.file);
         this.onLoad();
     }
@@ -91,15 +113,16 @@ public abstract class SFile {
     }
 
     public void saveResource(String resourcePath, boolean replace) {
-        if (resourcePath == null || resourcePath.equals(""))
+        if (resourcePath == null || resourcePath.isEmpty())
             throw new IllegalArgumentException("ResourcePath cannot be null or empty");
 
         resourcePath = resourcePath.replace('\\', '/');
-        InputStream in = getResource(resourcePath);
+        InputStream in = this.getResource(resourcePath);
         if (in == null)
             throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found");
 
-        java.io.File outFile = this.getSingleFolder() == null ? new java.io.File(SBPlugin.getInstance().getDataFolder(), resourcePath) : new java.io.File(System.getProperty("user.dir") + "/plugins/" + this.getSingleFolder(), resourcePath);
+//        java.io.File outFile = this.getSingleFolder() == null ? new java.io.File(SBPlugin.getInstance().getDataFolder(), resourcePath) : new java.io.File(System.getProperty("user.dir") + "/plugins/" + this.getSingleFolder(), resourcePath);
+        File outFile = new java.io.File(this.outFile, this.file.getName());
         if (!outFile.getParentFile().exists()) outFile.getParentFile().mkdirs();
 
         int lastIndex = resourcePath.lastIndexOf('/');
