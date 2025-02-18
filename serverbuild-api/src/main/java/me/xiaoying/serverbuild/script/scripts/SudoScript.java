@@ -23,6 +23,9 @@ public class SudoScript implements Script {
 
         Player player;
         if ((player = Bukkit.getServer().getPlayer(args[0])) == null) {
+            if (args[0].contains("*"))
+                return;
+
             sender.sendMessage(new VariableFactory("&c无法找到玩家 &e%player% &c.").player(args[0]).color().toString());
             return;
         }

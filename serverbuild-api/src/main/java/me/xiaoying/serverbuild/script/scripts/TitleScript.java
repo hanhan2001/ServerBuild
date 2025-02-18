@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild.script.scripts;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.script.Script;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,7 +25,7 @@ public class TitleScript implements Script {
         Player findPlayer;
 
         if (args.length == 0) {
-            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&c错误的命令格式，应当为 &etitle [player] title:subtitle"));
+            Bukkit.getServer().getConsoleSender().sendMessage(new VariableFactory("&c错误的命令格式，应当为 &etitle [player] title:subtitle").color().toString());
             return;
         }
 
@@ -32,7 +33,10 @@ public class TitleScript implements Script {
         if (findPlayer == null && sender instanceof Player)
             findPlayer = (Player) sender;
         if (findPlayer == null) {
-            Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', ""));
+            if (args[0].contains("*"))
+                return;
+
+            Bukkit.getServer().getConsoleSender().sendMessage(new VariableFactory("&c无法找到玩家 &e%player% &c.").player(args[0]).color().toString());
             return;
         }
 

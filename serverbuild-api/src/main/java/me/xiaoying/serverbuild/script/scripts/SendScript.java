@@ -25,6 +25,9 @@ public class SendScript implements Script {
 
         Player player;
         if ((player = Bukkit.getServer().getPlayer(args[0])) == null) {
+            if (args[0].contains("*"))
+                return;
+
             sender.sendMessage(new VariableFactory("&c找不到玩家 &e" + args[0]).color().toString());
             return;
         }

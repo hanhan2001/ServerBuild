@@ -27,6 +27,9 @@ public class ActionbarScript implements Script {
 
         Player player;
         if ((player = Bukkit.getServer().getPlayer(args[0])) == null) {
+            if (args[0].contains("*"))
+                return;
+
             sender.sendMessage(new VariableFactory("&c找不到玩家 &e" + args[0]).color().toString());
             return;
         }
@@ -45,8 +48,8 @@ public class ActionbarScript implements Script {
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
                 TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException var2) {
-                var2.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             Bukkit.getScheduler().cancelTask(i);
         });
