@@ -145,6 +145,10 @@ public class YamlUtil {
 
             map1 = (Map<String, Object>) map1.get(strings[i]);
         }
+
+        if (map1 == null)
+            return new ArrayList<>();
+
         return new ArrayList<>(map1.keySet());
     }
 
@@ -156,6 +160,10 @@ public class YamlUtil {
      */
     public static List<Object> getNodes(String yaml) {
         HashMap<String, Map<String, Object>> map = new Yaml().loadAs(yaml, HashMap.class);
+
+        if (map == null)
+            return new ArrayList<>();
+
         return new ArrayList<>(map.keySet());
     }
 
@@ -181,6 +189,9 @@ public class YamlUtil {
 
                 map1 = (Map<String, Object>) map1.get(strings[i]);
             }
+            if (map1 == null)
+                return new ArrayList<>();
+
             allNodes = new ArrayList<>(map1.keySet());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -200,6 +211,10 @@ public class YamlUtil {
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             HashMap<String, Map<String, Object>> map = new Yaml().loadAs(fileInputStream, HashMap.class);
+
+            if (map == null)
+                return new ArrayList<>();
+
             allNodes.addAll(map.keySet());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
