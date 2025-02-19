@@ -28,14 +28,15 @@ public class FileMonitorListener implements FileWatcherInterface {
         }
 
         SBPlugin.getModuleManager().getModules().forEach(module -> {
-            for (SFile moduleSFile : module.getFiles()) {
-                if (!moduleSFile.getName().equalsIgnoreCase(file.getName()))
-                    return;
-
-                module.reload();
+            for (SFile sfile : module.getFiles()) {
+                if (!sfile.getFile().getAbsolutePath().equalsIgnoreCase(file.getAbsolutePath()))
+                    continue;
 
                 // script
                 FileFileMonitor.FILE_MONITOR_EVENT.forEach(script -> SBPlugin.getScriptManager().performScript(script.replace("%file%", file.getName()), Bukkit.getServer().getConsoleSender()));
+
+                module.reload();
+                return;
             }
         });
     }
