@@ -307,8 +307,6 @@ public abstract class Module {
         this.enabled = false;
         this.onDisable();
 
-        // unregister gui
-        this.guis.forEach(this::unregisterGui);
         // unregister Scheduler
         this.schedulers.forEach(Scheduler::stop);
         this.schedulers.clear();
@@ -326,7 +324,7 @@ public abstract class Module {
         this.files.clear();
 
         // unregister guis
-        this.guis.forEach(gui -> SBPlugin.getGuiManager().unregisterGui(gui.getName()));
+        this.guis.forEach(this::unregisterGui);
         this.guis.clear();
 
         // unregister placeholder
@@ -341,7 +339,22 @@ public abstract class Module {
         this.init();
 
         if (!this.ready()) {
-            this.disable();
+            // keep files exclude scheduler
+            this.schedulers.forEach(Scheduler::stop);
+            this.schedulers.clear();
+
+            this.listeners.forEach(HandlerList::unregisterAll);
+            this.listeners.clear();
+
+            this.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().unregisterCommand(string, SBPlugin.getInstance())));
+            this.commands.clear();
+
+            this.guis.forEach(this::unregisterGui);
+            this.guis.clear();
+
+            if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null)
+                this.placeholders.forEach(PlaceholderModule::unregister);
+            this.placeholders.clear();
             return;
         }
 
