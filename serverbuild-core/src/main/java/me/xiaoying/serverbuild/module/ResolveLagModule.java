@@ -1,16 +1,18 @@
 package me.xiaoying.serverbuild.module;
 
 import me.xiaoying.serverbuild.command.resolvelag.ResolveLagCommand;
-import me.xiaoying.serverbuild.entity.ResolveLagEntity;
-import me.xiaoying.serverbuild.file.FileResolveLag;
-import me.xiaoying.serverbuild.scheduler.ResolveLagScheduler;
-import me.xiaoying.serverbuild.utils.YamlUtil;
-
-import java.util.*;
+import me.xiaoying.serverbuild.core.SBPlugin;
+import me.xiaoying.serverbuild.file.resolvelag.FileResolveLag;
+import me.xiaoying.serverbuild.file.resolvelag.FileResolveLagEntityChecker;
+import me.xiaoying.serverbuild.file.resolvelag.FileResolveLagEntityClear;
+import me.xiaoying.serverbuild.manager.resolvelag.ResolveLagEntityCheckerManager;
+import me.xiaoying.serverbuild.manager.resolvelag.ResolveLagEntityClearManager;
+import me.xiaoying.serverbuild.scheduler.resolvelag.ResolveLagEntityCheckerScheduler;
+import me.xiaoying.serverbuild.scheduler.resolvelag.ResolveLagEntityClearScheduler;
 
 public class ResolveLagModule extends Module {
-    private FileResolveLag file;
-    private final List<ResolveLagEntity> resolveLagEntities = new ArrayList<>();
+    private ResolveLagEntityClearManager entityClearManager;
+    private ResolveLagEntityCheckerManager entityCheckerManager;
 
     @Override
     public String getName() {
@@ -29,39 +31,39 @@ public class ResolveLagModule extends Module {
 
     @Override
     public void init() {
-        this.file = new FileResolveLag();
+        this.entityClearManager = new ResolveLagEntityClearManager();
+        this.entityCheckerManager = new ResolveLagEntityCheckerManager();
+
         // register files
-        this.registerFile(this.file);
+        this.registerFile(new FileResolveLag());
+        this.registerFile(new FileResolveLagEntityChecker());
+        this.registerFile(new FileResolveLagEntityClear());
 
         // register commands
         this.registerCommand(new ResolveLagCommand());
 
         // register scheduler
-        this.registerScheduler(new ResolveLagScheduler());
+        if (FileResolveLagEntityClear.ENABLE)
+            this.registerScheduler(new ResolveLagEntityClearScheduler());
+
+        if (FileResolveLagEntityChecker.ENABLE)
+            this.registerScheduler(new ResolveLagEntityCheckerScheduler());
     }
 
     @Override
     public void onEnable() {
-        YamlUtil.getNodes(this.file.getFile(), "ClearMessage.ClearDown").forEach(object -> {
-            String string = object.toString();
-            int integer;
-            try {
-                integer = Integer.parseInt(string);
-            } catch (Exception e) {
-                return;
-            }
-            this.resolveLagEntities.add(new ResolveLagEntity(integer,
-                    this.file.getConfiguration().getString("ClearMessage.ClearDown." + string + ".Type"),
-                    this.file.getConfiguration().getString("ClearMessage.ClearDown." + string + ".Message")));
-        });
+        ((FileMonitorModule) SBPlugin.getModuleManager().getModule("FileMonitor")).getFileMonitorManager().registerMonitorPath(SBPlugin.getInstance().getDataFolder() + "/ResolveLag");
     }
 
     @Override
     public void onDisable() {
-        this.resolveLagEntities.clear();
+
     }
 
-    public List<ResolveLagEntity> getResolveLagEntities() {
-        return this.resolveLagEntities;
+    public ResolveLagEntityClearManager getEntityClearManager() {
+        return this.entityClearManager;
+    }
+    public ResolveLagEntityCheckerManager getEntityCheckerManager() {
+        return this.entityCheckerManager;
     }
 }

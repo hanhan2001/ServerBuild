@@ -1,0 +1,154 @@
+#ResolveLag 实体清理
+
+#开关
+#若 ResolveLag.yml 中总控开关未开启则此开关不起作用
+Enable: true
+
+#实体清理设置
+EntityClear:
+  #间隔时间(单位: 秒)
+  IntervalTime: 120
+  #单个世界达到上限后开始清理实体
+  #开启后若某个世界的实体数量未达到指定数量则不会进行清理包括过滤和匹配
+  Total:
+    #开关
+    #关闭则每次倒计时结束都会清理
+    Enable: false
+    #上限实体数量
+    Limit: 1200
+  #过滤器分组
+  Filter:
+    #可按照相同模板任意添加
+    #过滤指定枚举类型的实体不进行清理
+    #假设 filter_1 匹配到实体则不会再匹配 filter_2, filter_3...
+    #不清理钻石物品和潜影箱。
+    #filter_1 为分组名称，不做任何作用，可以任意修改
+    filter_1:
+      #过滤类型(ENUM, NAME, TYPE, LORE, POSE, CLASS, WORLD, NORMAL, METADATA, ENCHANTMENT)
+      #ENUM -> 实体 Bukkit 中枚举名称，通常是游戏中使用命令 /summon 召唤实体的名称
+      #NAME -> 实体的自定义名称
+      #TYPE -> 实体类型(ANIMALS, MONSTER, ITEM)
+      #LORE -> 物品LORE
+      #POSE -> 实体动作
+      #CLASS -> 实体 class 名称
+      #WORLD -> 实体所在世界
+      #METADATA -> 实体数据
+      #ENCHANTMENT -> 物品附魔
+      Type: ENUM
+      #值列表(支持通配符)
+      Values:
+        - "*BOX"
+        - "*DIAMOND*"
+      #保留数值，过滤器仍想要留下一些匹配到实体数量去清理则可设置这个
+      #若不需要可以直接删除 Exclude 行
+      Exclude: 50
+    #过滤指定 LORE 物品
+    #LORE 只支持 ITEM类型的实体
+    #filter_2 为分组名称，不做任何作用，可以任意修改
+    filter_2:
+      #过滤类型(ENUM, NAME, TYPE, LORE, POSE, CLASS, WORLD, METADATA, ENCHANTMENT)
+      #ENUM -> 实体 Bukkit 中枚举名称，通常是游戏中使用命令 /summon 召唤实体的名称
+      #NAME -> 实体的自定义名称
+      #TYPE -> 实体类型(ANIMALS, MONSTER, ITEM)
+      #LORE -> 物品LORE
+      #POSE -> 实体动作
+      #CLASS -> 实体 class 名称
+      #WORLD -> 实体所在世界
+      #METADATA -> 实体数据
+      #ENCHANTMENT -> 物品附魔
+      Type: LORE
+      #值列表(支持通配符)
+      Values:
+        - "不清理的物品"
+    #不清理附魔物品
+    filter_3:
+      Type: ENCHANTMENT
+      Values:
+        - "*"
+    #不清理动物
+    filter_4:
+      Type: TYPE
+      Values:
+        - "ANIMALS"
+    #不清理 test_world 和 test_world_1 世界中的实体
+    filter_5:
+      Type: WORLD
+      Values:
+        - "test_world"
+        - "test_world_1"
+    #不清理动作为 坐 的实体
+    filter_6:
+      Type: POSE
+      Values:
+        - "SITTING"
+  #匹配分组
+  Matcher:
+    #可按照相同模板任意添加
+    #匹配 怪物 类型的实体进行清理
+    #分组名称，不做任何作用
+    filter_1:
+      #过滤类型(ENUM, NAME, TYPE, LORE, POSE, CLASS, WORLD, METADATA, ENCHANTMENT)
+      #ENUM -> 实体 Bukkit 中枚举名称，通常是游戏中使用命令 /summon 召唤实体的名称
+      #NAME -> 实体的自定义名称
+      #TYPE -> 实体类型(ANIMALS, MONSTER, ITEM)
+      #LORE -> 物品LORE
+      #POSE -> 实体动作
+      #CLASS -> 实体 class 名称
+      #WORLD -> 实体所在世界
+      #METADATA -> 实体数据
+      #ENCHANTMENT -> 物品附魔
+      Type: TYPE
+      #值列表(支持通配符)
+      Values:
+        - "MONSTER"
+      #排除数值，匹配器仍想要留下一些匹配到实体数量不进行清理则可设置此项
+      #若不需要可以直接删除 Exclude 行
+      Exclude: 50
+  #倒计时
+  CountTime:
+    #第 60 秒时执行脚本命令
+    60: |-
+      send * %prefix%&6谁的零食掉了！？(*/ω＼*) &e(%time%秒)
+    30: |-
+      send * %prefix%&6有人吗！谁的零食掉了！φ(゜▽゜*)♪ &e(%time%秒)
+    15: |-
+      send * %prefix%&6谁零食掉地上了！！！ヾ(•ω•`)o &e(%time%秒)
+    5: |-
+      send * %prefix%&6我吃我吃！( •̀ ω •́ )✧ &e(%time%秒)
+  #清理提示
+  #数值指的是清理实体个数，判断方式取决于Type
+  #Type可选(=, <, >, <=, =<, >=, =>)(其他写法均不判断)
+  #当两个条件都是大于，且都满足(如: 80 - >, 85 - >)则获取数值大的配置
+  #当两个条件都是小于，且都满足(如: 30 - <, 35 - <)则获取数值小的配置
+  #如果出区间 31 < x < 35 则获取的是数值大的词条(Message: (35: Message))
+  ClearDown:
+    0:
+      #判断方式(如 x = 0)
+      Type: "="
+      #消息内容
+      Script: |-
+        send * %prefix%&c怎么会是空的！！！？？？இ௰இ &e(总计: %amount%)
+    30:
+      #判断方式(如 x <= 0)
+      Type: "<="
+      #消息内容
+      Script: |-
+        send * %prefix%&6怎么才这么点？根本不够吃！＞﹏＜ &e(总计: %amount%)
+    31:
+      #判断方式
+      Type: ">"
+      #消息内容
+      Script: |-
+        send * %prefix%&6勉勉强强吧≡[。。]≡ &e(总计: %amount%)
+    50:
+      #判断方式
+      Type: "<"
+      #消息内容
+      Script: |-
+        send * %prefix%&6哼哼，一般般吧(ง •_•)ง &e(总计: %amount%)
+    100:
+      #判断方式
+      Type: ">="
+      #消息内容
+      Script: |-
+        send * %prefix%&6桀桀桀，兜是我哒(๑•̀ㅂ•́)و✧ &e(总计: %amount%)

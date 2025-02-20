@@ -1,0 +1,75 @@
+#ResolveLag 实体数量检测器
+
+#开关
+#若 ResolveLag.yml 中总控开关未开启则此开关不起作用
+Enable: false
+
+#实体清理设置
+EntityChecker:
+  #检测间隔时间(单位: tick)
+  Interval: 2
+  #不检测的世界
+  ExcludeWorld:
+    - "Bed_world"
+  #实体设置
+  Entities:
+    #可按照相同格式随意追加配置项
+    #检测 僵尸 实体
+    Group1:
+      #实体 ID
+      #默认使用 minecraft 原版 id，可指定 class
+      Key: "Zombie"
+      #上限值，达到上限值立马清理实体到指定最小值
+      Limit: 500
+      #最少实体数量
+      Min: 70
+    #检测 org.bukkit.craftbukkit.entity.CraftSheep 实体
+    Group2:
+      #实体 ID
+      #默认使用 minecraft 原版 id，可指定 class
+      Key: "org.bukkit.craftbukkit.entity.CraftSheep"
+      #上限值，达到上限值立马清理实体到指定最小值
+      Limit: 300
+      #最少实体数量
+      Min: 10
+  #清理提示
+  Message:
+    #是否开启清理提升
+    #不推荐开启，因为会和 EntityClear 冲突
+    Enable: false
+    #清理提示
+    #数值指的是清理实体个数，判断方式取决于Type
+    #Type可选(=, <, >, <=, =<, >=, =>)(其他写法均不判断)
+    #当两个条件都是大于，且都满足(如: 80: >, 85: >)则获取的是数值大的词条
+    #如果出区间 31 < x < 35 则获取的是数值大的词条(Message: (35: Message))
+    ClearDown:
+      0:
+        #判断方式(如 x = 0)
+        Type: "="
+        #消息内容
+        Script: |-
+          send * %prefix%&c怎么会是空的！！！？？？இ௰இ &e(总计: %amount%)
+      30:
+        #判断方式(如 x <= 0)
+        Type: "<="
+        #消息内容
+        Script: |-
+          send * %prefix%&6怎么才这么点？根本不够吃！＞﹏＜ &e(总计: %amount%)
+      31:
+        #判断方式
+        Type: ">"
+        #消息内容
+        Script: |-
+          send * %prefix%&6勉勉强强吧≡[。。]≡ &e(总计: %amount%)
+      50:
+        #判断方式
+        Type: "<"
+        #消息内容
+        Script: |-
+          send * %prefix%&6哼哼，一般般吧(ง •_•)ง &e(总计: %amount%)
+      100:
+        #判断方式
+        Type: ">="
+        #消息内容
+        Script: |-
+          send * %prefix%&6桀桀桀，兜是我哒(๑•̀ㅂ•́)و✧ &e(总计: %amount%)

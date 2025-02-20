@@ -4,7 +4,7 @@ import me.xiaoying.serverbuild.command.Command;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
-import me.xiaoying.serverbuild.file.FileResolveLag;
+import me.xiaoying.serverbuild.file.resolvelag.FileResolveLag;
 import me.xiaoying.serverbuild.module.ResolveLagModule;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bukkit.command.CommandSender;

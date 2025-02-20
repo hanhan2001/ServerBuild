@@ -33,7 +33,7 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.setInstance(this);
         SBPlugin.setGuiManager(new SimpleGuiManager());
 
-        initialize();
+        ServerBuild.initialize();
 
         // bstats
         if (FileConfig.SETTING_BSTATS)
@@ -112,9 +112,9 @@ public class ServerBuild extends JavaPlugin {
 
         // Module
         SBPlugin.getModuleManager().registerModule(new ChatFormatModule());
-        SBPlugin.getModuleManager().registerModule(new ResolveLagModule());
         SBPlugin.getModuleManager().registerModule(new AutoRespawnModule());
         SBPlugin.getModuleManager().registerModule(new FileMonitorModule());
+        SBPlugin.getModuleManager().registerModule(new ResolveLagModule());
         SBPlugin.getModuleManager().registerModule(new WelcomeMessageModule());
         SBPlugin.getModuleManager().registerModule(new MessageAnnouncerModule());
         SBPlugin.getModuleManager().registerInterface(JavaModuleLoader.class);
