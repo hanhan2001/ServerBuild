@@ -50,6 +50,24 @@
                                         <exclude>LICENSE</exclude>
                                         <exclude>README</exclude>
                                         <exclude>sqlite-jdbc.properties</exclude>
+                                        <exclude>META-INF/versions/**</exclude>
+                                        <exclude>META-INF/services/**</exclude>
+                                        <exclude>META-INF/proguard/**</exclude>
+                                        <exclude>META-INF/native-image/**</exclude>
+                                        <exclude>META-INF/LICENSE</exclude>
+                                        <exclude>META-INF/LICENSE.txt</exclude>
+                                        <exclude>META-INF/maven/org.yaml/**</exclude>
+                                        <exclude>META-INF/maven/org.xerial/**</exclude>
+                                        <exclude>META-INF/maven/org.spigotmc/**</exclude>
+                                        <exclude>META-INF/maven/org.joml/**</exclude>
+                                        <exclude>META-INF/maven/net.md-5/**</exclude>
+                                        <exclude>META-INF/maven/me.xiaoying/sqlfactory/**</exclude>
+                                        <exclude>META-INF/maven/com.google.protobuf/**</exclude>
+                                        <exclude>META-INF/maven/com.google.j2objc/**</exclude>
+                                        <exclude>META-INF/maven/com.google.guava/**</exclude>
+                                        <exclude>META-INF/maven/com.google.errorprone/**</exclude>
+                                        <exclude>META-INF/maven/com.google.code.gson/**</exclude>
+                                        <exclude>META-INF/maven/com.google.code.findbugs/**</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
