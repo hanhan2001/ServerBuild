@@ -6,6 +6,7 @@ import me.xiaoying.serverbuild.gui.GuiManager;
 import me.xiaoying.serverbuild.module.ModuleManager;
 import me.xiaoying.serverbuild.module.SimpleModuleManager;
 import me.xiaoying.serverbuild.pluginmanager.PluginManager;
+import me.xiaoying.serverbuild.proxy.SProxyProvider;
 import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.sql.SqlFactory;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,9 +21,12 @@ public class SBPlugin {
     private static GuiManager guiManager;
     private static FileManager fileManager;
     private static ModuleManager moduleManager;
+
+    private static SProxyProvider proxyProvider;
+
     private static SqlFactory sqlFactory;
 
-    private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(200);
+    private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2000);
 
     public static JavaPlugin getInstance() {
         return SBPlugin.instance;
@@ -36,6 +40,7 @@ public class SBPlugin {
     public static void setInstance(JavaPlugin plugin) {
         SBPlugin.instance = plugin;
 
+        SBPlugin.proxyProvider = new SProxyProvider();
         SBPlugin.fileManager = new SimpleFileManager();
         SBPlugin.moduleManager = new SimpleModuleManager();
     }
@@ -140,6 +145,15 @@ public class SBPlugin {
             return;
 
         SBPlugin.fileManager = fileManager;
+    }
+
+    /**
+     * Get java proxy
+     *
+     * @return SProxyProvider
+     */
+    public static SProxyProvider getProxyProvider() {
+        return SBPlugin.proxyProvider;
     }
 
     /**

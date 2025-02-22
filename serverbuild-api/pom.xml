@@ -39,7 +39,7 @@
                                     <artifact>*:*</artifact>
                                     <excludes>
                                         <exclude>org/**</exclude>
-                                        <exclude>net/**</exclude>
+                                        <exclude>net/md_5/**</exclude>
                                         <exclude>com/**</exclude>
                                         <exclude>google/**</exclude>
                                         <exclude>javax/**</exclude>
@@ -122,11 +122,6 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
-        <!-- NMSProxy -->
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -155,12 +150,11 @@
             <artifactId>sqlfactory</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!-- NMSProxy -->
+        <!-- Byte Buddy -->
         <dependency>
-            <groupId>com.github.theminecoder</groupId>
-            <artifactId>NMSProxy</artifactId>
-            <version>0.3</version>
-            <scope>provided</scope>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.15.11</version>
         </dependency>
     </dependencies>
 </project>

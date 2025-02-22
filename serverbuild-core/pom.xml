@@ -45,77 +45,31 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
-                                        <exclude>data/**</exclude>
-                                        <exclude>configuration/**</exclude>
-                                        <exclude>com/mojang/**</exclude>
-                                        <exclude>assets/**</exclude>
                                         <exclude>org/checkerframework/**</exclude>
                                         <exclude>org/joml/**</exclude>
                                         <exclude>org/yaml/**</exclude>
-                                        <exclude>org/slf4j/**</exclude>
-                                        <exclude>org/apache/**</exclude>
                                         <exclude>org/sqlite/**</exclude>
-                                        <exclude>org/serial/**</exclude>
                                         <exclude>org/bukkit/**</exclude>
                                         <exclude>org/spigotmc/**</exclude>
-                                        <exclude>org/spigotmc/**</exclude>
-                                        <exclude>org/sonatype/**</exclude>
-                                        <exclude>org/objectweb/**</exclude>
-                                        <exclude>org/fusesource/**</exclude>
-                                        <exclude>org/eclipse/**</exclude>
-                                        <exclude>org/codehaus/**</exclude>
-                                        <exclude>org/checkerframework/**</exclude>
-                                        <exclude>net/**</exclude>
+                                        <exclude>net/md_5/**</exclude>
                                         <exclude>com/**</exclude>
-                                        <exclude>io/**</exclude>
-                                        <exclude>it/**</exclude>
-                                        <exclude>oshi/**</exclude>
-                                        <exclude>jline/**</exclude>
                                         <exclude>javax/**</exclude>
                                         <exclude>google/**</exclude>
-                                        <exclude>mozilla/**</exclude>
-                                        <exclude>licenses/**</exclude>
-                                        <exclude>joptsimple/**</exclude>
-                                        <exclude>configurations/**</exclude>
                                         <exclude>mojang-translations/**</exclude>
-                                        <exclude>sqlite-jdbc.properties</exclude>
                                         <exclude>INFO_BIN</exclude>
                                         <exclude>INFO_SRC</exclude>
                                         <exclude>LICENSE</exclude>
                                         <exclude>README</exclude>
-                                        <exclude>META-INF/org/**</exclude>
-                                        <exclude>META-INF/sisu/**</exclude>
                                         <exclude>META-INF/maven/**</exclude>
-                                        <exclude>META-INF/native/**</exclude>
                                         <exclude>META-INF/versions/**</exclude>
                                         <exclude>META-INF/proguard/**</exclude>
                                         <exclude>META-INF/services/**</exclude>
                                         <exclude>META-INF/native-image/**</exclude>
                                         <exclude>META-INF/NOTICE</exclude>
-                                        <exclude>META-INF/NOTICE.txt</exclude>
-                                        <exclude>META-INF/AL2.0</exclude>
                                         <exclude>META-INF/LICENSE</exclude>
-                                        <exclude>META-INF/LGPL2.1</exclude>
-                                        <exclude>META-INF/io.netty.versions.properties</exclude>
-                                        <exclude>META-INF/DEPENDENCIES</exclude>
+                                        <exclude>META-INF/licenses/**</exclude>
                                         <exclude>META-INF/LICENSE.txt</exclude>
-                                        <exclude>plugin.xml</exclude>
-                                        <exclude>version.json</exclude>
-                                        <exclude>oshi.properties</exclude>
-                                        <exclude>overview.html</exclude>
-                                        <exclude>oshi.properties</exclude>
-                                        <exclude>oshi.macos.versions.properties</exclude>
-                                        <exclude>oshi.linux.filename.properties</exclude>
-                                        <exclude>oshi.architecture.properties</exclude>
-                                        <exclude>oshi.vmmacaddr.properties</exclude>
-                                        <exclude>Log4j-levels.xsd</exclude>
-                                        <exclude>Log4j-events.xsd</exclude>
-                                        <exclude>Log4j-events.dtd</exclude>
-                                        <exclude>Log4j-config.xsd</exclude>
-                                        <exclude>Log4j-charsets.properties</exclude>
-                                        <exclude>log4j2.xml</exclude>
-                                        <exclude>flightrecorder-config.jfc</exclude>
-                                        <exclude>about.html</exclude>
+                                        <exclude>META-INF/LGPL2.1</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
@@ -177,18 +131,18 @@
             <artifactId>sqlfactory</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!-- CraftBukkit -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>minecraft-server</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
-        </dependency>
         <!-- NMSProxy -->
         <dependency>
             <groupId>com.github.theminecoder</groupId>
             <artifactId>NMSProxy</artifactId>
             <version>0.3</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Byte Buddy -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.15.11</version>
         </dependency>
     </dependencies>
 </project>
