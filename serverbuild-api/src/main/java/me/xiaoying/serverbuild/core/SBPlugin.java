@@ -40,7 +40,7 @@ public class SBPlugin {
     public static void setInstance(JavaPlugin plugin) {
         SBPlugin.instance = plugin;
 
-        SBPlugin.proxyProvider = new SProxyProvider().debug(true);
+        SBPlugin.proxyProvider = new SProxyProvider();
         SBPlugin.fileManager = new SimpleFileManager();
         SBPlugin.moduleManager = new SimpleModuleManager();
     }
