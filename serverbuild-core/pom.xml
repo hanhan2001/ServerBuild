@@ -91,11 +91,6 @@
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
-        <!-- NMSProxy -->
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -130,13 +125,6 @@
             <groupId>me.xiaoying</groupId>
             <artifactId>sqlfactory</artifactId>
             <version>1.0.0</version>
-        </dependency>
-        <!-- NMSProxy -->
-        <dependency>
-            <groupId>com.github.theminecoder</groupId>
-            <artifactId>NMSProxy</artifactId>
-            <version>0.3</version>
-            <scope>provided</scope>
         </dependency>
         <!-- Byte Buddy -->
         <dependency>
