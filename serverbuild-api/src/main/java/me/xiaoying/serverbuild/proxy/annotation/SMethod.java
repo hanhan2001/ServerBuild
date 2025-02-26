@@ -11,4 +11,6 @@ public @interface SMethod {
     String methodName();
 
     String returnClass() default "";
+
+    boolean needInstance() default true;
 }

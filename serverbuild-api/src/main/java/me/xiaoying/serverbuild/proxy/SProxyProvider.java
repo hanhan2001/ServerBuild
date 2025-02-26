@@ -42,11 +42,23 @@ public class SProxyProvider {
         this.version = version;
     }
 
+    /**
+     * Set proxy debug mode
+     *
+     * @param enable on / off
+     * @return SProxyProvider
+     */
     public SProxyProvider debug(boolean enable) {
         this.debug = enable;
         return this;
     }
 
+    /**
+     * Set proxy out classes' path
+     *
+     * @param file save folder
+     * @return SProxyProvider
+     */
     public SProxyProvider setOutFile(File file) {
         this.outFile = file;
         return this;
@@ -61,17 +73,36 @@ public class SProxyProvider {
             throw new IllegalArgumentException("class of " + clazz.getName() + " need @SClass annotation.");
 
         // get target class
-        Class<?> target;
-        if (classAnnotation.type().getClassName(classAnnotation.className(), this.version).isEmpty())
-            target = null;
-        else
-            target = this.getClass().getClassLoader().loadClass(classAnnotation.type().getClassName(classAnnotation.className(), this.version));
+        Class<?> target = null;
+        for (String s : classAnnotation.className()) {
+            String version = this.version;
+
+            // split special format
+            if (s.contains("-")) {
+                String[] split = s.replace(" ", "").split("-");
+                // net.minecraft.network - ?version?
+                // contains - but haven't set version
+                if (split.length == 1)
+                    continue;
+
+                s = split[0];
+                version = split[1];
+            }
+
+            if (classAnnotation.type().getClassName(s, version).isEmpty())
+                continue;
+
+            try {
+                target = this.getClass().getClassLoader().loadClass(classAnnotation.type().getClassName(s, version));
+                break;
+            } catch (ClassNotFoundException e) {}
+        }
 
         // byte buddy
         DynamicType.Builder<T> subclass = new ByteBuddy().subclass(clazz);
 
-        subclass = subclass.defineField("temporary", Object.class, Modifier.PRIVATE);
-        subclass = subclass.defineMethod("setTemporary", void.class, Modifier.PUBLIC)
+        subclass = subclass.defineField("instance", Object.class, Modifier.PRIVATE);
+        subclass = subclass.defineMethod("setInstance", void.class, Modifier.PUBLIC)
                 .withParameters(Object.class)
                 .intercept(new Implementation.Simple((methodVisitor, context, methodDescription) -> {
                     methodVisitor.visitCode();
@@ -81,7 +112,7 @@ public class SProxyProvider {
 
                     methodVisitor.visitFieldInsn(Opcodes.PUTFIELD,
                             context.getInstrumentedType().asErasure().getName().replace(".", "/"),
-                            "temporary",
+                            "instance",
                             "Ljava/lang/Object;");
 
                     methodVisitor.visitInsn(Opcodes.RETURN);
@@ -91,14 +122,40 @@ public class SProxyProvider {
                     return new ByteCodeAppender.Size(2, 2);
                 }));
 
+        subclass = subclass.defineMethod("getInstance", Object.class, Modifier.PUBLIC).intercept(new Implementation.Simple((methodVisitor, context, methodDescription) -> {
+            methodVisitor.visitCode();
+            methodVisitor.visitVarInsn(Opcodes.ALOAD, 0);
+
+            methodVisitor.visitFieldInsn(Opcodes.GETFIELD,
+                    context.getInstrumentedType().asErasure().getName().replace(".", "/"),
+                    "instance",
+                    "Ljava/lang/Object;");
+
+            // 返回获取到的值
+            methodVisitor.visitInsn(Opcodes.ARETURN);
+
+            methodVisitor.visitMaxs(1, 1);
+            methodVisitor.visitEnd();
+            return new ByteCodeAppender.Size(1, 1);
+        }));
+
         // methods
         for (Method declaredMethod : clazz.getDeclaredMethods()) {
             if (declaredMethod.getAnnotation(SConstructor.class) != null)
                 subclass = this.setConstructorMethod(subclass, declaredMethod);
-            else if (declaredMethod.getAnnotation(SMethod.class) != null)
+
+            if (declaredMethod.getAnnotation(SMethod.class) != null) {
+                if (instance == null && declaredMethod.getAnnotation(SMethod.class).needInstance())
+                    continue;
+
                 subclass = this.setMethod(subclass, declaredMethod, target, instance);
-            else if (declaredMethod.getAnnotation(SFieldMethod.class) != null)
+            }
+            if (declaredMethod.getAnnotation(SFieldMethod.class) != null) {
+                if (instance == null)
+                    continue;
+
                 subclass = this.setFiledMethod(subclass, declaredMethod, target);
+            }
         }
 
         DynamicType.Unloaded<T> make = subclass.make();
@@ -108,7 +165,7 @@ public class SProxyProvider {
         if (this.debug)
             load.saveIn(this.outFile);
         T t = load.getLoaded().newInstance();
-        t.getClass().getDeclaredMethod("setTemporary", Object.class).invoke(t, instance);
+        t.getClass().getDeclaredMethod("setInstance", Object.class).invoke(t, instance);
 
         // filed handle
         for (Field declaredField : t.getClass().getSuperclass().getDeclaredFields())
@@ -124,13 +181,14 @@ public class SProxyProvider {
             return subclass;
 
         Map<Integer, ParameterEntity> parameters = new HashMap<>();
-        for (Parameter parameter : method.getParameters()) {
+        for (int i = 0; i < method.getParameters().length; i++) {
+            Parameter parameter = method.getParameters()[i];
             SParameter anno = parameter.getAnnotation(SParameter.class);
 
             if (anno == null)
                 continue;
 
-            parameters.put(anno.index(), new ParameterEntity(anno.index(), anno.truthClass(), parameter.getType()));
+            parameters.put(anno.index(), new ParameterEntity(anno.index(), i + 1, anno.truthClass(), parameter.getType()));
         }
 
         for (int i = 0; i < parameters.size(); i++) {
@@ -169,12 +227,31 @@ public class SProxyProvider {
                 methodVisitor.visitInsn(Opcodes.DUP);
                 methodVisitor.visitIntInsn(Opcodes.BIPUSH, entry.getKey());
 
-                if (entry.getValue().getTruthClass() != null && !entry.getValue().getTruthClass().isEmpty())
-                    methodVisitor.visitLdcInsn(entry.getValue().getTruthClass());
-                else
-                    methodVisitor.visitLdcInsn(entry.getValue().getType().getName());
+                if (!entry.getValue().isPrimitive()) {
+                    if (entry.getValue().getTruthClass() != null && !entry.getValue().getTruthClass().isEmpty())
+                        methodVisitor.visitLdcInsn(entry.getValue().getTruthClass());
+                    else
+                        methodVisitor.visitLdcInsn(entry.getValue().getType().getName());
 
-                methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Class", "forName", "(Ljava/lang/String;)Ljava/lang/Class;", false);
+                    methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Class", "forName", "(Ljava/lang/String;)Ljava/lang/Class;", false);
+                } else {
+                    if (entry.getValue().getTypeExact() == int.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Integer", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == long.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Long", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == float.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Float", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == double.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Double", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == boolean.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Boolean", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == byte.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Byte", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == short.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Short", "TYPE", "Ljava/lang/Class;");
+                    else if (entry.getValue().getTypeExact() == char.class)
+                        methodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/Character", "TYPE", "Ljava/lang/Class;");
+                }
                 methodVisitor.visitInsn(Opcodes.AASTORE);
             }
 
@@ -194,18 +271,43 @@ public class SProxyProvider {
 
             methodVisitor.visitFieldInsn(Opcodes.GETFIELD,
                     context.getInstrumentedType().asErasure().getName().replace(".", "/"),
-                    "temporary",
+                    "instance",
                     "Ljava/lang/Object;");
 
-            methodVisitor.visitTypeInsn(Opcodes.CHECKCAST, instance.getClass().getName().replace('.', '/'));
+            if (instance != null)
+                methodVisitor.visitTypeInsn(Opcodes.CHECKCAST, instance.getClass().getName().replace('.', '/'));
 
             methodVisitor.visitIntInsn(Opcodes.BIPUSH, parameters.size());
             methodVisitor.visitTypeInsn(Opcodes.ANEWARRAY, "java/lang/Object");
 
             for (int i = 0; i < parameters.size(); i++) {
+                ParameterEntity entity = parameters.get(i);
                 methodVisitor.visitInsn(Opcodes.DUP);
                 methodVisitor.visitIntInsn(Opcodes.BIPUSH, i);
-                methodVisitor.visitVarInsn(parameters.get(i).getLoadOpcodes(), parameters.size());
+                methodVisitor.visitVarInsn(parameters.get(i).getLoadOpcodes(), parameters.get(i).getStackIndex());
+
+                switch (entity.getLoadOpcodes()) {
+                    case Opcodes.ILOAD:
+                        if (entity.getType() == Integer.class)
+                            methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;", false);
+                        else if (entity.getType() == Byte.class)
+                            methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Byte", "valueOf", "(B)Ljava/lang/Byte;", false);
+                        else if (entity.getType() == Short.class)
+                            methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Short", "valueOf", "(S)Ljava/lang/Short;", false);
+                        else if (entity.getType() == Character.class)
+                            methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;", false);
+                        else if (entity.getType() == Boolean.class)
+                            methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;", false);
+
+                        break;
+                    case Opcodes.LLOAD:
+                        methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Long", "valueOf", "(I)Ljava/lang/Long;", false);
+                        break;
+                    case Opcodes.FLOAD:
+                        methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Float", "valueOf", "(I)Ljava/lang/Float;", false);
+                        break;
+                }
+
                 if (parameters.get(i).getTruthClass() != null && !parameters.get(i).getTruthClass().isEmpty())
                     methodVisitor.visitTypeInsn(Opcodes.CHECKCAST, parameters.get(i).getTruthClass().replace(".", "/"));
 
@@ -247,13 +349,14 @@ public class SProxyProvider {
         String target = annotation.target();
 
         Map<Integer, ParameterEntity> parameters = new HashMap<>();
-        for (Parameter parameter : method.getParameters()) {
+        for (int i = 0; i < method.getParameters().length; i++) {
+            Parameter parameter = method.getParameters()[i];
             SParameter anno = parameter.getAnnotation(SParameter.class);
 
             if (anno == null)
                 continue;
 
-            parameters.put(anno.index(), new ParameterEntity(anno.index(), anno.truthClass(), parameter.getType()));
+            parameters.put(anno.index(), new ParameterEntity(anno.index(), i + 1, anno.truthClass(), parameter.getType()));
         }
 
         for (int i = 0; i < parameters.size(); i++) {
@@ -281,8 +384,8 @@ public class SProxyProvider {
 
             StringBuilder stringClasses = new StringBuilder();
             for (Map.Entry<Integer, ParameterEntity> entry : parameters.entrySet()) {
-                stringClasses.append(ClassUtils.getClassByteCodeName(entry.getValue().getType()));
-                methodVisitor.visitVarInsn(entry.getValue().getLoadOpcodes(), parameters.size());
+                stringClasses.append(ClassUtils.getClassByteCodeName(entry.getValue().getTypeExact()));
+                methodVisitor.visitVarInsn(entry.getValue().getLoadOpcodes(), entry.getValue().getStackIndex());
 
                 if (entry.getValue().getTruthClass() != null && !entry.getValue().getTruthClass().isEmpty())
                     methodVisitor.visitTypeInsn(Opcodes.CHECKCAST, entry.getValue().getTruthClass().replace(".", "/"));
@@ -338,7 +441,7 @@ public class SProxyProvider {
 
             methodVisitor.visitFieldInsn(Opcodes.GETFIELD,
                     context.getInstrumentedType().asErasure().getName().replace(".", "/"),
-                    "temporary",
+                    "instance",
                     "Ljava/lang/Object;");
 
             // getter
@@ -365,23 +468,33 @@ public class SProxyProvider {
     }
 
     private <T> Object setFiled(T t, Field field, T newClass, Class<?> target) throws Exception {
+
         SField sfield = field.getAnnotation(SField.class);
 
         if (sfield == null)
+            return t;
+
+        boolean supported = false;
+        for (String s : sfield.version()) {
+            if (!this.version.equalsIgnoreCase(s))
+                continue;
+
+            supported = true;
+            break;
+        }
+
+        if (!supported)
             return t;
 
         field.setAccessible(true);
         Field targetField = target.getDeclaredField(sfield.fieldName());
         targetField.setAccessible(true);
 
-        if (targetField.getType() != field.getType())
-            throw new IllegalArgumentException("target field " + targetField.getType() + " not equals " + field.getType());
-
-        Field declaredField = newClass.getClass().getDeclaredField("temporary");
+        Field declaredField = newClass.getClass().getDeclaredField("instance");
         declaredField.setAccessible(true);
         Object object = declaredField.get(newClass);
 
-        field.set(t, targetField.get(object));
+        field.set(t, field.getType().cast(targetField.get(object)));
         return t;
     }
 }

@@ -10,7 +10,25 @@ import java.lang.annotation.Target;
 public @interface SClass {
     Type type();
 
-    String className();
+    /**
+     * Support multi version<br>
+     * <br>
+     * class name format is "class-version" or "class - version"<br>
+     * if you don't set the class's version that will use version in SProxyProvider
+     * <br>
+     * eg:
+     * <pre>
+     *     {@code SClass(
+     *     type = SClass.Type.NULL,
+     *     className = {"net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata - v1_20_R0", "net.minecraft.network.PacketPlayOutEntityMetadata"
+     * })}
+     * </pre>
+     * loop determine version until version matched<br>
+     * if matched SProxyProvide will break loop and use the class of matched
+     *
+     * @return setting class names
+     */
+    String[] className();
 
     enum Type {
         NMS("net.minecraft.server.%version%."),

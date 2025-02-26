@@ -9,4 +9,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SField {
     String fieldName();
+
+    /**
+     * Support version<br>
+     * if the filed support version not equal SProxyProvider, that will not initialize
+     *
+     * @return support version
+     */
+    String[] version() default "";
 }
