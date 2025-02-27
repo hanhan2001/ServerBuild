@@ -6,6 +6,7 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileConfig;
 import me.xiaoying.serverbuild.gui.SimpleGuiManager;
 import me.xiaoying.serverbuild.module.*;
+import me.xiaoying.serverbuild.module.Module;
 import me.xiaoying.serverbuild.pluginmanager.PaperPluginManager;
 import me.xiaoying.serverbuild.pluginmanager.SpigotPluginManager;
 import me.xiaoying.serverbuild.scheduler.PlaceholderScheduler;
@@ -44,6 +45,7 @@ public class ServerBuild extends JavaPlugin {
         ServerUtil.sendMessage("&b|任何问题可以添加QQ: &a764932129");
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
         ServerUtil.sendMessage("&b|&6功能状态:");
+        List<Module> readyModules = new ArrayList<>();
         SBPlugin.getModuleManager().getModules().forEach(module -> {
             module.init();
 
@@ -52,6 +54,7 @@ public class ServerBuild extends JavaPlugin {
                 module.disable();
                 return;
             }
+            readyModules.add(module);
             ServerUtil.sendMessage("&b|&r    &a" + module.getName() + "(" + module.getAliasName() + "): " + "&e已开启");
         });
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
@@ -67,12 +70,7 @@ public class ServerBuild extends JavaPlugin {
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
 
         // enable modules
-        SBPlugin.getModuleManager().getModules().forEach(module -> {
-            if (!module.ready())
-                return;
-
-            module.enable();
-        });
+        readyModules.forEach(Module::enable);
     }
 
     @Override
