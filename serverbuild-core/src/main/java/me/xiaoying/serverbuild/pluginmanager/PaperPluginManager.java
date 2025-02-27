@@ -19,10 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class PaperPluginManager implements PluginManager {
     @Override
@@ -90,6 +87,8 @@ public class PaperPluginManager implements PluginManager {
 
     @Override
     public PluginResponse registerCommand(String command, CommandExecutor executor, Plugin plugin) {
+        command = command.toLowerCase(Locale.ENGLISH);
+
         try {
             Field commandMapField = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
@@ -121,6 +120,8 @@ public class PaperPluginManager implements PluginManager {
 
     @Override
     public PluginResponse unregisterCommand(String command, Plugin plugin) {
+        command = command.toLowerCase(Locale.ENGLISH);
+
         try {
             Field commandMapField = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
