@@ -29,7 +29,7 @@ public class RLEntityClearCommand extends SCommand {
 
     @Override
     public void performCommand(CommandSender sender, String[] args) {
-        if (!ServerUtil.hasPermission(sender) && !sender.isOp()) {
+        if (!ServerUtil.hasPermission(sender, "sb.admin", "sb.rl.admin") && !sender.isOp()) {
             sender.sendMessage(new VariableFactory(FileResolveLag.MESSAGE_MISSING_PERMISSION)
                     .prefix(FileResolveLag.SETTING_PREFIX)
                     .date(FileResolveLag.SETTING_DATEFORMAT)
