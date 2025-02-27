@@ -6,6 +6,6 @@ import me.xiaoying.serverbuild.proxy.annotation.SFieldMethod;
 
 @SClass(type = SClass.Type.NULL, className = "net.minecraft.server.level.EntityPlayer")
 public abstract class SEntityPlayer implements SProxy {
-    @SFieldMethod(filedName = "c", type = SFieldMethod.Type.GETTER)
+    @SFieldMethod(fieldName = "c", type = SFieldMethod.Type.GETTER)
     public abstract Object getPlayConnectionV1_20_R1();
 }

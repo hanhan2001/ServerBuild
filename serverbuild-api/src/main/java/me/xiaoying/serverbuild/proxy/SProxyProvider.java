@@ -410,7 +410,7 @@ public class SProxyProvider {
         if (filedAnnotation == null)
             return subclass;
 
-        String name = filedAnnotation.filedName();
+        String name = filedAnnotation.fieldName();
 
         DynamicType.Builder.MethodDefinition.ImplementationDefinition<T> method1 = subclass.method(ElementMatchers.named(method.getName()));
 
@@ -423,7 +423,7 @@ public class SProxyProvider {
             methodVisitor.visitLdcInsn(target.getName());
             methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Class", "forName", "(Ljava/lang/String;)Ljava/lang/Class;", false);
 
-            methodVisitor.visitLdcInsn(filedAnnotation.filedName());
+            methodVisitor.visitLdcInsn(filedAnnotation.fieldName());
 
             methodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/Class", "getDeclaredField", "(Ljava/lang/String;)Ljava/lang/reflect/Field;", false);
             methodVisitor.visitVarInsn(Opcodes.ASTORE, 2);
