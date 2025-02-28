@@ -384,11 +384,13 @@ public class SProxyProvider {
 
             StringBuilder stringClasses = new StringBuilder();
             for (Map.Entry<Integer, ParameterEntity> entry : parameters.entrySet()) {
-                stringClasses.append(ClassUtils.getClassByteCodeName(entry.getValue().getTypeExact()));
                 methodVisitor.visitVarInsn(entry.getValue().getLoadOpcodes(), entry.getValue().getStackIndex());
 
-                if (entry.getValue().getTruthClass() != null && !entry.getValue().getTruthClass().isEmpty())
+                if (entry.getValue().getTruthClass() != null && !entry.getValue().getTruthClass().isEmpty()) {
                     methodVisitor.visitTypeInsn(Opcodes.CHECKCAST, entry.getValue().getTruthClass().replace(".", "/"));
+                    stringClasses.append(ClassUtils.getClassByteCodeName(entry.getValue().getTruthClass()));
+                } else
+                    stringClasses.append(ClassUtils.getClassByteCodeName(entry.getValue().getTypeExact()));
             }
 
             methodVisitor.visitMethodInsn(Opcodes.INVOKESPECIAL,

@@ -36,6 +36,14 @@ public class ClassUtils {
         return descriptor;
     }
 
+    public static String getClassByteCodeName(String name) {
+        try {
+            return ClassUtils.getClassByteCodeName(Class.forName(name));
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static int getReturnByObject(Object object) {
         return ClassUtils.getReturnByClass(object.getClass());
     }
