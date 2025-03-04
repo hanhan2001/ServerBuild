@@ -151,7 +151,7 @@ public class SProxyProvider {
                 subclass = this.setMethod(subclass, declaredMethod, target, instance);
             }
             if (declaredMethod.getAnnotation(SFieldMethod.class) != null) {
-                if (instance == null)
+                if (instance == null && declaredMethod.getAnnotation(SFieldMethod.class).needInstance())
                     continue;
 
                 subclass = this.setFiledMethod(subclass, declaredMethod, target);
@@ -400,9 +400,9 @@ public class SProxyProvider {
                     false);
 
             methodVisitor.visitInsn(Opcodes.ARETURN);
-            methodVisitor.visitMaxs(4, 3);
+            methodVisitor.visitMaxs(parameters.size() + 2, parameters.size() + 1);
             methodVisitor.visitEnd();
-            return new ByteCodeAppender.Size(4, 3);
+            return new ByteCodeAppender.Size(parameters.size() + 2, parameters.size() + 1);
         }));
         return subclass;
     }

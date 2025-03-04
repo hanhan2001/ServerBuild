@@ -12,6 +12,8 @@ public @interface SFieldMethod {
 
     Type type();
 
+    boolean needInstance() default true;
+
     enum Type {
         GETTER,
         SETTER;
