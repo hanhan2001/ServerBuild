@@ -12,11 +12,14 @@ public abstract class SEntity implements SProxy {
     public abstract Object get_CUSTOM_NAME_VISIBLE_V1_20_R1();
 
     @SFieldMethod(fieldName = "am", type = SFieldMethod.Type.GETTER)
-    public abstract Object getDataWatcherV1_20_R0();
+    public abstract Object getDataWatcherV1_20_R1();
 
     @SMethod(methodName = "f")
     public abstract void loadV1_20_R1(@SParameter(index = 0, truthClass = "net.minecraft.nbt.NBTTagCompound") Object nbt);
 
     @SMethod(methodName = "al", returnClass = "net.minecraft.world.entity.EntityPose")
     public abstract Object getPoseV1_20_R1();
+
+    @SMethod(methodName = "b")
+    public abstract void setPoseV1_20_R1(@SParameter(index = 0, truthClass = "net.minecraft.world.entity.EntityPose") Object pose);
 }

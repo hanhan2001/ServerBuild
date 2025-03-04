@@ -12,6 +12,4 @@ public abstract class SNBTTagCompound implements SProxy {
 
     @SMethod(methodName = "a")
     public abstract void setString(String key, String value);
-
-    public abstract Object getInstance();
 }

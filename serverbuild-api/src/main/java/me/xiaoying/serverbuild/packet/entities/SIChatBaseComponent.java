@@ -9,6 +9,4 @@ import me.xiaoying.serverbuild.proxy.annotation.SParameter;
 public abstract class SIChatBaseComponent implements SProxy {
     @SMethod(methodName = "a", needInstance = false)
     public abstract Object string(@SParameter(index = 0) String string);
-
-    public abstract Object getInstance();
 }

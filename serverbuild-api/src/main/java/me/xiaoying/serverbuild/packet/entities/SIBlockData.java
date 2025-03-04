@@ -3,6 +3,6 @@ package me.xiaoying.serverbuild.packet.entities;
 import me.xiaoying.serverbuild.proxy.SProxy;
 import me.xiaoying.serverbuild.proxy.annotation.SClass;
 
-@SClass(type = SClass.Type.OTHER, className = "net.minecraft.network.syncher.DataWatcher$b")
-public class SDataWatcherItem implements SProxy {
+@SClass(type = SClass.Type.NULL, className = "net.minecraft.world.level.block.state.IBlockData")
+public abstract class SIBlockData implements SProxy {
 }
