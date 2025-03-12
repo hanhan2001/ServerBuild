@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 /**
  * Script title
  */
-public class TitleScript implements Script {
+public class TitleScript extends Script {
     @Override
     public String getName() {
         return "title";

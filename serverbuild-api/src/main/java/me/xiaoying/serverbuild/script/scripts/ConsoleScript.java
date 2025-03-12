@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 /**
  * Script console
  */
-public class ConsoleScript implements Script {
+public class ConsoleScript extends Script {
     @Override
     public String getName() {
         return "console";

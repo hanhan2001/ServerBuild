@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 /**
  * Script send
  */
-public class SendScript implements Script {
+public class SendScript extends Script {
     @Override
     public String getName() {
         return "send";

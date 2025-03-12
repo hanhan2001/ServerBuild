@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Locale;
 
-public class SudoScript implements Script {
+public class SudoScript extends Script {
     @Override
     public String getName() {
         return "sudo";

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 /**
  * Script log
  */
-public class LogScript implements Script {
+public class LogScript extends Script {
     @Override
     public String getName() {
         return "log";

@@ -5,13 +5,13 @@ import org.bukkit.command.CommandSender;
 /**
  * Script
  */
-public interface Script {
+public abstract class Script {
     /**
      * Get script's name<br>
      *
      * @return Script's name
      */
-    String getName();
+    public abstract String getName();
 
     /**
      * Perform command
@@ -19,12 +19,12 @@ public interface Script {
      * @param sender Who sent this script
      * @param args parameters
      */
-    void performCommand(CommandSender sender, String[] args);
+    public abstract void performCommand(CommandSender sender, String[] args);
 
     /**
      * Determine is script need run before interpreter
      *
      * @return Boolean
      */
-    boolean processFirst();
+    public abstract boolean processFirst();
 }

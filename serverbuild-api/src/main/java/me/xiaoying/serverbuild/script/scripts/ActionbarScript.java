@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class ActionbarScript implements Script {
+public class ActionbarScript extends Script {
     @Override
     public String getName() {
         return "actionbar";
