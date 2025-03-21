@@ -19,7 +19,7 @@ Setting:
       #端口
       Port: 3306
       #数据库
-      Database: "xiaoyingbot"
+      Database: "serverbuild"
       #账户
       UserName: "root"
       #密码
