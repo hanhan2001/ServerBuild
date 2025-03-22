@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild;
 
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.serverbuild.ServerBuildCommand;
+import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileConfig;
 import me.xiaoying.serverbuild.gui.SimpleGuiManager;
@@ -37,7 +38,7 @@ public class ServerBuild extends JavaPlugin {
         ServerBuild.initialize();
 
         // bstats
-        if (FileConfig.SETTING_BSTATS)
+        if (ConfigCommon.SETTING_BSTATS)
             new Metrics(SBPlugin.getInstance(), 16512);
 
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
@@ -59,11 +60,11 @@ public class ServerBuild extends JavaPlugin {
         });
         ServerUtil.sendMessage("&b|=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—=—>");
         ServerUtil.sendMessage("&b|&6全局配置状态:", true);
-        if (FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_MESSAGE_ENABLE)
+        if (ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE)
             ServerUtil.sendMessage("&b|    &a全局词条(Message): &e已开启", true);
         else
             ServerUtil.sendMessage("&b|    &a全局词条(Message): &c未开启", true);
-        if (FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_VARIABLE_ENABLE)
+        if (ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_VARIABLE_ENABLE)
             ServerUtil.sendMessage("&b|    &a全局变量(Variable): &e已开启", true);
         else
             ServerUtil.sendMessage("&b|    &a全局变量(Variable): &c未开启", true);

@@ -69,11 +69,30 @@ public abstract class SCommand {
     }
 
     /**
+     * Get command's description
+     *
+     * @return command's description
+     */
+    public String getDescription() {
+        Command command = this.getClass().getAnnotation(Command.class);
+        return command.description();
+    }
+
+    /**
      * Get help command for this command
      *
      * @return ArrayList
      */
-    public abstract List<String> getHelpMessage();
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+
+        // master command
+
+
+
+
+        return null;
+    }
 
     /**
      * Perform command

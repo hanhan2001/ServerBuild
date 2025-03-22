@@ -44,8 +44,54 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory command(String command) {
+        this.string = this.string.replace("%command%", command);
+        return this;
+    }
+
+    public VariableFactory command_alias(String alias) {
+        this.string = this.string.replace("%command_aliases%", alias);
+        return this;
+    }
+
+    public VariableFactory command_alias(List<String> alias) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < alias.size(); i++) {
+            stringBuilder.append(alias.get(i));
+
+            if (i == alias.size() - 1)
+                break;
+
+            stringBuilder.append(", ");
+        }
+        this.string = this.string.replace("%command_aliases%", stringBuilder.toString());
+        return this;
+    }
+
+    public VariableFactory command_child_usage(List<String> child_usage) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < child_usage.size(); i++) {
+            stringBuilder.append(child_usage.get(i));
+
+            if (i == child_usage.size() - 1)
+                break;
+
+            stringBuilder.append("\n");
+        }
+
+        this.string = this.string.replace("%command_child_usage%", stringBuilder.toString());
+        return this;
+    }
+
     public VariableFactory date(String format) {
         this.string = this.string.replace("%date%", new SimpleDateFormat(format).format(new Date()));
+        return this;
+    }
+
+    public VariableFactory description(String description) {
+        this.string = this.string.replace("%description%", description);
         return this;
     }
 

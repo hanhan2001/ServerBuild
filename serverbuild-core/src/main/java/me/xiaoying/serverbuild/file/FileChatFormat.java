@@ -1,5 +1,7 @@
 package me.xiaoying.serverbuild.file;
 
+import me.xiaoying.serverbuild.common.ConfigCommon;
+
 import java.util.List;
 
 /**
@@ -43,8 +45,8 @@ public class FileChatFormat extends SFile {
     public void onLoad() {
         FileChatFormat.ENABLE = this.getConfiguration().getBoolean("Enable");
 
-        FileChatFormat.SETTING_DATEFORMAT = FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_VARIABLE_ENABLE ? FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT : this.getConfiguration().getString("Setting.DateFormat");
-        FileChatFormat.SETTING_PREFIX = FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_VARIABLE_ENABLE ? FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX : this.getConfiguration().getString("Setting.Prefix");
+        FileChatFormat.SETTING_DATEFORMAT = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_VARIABLE_ENABLE ? ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT : this.getConfiguration().getString("Setting.DateFormat");
+        FileChatFormat.SETTING_PREFIX = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_VARIABLE_ENABLE ? ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX : this.getConfiguration().getString("Setting.Prefix");
 
         FileChatFormat.MUTE_DEFAULT_TIME = this.getConfiguration().getString("Mute.DefaultTime");
         FileChatFormat.MUTE_MESSAGE = this.getConfiguration().getString("Mute.Message");
@@ -64,9 +66,9 @@ public class FileChatFormat extends SFile {
         FileChatFormat.BLACK_TERMS_MESSAGE = this.getConfiguration().getString("BlackTerms.Message");
         FileChatFormat.BLACK_TERMS_TERMS = this.getConfiguration().getStringList("BlackTerms.Terms");
 
-        FileChatFormat.MESSAGE_RELOAD = FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_MESSAGE_ENABLE ? FileConfig.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
-        FileChatFormat.MESSAGE_MISSING_PERMISSION = FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_MESSAGE_ENABLE ? FileConfig.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
-        FileChatFormat.MESSAGE_HELP = FileConfig.OVERALL_SITUATION_ENABLE && FileConfig.OVERALL_SITUATION_MESSAGE_ENABLE ? FileConfig.OVERALL_SITUATION_MESSAGE_HELP : this.getConfiguration().getString("Message.Help");
+        FileChatFormat.MESSAGE_RELOAD = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
+        FileChatFormat.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
+        FileChatFormat.MESSAGE_HELP = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP : this.getConfiguration().getString("Message.Help");
         FileChatFormat.MESSAGE_MUTE_WRONG = this.getConfiguration().getString("Message.MuteWrong");
         FileChatFormat.MESSAGE_MUTE_SUCCESS = this.getConfiguration().getString("Message.MuteSuccess");
         FileChatFormat.MESSAGE_NOT_FOUND_PLAYER = this.getConfiguration().getString("Message.NotFoundPlayer");

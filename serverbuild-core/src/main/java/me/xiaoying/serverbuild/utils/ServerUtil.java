@@ -1,5 +1,6 @@
 package me.xiaoying.serverbuild.utils;
 
+import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.file.FileConfig;
 import me.xiaoying.sql.MysqlFactory;
@@ -243,10 +244,10 @@ public class ServerUtil {
 
     public static SqlFactory getSqlFactory() {
         SqlFactory sqlFactory;
-        switch (FileConfig.SETTING_DATA_TYPE.toUpperCase(Locale.ENGLISH)) {
+        switch (ConfigCommon.SETTING_DATA_TYPE.toUpperCase(Locale.ENGLISH)) {
             default:
             case "SQLITE":
-                File sqlite = new File(FileConfig.SETTING_DATA_SQLITE_DATAPATH);
+                File sqlite = new File(ConfigCommon.SETTING_DATA_SQLITE_DATAPATH);
                 if (!sqlite.getParentFile().exists())
                     sqlite.getParentFile().mkdirs();
                 if (!sqlite.exists()) {
@@ -259,11 +260,11 @@ public class ServerUtil {
                 sqlFactory = new SqliteFactory(sqlite);
                 break;
             case "MYSQL":
-                sqlFactory = new MysqlFactory(FileConfig.SETTING_DATA_MYSQL_HOST,
-                        FileConfig.SETTING_DATA_MYSQL_PORT,
-                        FileConfig.SETTING_DATA_MYSQL_DATABASE,
-                        FileConfig.SETTING_DATA_MYSQL_USERNAME,
-                        FileConfig.SETTING_DATA_MYSQL_PASSWORD);
+                sqlFactory = new MysqlFactory(ConfigCommon.SETTING_DATA_MYSQL_HOST,
+                        ConfigCommon.SETTING_DATA_MYSQL_PORT,
+                        ConfigCommon.SETTING_DATA_MYSQL_DATABASE,
+                        ConfigCommon.SETTING_DATA_MYSQL_USERNAME,
+                        ConfigCommon.SETTING_DATA_MYSQL_PASSWORD);
                 break;
         }
         return sqlFactory;

@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild.command.serverbuild.commands.modulecommand;
 
 import me.xiaoying.serverbuild.command.Command;
 import me.xiaoying.serverbuild.command.SCommand;
+import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileConfig;
@@ -17,9 +18,9 @@ public class SBModuleOpenCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {
         List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_HELP)
-                .prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX)
-                .date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
+        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
+                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
+                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
                 .color()
                 .toString());
         return list;
@@ -28,24 +29,24 @@ public class SBModuleOpenCommand extends SCommand {
     @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("sb.admin") && !sender.isOp()) {
-            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).placeholder(sender).color().toString());
+            sender.sendMessage(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION).prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX).date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT).placeholder(sender).color().toString());
             return;
         }
 
         Module module;
         if ((module = SBPlugin.getModuleManager().getModule(args[0])) == null) {
-            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_NOT_FOUND).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(args[0]).placeholder(sender).color().toString());
+            sender.sendMessage(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_MODULE_NOT_FOUND).prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX).date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(args[0]).placeholder(sender).color().toString());
             return;
         }
 
         if (module.isEnabled()) {
-            sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPENED).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
+            sender.sendMessage(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_MODULE_OPENED).prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX).date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
             return;
         }
 
         module.init();
         module.enable();
-        sender.sendMessage(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_MODULE_OPEN).prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX).date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
+        sender.sendMessage(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_MODULE_OPEN).prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX).date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT).module(module).placeholder(sender).color().toString());
     }
 
     @Override

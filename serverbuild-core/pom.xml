@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>me.xiaoying</groupId>
-        <artifactId>serverbuild-parent</artifactId>
+        <artifactId>serverbuild</artifactId>
         <version>1.0.1</version>
     </parent>
 
@@ -94,13 +94,19 @@
     </repositories>
 
     <dependencies>
-        <!--ServerBuild-Core -->
+        <!-- serverbuild-common -->
+        <dependency>
+            <groupId>me.xiaoying</groupId>
+            <artifactId>serverbuild-common</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <!-- serverbuild-common -->
         <dependency>
             <groupId>me.xiaoying</groupId>
             <artifactId>serverbuild-api</artifactId>
             <version>1.0.1</version>
         </dependency>
-        <!--Spigot -->
+        <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>

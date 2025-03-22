@@ -7,6 +7,7 @@ import me.xiaoying.serverbuild.command.serverbuild.commands.SBModuleCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBReloadCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBScriptCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBStatusCommand;
+import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileConfig;
 import org.bukkit.command.CommandSender;
@@ -31,9 +32,9 @@ public class ServerBuildCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {
         List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(FileConfig.OVERALL_SITUATION_MESSAGE_HELP)
-                .prefix(FileConfig.OVERALL_SITUATION_VARIABLE_PREFIX)
-                .date(FileConfig.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
+        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
+                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
+                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
                 .color()
                 .toString());
         return list;
