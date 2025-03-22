@@ -32,7 +32,7 @@ public abstract class Scheduler {
      *
      * @param type Scheduler's type
      */
-    public Scheduler(Scheduler.Type type) {
+    public Scheduler(Type type) {
         this.type = type;
     }
 
@@ -42,7 +42,7 @@ public abstract class Scheduler {
      * @param type Scheduler's type
      * @param delay Delay
      */
-    public Scheduler(Scheduler.Type type, long delay) {
+    public Scheduler(Type type, long delay) {
         this.type = type;
         this.delay = delay;
     }

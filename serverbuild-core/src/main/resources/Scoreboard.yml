@@ -1,0 +1,37 @@
+#计分板
+
+#开关
+Enable: false
+
+#计分板设置
+Scoreboard:
+  #分组名称
+  #可以通过 /board show [分组名称] 选择显示哪个计分板
+  Admin:
+    #计分板权限
+    #若玩家不存在此权限则不显示此计分板
+    Permission: "sb.admin"
+    #优先级，数值越低优先级越高
+    #用于默认启用哪个计分板
+    Priority: 0
+    #计分板内容
+    Content:
+      - "&6作者: 筱樱"
+      - "&6玩家: %player_name%"
+      - "&6计分板: &c&lAdmin"
+      - "&6世界: %multiworld_world_alias%"
+  #分组名称
+  #可以通过 /board show [分组名称] 选择显示哪个计分板
+  Default:
+    #计分板权限
+    #若玩家不存在此权限则不显示此计分板
+    Permission: "sb.default"
+    #优先级，数值越低优先级越高
+    #用于默认启用哪个计分板
+    Priority: 1
+    #计分板内容
+    Content:
+      - "&6作者QQ: 764932129"
+      - "&6玩家: %player_name%"
+      - "&6计分板: &a&lDefault"
+      - "&6世界: %multiworld_world_alias%"

@@ -1,0 +1,81 @@
+#计分板动画配置文件
+
+#动画名称
+#在计分板中调用就是 %animation:动画名称%
+#可以按照相同格式在下方随意添加动画
+anim1:
+  #更新频率(单位: ms)
+  UpdateInterval: 200
+  #帧内容
+  #每次更新读取下一行内容
+  Content:
+    - "&e-&f--------------"
+    - "-&e-&f-------------"
+    - "--&e-&f------------"
+    - "---&e-&f-----------"
+    - "----&e-&f----------"
+    - "-----&e-&f---------"
+    - "------&e-&f--------"
+    - "-------&e-&f-------"
+    - "--------&e-&f------"
+    - "---------&e-&f-----"
+    - "----------&e-&f----"
+    - "-----------&e-&f---"
+    - "------------&e-&f--"
+    - "-------------&e-&f-"
+    - "--------------&e-"
+    - "-------------&e-&f-"
+    - "------------&e-&f--"
+    - "-----------&e-&f---"
+    - "----------&e-&f----"
+    - "---------&e-&f-----"
+    - "--------&e-&f------"
+    - "-------&e-&f-------"
+    - "------&e-&f--------"
+    - "-----&e-&f---------"
+    - "----&e-&f----------"
+    - "---&e-&f-----------"
+    - "--&e-&f------------"
+    - "-&e-&f-------------"
+    - "&e-&f--------------"
+#动画名称
+#在计分板中调用就是 %animation:动画名称%
+anim2:
+  #更新频率(单位: ms)
+  UpdateInterval: 200
+  #帧内容
+  #每次更新读取下一行内容
+  Content:
+    - "&fh&ettps://baidu.com"
+    - "&eh&ft&etps://baidu.com"
+    - "&eht&ft&eps://baidu.com"
+    - "&ehtt&fp&es://baidu.com"
+    - "&ehttp&fs&e://baidu.com"
+    - "&ehttps&f:&e//baidu.com"
+    - "&ehttps:&f/&e/baidu.com"
+    - "&ehttps:/&f/&ebaidu.com"
+    - "&ehttps://&fb&eaidu.com"
+    - "&ehttps://b&fa&eidu.com"
+    - "&ehttps://ba&fi&edu.com"
+    - "&ehttps://bai&fd&eu.com"
+    - "&ehttps://baid&fu&e.com"
+    - "&ehttps://baidu&f.&ecom"
+    - "&ehttps://baidu.&fc&eom"
+    - "&ehttps://baidu.c&fo&em"
+    - "&ehttps://baidu.co&fm"
+    - "&ehttps://baidu.c&fo&em"
+    - "&ehttps://baidu.&fc&eom"
+    - "&ehttps://baidu&f.&ecom"
+    - "&ehttps://baid&fu&e.com"
+    - "&ehttps://bai&fd&eu.com"
+    - "&ehttps://ba&fi&edu.com"
+    - "&ehttps://b&fa&eidu.com"
+    - "&ehttps://&fb&eaidu.com"
+    - "&ehttps:/&f/&ebaidu.com"
+    - "&ehttps:&f/&e/baidu.com"
+    - "&ehttps&f:&e//baidu.com"
+    - "&ehttp&fs&e://baidu.com"
+    - "&ehtt&fp&es://baidu.com"
+    - "&eht&ft&eps://baidu.com"
+    - "&eh&ft&etps://baidu.com"
+    - "&fh&ettps://baidu.com"

@@ -20,14 +20,14 @@ public abstract class JavaModule extends Module {
             ((ModuleClassLoader) classLoader).initialize(this);
     }
 
-    public JavaModule(JavaModuleLoader loader, ModuleDescription description, java.io.File file, ModuleClassLoader classLoader) {
+    public JavaModule(JavaModuleLoader loader, ModuleDescription description, File file, ModuleClassLoader classLoader) {
         this.loader = loader;
         this.description = description;
         this.classLoader = classLoader;
         this.file = file;
     }
 
-    public void initialize(JavaModuleLoader loader, ModuleDescription description, java.io.File file, ModuleClassLoader classLoader) {
+    public void initialize(JavaModuleLoader loader, ModuleDescription description, File file, ModuleClassLoader classLoader) {
         this.loader = loader;
         this.description = description;
         this.classLoader = classLoader;

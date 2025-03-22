@@ -24,6 +24,20 @@ Setting:
       UserName: "root"
       #密码
       Password: "root"
+  #默认 Command 帮助模板
+  Command:
+    #主题模板
+    Main: |
+      
+      |- %command% -> %description%
+          ├─ Alias: %command_aliases%
+          └─ Usage:
+      %command_child_usage%
+      &r
+    #子命令帮助
+    Child: |
+              ├─ /%command% %command_child%  -> %command_child_description%
+      
 
 #全局配置
 OverallSituation:
