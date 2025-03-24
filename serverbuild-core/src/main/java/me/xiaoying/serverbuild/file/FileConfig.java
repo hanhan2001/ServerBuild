@@ -22,7 +22,12 @@ public class FileConfig extends SFile {
         ConfigCommon.SETTING_DATA_MYSQL_PASSWORD = this.getConfiguration().getString("Setting.Data.Mysql.Password");
 
         ConfigCommon.SETTING_COMMAND_MAIN = this.getConfiguration().getString("Setting.Command.Main");
-        ConfigCommon.SETTING_COMMAND_CHILD = this.getConfiguration().getString("Setting.Command.Child");
+        ConfigCommon.SETTING_COMMAND_USAGE_PARAMETER = this.getConfiguration().getString("Setting.Command.Usage.Parameter");
+        ConfigCommon.SETTING_COMMAND_USAGE_MISSING_PARAMETER = this.getConfiguration().getString("Setting.Command.Usage.MissingParameter");
+        ConfigCommon.SETTING_COMMAND_PARAMETER_DEFAULT = this.getConfiguration().getString("Setting.Command.Parameter.Default");
+        ConfigCommon.SETTING_COMMAND_PARAMETER_MISSING = this.getConfiguration().getString("Setting.Command.Parameter.Missing");
+        ConfigCommon.SETTING_COMMAND_PARAMETER_INFINITY = this.getConfiguration().getString("Setting.Command.Parameter.Infinity");
+        ConfigCommon.SETTING_COMMAND_MISSING_DESCRIPTION = this.getConfiguration().getString("Setting.Command.MissingDescription");
 
         ConfigCommon.OVERALL_SITUATION_ENABLE = this.getConfiguration().getBoolean("OverallSituation.Enable");
         ConfigCommon.OVERALL_SITUATION_VARIABLE_ENABLE = this.getConfiguration().getBoolean("OverallSituation.Variable.Enable");
