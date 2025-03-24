@@ -15,23 +15,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Command(values = "module", length = 2)
+@Command(values = "module", length = 2, parameters = {"info/off/open", "Module"})
 public class SBModuleCommand extends SCommand {
     public SBModuleCommand() {
         this.registerCommand(new SBModuleOpenCommand());
         this.registerCommand(new SBModuleOffCommand());
         this.registerCommand(new SBModuleInfoCommand());
-    }
-
-    @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
-                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
-                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
-                .color()
-                .toString());
-        return list;
     }
 
     @Override

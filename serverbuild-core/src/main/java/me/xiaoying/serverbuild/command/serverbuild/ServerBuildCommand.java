@@ -7,9 +7,6 @@ import me.xiaoying.serverbuild.command.serverbuild.commands.SBModuleCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBReloadCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBScriptCommand;
 import me.xiaoying.serverbuild.command.serverbuild.commands.SBStatusCommand;
-import me.xiaoying.serverbuild.common.ConfigCommon;
-import me.xiaoying.serverbuild.factory.VariableFactory;
-import me.xiaoying.serverbuild.file.FileConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -20,24 +17,13 @@ import java.util.List;
 /**
  * ServerBuild Command
  */
-@Command(values = {"sb", "serverbuild"}, length = -1)
+@Command(values = {"sb", "serverbuild"}, length = -1, description = "ServerBuild 主命令")
 public class ServerBuildCommand extends SCommand {
     public ServerBuildCommand() {
         this.registerCommand(new SBReloadCommand());
         this.registerCommand(new SBScriptCommand());
         this.registerCommand(new SBStatusCommand());
         this.registerCommand(new SBModuleCommand());
-    }
-
-    @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
-                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
-                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
-                .color()
-                .toString());
-        return list;
     }
 
     @Override
@@ -72,7 +58,7 @@ public class ServerBuildCommand extends SCommand {
             return;
 
         // 未执行则发出帮助信息
-        this.getHelpMessage().forEach(sender::sendMessage);
+        this.getRegisteredCommands().get(head).get(0).getSubCommand().getHelpMessage().forEach(sender::sendMessage);
     }
 
     @Override

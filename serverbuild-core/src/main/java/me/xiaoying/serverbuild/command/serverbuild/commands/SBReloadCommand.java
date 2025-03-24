@@ -6,13 +6,12 @@ import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
-import me.xiaoying.serverbuild.file.FileConfig;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(values = "reload", length = 0)
+@Command(values = "reload", length = 0, description = "重载 ServerBuild")
 public class SBReloadCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {
