@@ -27,17 +27,32 @@ Setting:
   #默认 Command 帮助模板
   Command:
     #主题模板
-    Main: |
+    Main: |-
       
-      |- %command% -> %description%
-          ├─ Alias: %command_aliases%
-          └─ Usage:
-      %command_child_usage%
+      &c! [帮助信息]
+      &c|- &b%command% &8-> &a%description%
+         &8├─ &eAlias: %command_aliases%
+         &8└─ &eUsage: 
+      %command_usage%
       &r
     #子命令帮助
-    Child: |
-              ├─ /%command% %command_child%  -> %command_child_description%
-      
+    Usage:
+      #当命令存在传递参数时显示的内容
+      Parameter: |-
+        \r\r\r\r\r\r&8├─ &b/%command% &7%parameter% &8-> &a%description%
+      #当命令不存在传递参数时显示的内容
+      MissingParameter: |-
+        \r\r\r\r\r\r&8├─ &b/%command% &8-> &a%description%
+    #当命令没有描述当前参数应该填写什么或是什么类型的时候应该实体用这个代替
+    Parameter:
+      #正常的命令传参提示
+      Default: "< %parameter% >"
+      #当命令没有配置对应的传递参数则应该显示内容
+      Missing: "< %amount% 个参数>"
+      #当命令设置的传递参数需要无限个时显示内容
+      Infinity: "< Infinity 个参数>"
+    #当没有描述的时候应该显示什么
+    MissingDescription: "无描述"
 
 #全局配置
 OverallSituation:
