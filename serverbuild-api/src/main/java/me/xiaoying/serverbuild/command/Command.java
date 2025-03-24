@@ -44,4 +44,11 @@ public @interface Command {
      * @return command's permissions
      */
     String[] permission() default "";
+
+    /**
+     * Get command's parameter<br>
+     *
+     * @return command's parameter description
+     */
+    String[] parameters() default "";
 }
