@@ -29,6 +29,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory amount(String amount) {
+        this.string = this.string.replace("%amount%", amount);
+        return this;
+    }
+
     public VariableFactory chunks(int chunks) {
         this.string = this.string.replace("%chunks%", String.valueOf(chunks));
         return this;
@@ -69,19 +74,24 @@ public class VariableFactory {
         return this;
     }
 
-    public VariableFactory command_child_usage(List<String> child_usage) {
+    public VariableFactory command_usage(List<String> usage) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < child_usage.size(); i++) {
-            stringBuilder.append(child_usage.get(i));
+        for (int i = 0; i < usage.size(); i++) {
+            stringBuilder.append(usage.get(i));
 
-            if (i == child_usage.size() - 1)
+            if (i == usage.size() - 1)
                 break;
 
             stringBuilder.append("\n");
         }
 
-        this.string = this.string.replace("%command_child_usage%", stringBuilder.toString());
+        this.command_usage(stringBuilder.toString());
+        return this;
+    }
+
+    public VariableFactory command_usage(String usage) {
+        this.string = this.string.replace("%command_usage%", usage);
         return this;
     }
 
@@ -167,6 +177,11 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory parameter(String parameter) {
+        this.string = this.string.replace("%parameter%", parameter);
+        return this;
+    }
+
     public VariableFactory placeholder(CommandSender sender) {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null)
             return this;
@@ -216,6 +231,8 @@ public class VariableFactory {
 
     @Override
     public String toString() {
+        this.string = this.string.replace("\\r", " ");
+        this.string = this.string.replace("\\n", "\n");
         return this.string;
     }
 }
