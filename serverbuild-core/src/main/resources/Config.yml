@@ -97,14 +97,3 @@ OverallSituation:
         &7|- &e作者: &a%module_info_author%
         &7|- &e版本: &a%module_info_version%
         &r
-    #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
-    Help: |
-      
-      &a<-=-=-=-=-=-=-=-=-=-= &e&lServerBuild &a=-=-=-=-=-=-=-=-=-=->
-      &b/sb reload &7重载
-      &b/sb status &7查看插件 Module 状态
-      &b/sb script [script] [...] &7执行脚本命令
-      &b/sb module info [Module] &7查看 Module 信息
-      &b/sb module open [Module] &7启动 Module
-      &b/sb module off [Module] &7关闭 Module
-      &r
