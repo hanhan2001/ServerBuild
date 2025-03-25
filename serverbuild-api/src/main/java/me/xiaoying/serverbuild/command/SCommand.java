@@ -60,6 +60,8 @@ public abstract class SCommand {
             return;
         }
 
+        subCommand.setParent(this);
+
         for (String s : command.values()) {
             List<RegisteredCommand> list = new ArrayList<>();
             for (int i : command.length())
@@ -127,7 +129,7 @@ public abstract class SCommand {
         SCommand parent = this.getParent();
 
         while (parent != null) {
-            commandHead = values.get(0) + " " + commandHead;
+            commandHead = parent.getValues().get(0) + " " + commandHead;
             parent = parent.getParent();
         }
 
