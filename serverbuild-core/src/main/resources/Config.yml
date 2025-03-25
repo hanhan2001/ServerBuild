@@ -31,18 +31,18 @@ Setting:
       
       &c! [帮助信息]
       &c|- &b%command% &8-> &a%description%
-         &8├─ &eAlias: %command_aliases%
-         &8└─ &eUsage: 
+         &8├─ &6Alias: &e%command_aliases%
+         &8└─ &6Usage: 
       %command_usage%
       &r
     #子命令帮助
     Usage:
       #当命令存在传递参数时显示的内容
       Parameter: |-
-        \r\r\r\r\r\r&8├─ &b/%command% &7%parameter% &8-> &a%description%
+        \r\r\r\r\r\r\r\r\r\r&8├─ &b/%command% &7%parameter% &8-> &a%description%
       #当命令不存在传递参数时显示的内容
       MissingParameter: |-
-        \r\r\r\r\r\r&8├─ &b/%command% &8-> &a%description%
+        \r\r\r\r\r\r\r\r\r\r&8├─ &b/%command% &8-> &a%description%
     #当命令没有描述当前参数应该填写什么或是什么类型的时候应该实体用这个代替
     Parameter:
       #正常的命令传参提示
