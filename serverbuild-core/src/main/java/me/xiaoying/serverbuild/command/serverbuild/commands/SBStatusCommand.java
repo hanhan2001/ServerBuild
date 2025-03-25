@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(values = "status", length = 0)
+@Command(values = "status", length = 0, description = "查看所有 Module 状态")
 public class SBStatusCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {

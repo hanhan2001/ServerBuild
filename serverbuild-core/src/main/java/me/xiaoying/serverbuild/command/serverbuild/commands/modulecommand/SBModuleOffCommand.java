@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Command(values = "off", length = 1)
+@Command(values = "off", length = 1, description = "关闭 Module")
 public class SBModuleOffCommand extends SCommand {
     @Override
     public void performCommand(CommandSender sender, String[] args) {

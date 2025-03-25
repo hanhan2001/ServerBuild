@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Command(values = "open", length = 1)
+@Command(values = "open", length = 1, description = "开启 Module")
 public class SBModuleOpenCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {

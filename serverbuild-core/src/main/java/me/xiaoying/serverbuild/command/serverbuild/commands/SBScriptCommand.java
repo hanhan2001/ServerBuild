@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Command(values = "script", length = -1)
+@Command(values = "script", length = -1, description = "执行 Script 脚本")
 public class SBScriptCommand extends SCommand {
     @Override
     public List<String> getHelpMessage() {

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Command(values = "module", length = 2, parameters = {"info/off/open", "Module"})
+@Command(values = "module", length = 2, parameters = {"info/off/open", "Module"}, description = "操作 Module")
 public class SBModuleCommand extends SCommand {
     public SBModuleCommand() {
         this.registerCommand(new SBModuleOpenCommand());

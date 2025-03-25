@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Command(values = "info", length = 1, parameters = "module")
+@Command(values = "info", length = 1, parameters = "module", description = "查看 Module 信息")
 public class SBModuleInfoCommand extends SCommand {
     @Override
     public void performCommand(CommandSender sender, String[] args) {
