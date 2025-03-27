@@ -180,6 +180,7 @@ public abstract class SCommand {
             list.add(masterFactory.prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
                     .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
                     .command_usage(usageFactory.command(commandHead).parameter(parameterBuilder.toString()).toString())
+                    .description(this.getDescription())
                     .color()
                     .toString());
             return list;
@@ -243,6 +244,7 @@ public abstract class SCommand {
         list.add(masterFactory.prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
                 .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
                 .command_usage(usageList)
+                .description(this.getDescription())
                 .color()
                 .toString());
 
