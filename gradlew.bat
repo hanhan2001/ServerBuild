@@ -1,4 +1,5 @@
 chcp 65001
+cls
 
 @rem
 @rem Copyright 2015 the original author or authors.
