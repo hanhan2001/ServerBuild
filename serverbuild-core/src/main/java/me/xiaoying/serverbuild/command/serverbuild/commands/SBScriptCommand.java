@@ -5,7 +5,6 @@ import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
-import me.xiaoying.serverbuild.file.FileConfig;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,17 +15,6 @@ import java.util.Locale;
 
 @Command(values = "script", length = -1, description = "执行 Script 脚本")
 public class SBScriptCommand extends SCommand {
-    @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
-                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
-                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
-                .color()
-                .toString());
-        return list;
-    }
-
     @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!ServerUtil.hasPermission(sender, "sb.admin", "sb.script") && !sender.isOp()) {
