@@ -25,7 +25,7 @@ public class FileWelcomeMessage extends SFile {
 
         FileWelcomeMessage.MESSAGE_RELOAD = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
         FileWelcomeMessage.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
-        FileWelcomeMessage.MESSAGE_HELP = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP : this.getConfiguration().getString("Message.Help");
+        FileWelcomeMessage.MESSAGE_HELP = this.getConfiguration().getString("Message.Help");
     }
 
     @Override

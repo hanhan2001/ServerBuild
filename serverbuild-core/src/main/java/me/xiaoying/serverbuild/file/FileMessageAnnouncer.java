@@ -32,7 +32,7 @@ public class FileMessageAnnouncer extends SFile {
 
         FileMessageAnnouncer.MESSAGE_RELOAD = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
         FileMessageAnnouncer.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
-        FileMessageAnnouncer.MESSAGE_HELP = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP : this.getConfiguration().getString("Message.Help");
+        FileMessageAnnouncer.MESSAGE_HELP = this.getConfiguration().getString("Message.Help");
     }
 
     @Override
