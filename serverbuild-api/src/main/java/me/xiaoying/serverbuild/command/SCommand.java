@@ -152,19 +152,29 @@ public abstract class SCommand {
             // get the biggest length of this command
             int biggest = 0;
             for (Integer length : this.getLengths()) {
+                if (length == -1) {
+                    biggest = -1;
+                    break;
+                }
+
                 if (length < biggest)
                     continue;
 
                 biggest = length;
             }
 
-            for (int i = 0; i < biggest; i++) {
-                parameterBuilder.append(new VariableFactory(ConfigCommon.SETTING_COMMAND_PARAMETER_DEFAULT).parameter(parameters.get(i)));
+            if (biggest == -1) {
+                usageFactory = new VariableFactory(ConfigCommon.SETTING_COMMAND_USAGE_PARAMETER);
+                parameterBuilder.append(ConfigCommon.SETTING_COMMAND_PARAMETER_INFINITY);
+            } else {
+                for (int i = 0; i < biggest; i++) {
+                    parameterBuilder.append(new VariableFactory(ConfigCommon.SETTING_COMMAND_PARAMETER_DEFAULT).parameter(parameters.get(i)));
 
-                if (i >= parameters.size())
-                    continue;
+                    if (i >= parameters.size())
+                        continue;
 
-                parameterBuilder.append(" ");
+                    parameterBuilder.append(" ");
+                }
             }
 
             list.add(masterFactory.prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
@@ -199,29 +209,32 @@ public abstract class SCommand {
                 description = command.getSubCommand().getDescription();
             }
 
-            VariableFactory usageFactory = parameters.isEmpty() || (parameters.size() == 1 && parameters.get(0).isEmpty()) ? new VariableFactory(ConfigCommon.SETTING_COMMAND_USAGE_MISSING_PARAMETER) : new VariableFactory(ConfigCommon.SETTING_COMMAND_USAGE_PARAMETER);
+            VariableFactory usageFactory = (parameters.isEmpty() && biggest != -1) || (parameters.size() == 1 && parameters.get(0).isEmpty()) ? new VariableFactory(ConfigCommon.SETTING_COMMAND_USAGE_MISSING_PARAMETER) : new VariableFactory(ConfigCommon.SETTING_COMMAND_USAGE_PARAMETER);
 
-            if (biggest == -1)
+            if (biggest == -1) {
+                usageFactory = new VariableFactory(ConfigCommon.SETTING_COMMAND_USAGE_PARAMETER);
                 parameterBuilder.append(ConfigCommon.SETTING_COMMAND_PARAMETER_INFINITY);
-            else {
-                for (int i = 0; i < biggest; i++) {
-                    if (parameters.isEmpty())
-                        break;
+                usageList.add(usageFactory.command(commandHead + " " + s).parameter(parameterBuilder.toString()).description(description).toString());
+                continue;
+            }
 
-                    String parameter = parameters.get(i);
+            for (int i = 0; i < biggest; i++) {
+                if (parameters.isEmpty())
+                    break;
 
-                    if (!parameter.isEmpty())
-                        parameterBuilder.append(new VariableFactory(ConfigCommon.SETTING_COMMAND_PARAMETER_DEFAULT).parameter(parameter));
+                String parameter = parameters.get(i);
 
-                    if (i >= parameters.size() - 1) {
-                        int result = Math.abs(biggest - parameters.size());
-                        if (result != 0)
-                            parameterBuilder.append(" ").append(new VariableFactory(ConfigCommon.SETTING_COMMAND_PARAMETER_MISSING).amount(Math.abs(biggest - parameters.size())));
-                        break;
-                    }
+                if (!parameter.isEmpty())
+                    parameterBuilder.append(new VariableFactory(ConfigCommon.SETTING_COMMAND_PARAMETER_DEFAULT).parameter(parameter));
 
-                    parameterBuilder.append(" ");
+                if (i >= parameters.size() - 1) {
+                    int result = Math.abs(biggest - parameters.size());
+                    if (result != 0)
+                        parameterBuilder.append(" ").append(new VariableFactory(ConfigCommon.SETTING_COMMAND_PARAMETER_MISSING).amount(Math.abs(biggest - parameters.size())));
+                    break;
                 }
+
+                parameterBuilder.append(" ");
             }
 
             usageList.add(usageFactory.command(commandHead + " " + s).parameter(parameterBuilder.toString()).description(description).toString());
