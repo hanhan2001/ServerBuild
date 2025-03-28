@@ -15,17 +15,6 @@ import java.util.List;
 @Command(values = "reload", length = 0)
 public class MAReloadCommand extends SCommand {
     @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(FileMessageAnnouncer.MESSAGE_HELP)
-                .prefix(FileMessageAnnouncer.SETTING_PREFIX)
-                .date(FileMessageAnnouncer.SETTING_DATEFORMAT)
-                .color()
-                .toString());
-        return list;
-    }
-
-    @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!ServerUtil.hasPermission(sender, "sb.admin", "sb.wm.admin") && !sender.isOp()) {
             sender.sendMessage(new VariableFactory(FileMessageAnnouncer.MESSAGE_MISSING_PERMISSION)

@@ -14,8 +14,7 @@ public class FileMessageAnnouncer extends SFile {
     public static int MESSAGE_ANNOUNCER_DELAY;
 
     public static String MESSAGE_RELOAD,
-            MESSAGE_MISSING_PERMISSION,
-            MESSAGE_HELP;
+            MESSAGE_MISSING_PERMISSION;
 
     public FileMessageAnnouncer() {
         super("MessageAnnouncer.yml");
@@ -32,7 +31,6 @@ public class FileMessageAnnouncer extends SFile {
 
         FileMessageAnnouncer.MESSAGE_RELOAD = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
         FileMessageAnnouncer.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
-        FileMessageAnnouncer.MESSAGE_HELP = this.getConfiguration().getString("Message.Help");
     }
 
     @Override
