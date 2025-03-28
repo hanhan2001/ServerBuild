@@ -15,17 +15,6 @@ import java.util.List;
 @Command(values = "command", length = 1)
 public class MessageAnnouncerCommand extends SCommand {
     @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(FileMessageAnnouncer.MESSAGE_HELP)
-                .prefix(FileMessageAnnouncer.SETTING_PREFIX)
-                .date(FileMessageAnnouncer.SETTING_DATEFORMAT)
-                .color()
-                .toString());
-        return list;
-    }
-
-    @Override
     public void performCommand(CommandSender sender, String[] strings) {
         // 判断命令长度
         if (strings.length == 0) {
