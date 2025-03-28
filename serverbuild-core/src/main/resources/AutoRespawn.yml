@@ -59,10 +59,3 @@ Message:
   NotFoundPlayer: "%prefix%&c找不到玩家"
   #操作完成
   Complete: "%prefix%&a执行完成!"
-  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
-  Help: |-
-    
-    &a<-=-=-=-=-=-=-=-=-=-= &e&lAutoRespawn &a=-=-=-=-=-=-=-=-=-=->
-    &b/ar reload &7重载 聊天格式
-    &b/ar respawn [玩家ID] &7为玩家重生
-    &f
