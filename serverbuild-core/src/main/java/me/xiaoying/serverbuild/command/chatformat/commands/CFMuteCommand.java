@@ -23,17 +23,6 @@ import java.util.Locale;
 @Command(values = "mute", length = {1, 2})
 public class CFMuteCommand extends SCommand {
     @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(FileChatFormat.MESSAGE_HELP)
-                .prefix(FileChatFormat.SETTING_PREFIX)
-                .date(FileChatFormat.SETTING_DATEFORMAT)
-                .color()
-                .toString());
-        return list;
-    }
-
-    @Override
     public void performCommand(CommandSender sender, String[] strings) {
         if (!ServerUtil.hasPermission(sender, "sb.admin", "sb.cf.admin") && !sender.isOp()) {
             sender.sendMessage(new VariableFactory(FileChatFormat.MESSAGE_MISSING_PERMISSION)

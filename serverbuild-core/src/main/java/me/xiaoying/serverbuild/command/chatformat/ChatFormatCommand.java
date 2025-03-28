@@ -22,17 +22,6 @@ public class ChatFormatCommand extends SCommand {
     }
 
     @Override
-    public List<String> getHelpMessage() {
-        List<String> list = new ArrayList<>();
-        list.add(new VariableFactory(FileChatFormat.MESSAGE_HELP)
-                        .prefix(FileChatFormat.SETTING_PREFIX)
-                        .date(FileChatFormat.SETTING_DATEFORMAT)
-                        .color()
-                        .toString());
-        return list;
-    }
-
-    @Override
     public void performCommand(CommandSender sender, String[] strings) {
         // 判断是否存在相应命令
         String head = strings[0];
