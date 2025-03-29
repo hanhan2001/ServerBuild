@@ -135,10 +135,3 @@ Message:
     &b/cf reload &7重载 聊天格式
     &b/cf mute [player] &7操作 禁言玩家
     &f
-  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
-  Help: |-
-
-    &a<-=-=-=-=-=-=-=-=-=-= &e&lChatFormat &a=-=-=-=-=-=-=-=-=-=->
-    &b/cf reload &7重载 聊天格式
-    &b/cf mute [player] &7操作 禁言玩家
-    &f
