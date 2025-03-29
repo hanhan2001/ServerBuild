@@ -19,6 +19,8 @@ public abstract class SCommand {
 
     private final Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
 
+    private List<String> permissions = new ArrayList<>();
+
     private String description = null;
 
     /**
@@ -128,6 +130,20 @@ public abstract class SCommand {
     public List<String> getParameters() {
         Command command = this.getClass().getAnnotation(Command.class);
         return new ArrayList<>(Arrays.asList(command.parameters()));
+    }
+
+    /**
+     * Get command's permissions
+     *
+     * @return command's permissions
+     */
+    public List<String> getPermissions() {
+        if (!this.permissions.isEmpty())
+            return this.permissions;
+
+        Command command = this.getClass().getAnnotation(Command.class);
+
+        return this.permissions = new ArrayList<>(Arrays.asList(command.permission()));
     }
 
     /**
