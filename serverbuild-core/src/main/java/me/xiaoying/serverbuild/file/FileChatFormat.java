@@ -34,7 +34,8 @@ public class FileChatFormat extends SFile {
             MESSAGE_MISSING_PERMISSION,
             MESSAGE_MUTE_WRONG,
             MESSAGE_MUTE_SUCCESS,
-            MESSAGE_NOT_FOUND_PLAYER;
+            MESSAGE_NOT_FOUND_PLAYER,
+            MESSAGE_HELP;
 
     public FileChatFormat() {
         super("ChatFormat.yml");
@@ -67,6 +68,7 @@ public class FileChatFormat extends SFile {
 
         FileChatFormat.MESSAGE_RELOAD = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
         FileChatFormat.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
+        FileChatFormat.MESSAGE_HELP = this.getConfiguration().getString("Message.Help");
         FileChatFormat.MESSAGE_MUTE_WRONG = this.getConfiguration().getString("Message.MuteWrong");
         FileChatFormat.MESSAGE_MUTE_SUCCESS = this.getConfiguration().getString("Message.MuteSuccess");
         FileChatFormat.MESSAGE_NOT_FOUND_PLAYER = this.getConfiguration().getString("Message.NotFoundPlayer");

@@ -24,6 +24,17 @@ public class ResolveLagCommand extends SCommand {
     }
 
     @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(FileResolveLag.MESSAGE_HELP)
+                .prefix(FileResolveLag.SETTING_PREFIX)
+                .date(FileResolveLag.SETTING_DATEFORMAT)
+                .color()
+                .toString());
+        return list;
+    }
+
+    @Override
     public void performCommand(CommandSender sender, String[] strings) {
         // 判断命令长度
         if (strings.length == 0) {

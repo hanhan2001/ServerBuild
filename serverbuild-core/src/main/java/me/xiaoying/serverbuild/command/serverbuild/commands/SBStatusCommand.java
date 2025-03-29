@@ -7,8 +7,22 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Command(values = "status", length = 0, description = "查看所有 Module 状态")
 public class SBStatusCommand extends SCommand {
+    @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
+                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
+                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
+                .color()
+                .toString());
+        return list;
+    }
+
     @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("sb.admin") && !sender.isOp()) {

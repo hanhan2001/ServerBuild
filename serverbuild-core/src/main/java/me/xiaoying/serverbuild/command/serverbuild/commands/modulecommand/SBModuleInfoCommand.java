@@ -12,8 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Command(values = "info", length = 1, parameters = "module", description = "查看 Module 信息")
+@Command(values = "info", length = 1, parameters = "module")
 public class SBModuleInfoCommand extends SCommand {
+    @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
+                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
+                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
+                .color()
+                .toString());
+        return list;
+    }
+
     @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!sender.hasPermission("sb.admin") && !sender.isOp()) {

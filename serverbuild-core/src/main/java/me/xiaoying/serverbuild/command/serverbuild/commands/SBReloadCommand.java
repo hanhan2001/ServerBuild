@@ -8,8 +8,22 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import org.bukkit.command.CommandSender;
 
-@Command(values = "reload", length = 0, description = "重载 ServerBuild")
+import java.util.ArrayList;
+import java.util.List;
+
+@Command(values = "reload", length = 0)
 public class SBReloadCommand extends SCommand {
+    @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP)
+                .prefix(ConfigCommon.OVERALL_SITUATION_VARIABLE_PREFIX)
+                .date(ConfigCommon.OVERALL_SITUATION_VARIABLE_DATEFORAMT)
+                .color()
+                .toString());
+        return list;
+    }
+
     @Override
     public void performCommand(CommandSender sender, String[] strings) {
         if (!sender.hasPermission("sb.admin") && !sender.isOp()) {

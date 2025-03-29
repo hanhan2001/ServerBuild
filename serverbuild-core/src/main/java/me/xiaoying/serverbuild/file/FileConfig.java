@@ -44,6 +44,7 @@ public class FileConfig extends SFile {
         ConfigCommon.OVERALL_SITUATION_MESSAGE_MODULE_OPEN = this.getConfiguration().getString("OverallSituation.Message.ModuleOpen");
         ConfigCommon.OVERALL_SITUATION_MESSAGE_MODULE_CLOSE = this.getConfiguration().getString("OverallSituation.Message.ModuleClose");
         ConfigCommon.OVERALL_SITUATION_MESSAGE_MODULE_INFO = this.getConfiguration().getString("OverallSituation.Message.ModuleInfo");
+        ConfigCommon.OVERALL_SITUATION_MESSAGE_HELP = this.getConfiguration().getString("OverallSituation.Message.Help");
     }
 
     @Override

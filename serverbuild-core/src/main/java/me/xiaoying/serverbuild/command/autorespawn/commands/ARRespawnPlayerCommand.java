@@ -9,8 +9,22 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Command(values = "respawn", length = 1)
 public class ARRespawnPlayerCommand extends SCommand {
+    @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(FileAutoRespawn.MESSAGE_HELP)
+                .prefix(FileAutoRespawn.SETTING_PREFIX)
+                .date(FileAutoRespawn.SETTING_DATEFORMAT)
+                .color()
+                .toString());
+        return list;
+    }
+
     @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!sender.isOp() && !ServerUtil.hasPermission(sender, "sb.admin", "sb.ar.admin")) {

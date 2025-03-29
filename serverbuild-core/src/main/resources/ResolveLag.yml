@@ -27,3 +27,19 @@ Message:
      &7 - &6区块: &e%chunks%
      &7 - &6实体: &e%entities%
     &r
+  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+  Help: |-
+    
+    &a<-=-=-=-=-=-=-=-=-=-= &e&lResolveLag &a=-=-=-=-=-=-=-=-=-=->
+    &b/rl reload &7重载
+    &b/rl entityclear clear [world] &7立即清理某个世界的实体，如果不选择世界则默认全世界
+    &b/rl state [world] &7查看世界状态
+    &f
+  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+  Help: |-
+
+    &a<-=-=-=-=-=-=-=-=-=-= &e&lResolveLag &a=-=-=-=-=-=-=-=-=-=->
+    &b/rl reload &7重载
+    &b/rl entityclear clear [world] &7立即清理某个世界的实体，如果不选择世界则默认全世界
+    &b/rl state [world] &7查看世界状态
+    &f

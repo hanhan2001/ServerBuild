@@ -11,7 +11,8 @@ public class FileAutoRespawn extends SFile {
     public static String MESSAGE_RELOAD,
             MESSAGE_MISSING_PERMISSION,
             MESSAGE_NOT_FOUND_PLAYER,
-            MESSAGE_COMPLETE;
+            MESSAGE_COMPLETE,
+            MESSAGE_HELP;
 
     public static String AUTO_RESPAWN_TYPE;
 
@@ -40,6 +41,7 @@ public class FileAutoRespawn extends SFile {
         FileAutoRespawn.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.MissingPermission");
         FileAutoRespawn.MESSAGE_NOT_FOUND_PLAYER = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.NotFoundPlayer");
         FileAutoRespawn.MESSAGE_COMPLETE = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_COMPLETE : this.getConfiguration().getString("Message.Complete");
+        FileAutoRespawn.MESSAGE_HELP = this.getConfiguration().getString("Message.Help");
 
         FileAutoRespawn.AUTO_RESPAWN_TYPE = this.getConfiguration().getString("AutoRespawn.Type");
 

@@ -16,6 +16,17 @@ import java.util.Locale;
 @Command(values = "state", length = 1)
 public class RLStateCommand extends SCommand {
     @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(FileResolveLag.MESSAGE_HELP)
+                .prefix(FileResolveLag.SETTING_PREFIX)
+                .date(FileResolveLag.SETTING_DATEFORMAT)
+                .color()
+                .toString());
+        return list;
+    }
+
+    @Override
     public void performCommand(CommandSender sender, String[] strings) {
         if (!ServerUtil.hasPermission(sender, "sb.admin", "sb.rl.admin") && !sender.isOp()) {
             sender.sendMessage(new VariableFactory(FileResolveLag.MESSAGE_MISSING_PERMISSION)

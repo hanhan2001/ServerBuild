@@ -20,6 +20,17 @@ public class WelcomeMessageCommand extends SCommand {
     }
 
     @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(FileWelcomeMessage.MESSAGE_HELP)
+                .prefix(FileWelcomeMessage.SETTING_PREFIX)
+                .date(FileWelcomeMessage.SETTING_DATEFORMAT)
+                .color()
+                .toString());
+        return list;
+    }
+
+    @Override
     public void performCommand(CommandSender sender, String[] strings) {
         // 判断命令长度
         if (strings.length == 0) {

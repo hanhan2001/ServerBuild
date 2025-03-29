@@ -15,7 +15,8 @@ public class FileFileMonitor extends SFile {
     public static List<String> FILE_MONITOR_EVENT;
 
     public static String MESSAGE_RELOAD,
-            MESSAGE_MISSING_PERMISSION;
+            MESSAGE_MISSING_PERMISSION,
+            MESSAGE_HELP;
 
     public FileFileMonitor() {
         super("FileMonitor.yml");
@@ -33,6 +34,7 @@ public class FileFileMonitor extends SFile {
 
         FileFileMonitor.MESSAGE_RELOAD = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_RELOAD : this.getConfiguration().getString("Message.Reload");
         FileFileMonitor.MESSAGE_MISSING_PERMISSION = ConfigCommon.OVERALL_SITUATION_ENABLE && ConfigCommon.OVERALL_SITUATION_MESSAGE_ENABLE ? ConfigCommon.OVERALL_SITUATION_MESSAGE_MISSING_PERMISSION : this.getConfiguration().getString("Message.MissingPermission");
+        FileFileMonitor.MESSAGE_HELP = this.getConfiguration().getString("Message.Help");
     }
 
     @Override

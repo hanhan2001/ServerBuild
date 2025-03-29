@@ -9,8 +9,22 @@ import me.xiaoying.serverbuild.module.AutoRespawnModule;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Command(values = "reload", length = 0)
 public class ARReloadCommand extends SCommand {
+    @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(FileAutoRespawn.MESSAGE_HELP)
+                .prefix(FileAutoRespawn.SETTING_PREFIX)
+                .date(FileAutoRespawn.SETTING_DATEFORMAT)
+                .color()
+                .toString());
+        return list;
+    }
+
     @Override
     public void performCommand(CommandSender sender, String[] args) {
         if (!sender.isOp() && !ServerUtil.hasPermission(sender, "sb.admin", "sb.ar.admin")) {

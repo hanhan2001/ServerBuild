@@ -38,3 +38,15 @@ Message:
   Reload: "%prefix%&a重载完成!"
   #无权限
   MissingPermission: "%prefix%&c没有权限这么做!"
+  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+  Help: |-
+    
+    &a<-=-=-=-=-=-=-=-=-=-= &e&lMessageAnnouncer &a=-=-=-=-=-=-=-=-=-=->
+    &b/ma reload &7重载
+    &r
+  #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
+  Help: |-
+
+    &a<-=-=-=-=-=-=-=-=-=-= &e&lMessageAnnouncer &a=-=-=-=-=-=-=-=-=-=->
+    &b/ma reload &7重载
+    &r

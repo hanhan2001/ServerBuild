@@ -14,11 +14,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Command(values = {"cf", "chatformat"}, length = {1, 3, 4})
+@Command(values = {"cf", "chatformat"}, length = {1, 3, 4}, description = "聊天格式命令")
 public class ChatFormatCommand extends SCommand {
     public ChatFormatCommand() {
         this.registerCommand(new CFMuteCommand());
         this.registerCommand(new CFReloadCommand());
+    }
+
+    @Override
+    public List<String> getHelpMessage() {
+        List<String> list = new ArrayList<>();
+        list.add(new VariableFactory(FileChatFormat.MESSAGE_HELP)
+                        .prefix(FileChatFormat.SETTING_PREFIX)
+                        .date(FileChatFormat.SETTING_DATEFORMAT)
+                        .color()
+                        .toString());
+        return list;
     }
 
     @Override
