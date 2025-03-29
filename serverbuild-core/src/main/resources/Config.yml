@@ -25,6 +25,8 @@ Setting:
       #密码
       Password: "root"
   #默认 Command 帮助模板
+  #考虑到自定义性所以 ServerBuild 内部的 Module 并没有用到此处的配置
+  #此处配置可能只有部分外部 Module 会使用，一般情况下不建议修改此处的配置
   Command:
     #主题模板
     Main: |-
