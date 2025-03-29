@@ -303,7 +303,31 @@ public abstract class SCommand {
      * @return ArrayList
      */
     public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String head, String[] strings) {
-        List<String> list = new ArrayList<>(registeredCommands.keySet());
+        List<String> list = new ArrayList<>();
+
+        // determine sender has permissions
+        this.registeredCommands.forEach((string, cmd) -> {
+            if (cmd.isEmpty())
+                return;
+
+            List<String> permissions = cmd.get(0).getSubCommand().getPermissions();
+
+            boolean hasPermission = true;
+            // if any permission is missing that will skip this command
+            for (String permission : permissions) {
+                if (sender.hasPermission(permission) && sender.isOp())
+                    continue;
+
+                hasPermission = false;
+                break;
+            }
+
+            if (!hasPermission)
+                return;
+
+            list.add(string);
+        });
+
         if (strings.length == 1) {
             List<String> conditionList = new ArrayList<>();
             for (String s1 : list) {
