@@ -19,6 +19,8 @@ public abstract class SCommand {
 
     private final Map<String, List<RegisteredCommand>> registeredCommands = new HashMap<>();
 
+    private String description = null;
+
     /**
      * Get parent of this command
      *
@@ -99,8 +101,23 @@ public abstract class SCommand {
      * @return command's description
      */
     public String getDescription() {
+        if (this.description != null)
+            return this.description;
+
         Command command = this.getClass().getAnnotation(Command.class);
-        return command.description().isEmpty() ? ConfigCommon.SETTING_COMMAND_MISSING_DESCRIPTION : command.description();
+        if (command.description().isEmpty() && (this.description == null || this.description.isEmpty()))
+            return ConfigCommon.SETTING_COMMAND_MISSING_DESCRIPTION;
+
+        return this.description = command.description();
+    }
+
+    /**
+     * Set command's description
+     *
+     * @param description command's description
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
