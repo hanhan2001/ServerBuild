@@ -285,6 +285,46 @@ public abstract class SCommand {
     }
 
     /**
+     * Default handle of child command which registered in this command
+     *
+     * @param sender Sender
+     * @param args   Command's functions
+     */
+    protected void parentCommand(CommandSender sender, String[] args) {
+        // 判断命令长度
+        if (args.length == 0) {
+            this.getHelpMessage().forEach(sender::sendMessage);
+            return;
+        }
+
+        // 判断是否存在相应命令
+        String head = args[0];
+        if (!this.getRegisteredCommands().containsKey(head)) {
+            this.getHelpMessage().forEach(sender::sendMessage);
+            return;
+        }
+
+        // 移除 head
+        List<String> list = new ArrayList<>(Arrays.asList(args).subList(1, args.length));
+        args = list.toArray(new String[0]);
+
+        boolean isDo = false;
+        for (RegisteredCommand registeredCommand : this.getRegisteredCommands().get(head)) {
+            if (registeredCommand.getLength() != args.length && registeredCommand.getLength() != -1)
+                continue;
+
+            registeredCommand.getSubCommand().performCommand(sender, args);
+            isDo = true;
+        }
+
+        if (isDo)
+            return;
+
+        // 未执行则发出帮助信息
+        this.getRegisteredCommands().get(head).get(0).getSubCommand().getHelpMessage().forEach(sender::sendMessage);
+    }
+
+    /**
      * Perform command
      *
      * @param sender Sender
