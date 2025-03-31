@@ -1,7 +1,6 @@
 package me.xiaoying.serverbuild.command.chatformat;
 
 import me.xiaoying.serverbuild.command.Command;
-import me.xiaoying.serverbuild.command.RegisteredCommand;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.chatformat.commands.CFMuteCommand;
 import me.xiaoying.serverbuild.command.chatformat.commands.CFReloadCommand;
@@ -11,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Command(values = {"cf", "chatformat"}, length = {1, 3, 4}, description = "聊天格式命令")

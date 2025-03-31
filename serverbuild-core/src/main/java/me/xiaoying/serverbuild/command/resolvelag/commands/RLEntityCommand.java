@@ -1,7 +1,6 @@
 package me.xiaoying.serverbuild.command.resolvelag.commands;
 
 import me.xiaoying.serverbuild.command.Command;
-import me.xiaoying.serverbuild.command.RegisteredCommand;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.resolvelag.commands.entityclear.RLEntityClearCommand;
 import me.xiaoying.serverbuild.factory.VariableFactory;
@@ -9,7 +8,6 @@ import me.xiaoying.serverbuild.file.resolvelag.FileResolveLag;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Command(values = "entityclear", length = -1)

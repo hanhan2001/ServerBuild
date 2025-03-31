@@ -1,7 +1,6 @@
 package me.xiaoying.serverbuild.command.welcomemessage;
 
 import me.xiaoying.serverbuild.command.Command;
-import me.xiaoying.serverbuild.command.RegisteredCommand;
 import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.welcomemessage.commands.WMReloadCommand;
 import me.xiaoying.serverbuild.factory.VariableFactory;
@@ -10,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Command(values = {"wm", "welcomemessage"}, length = 1)
