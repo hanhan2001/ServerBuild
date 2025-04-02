@@ -199,8 +199,13 @@ public class ChatFormatListener implements Listener {
         }
 
         if (textComponent == null) {
-            for (Player onlinePlayer : ServerUtil.getOnlinePlayers())
-                onlinePlayer.sendMessage(message);
+            try {
+                for (Player onlinePlayer : ServerUtil.getOnlinePlayers())
+                    onlinePlayer.sendMessage(player.getUniqueId(), message);
+            } catch (Exception e) {
+                for (Player onlinePlayer : ServerUtil.getOnlinePlayers())
+                    onlinePlayer.sendMessage(message);
+            }
 
             ServerUtil.sendMessage(message);
             return;
