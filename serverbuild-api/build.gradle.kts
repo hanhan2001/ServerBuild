@@ -1,4 +1,7 @@
 plugins {
+    `maven-publish`
+    `java-library`
+
     id("java")
     // shadow
     id("com.github.johnrengelman.shadow").version("8.1.1")
@@ -18,9 +21,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
     // serverbuild-common
     implementation(project(":serverbuild-common"))
     // sqlfactory
@@ -33,8 +33,19 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
 
-tasks.test {
-    useJUnitPlatform()
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            groupId = rootProject.group.toString()
+            artifactId = project.name
+            version = rootProject.version.toString()
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
 }
 
 tasks.withType<JavaCompile> {
@@ -43,9 +54,12 @@ tasks.withType<JavaCompile> {
 }
 
 tasks.shadowJar {
+    archiveClassifier.set("")
+
     from(sourceSets.main.get().output)
     from(sourceSets.main.get().resources)
     from(project(":serverbuild-common").sourceSets.main.get().output)
+
 
     include("me/xiaoying/**")
 }

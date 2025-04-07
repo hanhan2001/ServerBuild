@@ -18,9 +18,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
     // serverbuild-common
     implementation(project(":serverbuild-common"))
     // serverbuild-api
@@ -37,21 +34,22 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 tasks.withType<JavaCompile> {
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
 }
 
 tasks.shadowJar {
+    archiveFileName.set("ServerBuild-V${rootProject.version}.jar")
+    archiveClassifier.set("")
+
     relocate("org.bstats", rootProject.group.toString() + ".metrics")
 
     from(sourceSets.main.get().output)
     from(project(":serverbuild-api").sourceSets.main.get().output)
     from(project(":serverbuild-common").sourceSets.main.get().output)
+
+    dependsOn(":serverbuild-api:shadowJar")
 
     dependencies {
         exclude(dependency("me.clip:placeholderapi:2.11.6"))
@@ -88,6 +86,10 @@ tasks.shadowJar {
     exclude("META-INF/LGPL2.1")
     exclude("sqlite-jdbc.properties")
     exclude("classpath.index")
+}
+
+tasks.jar {
+    enabled = false
 }
 
 tasks.build {
