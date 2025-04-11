@@ -37,6 +37,7 @@ public class SimpleFileManager implements FileManager {
     @Override
     public void unregisterAll() {
         this.knownFiles.forEach(SFile::onDisable);
+        this.knownFiles.clear();
     }
 
     @Override
