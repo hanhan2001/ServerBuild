@@ -207,6 +207,61 @@ public class VariableFactory {
         return this;
     }
 
+    public VariableFactory server_bukkit_version(String bukkit_version) {
+        this.string = this.string.replace("%server_bukkit_version%", bukkit_version);
+        return this;
+    }
+
+    public VariableFactory server_tps_1m(String tps) {
+        this.string = this.string.replace("%server_tps_1m%", tps);
+        return this;
+    }
+
+    public VariableFactory server_tps_5m(String tps) {
+        this.string = this.string.replace("%server_tps_5m%", tps);
+        return this;
+    }
+
+    public VariableFactory server_tps_15m(String tps) {
+        this.string = this.string.replace("%server_tps_15m%", tps);
+        return this;
+    }
+
+    public VariableFactory server_whitelist_enabled(boolean enabled) {
+        this.string = this.string.replace("%server_whitelist_enabled%", String.valueOf(enabled));
+        return this;
+    }
+
+    public VariableFactory server_memory_max(String max) {
+        this.string = this.string.replace("%server_memory_max%", max);
+        return this;
+    }
+
+    public VariableFactory server_memory_now(String now) {
+        this.string = this.string.replace("%server_memory_now%", now);
+        return this;
+    }
+
+    public VariableFactory server_memory_idle(String idle) {
+        this.string = this.string.replace("%server_memory_idle%", idle);
+        return this;
+    }
+
+    public VariableFactory server_version(String version) {
+        this.string = this.string.replace("%server_version%", version);
+        return this;
+    }
+
+    public VariableFactory server_world_status(String world_status) {
+        this.string = this.string.replace("%server_worlds_status%", world_status);
+        return this;
+    }
+
+    public VariableFactory server_world_tile_block(int amount) {
+        this.string = this.string.replace("%server_world_tile_block%", String.valueOf(amount));
+        return this;
+    }
+
     public VariableFactory time(int time) {
         return this.time(String.valueOf(time));
     }
