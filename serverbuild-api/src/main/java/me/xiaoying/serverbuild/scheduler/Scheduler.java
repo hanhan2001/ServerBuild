@@ -97,16 +97,16 @@ public abstract class Scheduler {
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();;
         switch (this.type) {
             case SYNC_DELAY:
-                this.id = scheduler.scheduleSyncDelayedTask(SBPlugin.getInstance(), this.getRunnable(), this.delay);
+                this.id = scheduler.runTaskLater(SBPlugin.getInstance(), this.getRunnable(), this.delay).getTaskId();
                 break;
             case SYNC_REPEAT:
-                this.id = scheduler.scheduleSyncRepeatingTask(SBPlugin.getInstance(), this.getRunnable(), 0, this.delay);
+                this.id = scheduler.runTaskTimer(SBPlugin.getInstance(), this.getRunnable(), 0, this.delay).getTaskId();
                 break;
             case ASYNC_DELAY:
                 this.id = scheduler.runTaskLaterAsynchronously(SBPlugin.getInstance(), this.getRunnable(), this.delay).getTaskId();
                 break;
             case ASYNC_REPEAT:
-                this.id = scheduler.runTaskLater(SBPlugin.getInstance(), this.getRunnable(), this.delay).getTaskId();
+                this.id = scheduler.runTaskTimerAsynchronously(SBPlugin.getInstance(), this.getRunnable(), 0, this.delay).getTaskId();
                 break;
         }
     }
