@@ -5,7 +5,6 @@ import me.xiaoying.serverbuild.command.SCommand;
 import me.xiaoying.serverbuild.command.resolvelag.commands.RLEntityCommand;
 import me.xiaoying.serverbuild.command.resolvelag.commands.RLGcCommand;
 import me.xiaoying.serverbuild.command.resolvelag.commands.RLReloadCommand;
-import me.xiaoying.serverbuild.command.resolvelag.commands.RLStateCommand;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.resolvelag.FileResolveLag;
 import org.bukkit.command.CommandSender;
@@ -17,7 +16,6 @@ import java.util.List;
 @Command(values = {"rl", "resolvelag"}, length = -1)
 public class ResolveLagCommand extends SCommand {
     public ResolveLagCommand() {
-        this.registerCommand(new RLStateCommand());
         this.registerCommand(new RLEntityCommand());
         this.registerCommand(new RLReloadCommand());
         this.registerCommand(new RLGcCommand());

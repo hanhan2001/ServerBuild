@@ -134,7 +134,7 @@ Message:
   #未找到世界
   UnknownWorld: "%prefix%&c未找到世界"
   #总状态
-  State: |
+  State: |-
     
     &a* [服务器信息]
     &c|- &b基本信息
@@ -149,20 +149,11 @@ Message:
     &c|- &b世界状态
     %server_worlds_status%
     &r
-  #世界状态
-  WorldState: |
-    
-    %prefix%&a世界状态
-     &7 - &6世界: &e%world%
-     &7 - &6区块: &e%chunks%
-     &7 - &6实体: &e%entities%
-    &r
   #指令提示--谁改谁憨憨，反正只是用来提示用的，出现问题我才不负责呢，哼！
   Help: |-
     
     &a<-=-=-=-=-=-=-=-=-=-= &e&lResolveLag &a=-=-=-=-=-=-=-=-=-=->
     &b/rl reload &7重载
     &b/rl entityclear clear [world] &7立即清理某个世界的实体，如果不选择世界则默认全世界
-    &b/rl state [world] &7查看世界状态
     &b/rl gc &7查看服务器状态
     &f
