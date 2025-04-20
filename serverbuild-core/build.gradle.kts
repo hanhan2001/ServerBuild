@@ -18,18 +18,20 @@ repositories {
 }
 
 dependencies {
+    // spigot-api
+    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
+    // placeholder-api
+    compileOnly("me.clip:placeholderapi:2.11.6")
+    // bstats
+    compileOnly("org.bstats:bstats-bukkit:3.0.0")
+
     // serverbuild-common
     implementation(project(":serverbuild-common"))
     // serverbuild-api
     implementation(project(":serverbuild-api"))
+
     // sqlfactory
     implementation("me.xiaoying:sqlfactory:1.0.0")
-    // spigot-api
-    implementation("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
-    // placeholder-api
-    implementation("me.clip:placeholderapi:2.11.6")
-    // bstats
-    implementation("org.bstats:bstats-bukkit:3.0.0")
     // Byte-Buddy
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
@@ -39,59 +41,29 @@ tasks.withType<JavaCompile> {
     targetCompatibility = "1.8"
 }
 
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.processResources {
+    val props = mapOf(
+        "version" to project.version
+    )
+    inputs.properties(props)
+    filesMatching("plugin.yml") {
+        expand(props)
+    }
+}
+
+tasks.jar {
+    enabled = false;
+}
+
 tasks.shadowJar {
+    dependsOn(":serverbuild-api:shadowJar")
+
     archiveFileName.set("ServerBuild-V${rootProject.version}.jar")
     archiveClassifier.set("")
 
     relocate("org.bstats", rootProject.group.toString() + ".metrics")
-
-    from(sourceSets.main.get().output)
-    from(project(":serverbuild-api").sourceSets.main.get().output)
-    from(project(":serverbuild-common").sourceSets.main.get().output)
-
-    dependsOn(":serverbuild-api:shadowJar")
-
-    dependencies {
-        exclude(dependency("me.clip:placeholderapi:2.11.6"))
-        exclude(dependency("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT"))
-    }
-
-    exclude("org/checkerframework/**")
-    exclude("org/joml/**")
-    exclude("org/yaml/**")
-    exclude("org/sqlite/**")
-    exclude("org/bukkit/**")
-    exclude("org/jetbrains/**")
-    exclude("org/intellij/**")
-    exclude("org/spigotmc/**")
-    exclude("net/md_5/**")
-    exclude("net/kyori/**")
-    exclude("com/**")
-    exclude("javax/**")
-    exclude("google/**")
-    exclude("mojang-translations/**")
-    exclude("INFO_BIN")
-    exclude("INFO_SRC")
-    exclude("LICENSE")
-    exclude("README")
-    exclude("META-INF/maven/**")
-    exclude("META-INF/versions/**")
-    exclude("META-INF/proguard/**")
-    exclude("META-INF/services/**")
-    exclude("META-INF/native-image/**")
-    exclude("META-INF/NOTICE")
-    exclude("META-INF/LICENSE")
-    exclude("META-INF/licenses/**")
-    exclude("META-INF/LICENSE.txt")
-    exclude("META-INF/LGPL2.1")
-    exclude("sqlite-jdbc.properties")
-    exclude("classpath.index")
-}
-
-tasks.jar {
-    enabled = false
-}
-
-tasks.build {
-    dependsOn(tasks.shadowJar)
 }

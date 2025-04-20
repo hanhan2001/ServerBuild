@@ -21,14 +21,15 @@ repositories {
 }
 
 dependencies {
+    // spigot-api
+    compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
+    // placeholder-api
+    compileOnly("me.clip:placeholderapi:2.11.6")
+
     // serverbuild-common
     implementation(project(":serverbuild-common"))
     // sqlfactory
     implementation("me.xiaoying:sqlfactory:1.0.0")
-    // spigot-api
-    implementation("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
-    // placeholder-api
-    implementation("me.clip:placeholderapi:2.11.6")
     // Byte-Buddy
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
@@ -55,13 +56,6 @@ tasks.withType<JavaCompile> {
 
 tasks.shadowJar {
     archiveClassifier.set("")
-
-    from(sourceSets.main.get().output)
-    from(sourceSets.main.get().resources)
-    from(project(":serverbuild-common").sourceSets.main.get().output)
-
-
-    include("me/xiaoying/**")
 }
 
 tasks.build {
