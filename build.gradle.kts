@@ -2,11 +2,13 @@ plugins {
     id("java")
 }
 
-subprojects {
-    apply(plugin = "java")
-
+allprojects {
     group = "me.xiaoying.serverbuild"
     version = "1.0.1"
+}
+
+subprojects {
+    apply(plugin = "java")
 
     repositories {
         mavenLocal()
