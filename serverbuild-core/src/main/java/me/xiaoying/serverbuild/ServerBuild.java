@@ -14,6 +14,11 @@ import me.xiaoying.serverbuild.scheduler.PlaceholderScheduler;
 import me.xiaoying.serverbuild.scheduler.Scheduler;
 import me.xiaoying.serverbuild.script.SimpleScriptManager;
 import me.xiaoying.serverbuild.utils.ServerUtil;
+import me.xiaoying.sqlfactory.SqlFactory;
+import me.xiaoying.sqlfactory.config.MysqlConfig;
+import me.xiaoying.sqlfactory.config.SqliteConfig;
+import me.xiaoying.sqlfactory.factory.MysqlFactory;
+import me.xiaoying.sqlfactory.factory.SqliteFactory;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -105,6 +110,27 @@ public class ServerBuild extends JavaPlugin {
         ServerBuildCommand serverBuildCommand = new ServerBuildCommand();
         ServerBuild.commands.add(serverBuildCommand);
         ServerBuild.commands.forEach(command -> command.getValues().forEach(string -> SBPlugin.getPluginManager().registerCommand(string, command.getTabExecutor(), SBPlugin.getInstance())));
+
+        // SqlFactory
+        SqlFactory sqlFactory;
+        switch (ConfigCommon.SETTING_DATA_TYPE.toUpperCase(Locale.ENGLISH)) {
+            default:
+            case "SQLITE":
+                File sqlite = new File("./plugins/" + SBPlugin.getInstance().getDescription().getName() + "/serverbuild.db");
+                if (!sqlite.getParentFile().exists())
+                    sqlite.getParentFile().mkdirs();
+
+                sqlFactory = new SqliteFactory(new SqliteConfig(sqlite));
+                break;
+            case "MYSQL":
+                sqlFactory = new MysqlFactory(new MysqlConfig(ConfigCommon.SETTING_DATA_MYSQL_USERNAME,
+                        ConfigCommon.SETTING_DATA_MYSQL_PASSWORD,
+                        ConfigCommon.SETTING_DATA_MYSQL_HOST,
+                        ConfigCommon.SETTING_DATA_MYSQL_PORT,
+                        ConfigCommon.SETTING_DATA_MYSQL_DATABASE));
+                break;
+        }
+        SBPlugin.setSqlFactory(sqlFactory);
 
         // Module
         SBPlugin.getModuleManager().registerModule(new ChatFormatModule());
