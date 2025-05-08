@@ -22,7 +22,6 @@ public class FileResolveLag extends SFile {
             MESSAGE_MISSING_PERMISSION,
             MESSAGE_UNKNOWN_WORLD,
             MESSAGE_STATE,
-            MESSAGE_WORLD_STATE,
             MESSAGE_HELP;
 
     public FileResolveLag() {
@@ -45,8 +44,6 @@ public class FileResolveLag extends SFile {
         FileResolveLag.MESSAGE_UNKNOWN_WORLD = this.getConfiguration().getString("Message.UnknownWorld");
 
         FileResolveLag.MESSAGE_STATE = this.getConfiguration().getString("Message.State");
-
-        FileResolveLag.MESSAGE_WORLD_STATE = this.getConfiguration().getString("Message.WorldState");
 
         ResolveLagModule module = (ResolveLagModule) SBPlugin.getModuleManager().getModule("ResolveLag");
 
