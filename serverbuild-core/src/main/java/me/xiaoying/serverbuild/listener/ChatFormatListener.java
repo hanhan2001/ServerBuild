@@ -5,14 +5,14 @@ import me.xiaoying.serverbuild.entity.ChatFormatEntity;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileChatFormat;
 import me.xiaoying.serverbuild.module.ChatFormatModule;
+import me.xiaoying.serverbuild.tables.ChatFormatMuteTable;
 import me.xiaoying.serverbuild.utils.DateUtil;
 import me.xiaoying.serverbuild.utils.PlayerUtil;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import me.xiaoying.serverbuild.utils.StringUtil;
-import me.xiaoying.sql.entity.Table;
-import me.xiaoying.sql.sentence.Condition;
-import me.xiaoying.sql.sentence.Delete;
-import me.xiaoying.sql.sentence.Select;
+import me.xiaoying.sqlfactory.sentence.Create;
+import me.xiaoying.sqlfactory.sentence.Delete;
+import me.xiaoying.sqlfactory.sentence.Select;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -37,30 +37,25 @@ public class ChatFormatListener implements Listener {
         event.setCancelled(true);
 
         // mute
-        ChatFormatModule.createTables();
-        List<String> columns = new ArrayList<>();
-        columns.add("uuid");
-        columns.add("save");
-        columns.add("over");
-        Select select = new Select(columns, FileChatFormat.TABLE_MUTE);
-        select.condition(new Condition("uuid", player.getUniqueId().toString(), Condition.Type.EQUAL));
-        List<Table> run = SBPlugin.getSqlFactory().run(select);
-        if (run.size() != 0 && run.get(0).getRecords().size() != 0) {
-            String over = (String) run.get(0).getRecords().get(0).get("over");
-            long lastTime;
-            if ((lastTime = DateUtil.getDateReduce(over, DateUtil.getDate(FileChatFormat.SETTING_DATEFORMAT), FileChatFormat.SETTING_DATEFORMAT)) > 0) {
+        // 此处代码还需更改，暂时性支持新版本 SqlFactory
+        // 理论上讲查询到的信息存入缓存中才是最好的操作
+        SBPlugin.getSqlFactory().run(new Create(ChatFormatMuteTable.class));
+        Object object = SBPlugin.getSqlFactory().run(new Select(ChatFormatMuteTable.class).where("uuid", player.getUniqueId().toString()));
+
+        if (object != null) {
+            ChatFormatMuteTable table = (ChatFormatMuteTable) object;
+
+            if (table.overdue())
+                SBPlugin.getSqlFactory().run(new Delete(table));
+            else {
                 player.sendMessage(new VariableFactory(FileChatFormat.MUTE_MESSAGE)
                         .prefix(FileChatFormat.SETTING_PREFIX)
                         .date(FileChatFormat.SETTING_DATEFORMAT)
-                        .time(lastTime / 1000)
+                        .time(table.getDistance().getTime() / 1000)
                         .color()
                         .toString());
                 return;
             }
-
-            Delete delete = new Delete(FileChatFormat.TABLE_MUTE);
-            delete.condition(new Condition("uuid", player.getUniqueId().toString(), Condition.Type.EQUAL));
-            SBPlugin.getSqlFactory().run(delete);
         }
 
         // color

@@ -1,5 +1,6 @@
 package me.xiaoying.serverbuild.core;
 
+import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.file.FileManager;
 import me.xiaoying.serverbuild.file.SimpleFileManager;
 import me.xiaoying.serverbuild.gui.GuiManager;
@@ -8,9 +9,15 @@ import me.xiaoying.serverbuild.module.SimpleModuleManager;
 import me.xiaoying.serverbuild.pluginmanager.PluginManager;
 import me.xiaoying.serverbuild.proxy.SProxyProvider;
 import me.xiaoying.serverbuild.script.ScriptManager;
-import me.xiaoying.sql.SqlFactory;
+import me.xiaoying.sqlfactory.SqlFactory;
+import me.xiaoying.sqlfactory.config.MysqlConfig;
+import me.xiaoying.sqlfactory.config.SqliteConfig;
+import me.xiaoying.sqlfactory.factory.MysqlFactory;
+import me.xiaoying.sqlfactory.factory.SqliteFactory;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -43,6 +50,25 @@ public class SBPlugin {
         SBPlugin.proxyProvider = new SProxyProvider();
         SBPlugin.fileManager = new SimpleFileManager();
         SBPlugin.moduleManager = new SimpleModuleManager();
+
+        // sqlfactory
+        switch (ConfigCommon.SETTING_DATA_TYPE.toUpperCase(Locale.ENGLISH)) {
+            default:
+            case "SQLITE":
+                File file = new File("./plugins/" + plugin.getName() + "/serverbuild.db");
+                if (!file.getParentFile().exists())
+                    file.getParentFile().mkdirs();
+
+                SBPlugin.sqlFactory = new SqliteFactory(new SqliteConfig(file));
+                break;
+            case "MYSQL":
+                SBPlugin.sqlFactory = new MysqlFactory(new MysqlConfig(ConfigCommon.SETTING_DATA_MYSQL_USERNAME,
+                        ConfigCommon.SETTING_DATA_MYSQL_PASSWORD,
+                        ConfigCommon.SETTING_DATA_MYSQL_HOST,
+                        ConfigCommon.SETTING_DATA_MYSQL_PORT,
+                        ConfigCommon.SETTING_DATA_MYSQL_DATABASE));
+                break;
+        }
     }
 
     /**
@@ -163,15 +189,6 @@ public class SBPlugin {
      */
     public static SqlFactory getSqlFactory() {
         return SBPlugin.sqlFactory;
-    }
-
-    /**
-     * Set SqlFactory
-     *
-     * @param sqlFactory SqlFactory
-     */
-    public static void setSqlFactory(SqlFactory sqlFactory) {
-        SBPlugin.sqlFactory = sqlFactory;
     }
 
     /**

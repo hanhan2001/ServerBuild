@@ -101,9 +101,6 @@ public class ServerBuild extends JavaPlugin {
         // init ScriptManager
         SBPlugin.setScriptManager(new SimpleScriptManager());
 
-        // SqlFactory
-        SBPlugin.setSqlFactory(ServerUtil.getSqlFactory());
-
         // Command
         ServerBuildCommand serverBuildCommand = new ServerBuildCommand();
         ServerBuild.commands.add(serverBuildCommand);
@@ -116,6 +113,7 @@ public class ServerBuild extends JavaPlugin {
         SBPlugin.getModuleManager().registerModule(new ResolveLagModule());
         SBPlugin.getModuleManager().registerModule(new WelcomeMessageModule());
         SBPlugin.getModuleManager().registerModule(new MessageAnnouncerModule());
+//        SBPlugin.getModuleManager().registerModule(new PlayerEditModule());
         SBPlugin.getModuleManager().registerInterface(JavaModuleLoader.class);
         SBPlugin.getModuleManager().loadModules(SBPlugin.getInstance().getDataFolder().getParentFile());
         SBPlugin.getModuleManager().loadModules(new File(SBPlugin.getInstance().getDataFolder(), "modules"));

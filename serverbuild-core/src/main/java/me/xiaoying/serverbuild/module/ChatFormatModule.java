@@ -1,13 +1,10 @@
 package me.xiaoying.serverbuild.module;
 
 import me.xiaoying.serverbuild.command.chatformat.ChatFormatCommand;
-import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.entity.ChatFormatEntity;
 import me.xiaoying.serverbuild.file.FileChatFormat;
 import me.xiaoying.serverbuild.listener.ChatFormatListener;
 import me.xiaoying.serverbuild.utils.YamlUtil;
-import me.xiaoying.sql.entity.Column;
-import me.xiaoying.sql.sentence.Create;
 
 import java.util.*;
 
@@ -69,14 +66,5 @@ public class ChatFormatModule extends Module {
 
     public List<ChatFormatEntity> getChatFormatEntities() {
         return new ArrayList<>(this.entityMap.values());
-    }
-
-    public static void createTables() {
-        List<Column> columns = new ArrayList<>();
-        columns.add(new Column("uuid", "varchar", 255));
-        columns.add(new Column("save", "varchar", 255));
-        columns.add(new Column("over", "varchar", 255));
-        Create create = new Create(columns, FileChatFormat.TABLE_MUTE);
-        SBPlugin.getSqlFactory().run(create);
     }
 }

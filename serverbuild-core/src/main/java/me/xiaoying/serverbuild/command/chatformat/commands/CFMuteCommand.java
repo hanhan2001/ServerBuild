@@ -6,11 +6,12 @@ import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileChatFormat;
 import me.xiaoying.serverbuild.module.ChatFormatModule;
+import me.xiaoying.serverbuild.tables.ChatFormatMuteTable;
 import me.xiaoying.serverbuild.utils.DateUtil;
 import me.xiaoying.serverbuild.utils.ServerUtil;
-import me.xiaoying.sql.sentence.Condition;
-import me.xiaoying.sql.sentence.Delete;
-import me.xiaoying.sql.sentence.Insert;
+import me.xiaoying.sqlfactory.sentence.Create;
+import me.xiaoying.sqlfactory.sentence.Delete;
+import me.xiaoying.sqlfactory.sentence.Insert;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -45,7 +46,7 @@ public class CFMuteCommand extends SCommand {
         }
 
         // create tables
-        ChatFormatModule.createTables();
+        SBPlugin.getSqlFactory().run(new Create(ChatFormatMuteTable.class));
 
         Player player = Bukkit.getServer().getPlayerExact(strings[0]);
         String save = DateUtil.getDate(FileChatFormat.SETTING_DATEFORMAT);
@@ -76,13 +77,8 @@ public class CFMuteCommand extends SCommand {
             return;
         }
 
-        Delete delete = new Delete(FileChatFormat.TABLE_MUTE);
-        delete.condition(new Condition("uuid", player.getUniqueId().toString(), Condition.Type.EQUAL));
-
-        Insert insert = new Insert(FileChatFormat.TABLE_MUTE);
-        insert.insert(player.getUniqueId().toString(), save, over);
-        SBPlugin.getSqlFactory().run(delete, insert);
-
+        SBPlugin.getSqlFactory().run(new Delete(ChatFormatMuteTable.class).where("uuid", player.getUniqueId().toString()));
+        SBPlugin.getSqlFactory().run(new Insert().insert(player.getUniqueId().toString(), save, over));
 
         // calculate time
         long lastTime = DateUtil.getDateReduce(over, save, FileChatFormat.SETTING_DATEFORMAT) / 1000;
