@@ -6,7 +6,6 @@ import me.xiaoying.serverbuild.factory.VariableFactory;
 import me.xiaoying.serverbuild.file.FileChatFormat;
 import me.xiaoying.serverbuild.module.ChatFormatModule;
 import me.xiaoying.serverbuild.tables.ChatFormatMuteTable;
-import me.xiaoying.serverbuild.utils.DateUtil;
 import me.xiaoying.serverbuild.utils.PlayerUtil;
 import me.xiaoying.serverbuild.utils.ServerUtil;
 import me.xiaoying.serverbuild.utils.StringUtil;
@@ -40,10 +39,10 @@ public class ChatFormatListener implements Listener {
         // 此处代码还需更改，暂时性支持新版本 SqlFactory
         // 理论上讲查询到的信息存入缓存中才是最好的操作
         SBPlugin.getSqlFactory().run(new Create(ChatFormatMuteTable.class));
-        Object object = SBPlugin.getSqlFactory().run(new Select(ChatFormatMuteTable.class).where("uuid", player.getUniqueId().toString()));
+        List<Object> objects = SBPlugin.getSqlFactory().run(new Select(ChatFormatMuteTable.class).where("uuid", player.getUniqueId().toString()));
 
-        if (object != null) {
-            ChatFormatMuteTable table = (ChatFormatMuteTable) object;
+        if (objects != null && !objects.isEmpty()) {
+            ChatFormatMuteTable table = (ChatFormatMuteTable) objects.get(0);
 
             if (table.overdue())
                 SBPlugin.getSqlFactory().run(new Delete(table));
