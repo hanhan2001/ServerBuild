@@ -25,11 +25,11 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
     // placeholder-api
     compileOnly("me.clip:placeholderapi:2.11.6")
+    // sqlfactory
+    compileOnly("me.xiaoying:sqlfactory:1.0.0")
 
     // serverbuild-common
     implementation(project(":serverbuild-common"))
-    // sqlfactory
-    implementation("me.xiaoying:sqlfactory:1.0.0")
     // Byte-Buddy
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
