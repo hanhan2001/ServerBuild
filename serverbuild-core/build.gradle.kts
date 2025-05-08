@@ -18,18 +18,17 @@ repositories {
 }
 
 dependencies {
+    // ServerBuild
+    implementation(project(":serverbuild-common"))
+    implementation(project(":serverbuild-api"))
+
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
     // placeholder-api
     compileOnly("me.clip:placeholderapi:2.11.6")
+
     // bstats
-    compileOnly("org.bstats:bstats-bukkit:3.0.0")
-
-    // serverbuild-common
-    implementation(project(":serverbuild-common"))
-    // serverbuild-api
-    implementation(project(":serverbuild-api"))
-
+    implementation("org.bstats:bstats-bukkit:3.0.0")
     // sqlfactory
     implementation("me.xiaoying:sqlfactory:1.0.0")
     // Byte-Buddy

@@ -1,5 +1,5 @@
 name: ServerBuild
-version: 1.0.1
+version: ${version}
 api-version: 1.13
 main: me.xiaoying.serverbuild.ServerBuild
 author: 筱樱
