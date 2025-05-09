@@ -27,11 +27,11 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.6")
     // sqlfactory
     compileOnly("me.xiaoying:sqlfactory:1.0.0")
+    // Byte-Buddy
+    compileOnly("net.bytebuddy:byte-buddy:1.15.11")
 
     // serverbuild-common
     implementation(project(":serverbuild-common"))
-    // Byte-Buddy
-    implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
 
 java {
@@ -53,6 +53,10 @@ tasks.withType<Javadoc> {
     }
 }
 
+tasks.jar {
+    enabled = false
+}
+
 tasks.shadowJar {
     archiveClassifier.set("")
 }
@@ -60,10 +64,21 @@ tasks.shadowJar {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            from(components["java"])
             groupId = rootProject.group.toString()
             artifactId = project.name
             version = rootProject.version.toString()
+
+            artifact(tasks.shadowJar) {
+                classifier = ""
+            }
+
+            artifact(tasks["sourcesJar"]) {
+                classifier = "sources"
+            }
+
+            artifact(tasks["javadocJar"]) {
+                classifier = "javadoc"
+            }
         }
     }
 
