@@ -34,6 +34,29 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType<Javadoc> {
+    options {
+        encoding = "UTF-8"
+        (this as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
+    }
+}
+
+tasks.shadowJar {
+    archiveClassifier.set("")
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -49,15 +72,10 @@ publishing {
     }
 }
 
-tasks.withType<JavaCompile> {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
-}
-
-tasks.shadowJar {
-    archiveClassifier.set("")
-}
-
 tasks.build {
-    dependsOn(tasks.shadowJar)
+    dependsOn(tasks.shadowJar, tasks.javadoc, tasks["sourcesJar"])
+}
+
+tasks.publishToMavenLocal {
+    dependsOn(tasks.build)
 }
