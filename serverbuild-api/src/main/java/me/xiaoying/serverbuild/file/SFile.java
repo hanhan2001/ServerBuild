@@ -1,5 +1,6 @@
 package me.xiaoying.serverbuild.file;
 
+import lombok.Getter;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -12,10 +13,11 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 
 public abstract class SFile {
-    private String folderName;
-    private String outFolder;
+    private final String outFolder;
     private final String resourcesFile;
+    @Getter
     private final File file;
+    @Getter
     private YamlConfiguration configuration;
 
     public SFile(String resourceFile) {
@@ -26,20 +28,14 @@ public abstract class SFile {
         this.resourcesFile = resourceFile;
         this.outFolder = outFolder;
 
-        if (resourceFile.contains("/") || resourceFile.contains("\\")) {
-            String s = resourceFile.replace("\\", "/");
-            String[] split = s.split("/");
-            this.file = new File(this.outFolder, split[split.length - 1]);
-        } else
-            this.file = new File(SBPlugin.getInstance().getDataFolder(), this.resourcesFile);
-    }
+        String fileName = resourceFile;
+        if (resourceFile.contains("/") || resourceFile.contains("\\"))
+            fileName = resourceFile.substring(resourceFile.lastIndexOf('/') + 1);
 
-    public void setSingleFolder(String folderName) {
-        this.folderName = folderName;
-    }
-
-    public String getSingleFolder() {
-        return this.folderName;
+        if (outFolder != null && !outFolder.isEmpty())
+            this.file = new File(this.outFolder, fileName);
+        else
+            this.file = new File(SBPlugin.getInstance().getDataFolder(), fileName);
     }
 
     public File getParent() {
@@ -48,14 +44,6 @@ public abstract class SFile {
 
     public String getName() {
         return this.file.getName();
-    }
-
-    public File getFile() {
-        return this.file;
-    }
-
-    public YamlConfiguration getConfiguration() {
-        return this.configuration;
     }
 
     public void load() {
@@ -113,8 +101,10 @@ public abstract class SFile {
             outDir.mkdirs();
 
         try {
-            if (outFile.exists() && !replace)
+            if (outFile.exists() && !replace) {
                 SBPlugin.getInstance().getLogger().warning("Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
+                return;
+            }
 
             OutputStream out = Files.newOutputStream(outFile.toPath());
             byte[] buf = new byte[in.available()];
