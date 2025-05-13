@@ -1,20 +1,28 @@
 package me.xiaoying.serverbuild.gui;
 
+import me.xiaoying.serverbuild.core.SBPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryInteractEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * 此处代码将进行重构，重写逻辑
+ */
 public abstract class Gui implements Cloneable {
     private String name;
     private String displayName;
     private List<Component> components = new ArrayList<>();
     private int height;
-    private Runnable open;
-    private Runnable close;
+
+    private InventoryHolder holder;
 
     public Gui(String name) {
         this.name = name;
@@ -23,10 +31,15 @@ public abstract class Gui implements Cloneable {
 
     public void open(Player player) {
         this.onOpen(player);
+        Inventory inventory = this.getInventory();
+        player.openInventory(inventory);
+        this.holder = inventory.getHolder();
+        SBPlugin.getGuiManager().addCacheGui(this.holder, this);
     }
 
     public void close(Player player) {
         this.onClose(player);
+        SBPlugin.getGuiManager().removeCacheGui(this.holder);
     }
 
     protected abstract void onOpen(Player player);
@@ -160,6 +173,42 @@ public abstract class Gui implements Cloneable {
             inventory.setItem(component.getY() * 9 + component.getX(), component.getItemStack());
         });
         return inventory;
+    }
+
+    public void click(InventoryClickEvent event) {
+        event.setCancelled(true);
+
+        int slot = event.getRawSlot();
+
+        int x = slot % 9;
+        int y = slot / 9;
+
+        Component component = this.getComponent(x, y);
+
+        if (component == null)
+            return;
+
+        component.onClick();
+
+        if (!component.needClose())
+            return;
+
+        event.getWhoClicked().closeInventory();
+    }
+
+    public void interact(InventoryInteractEvent event) {
+        if (SBPlugin.getGuiManager().getCacheGui(event.getInventory().getHolder()) == null)
+            return;
+
+        event.setCancelled(true);
+    }
+
+    public void moveItem(InventoryMoveItemEvent event) {
+
+        if (SBPlugin.getGuiManager().getCacheGui(event.getInitiator().getHolder()) == null)
+            return;
+
+        event.setCancelled(true);
     }
 
     public Gui clone() {

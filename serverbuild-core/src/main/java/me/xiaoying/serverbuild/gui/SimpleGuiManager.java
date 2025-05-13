@@ -8,6 +8,7 @@ import org.bukkit.inventory.InventoryHolder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 public class SimpleGuiManager implements GuiManager {
     private Listener listener = new GuiListener();
@@ -21,7 +22,13 @@ public class SimpleGuiManager implements GuiManager {
     public void unInitialize() {
         ServerUtil.unregisterListener(this.listener);
 
-        this.cacheGui.keySet().forEach(holder -> holder.getInventory().getViewers().forEach(HumanEntity::closeInventory));
+        this.cacheGui.keySet().forEach(holder ->  {
+            if (holder == null)
+                return;
+
+            holder.getInventory().getViewers().forEach(HumanEntity::closeInventory);
+        });
+        this.cacheGui.clear();
     }
 
     public void registerGui(Gui gui) {
@@ -83,6 +90,11 @@ public class SimpleGuiManager implements GuiManager {
      * @param holder InventoryHolder
      */
     public void removeCacheGui(InventoryHolder holder) {
+        // 此处是存在问题的，不过需要重构暂时先这样使用
+        if (holder == null) {
+            this.cacheGui.keySet().removeIf(Objects::isNull);
+            return;
+        }
         this.cacheGui.remove(holder);
         holder.getInventory().getViewers().forEach(HumanEntity::closeInventory);
     }

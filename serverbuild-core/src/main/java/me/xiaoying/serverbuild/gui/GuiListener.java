@@ -13,49 +13,25 @@ public class GuiListener implements Listener {
         if ((gui = SBPlugin.getGuiManager().getCacheGui(event.getInventory().getHolder())) == null)
             return;
 
-        event.setCancelled(true);
-
-        int slot = event.getSlot();
-
-        int x = slot % 9;
-        int y = slot / 9;
-
-        Component component = gui.getComponent(x, y);
-
-        if (component == null)
-            return;
-
-        component.onClick();
-
-        if (!component.needClose())
-            return;
-
-        event.getWhoClicked().closeInventory();
+        gui.click(event);
     }
 
     @EventHandler
     public void onPlayerInteractInventory(InventoryInteractEvent event) {
-        if (SBPlugin.getGuiManager().getCacheGui(event.getInventory().getHolder()) == null)
-            return;
-
-        event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onPlayerMoveItemEvent(InventoryMoveItemEvent event) {
-        if (SBPlugin.getGuiManager().getCacheGui(event.getInitiator().getHolder()) == null)
-            return;
-
-        event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onPlayerOpenInventory(InventoryOpenEvent event) {
         Gui gui;
         if ((gui = SBPlugin.getGuiManager().getCacheGui(event.getInventory().getHolder())) == null)
             return;
 
-        gui.open(Bukkit.getPlayer(event.getPlayer().getUniqueId()));
+        gui.interact(event);
+    }
+
+    @EventHandler
+    public void onPlayerMoveItemEvent(InventoryMoveItemEvent event) {
+        Gui gui;
+        if ((gui = SBPlugin.getGuiManager().getCacheGui(event.getInitiator().getHolder())) == null)
+            return;
+
+        gui.moveItem(event);
     }
 
     @EventHandler
