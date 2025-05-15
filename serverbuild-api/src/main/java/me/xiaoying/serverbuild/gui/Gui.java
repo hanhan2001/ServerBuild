@@ -133,7 +133,7 @@ public abstract class Gui implements Cloneable {
             if (component.getX() != x || component.getY() != y)
                 continue;
 
-            this.components.remove(component);
+            iterator.remove();
         }
         return this;
     }
