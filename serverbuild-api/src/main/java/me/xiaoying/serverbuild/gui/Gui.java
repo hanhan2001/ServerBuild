@@ -1,13 +1,16 @@
 package me.xiaoying.serverbuild.gui;
 
+import lombok.Getter;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,12 +20,19 @@ import java.util.List;
  * 此处代码将进行重构，重写逻辑
  */
 public abstract class Gui implements Cloneable {
+    @Getter
     private String name;
+
+    @Getter
     private String displayName;
     private List<Component> components = new ArrayList<>();
+    @Getter
     private int height;
 
     private InventoryHolder holder;
+    // holder 初始化后是 null ???
+    // GUI 是有必要重构一下了
+    private Inventory inventory;
 
     public Gui(String name) {
         this.name = name;
@@ -44,19 +54,6 @@ public abstract class Gui implements Cloneable {
 
     protected abstract void onOpen(Player player);
     protected abstract void onClose(Player player);
-
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Get inventory display name
-     *
-     * @return String
-     */
-    public String getDisplayName() {
-        return this.displayName;
-    }
 
     /**
      * Set inventory display name
@@ -87,15 +84,6 @@ public abstract class Gui implements Cloneable {
     }
 
     /**
-     * Get components
-     *
-     * @return ArrayList
-     */
-    public List<Component> getComponents() {
-        return this.components;
-    }
-
-    /**
      * Add component to this gui
      *
      * @param component Component
@@ -103,6 +91,11 @@ public abstract class Gui implements Cloneable {
      */
     public Gui addComponent(Component component) {
         this.components.add(component);
+
+        // 使用 getInventory 判断 inventory 永远是 inventory 不为空，所以不应该使用此方法
+        if (this.inventory != null)
+            this.inventory.setItem(component.getY() * 9 + component.getX(), new ItemStack(Material.AIR));
+
         return this;
     }
 
@@ -114,6 +107,10 @@ public abstract class Gui implements Cloneable {
      */
     public Gui removeComponent(Component component) {
         this.components.remove(component);
+
+        if (this.inventory != null)
+            this.inventory.setItem(component.getY() * 9 + component.getX(), new ItemStack(Material.AIR));
+
         return this;
     }
 
@@ -133,18 +130,12 @@ public abstract class Gui implements Cloneable {
             if (component.getX() != x || component.getY() != y)
                 continue;
 
+            if (this.inventory != null)
+                this.inventory.setItem(component.getY() * 9 + component.getX(), new ItemStack(Material.AIR));
+
             iterator.remove();
         }
         return this;
-    }
-
-    /**
-     * Get height of gui
-     *
-     * @return gui's height
-     */
-    public int getHeight() {
-        return this.height;
     }
 
     /**
@@ -165,14 +156,17 @@ public abstract class Gui implements Cloneable {
      * @return Inventory
      */
     public Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(null, this.height * 9, this.getDisplayName());
+        if (this.inventory != null)
+            return this.inventory;
+
+        this.inventory = Bukkit.createInventory(null, this.height * 9, this.getDisplayName());
         this.components.forEach(component -> {
             if (component.getY() > 5 || component.getY() > 8)
                 return;
 
-            inventory.setItem(component.getY() * 9 + component.getX(), component.getItemStack());
+            this.inventory.setItem(component.getY() * 9 + component.getX(), component.getItemStack());
         });
-        return inventory;
+        return this.inventory;
     }
 
     public void click(InventoryClickEvent event) {
