@@ -2,6 +2,7 @@ package me.xiaoying.serverbuild.gui;
 
 import lombok.Getter;
 import me.xiaoying.serverbuild.core.SBPlugin;
+import me.xiaoying.serverbuild.utils.ColorUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -159,7 +160,7 @@ public abstract class Gui implements Cloneable {
         if (this.inventory != null)
             return this.inventory;
 
-        this.inventory = Bukkit.createInventory(null, this.height * 9, this.getDisplayName());
+        this.inventory = Bukkit.createInventory(null, this.height * 9, ColorUtil.translate(this.getDisplayName()));
         this.components.forEach(component -> {
             if (component.getY() > 5 || component.getY() > 8)
                 return;
