@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     group = "me.xiaoying.serverbuild"
-    version = "1.0.1"
+    version = "1.0.2"
 }
 
 subprojects {
