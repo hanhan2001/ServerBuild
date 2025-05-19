@@ -7,24 +7,9 @@ plugins {
     id("com.github.johnrengelman.shadow").version("8.1.1")
 }
 
-group = rootProject.group
-version = rootProject.version
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-
-    // spigot-api
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    // placeholder-api
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-}
-
 dependencies {
     // spigot-api
     compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
-    // placeholder-api
-    compileOnly("me.clip:placeholderapi:2.11.6")
     // sqlfactory
     compileOnly("me.xiaoying:sqlfactory:1.0.0")
     // Byte-Buddy
