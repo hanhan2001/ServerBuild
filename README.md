@@ -15,33 +15,34 @@
 ## 🌳项目结构
 
 ```
-.
-├─images				-> 图片截图
-├─serverbuild-api		-> ServerBuild API 接口
-├─serverbuild-common	-> ServerBuild 公用常量(事实上这种方式并不合理，可能在未来重构)
-└─serverbuild-core		-> ServerBuild 核心代码
+./
+├─images/ # 图片截图
+├─serverbuild-api/ # ServerBuild API 接口
+├─serverbuild-common/ # ServerBuild 公用常量(事实上这种方式并不合理，可能在未来重构)
+└─serverbuild-core/ # ServerBuild 核心代码
 ```
 
-## 🪧技术栈
+## 技术栈
 
-- SqlFactory -> 数据库操作工具
-- SProxy -> 字节码反射工具(等待重构)
+- SqlFactory - 数据库操作工具
+- SProxy - 字节码反射工具(等待重构)
 
-## 🛠️集成工具
+## 集成工具
 
 > ServerBuild 提供了大部分常用功能，简化开发步骤，缩减开发周期
 
-- GUI工具(使用原版Inventory实现，或将更改为发包)
+- 📊GUI工具(使用原版Inventory实现，或将更改为发包)
   - 事件控制
   - 刷新控制
-- 命令管理工具
-- 模块管理工具
-- 任务管理工具
-- 插件管理工具
-- 脚本命令工具
-- 跨版本数据包管理工具(SProxy)
+- ⌨️命令管理工具
+- 🧩模块管理工具
+- 🚦任务管理工具
+- 🔌插件管理工具
+- 📁 文件管理工具
+- 📓脚本命令工具
+- 🚢跨版本数据包管理工具
 
-## 🕒重构进度
+## 重构进度
 
 > 重构过程中可能新增更多功能
 
@@ -61,18 +62,18 @@
 - [ ] Teleport
 - [x] WelcomeMessage
 
-## 📁配置文件
+## 配置文件
 
 暂无
 
-## 🤚权限
+## 权限
 
 暂无
 
-## ⌨️指令
+## 指令
 
 暂无
 
-## 🔌附属开发
+## 附属开发
 
 插件提供 serverbuild-api 模块，可以通过编辑此模块并作为开发依赖进行 附属插件 或 module 的开发.
