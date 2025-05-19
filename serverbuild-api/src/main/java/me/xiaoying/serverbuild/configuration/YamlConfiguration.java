@@ -40,11 +40,11 @@ public class YamlConfiguration {
     }
 
     public List<String> getStringList(String key) {
-        if (get(key) == null)
+        if (this.get(key) == null)
             return null;
-        if (!(get(key) instanceof List))
+        if (!(this.get(key) instanceof List))
             return null;
-        return (List<String>) get(key);
+        return (List<String>) this.get(key);
     }
 
     public int getInt(String key) {
@@ -65,23 +65,19 @@ public class YamlConfiguration {
 
     public void load(File file) {
         try (FileInputStream in = new FileInputStream(file)) {
-            try {
-                YamlConfiguration.file = file.getPath();
-                this.properties = new Yaml().loadAs(in, HashMap.class);
+            YamlConfiguration.file = file.getPath();
+            this.properties = new Yaml().loadAs(in, HashMap.class);
 
-                for (Object o : this.properties.keySet()) {
-                    Object value = null;
-                    if (o instanceof Long || o instanceof Integer)
-                        value = this.properties.get(o);
+            for (Object o : this.properties.keySet()) {
+                Object value = null;
+                if (o instanceof Long || o instanceof Integer)
+                    value = this.properties.get(o);
 
-                    if (value == null)
-                        continue;
+                if (value == null)
+                    continue;
 
-                    this.properties.remove(o);
-                    this.properties.put(o.toString(), value);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                this.properties.remove(o);
+                this.properties.put(o.toString(), value);
             }
         } catch (Exception e) {
             e.printStackTrace();

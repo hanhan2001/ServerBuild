@@ -1,6 +1,5 @@
 package me.xiaoying.serverbuild.file;
 
-import lombok.Getter;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -15,9 +14,7 @@ import java.nio.file.Files;
 public abstract class SFile {
     private final String outFolder;
     private final String resourcesFile;
-    @Getter
     private final File file;
-    @Getter
     private YamlConfiguration configuration;
 
     public SFile(String resourceFile) {
@@ -44,6 +41,14 @@ public abstract class SFile {
 
     public String getName() {
         return this.file.getName();
+    }
+
+    public File getFile() {
+        return this.file;
+    }
+
+    public YamlConfiguration getConfiguration() {
+        return this.configuration;
     }
 
     public void load() {

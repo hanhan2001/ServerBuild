@@ -1,6 +1,5 @@
 package me.xiaoying.serverbuild.gui;
 
-import lombok.Getter;
 import me.xiaoying.serverbuild.core.SBPlugin;
 import me.xiaoying.serverbuild.utils.ColorUtil;
 import org.bukkit.Bukkit;
@@ -21,13 +20,10 @@ import java.util.List;
  * 此处代码将进行重构，重写逻辑
  */
 public abstract class Gui implements Cloneable {
-    @Getter
     private String name;
 
-    @Getter
     private String displayName;
     private List<Component> components = new ArrayList<>();
-    @Getter
     private int height;
 
     private InventoryHolder holder;
@@ -38,6 +34,18 @@ public abstract class Gui implements Cloneable {
     public Gui(String name) {
         this.name = name;
         this.displayName = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDisplayName() {
+        return this.displayName;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 
     public void open(Player player) {

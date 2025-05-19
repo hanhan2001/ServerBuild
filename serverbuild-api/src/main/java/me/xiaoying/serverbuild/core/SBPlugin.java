@@ -1,6 +1,5 @@
 package me.xiaoying.serverbuild.core;
 
-import me.xiaoying.serverbuild.common.ConfigCommon;
 import me.xiaoying.serverbuild.file.FileManager;
 import me.xiaoying.serverbuild.file.SimpleFileManager;
 import me.xiaoying.serverbuild.gui.GuiManager;
@@ -12,8 +11,6 @@ import me.xiaoying.serverbuild.script.ScriptManager;
 import me.xiaoying.sqlfactory.SqlFactory;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
