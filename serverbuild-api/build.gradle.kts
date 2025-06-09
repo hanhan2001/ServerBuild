@@ -1,3 +1,8 @@
+import org.gradle.kotlin.dsl.build
+import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.invoke
+import org.gradle.kotlin.dsl.publishToMavenLocal
+
 plugins {
     `maven-publish`
     `java-library`
@@ -22,28 +27,35 @@ dependencies {
 java {
     withSourcesJar()
     withJavadocJar()
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType<Javadoc> {
-    options {
-        encoding = "UTF-8"
-        (this as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
+tasks {
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
     }
-}
 
-tasks.jar {
-    enabled = false
-}
+    withType<Javadoc> {
+        options {
+            encoding = "UTF-8"
+            (this as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
+        }
+    }
 
-tasks.shadowJar {
-    archiveClassifier.set("")
+    jar {
+        enabled = false
+    }
+
+    shadowJar {
+        archiveClassifier.set("")
+    }
+
+    build {
+        dependsOn(shadowJar, javadoc)
+    }
+
+    publishToMavenLocal {
+        dependsOn(build)
+    }
 }
 
 publishing {
@@ -70,12 +82,4 @@ publishing {
     repositories {
         mavenLocal()
     }
-}
-
-tasks.build {
-    dependsOn(tasks.shadowJar, tasks.javadoc, tasks["sourcesJar"])
-}
-
-tasks.publishToMavenLocal {
-    dependsOn(tasks.build)
 }

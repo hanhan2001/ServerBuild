@@ -21,34 +21,31 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.15.11")
 }
 
-tasks.withType<JavaCompile> {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
-}
-
-tasks.build {
-    dependsOn(tasks.shadowJar)
-}
-
-tasks.processResources {
-    val props = mapOf(
-        "version" to project.version
-    )
-    inputs.properties(props)
-    filesMatching("plugin.yml") {
-        expand(props)
+tasks {
+    processResources {
+        val props = mapOf(
+            "version" to project.version
+        )
+        inputs.properties(props)
+        filesMatching("plugin.yml") {
+            expand(props)
+        }
     }
-}
 
-tasks.jar {
-    enabled = false;
-}
+    build {
+        dependsOn(shadowJar)
+    }
 
-tasks.shadowJar {
-    dependsOn(":serverbuild-api:shadowJar")
+    jar {
+        enabled = false;
+    }
 
-    archiveFileName.set("ServerBuild-V${rootProject.version}.jar")
-    archiveClassifier.set("")
+    shadowJar {
+        dependsOn(":serverbuild-api:shadowJar")
 
-    relocate("org.bstats", rootProject.group.toString() + ".metrics")
+        archiveFileName.set("ServerBuild-V${rootProject.version}.jar")
+        archiveClassifier.set("")
+
+        relocate("org.bstats", rootProject.group.toString() + ".metrics")
+    }
 }
